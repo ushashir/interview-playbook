@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 29: How to Approach System Design Questions — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-5">Part 5 · Chapter 29</div>
+      <h1>How to Approach System Design Questions</h1>
+      <p class="chapter-intro">A repeatable 4-step framework that replaces anxiety with process — and signals senior thinking from the first minute.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>The 4-step framework and exactly how long to spend on each phase</li>
+        <li>How to do back-of-envelope estimation that impresses interviewers</li>
+        <li>How to surface tradeoffs rather than pretend they don't exist</li>
+        <li>What interviewers are actually scoring — and what destroys candidates</li>
+        <li>A full URL shortener walkthrough from naive to production-grade</li>
+      </ul>
+    </div>
+
+    <blockquote>
+      <p>"System design questions have no perfect answer. The interviewer knows this. What they're scoring is your ability to reason systematically under uncertainty, surface tradeoffs, and defend decisions — the exact skills you'll use every day as a senior engineer."</p>
+    </blockquote>
+
+    <h2>The Architecture Analogy</h2>
+
+    <div class="box analogy">
+      <strong>Analogy: Designing a Building</strong>
+      <p>An architect doesn't start sketching floor plans the moment a client walks in. They ask: how many people will occupy this building? What's the budget? Will it expand in five years? Is it a hospital or a hotel? Only after those answers do they touch pencil to paper.</p>
+      <p>System design interviews follow the same logic. The software you're asked to sketch is an architecture — and like all architecture, the constraints come before the blueprints. Clarify first, estimate second, sketch third, detail fourth.</p>
+    </div>
+
+    <h2>The 4-Step Framework</h2>
+
+    <p>Every system design interview, regardless of the prompt, follows the same structure. The difference between a passing and failing answer is almost always about spending the right amount of time in each phase — not about knowing more technology.</p>
+
+    <div class="diagram">
+<pre>
+Timeline (40-minute interview):
+┌──────────────┬──────────────┬─────────────────────┬──────────────────┐
+│  CLARIFY     │   ESTIMATE   │   HIGH-LEVEL DESIGN  │   DEEP DIVE      │
+│   5 min      │   5 min      │      15 min          │    15 min        │
+│              │              │                      │                  │
+│ Requirements │ Back-of-env. │ Happy path + diagram │ 1-2 components   │
+│ Scale        │ math         │ Core components      │ at impl. level   │
+│ Constraints  │ Storage est. │ Data flow            │ Tradeoffs named  │
+└──────────────┴──────────────┴─────────────────────┴──────────────────┘
+</pre>
+    </div>
+
+    <h3>Step 1 — Clarify (5 minutes)</h3>
+
+    <p>This is the phase most candidates skip. They hear "design Twitter" and immediately start talking about databases. That's a mistake. You need to understand what you're actually building before you build anything.</p>
+
+    <p>Ask these categories of questions, in this order:</p>
+
+    <p><strong>Functional requirements</strong> — what does the system do?</p>
+    <ul>
+      <li>"What are the core features in scope for this interview? Should I focus on posting, feeds, or DMs?"</li>
+      <li>"Are we designing for read-heavy or write-heavy behavior?"</li>
+      <li>"Is search in scope?"</li>
+    </ul>
+
+    <p><strong>Non-functional requirements</strong> — what qualities must it have?</p>
+    <ul>
+      <li>"What's the acceptable latency for the most common operation?"</li>
+      <li>"Do we need strong consistency, or is eventual consistency acceptable?"</li>
+      <li>"What's the availability requirement? 99.9%? 99.99%?"</li>
+    </ul>
+
+    <p><strong>Scale</strong> — how big is this thing?</p>
+    <ul>
+      <li>"How many monthly active users are we targeting?"</li>
+      <li>"What's the daily active user count?"</li>
+      <li>"Is this global, or single-region?"</li>
+    </ul>
+
+    <div class="box tip">
+      <strong>Tip: Signal senior thinking immediately.</strong>
+      Asking "is this read-heavy or write-heavy?" in the first 60 seconds immediately signals you understand that system architecture changes based on this answer. Most junior candidates never ask it.
+    </div>
+
+    <h3>Step 2 — Estimate Scale (5 minutes)</h3>
+
+    <p>Back-of-envelope math is not about precision. It is about demonstrating that you understand the order of magnitude of the problem — and that your design is sized correctly for it.</p>
+
+    <p>Walk through this chain out loud. Say the numbers. The interviewer wants to watch you reason, not hear a conclusion.</p>
+
+    <div class="diagram">
+<pre>
+Scale Estimation Chain:
+─────────────────────────────────────────────────────────────
+1M MAU
+  → Assume 10% DAU = 100,000 DAU
+  → Assume 10 requests/user/day = 1,000,000 req/day
+  → 1,000,000 / 86,400 seconds ≈ 12 req/sec (avg)
+  → Peak = avg × 10 = 120 req/sec
+
+Storage:
+  1M users × 1 KB per record = 1 GB   (comfortable for one DB)
+  1B users × 1 MB per user   = 1 TB   (need distributed storage)
+  1B events/day × 1 KB each  = 1 TB/day (need Kafka + cold storage)
+─────────────────────────────────────────────────────────────
+</pre>
+    </div>
+
+    <p>Useful constants to have memorized:</p>
+    <ul>
+      <li>1 million seconds ≈ 11.5 days</li>
+      <li>1 day = 86,400 seconds</li>
+      <li>Average web request: ~1 KB payload</li>
+      <li>Average image: 100 KB–1 MB</li>
+      <li>Average video: 100 MB–1 GB per hour</li>
+      <li>Redis: handles ~100,000 ops/sec per instance</li>
+      <li>PostgreSQL: handles ~10,000 writes/sec, ~50,000 reads/sec comfortably</li>
+    </ul>
+
+    <h3>Step 3 — High-Level Design (15 minutes)</h3>
+
+    <p>Draw the happy path first. Don't start with edge cases. Don't start with failure scenarios. Show the most common operation end to end, then add complexity.</p>
+
+    <p>Every system design should include at minimum these components unless you've explicitly decided not to and said why:</p>
+    <ul>
+      <li><strong>Load balancer</strong> — distributes traffic across server instances</li>
+      <li><strong>API servers</strong> — stateless, horizontally scalable</li>
+      <li><strong>Cache</strong> — reduces database load for reads</li>
+      <li><strong>Database</strong> — persistent source of truth</li>
+    </ul>
+
+    <div class="diagram">
+<pre>
+Minimal viable system design skeleton:
+
+        [Client]
+           |
+     [Load Balancer]
+      /    |    \
+  [API] [API] [API]   (stateless, horizontally scalable)
+      \    |    /
+       [Cache (Redis)]
+           |
+       [Database]
+      /          \
+ [Primary]   [Read Replica]
+</pre>
+    </div>
+
+    <p>While drawing, narrate. "I'm putting a load balancer at the edge because our API servers need to be stateless and horizontally scalable. I'm using a cache between the API tier and the database because our read-to-write ratio is 100:1 — most traffic is reads."</p>
+
+    <h3>Step 4 — Deep Dive (15 minutes)</h3>
+
+    <p>The interviewer will guide this phase. They will pick one or two components and ask you to go deeper. Be ready to descend to implementation level on any component you've drawn.</p>
+
+    <p>If they point at your cache and ask "how do you handle cache invalidation?", you need a real answer — not "it depends." You need: "I'd use a TTL-based approach with a 1-hour TTL for product data, and event-based invalidation triggered by write events for user session data, because session data correctness is more critical than product data."</p>
+
+    <div class="box warning">
+      <strong>Warning: Don't draw components you can't explain.</strong>
+      If you put Kafka in your diagram and can't explain how consumer groups work, you've just handed the interviewer a free attack surface. Only draw what you can defend.
+    </div>
+
+    <h2>The Tradeoffs You Must Always Surface</h2>
+
+    <div class="box key-term">
+      <strong>The Senior Rule:</strong> Never say "I'd use X." Always say "I'd use X because Y, though the tradeoff is Z."
+    </div>
+
+    <p>These four tradeoffs appear in virtually every system design question. Know how to articulate all of them:</p>
+
+    <h3>Consistency vs. Availability (CAP Theorem)</h3>
+    <p>In the presence of a network partition, a distributed system must choose between consistency (every read sees the most recent write) and availability (every request receives a response, even if stale). You cannot guarantee both.</p>
+    <ul>
+      <li><strong>CP systems</strong> (Consistency + Partition tolerance): HBase, ZooKeeper. Correct but can be unavailable during network issues.</li>
+      <li><strong>AP systems</strong> (Availability + Partition tolerance): Cassandra, DynamoDB. Always responds, but may return stale data.</li>
+    </ul>
+    <p>In interviews: "For this payment system, I need strong consistency, so I'll accept some availability cost during network partitions. For the notification feed, eventual consistency is fine — stale by a few seconds is acceptable."</p>
+
+    <h3>Latency vs. Throughput</h3>
+    <p>Optimizing for one often hurts the other. Batching increases throughput but increases latency per operation. Single-record writes are low-latency but hit the database harder.</p>
+
+    <h3>Simplicity vs. Flexibility</h3>
+    <p>A monolith is simpler to develop and debug. Microservices give flexibility but add network complexity, observability overhead, and deployment complexity. For a 3-engineer startup, a monolith is the right answer. For a 500-engineer organization with 30 teams, microservices decompose ownership.</p>
+
+    <h3>Cost vs. Performance</h3>
+    <p>More cache = faster reads but higher cost. Multi-region deployment = lower latency globally but 3× the infrastructure bill. Always acknowledge this dimension.</p>
+
+    <h2>Case Study: Design a URL Shortener</h2>
+
+    <p>This is the most common warm-up system design question. It looks simple. It hides a lot of nuance. Work through it completely before your interview.</p>
+
+    <h3>Requirements</h3>
+    <ul>
+      <li>Shorten 100 million URLs (write volume)</li>
+      <li>Serve 1 billion redirect requests per day (read volume)</li>
+      <li>Custom short codes optional</li>
+      <li>Analytics (click counts, geo breakdown)</li>
+      <li>Short URLs must not be guessable or reversible</li>
+    </ul>
+
+    <p>Scale estimate: 1B redirects/day = 1,000,000,000 / 86,400 = ~11,574 redirects/sec at peak.</p>
+
+    <h3>Naive Design and Why It Fails</h3>
+
+    <div class="diagram">
+<pre>
+NAIVE DESIGN:
+─────────────
+[Client] → POST /shorten → [API Server] → MD5(url)[0:7] → [PostgreSQL]
+[Client] → GET /abc123  → [API Server] → SELECT url → [PostgreSQL] → 302 Redirect
+
+Problems:
+  - MD5 collision risk: two different URLs could produce the same short code
+  - MD5 is reversible: the original URL can be reconstructed from the hash
+  - No caching: every redirect hits PostgreSQL at 11,574 req/sec
+  - PostgreSQL single instance: fails around 50,000 reads/sec, but still wasteful
+  - Analytics is synchronous: slows down the redirect response
+</pre>
+    </div>
+
+    <h3>Better Short Code Generation</h3>
+    <p>Don't hash the URL. Instead, use an auto-incrementing integer ID from the database and encode it in Base62 (characters a-z, A-Z, 0-9). A 7-character Base62 string can represent 62^7 = 3.5 trillion unique URLs. No collisions. No reversibility. Simple and fast.</p>
+
+    <div class="diagram">
+<pre>
+Base62 Encoding:
+  ID: 12345678  →  Base62: "5BXxz"  (always unique, not reversible)
+  Steps: divide by 62 repeatedly, map remainders to character set
+  62^6 = 56 billion codes (6 chars is sufficient for 100M URLs with headroom)
+</pre>
+    </div>
+
+    <h3>Production Design</h3>
+
+    <div class="diagram">
+<pre>
+PRODUCTION DESIGN:
+──────────────────
+
+WRITE PATH (create short URL):
+  [Client]
+     |
+  [Load Balancer]
+     |
+  [API Server]
+     |
+  [Rate Limiter] ← Redis (sliding window per IP)
+     |
+  [Primary PostgreSQL] ← auto-increment ID, Base62 encode
+     |
+  [Async: push to Redis cache] ← warm cache on write
+
+READ PATH (redirect):
+  [Client]
+     |
+  [CDN (CloudFront)] ← cache 302 responses with Cache-Control
+     |  (cache HIT: 90%+ of traffic)
+     |
+  [Load Balancer]
+     |
+  [API Server]
+     |
+  [Redis Cache] ← cache HIT: 99%+ of remaining traffic
+     |  (TTL: 24h for popular URLs)
+     |
+  [Read Replica PostgreSQL] ← only true cache misses
+
+ANALYTICS PATH:
+  [API Server] → Kafka topic "url.clicked" → Analytics Consumer
+                                            → ClickHouse / BigQuery
+                                            (async, never blocks redirect)
+</pre>
+    </div>
+
+    <h3>Validating the Design</h3>
+    <p>Estimate: 11,574 redirects/sec at peak. Redis handles 100,000+ ops/sec. With a 99%+ cache hit rate, fewer than 116 requests/sec reach the database. A single read replica handles this comfortably. The design is validated against the scale requirements.</p>
+
+    <h2>What the Interviewer Is Actually Scoring</h2>
+
+    <p>Senior engineers at top companies use a scorecard. Understanding what's on it changes how you approach the interview.</p>
+
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>What It Looks Like</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Requirement Gathering</td><td>Did you ask the right questions before drawing anything?</td></tr>
+        <tr><td>Scale Awareness</td><td>Do you know what 1M req/sec actually means for your components?</td></tr>
+        <tr><td>Component Justification</td><td>Not just "I'd use Kafka" — WHY Kafka, and what's the alternative?</td></tr>
+        <tr><td>Tradeoff Surfacing</td><td>This is the thing that signals senior thinking most clearly.</td></tr>
+        <tr><td>Communication</td><td>Can you draw this and explain it clearly in real-time?</td></tr>
+        <tr><td>Depth on Demand</td><td>When pushed on a component, can you go implementation-level deep?</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What Kills System Design Interviews</h2>
+
+    <p>These are the patterns that end interviews early. All of them are avoidable.</p>
+
+    <ul>
+      <li><strong>Starting before clarifying requirements.</strong> You may build the wrong thing in perfect detail.</li>
+      <li><strong>Designing the "perfect" system</strong> instead of the right system for the stated constraints. A 3-engineer startup does not need Kafka.</li>
+      <li><strong>Never mentioning tradeoffs.</strong> A senior engineer who claims their design has no downsides is either lying or hasn't thought it through.</li>
+      <li><strong>Going too deep too fast.</strong> Spending 20 minutes on database sharding before you've addressed how requests get routed is a failure to prioritize.</li>
+      <li><strong>Designing for scale you don't need.</strong> If your estimate shows 100 req/sec, you don't need Cassandra. PostgreSQL and Redis are more than sufficient — and saying that signals maturity.</li>
+    </ul>
+
+    <h2>Senior vs. Junior: URL Shortener Design</h2>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior</span>
+      <p>"I'd store the URL in a database and use MD5 to generate the short code. Then when someone visits the short URL, look it up in the database and redirect them."</p>
+      <p><em>What's missing: no discussion of collision risk, no caching strategy, no estimation of read load, no mention of analytics as a separate concern, no rate limiting on creation.</em></p>
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior</span>
+      <p>"First let me clarify scale — are we targeting 100M URLs and 1B redirects/day, or is this a smaller deployment? Assuming those numbers: reads are roughly 11,500/sec at peak, which means our database cannot handle redirect traffic directly. I'd use Redis as a cache in front of a read replica, with CDN caching redirect responses at the edge for maximum URLs. For short code generation, I'd auto-increment an ID in PostgreSQL and encode it as Base62 — no collision risk, not reversible, deterministic. I'd separate analytics into an async Kafka pipeline so it never adds latency to the redirect path. The main tradeoff here is that this adds operational complexity — two additional infrastructure components. For a small deployment, a single PostgreSQL with an index and a connection pool is perfectly sufficient."</p>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Use the 4-step framework in every system design: Clarify (5 min), Estimate (5 min), High-Level Design (15 min), Deep Dive (15 min).</li>
+        <li>Always clarify functional requirements, non-functional requirements, and scale before drawing anything.</li>
+        <li>Back-of-envelope math is about reasoning out loud, not precision — walk through the chain and state your assumptions.</li>
+        <li>Never say "I'd use X." Always say "I'd use X because Y, though the tradeoff is Z." Tradeoff surfacing is the clearest signal of senior thinking.</li>
+        <li>The URL shortener teaches core patterns: Base62 encoding, cache-aside, async analytics, CDN for cacheable responses, and rate limiting — patterns that recur across dozens of other system design problems.</li>
+      </ul>
+    </div>
+
+    <div class="exercises">
+      <h4>Practice Questions</h4>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>Design a paste service (like Pastebin). Apply the 4-step framework. What changes if pastes expire after 30 days? How do you handle expiration at scale?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>You've estimated your URL shortener will receive 500 req/sec on day one. Walk through which components you would remove from the production design because they're premature. Justify each removal.</p>
+      </div>
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p>Your URL shortener needs to support custom short codes (e.g., bit.ly/my-brand). How does this change your short code generation strategy? What race conditions emerge and how do you prevent them?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p>An interviewer pushes back: "Your Redis cache is a single point of failure. How do you handle it?" Walk through Redis Sentinel vs. Redis Cluster vs. client-side consistent hashing and the tradeoffs of each.</p>
+      </div>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> You now have the framework. Chapter 30 gives you the 10 building blocks every system is assembled from — not just what they are, but when to reach for them and when they're the wrong tool entirely.</p>
+    <div class="chapter-nav">
+      <a href="../part-4/chapter-28.html"><span class="nav-label">← Previous</span><span class="nav-title">PHP Deep Dive</span></a>
+      <a href="chapter-30.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Core Building Blocks</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

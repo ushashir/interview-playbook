@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 25: Java Deep Dive — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 25</div>
+      <h1>Java Deep Dive</h1>
+      <p class="chapter-intro">Java has been declared dead by the internet approximately every three years since 2010. It remains one of the top 3 most in-demand backend languages. Banks, fintechs, large e-commerce platforms — Java is everywhere that reliability is non-negotiable.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>The 4 pillars of OOP in Java with real, runnable code for each</li>
+        <li>Java Collections complexity and the gotchas that trip up senior candidates</li>
+        <li>== vs .equals(), Integer caching, and the String pool</li>
+        <li>Java concurrency: threads, volatile, synchronized, CompletableFuture, and ExecutorService</li>
+        <li>Spring Boot patterns: DI, @Transactional, JPA mappings, and their gotchas</li>
+        <li>Java-specific interview traps: autoboxing, checked vs unchecked exceptions, Optional</li>
+        <li>JVM internals you'll actually be asked about: heap, GC, and OOM flags</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>1. OOP in Java — The 4 Pillars</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Four Engineering Principles:</strong> Think of a well-run factory. Workers are told <em>what</em> buttons to press (abstraction), not how the machines work internally (encapsulation). Different machines can fill the same role (polymorphism). A new machine inherits the base factory setup and adds specializations (inheritance). These aren't buzzwords — they're practical design decisions that determine how easy your code is to change six months later.
+    </div>
+
+    <h3>Encapsulation — the vending machine</h3>
+    <p>You press buttons. You can't reach into the mechanism. That's encapsulation: private state, public interface. The machine can change its internal mechanism (a new motor) without breaking how you interact with it.</p>
+
+    <pre><code>public class BankAccount {
+    // Private state — callers can't manipulate directly
+    private final String accountId;
+    private double balance;
+    private final List&lt;String&gt; transactionLog = new ArrayList&lt;&gt;();
+
+    public BankAccount(String accountId, double initialBalance) {
+        if (initialBalance &lt; 0) throw new IllegalArgumentException("Initial balance cannot be negative");
+        this.accountId = accountId;
+        this.balance = initialBalance;
+    }
+
+    // Public interface — controlled access
+    public void deposit(double amount) {
+        if (amount &lt;= 0) throw new IllegalArgumentException("Deposit must be positive");
+        this.balance += amount;
+        transactionLog.add("DEPOSIT: " + amount);
+    }
+
+    public void withdraw(double amount) {
+        if (amount &lt;= 0) throw new IllegalArgumentException("Withdrawal must be positive");
+        if (amount &gt; this.balance) throw new IllegalStateException("Insufficient funds");
+        this.balance -= amount;
+        transactionLog.add("WITHDRAWAL: " + amount);
+    }
+
+    public double getBalance() { return this.balance; }
+
+    // Return unmodifiable view — internal list stays private
+    public List&lt;String&gt; getTransactionLog() {
+        return Collections.unmodifiableList(transactionLog);
+    }
+}
+</code></pre>
+
+    <h3>Inheritance — family traits with @Override</h3>
+    <pre><code>public abstract class Animal {
+    protected final String name;
+
+    public Animal(String name) { this.name = name; }
+
+    public abstract String makeSound(); // Must be implemented by subclasses
+
+    public String introduce() {
+        return "I am " + name + " and I say: " + makeSound();
+    }
+}
+
+public class Dog extends Animal {
+    private final String breed;
+
+    public Dog(String name, String breed) {
+        super(name); // Call parent constructor first
+        this.breed = breed;
+    }
+
+    @Override
+    public String makeSound() { return "Woof!"; }
+
+    @Override
+    public String introduce() {
+        return super.introduce() + " (I'm a " + breed + ")";
+    }
+}
+
+public class Cat extends Animal {
+    public Cat(String name) { super(name); }
+
+    @Override
+    public String makeSound() { return "Meow!"; }
+}
+</code></pre>
+
+    <h3>Polymorphism — the universal TV remote</h3>
+    <p>One remote, many devices. You press "volume up" and each device handles it its own way. In Java: one reference type, many implementations.</p>
+    <pre><code>public class Main {
+    public static void main(String[] args) {
+        // Animal reference — Dog/Cat behavior at runtime
+        List&lt;Animal&gt; animals = List.of(
+            new Dog("Rex", "German Shepherd"),
+            new Cat("Whiskers"),
+            new Dog("Buddy", "Golden Retriever")
+        );
+
+        // Same method call — different behavior per object
+        for (Animal animal : animals) {
+            System.out.println(animal.introduce());
+        }
+        // I am Rex and I say: Woof! (I'm a German Shepherd)
+        // I am Whiskers and I say: Meow!
+        // I am Buddy and I say: Woof! (I'm a Golden Retriever)
+    }
+}
+</code></pre>
+
+    <h3>Abstraction — abstract class vs interface</h3>
+    <div class="box key-term">
+      <strong>Rule:</strong> Use an <strong>abstract class</strong> when subclasses share state or partial implementation. Use an <strong>interface</strong> when you're defining a pure contract. Java allows implementing multiple interfaces but only one abstract class.
+    </div>
+
+    <pre><code>// Interface — pure contract, no state
+public interface Payable {
+    double calculatePayment();
+    String getPaymentDescription();
+
+    // Default method (Java 8+) — optional override
+    default String getFormattedPayment() {
+        return String.format("Payment: $%.2f — %s", calculatePayment(), getPaymentDescription());
+    }
+}
+
+// Abstract class — shared state + partial implementation
+public abstract class Employee implements Payable {
+    protected final String name;
+    protected final String employeeId;
+
+    public Employee(String name, String employeeId) {
+        this.name = name;
+        this.employeeId = employeeId;
+    }
+
+    // Common behavior shared by all employees
+    @Override
+    public String getPaymentDescription() {
+        return "Employee: " + name + " (ID: " + employeeId + ")";
+    }
+    // calculatePayment() still abstract — each type computes it differently
+}
+
+public class SalariedEmployee extends Employee {
+    private final double annualSalary;
+
+    public SalariedEmployee(String name, String employeeId, double annualSalary) {
+        super(name, employeeId);
+        this.annualSalary = annualSalary;
+    }
+
+    @Override
+    public double calculatePayment() { return annualSalary / 12.0; }
+}
+
+public class HourlyEmployee extends Employee {
+    private final double hourlyRate;
+    private final int hoursWorked;
+
+    public HourlyEmployee(String name, String employeeId, double hourlyRate, int hoursWorked) {
+        super(name, employeeId);
+        this.hourlyRate = hourlyRate;
+        this.hoursWorked = hoursWorked;
+    }
+
+    @Override
+    public double calculatePayment() { return hourlyRate * hoursWorked; }
+}
+</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>2. Java Collections — With Complexity and the Classic Gotchas</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Choosing the Right Tool:</strong> A screwdriver and a wrench are both tools, but using a screwdriver as a wrench will strip the bolt. Each Java collection has a different performance profile. Choosing ArrayList when you need a sorted map is like using a screwdriver on a nut — it'll technically work until it doesn't.
+    </div>
+
+    <div class="diagram">
+      <table>
+        <thead>
+          <tr><th>Collection</th><th>Get</th><th>Insert (end)</th><th>Insert (middle)</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ArrayList</td><td>O(1)</td><td>O(1) amortized</td><td>O(n)</td><td>Grows by 1.5x; backed by array</td></tr>
+          <tr><td>LinkedList</td><td>O(n)</td><td>O(1)</td><td>O(1) with iterator</td><td>High memory overhead; avoid for most use cases</td></tr>
+          <tr><td>HashMap</td><td>O(1) avg</td><td>O(1) avg</td><td>—</td><td>O(n) worst case (all same hash bucket)</td></tr>
+          <tr><td>LinkedHashMap</td><td>O(1)</td><td>O(1)</td><td>—</td><td>Maintains insertion order</td></tr>
+          <tr><td>TreeMap</td><td>O(log n)</td><td>O(log n)</td><td>—</td><td>Sorted by key; uses red-black tree</td></tr>
+          <tr><td>HashSet</td><td>O(1)</td><td>O(1)</td><td>—</td><td>Backed by HashMap; no duplicates</td></tr>
+          <tr><td>PriorityQueue</td><td>O(1) peek</td><td>O(log n)</td><td>—</td><td>Min-heap; does not guarantee order on iteration</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <pre><code>import java.util.*;
+
+public class CollectionExamples {
+    public static void main(String[] args) {
+
+        // ArrayList — use when random access matters
+        // Specify expected size to avoid unnecessary resizing
+        List&lt;String&gt; names = new ArrayList&lt;&gt;(100); // avoids resizing up to 100 elements
+        names.add("Alice");
+        names.add("Bob");
+        System.out.println(names.get(0)); // O(1)
+
+        // HashMap — use for key-value lookups
+        Map&lt;String, Integer&gt; scores = new HashMap&lt;&gt;();
+        scores.put("Alice", 95);
+        scores.put("Bob", 87);
+        scores.getOrDefault("Charlie", 0); // 0 — avoids NullPointerException
+
+        // LinkedHashMap — when insertion order matters (e.g., LRU cache base)
+        Map&lt;String, String&gt; config = new LinkedHashMap&lt;&gt;();
+        config.put("host", "localhost");
+        config.put("port", "5432");
+        config.put("db", "myapp");
+        // Iteration preserves: host, port, db order
+
+        // TreeMap — when sorted order matters
+        Map&lt;String, Integer&gt; sorted = new TreeMap&lt;&gt;();
+        sorted.put("banana", 2);
+        sorted.put("apple", 5);
+        sorted.put("cherry", 1);
+        sorted.forEach((k, v) -&gt; System.out.println(k + "=" + v));
+        // apple=5, banana=2, cherry=1 — alphabetically sorted
+
+        // PriorityQueue — min-heap for task scheduling, Dijkstra's, etc.
+        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;();
+        pq.add(5); pq.add(1); pq.add(3);
+        System.out.println(pq.poll()); // 1 — smallest first
+        System.out.println(pq.poll()); // 3
+    }
+}
+</code></pre>
+
+    <h3>== vs .equals() — the interview trap</h3>
+    <div class="box warning">
+      <strong>Warning:</strong> <code>==</code> compares references (memory addresses). <code>.equals()</code> compares content. For Strings, always use <code>.equals()</code>. This is one of the most common Java interview gotchas at every level.
+    </div>
+
+    <pre><code>public class EqualityGotcha {
+    public static void main(String[] args) {
+
+        // String pool — literals are interned
+        String a = "hello";
+        String b = "hello";
+        System.out.println(a == b);       // true — same object in string pool
+        System.out.println(a.equals(b));  // true
+
+        // new String() bypasses the pool
+        String c = new String("hello");
+        System.out.println(a == c);       // FALSE — different objects!
+        System.out.println(a.equals(c));  // true — same content
+
+        // Integer caching gotcha — Java caches Integer values -128 to 127
+        Integer x = 127;
+        Integer y = 127;
+        System.out.println(x == y);       // TRUE — cached, same object
+
+        Integer p = 128;
+        Integer q = 128;
+        System.out.println(p == q);       // FALSE — beyond cache range, new objects!
+        System.out.println(p.equals(q));  // true — always use .equals()
+
+        // RULE: Never use == for Integer, Long, String, or any object comparison
+        // Always use .equals() or Objects.equals() (null-safe)
+        System.out.println(Objects.equals(p, q)); // true — null-safe equals
+    }
+}
+</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>3. Java Concurrency</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Shared Whiteboard:</strong> Three workers share one whiteboard. Worker A reads the current number (42), walks to get a marker, and by the time they write 43, Worker B has already changed it to 50. Both workers read the same value and wrote different results. This is a race condition. Coordination mechanisms (locks, atomic operations) ensure only one worker writes at a time.
+    </div>
+
+    <h3>The race condition — and the fix</h3>
+    <pre><code>import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
+
+// BROKEN — race condition
+class UnsafeCounter {
+    private int count = 0;
+
+    public void increment() {
+        count++; // Read-modify-write is NOT atomic — three separate operations
+    }
+
+    public int getCount() { return count; }
+}
+
+// FIX 1: synchronized — mutual exclusion (heavier, fine for low contention)
+class SynchronizedCounter {
+    private int count = 0;
+
+    public synchronized void increment() {
+        count++; // Only one thread enters at a time
+    }
+
+    public synchronized int getCount() { return count; }
+}
+
+// FIX 2: AtomicInteger — lock-free, CAS-based (prefer for simple counters)
+class AtomicCounter {
+    private final AtomicInteger count = new AtomicInteger(0);
+
+    public void increment() {
+        count.incrementAndGet(); // Atomic compare-and-swap — no locks needed
+    }
+
+    public int getCount() { return count.get(); }
+}
+
+// Demo — race condition in action
+public class ConcurrencyDemo {
+    public static void main(String[] args) throws InterruptedException {
+        UnsafeCounter unsafe = new UnsafeCounter();
+        AtomicCounter safe = new AtomicCounter();
+
+        ExecutorService pool = Executors.newFixedThreadPool(10);
+        List&lt;Future&lt;?&gt;&gt; futures = new ArrayList&lt;&gt;();
+
+        for (int i = 0; i &lt; 1000; i++) {
+            futures.add(pool.submit(() -&gt; { unsafe.increment(); safe.increment(); }));
+        }
+
+        for (Future&lt;?&gt; f : futures) f.get(); // Wait for all tasks
+        pool.shutdown();
+
+        System.out.println("Unsafe count: " + unsafe.getCount()); // Often &lt; 1000 — race!
+        System.out.println("Safe count:   " + safe.getCount());   // Always 1000
+    }
+}
+</code></pre>
+
+    <h3>volatile — memory visibility</h3>
+    <pre><code>// volatile ensures all threads see the latest value — NOT atomicity
+class ServiceRunner {
+    private volatile boolean running = true; // Without volatile, threads may cache stale value
+
+    public void stop() { running = false; }
+
+    public void run() {
+        while (running) { // Reads fresh value from main memory — not thread's cache
+            doWork();
+        }
+    }
+
+    private void doWork() { /* ... */ }
+}
+</code></pre>
+
+    <h3>CompletableFuture — async composition</h3>
+    <pre><code>import java.util.concurrent.CompletableFuture;
+
+public class AsyncDemo {
+
+    // Simulated async operations
+    static CompletableFuture&lt;String&gt; fetchUser(String userId) {
+        return CompletableFuture.supplyAsync(() -&gt; {
+            // Simulates DB call
+            return "User:" + userId;
+        });
+    }
+
+    static CompletableFuture&lt;String&gt; fetchUserOrders(String userId) {
+        return CompletableFuture.supplyAsync(() -&gt; "Orders for " + userId);
+    }
+
+    static CompletableFuture&lt;Double&gt; fetchAccountBalance(String userId) {
+        return CompletableFuture.supplyAsync(() -&gt; 1500.00);
+    }
+
+    public static void main(String[] args) throws Exception {
+        // Sequential chain: fetch user, then fetch their orders
+        CompletableFuture&lt;String&gt; userThenOrders = fetchUser("u1")
+            .thenCompose(user -&gt; fetchUserOrders("u1"))   // Like Promise.then returning Promise
+            .thenApply(orders -&gt; "Summary: " + orders);  // Transform the result
+
+        // Parallel: fetch user and balance simultaneously, combine when both done
+        CompletableFuture&lt;String&gt; userFuture = fetchUser("u1");
+        CompletableFuture&lt;Double&gt; balanceFuture = fetchAccountBalance("u1");
+
+        CompletableFuture&lt;String&gt; combined = userFuture.thenCombine(
+            balanceFuture,
+            (user, balance) -&gt; user + " — Balance: $" + balance
+        );
+
+        // allOf — wait for multiple completions in parallel
+        CompletableFuture.allOf(userFuture, balanceFuture).join();
+
+        System.out.println(userThenOrders.get());   // Summary: Orders for u1
+        System.out.println(combined.get());         // User:u1 — Balance: $1500.0
+    }
+}
+</code></pre>
+
+    <div class="box tip">
+      <strong>Tip:</strong> Never create raw <code>new Thread()</code> in production. Always use an <code>ExecutorService</code> with a managed thread pool. Raw threads are unmanaged, can proliferate unchecked, and don't give you lifecycle control or resource limits.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>4. Spring Boot Patterns</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — A Well-Organized Restaurant Kitchen:</strong> The @Controller is the front-of-house waiter taking orders. The @Service is the head chef with the business logic. The @Repository is the pantry — it knows where the ingredients are stored. Spring Boot's IoC container is the restaurant manager who hires them, wires them together, and makes sure everyone has what they need without anyone having to call the manager themselves.
+    </div>
+
+    <pre><code>import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import jakarta.persistence.*;
+import java.util.*;
+
+// ============================================================
+// Entry point
+// ============================================================
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}
+
+// ============================================================
+// JPA Entity
+// ============================================================
+@Entity
+@Table(name = "users")
+public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String name;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List&lt;OrderEntity&gt; orders = new ArrayList&lt;&gt;();
+
+    // Getters and setters (or use Lombok @Data)
+    public String getId() { return id; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public List&lt;OrderEntity&gt; getOrders() { return orders; }
+}
+
+// ============================================================
+// Spring Data JPA Repository
+// ============================================================
+public interface UserRepository extends JpaRepository&lt;UserEntity, String&gt; {
+    Optional&lt;UserEntity&gt; findByEmail(String email);
+    boolean existsByEmail(String email);
+}
+
+// ============================================================
+// Request/Response DTOs
+// ============================================================
+record CreateUserRequest(String email, String name) {}
+record UserResponse(String id, String email, String name) {}
+
+// ============================================================
+// Service layer — business logic lives here
+// ============================================================
+@Service
+public class UserService {
+    private final UserRepository userRepository;
+
+    // Constructor injection — PREFER over @Autowired on fields
+    // Reasons: testable without Spring context, immutable dependencies, clear contract
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Transactional
+    public UserResponse createUser(CreateUserRequest request) {
+        if (userRepository.existsByEmail(request.email())) {
+            throw new IllegalArgumentException("Email already registered: " + request.email());
+        }
+
+        UserEntity entity = new UserEntity();
+        entity.setEmail(request.email());
+        entity.setName(request.name());
+
+        UserEntity saved = userRepository.save(entity);
+        return toResponse(saved);
+    }
+
+    // @Transactional — read-only hint for query optimization
+    @Transactional(readOnly = true)
+    public UserResponse findUser(String id) {
+        return userRepository.findById(id)
+            .map(this::toResponse)
+            .orElseThrow(() -&gt; new NoSuchElementException("User not found: " + id));
+    }
+
+    private UserResponse toResponse(UserEntity e) {
+        return new UserResponse(e.getId(), e.getEmail(), e.getName());
+    }
+}
+
+// ============================================================
+// Controller — HTTP concerns only (no business logic)
+// ============================================================
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping
+    @ResponseStatus(org.springframework.http.HttpStatus.CREATED)
+    public UserResponse createUser(@RequestBody CreateUserRequest request) {
+        return userService.createUser(request);
+    }
+
+    @GetMapping("/{id}")
+    public UserResponse getUser(@PathVariable String id) {
+        return userService.findUser(id);
+    }
+}
+</code></pre>
+
+    <div class="box warning">
+      <strong>@Transactional gotcha:</strong> If a method inside the same class calls another <code>@Transactional</code> method on <code>this</code>, the transaction does NOT activate — Spring's proxy is bypassed. To trigger a new transaction, you must call through the Spring proxy (inject the service into itself, or extract to a separate class). This is one of the most common Spring bugs in production.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>5. Java Gotchas for Interviews</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Trapdoors in the Floor:</strong> Java's gotchas are trapdoors you don't see until you step on one. Knowing where they are lets you walk around them confidently — and spots you as an experienced engineer when you proactively mention them.
+    </div>
+
+    <h3>NullPointerException — use Optional</h3>
+    <pre><code>import java.util.Optional;
+
+public class OptionalDemo {
+    // Old style — risky
+    public String getUpperCaseNameUnsafe(Map&lt;String, String&gt; map, String key) {
+        String name = map.get(key); // Could be null!
+        return name.toUpperCase(); // NullPointerException if key absent
+    }
+
+    // Safe with Optional
+    public Optional&lt;String&gt; getUpperCaseName(Map&lt;String, String&gt; map, String key) {
+        return Optional.ofNullable(map.get(key))
+            .map(String::toUpperCase);
+    }
+
+    // At call site — no null checks
+    public void demo() {
+        Map&lt;String, String&gt; users = Map.of("u1", "alice");
+
+        // Option 1: get with default
+        String name = getUpperCaseName(users, "u999").orElse("Unknown");
+
+        // Option 2: throw custom exception if absent
+        String name2 = getUpperCaseName(users, "u999")
+            .orElseThrow(() -&gt; new NoSuchElementException("User not found"));
+
+        // Option 3: execute only if present
+        getUpperCaseName(users, "u1").ifPresent(n -&gt; System.out.println("Found: " + n));
+    }
+}
+</code></pre>
+
+    <h3>Checked vs unchecked exceptions</h3>
+    <pre><code>// Checked exception — compiler forces you to declare or handle
+// Subclass of Exception (not RuntimeException)
+public class DatabaseException extends Exception {
+    public DatabaseException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+
+// You MUST declare it or catch it
+public UserEntity loadUser(String id) throws DatabaseException {
+    try {
+        return repository.findById(id).orElseThrow();
+    } catch (Exception e) {
+        throw new DatabaseException("Failed to load user: " + id, e);
+    }
+}
+
+// Unchecked exception — subclass of RuntimeException — no declaration needed
+// Use these for programming errors (invalid args, state violations)
+public void setAge(int age) {
+    if (age &lt; 0 || age &gt; 150) {
+        throw new IllegalArgumentException("Age out of range: " + age);
+    }
+    this.age = age;
+}
+</code></pre>
+
+    <h3>Autoboxing — the silent performance and NPE risk</h3>
+    <pre><code>public class AutoboxingDemo {
+    public static void main(String[] args) {
+        // Autoboxing: int -&gt; Integer (implicit)
+        List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
+        numbers.add(42); // autoboxed: Integer.valueOf(42)
+
+        // Unboxing: Integer -&gt; int
+        int sum = 0;
+        for (int n : numbers) {
+            sum += n; // unboxed — tiny overhead per iteration
+        }
+
+        // The dangerous case: unboxing null
+        Integer value = null; // Legal — Integer is an object
+        int primitive = value; // NullPointerException at runtime!
+        // Java tries to call value.intValue() on null
+
+        // Fix: check before unboxing or use primitive int instead
+        int safe = (value != null) ? value : 0;
+    }
+}
+</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>6. JVM Basics — What Interviewers Actually Ask</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Building Manager for Memory:</strong> The JVM is the building manager. The heap is the office space where objects live. The stack is each worker's personal desk — small, fast, cleared when the worker leaves. The garbage collector is the cleaning crew — they don't clean during meetings (GC pauses), and they focus on areas with the most garbage (generational GC).
+    </div>
+
+    <div class="diagram">
+      <table>
+        <thead>
+          <tr><th>Area</th><th>What lives here</th><th>Cleared by</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Heap (Young Gen)</td><td>Newly created objects</td><td>Minor GC (frequent, fast)</td></tr>
+          <tr><td>Heap (Old Gen)</td><td>Long-lived objects (survived multiple GCs)</td><td>Major GC (infrequent, slow)</td></tr>
+          <tr><td>Stack</td><td>Local variables, method call frames</td><td>Auto — method return</td></tr>
+          <tr><td>Metaspace</td><td>Class metadata (replaced PermGen in Java 8)</td><td>Class unloading</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <pre><code>// JVM flags you'll be asked about:
+
+// -Xms512m     — initial heap size (512 MB)
+// -Xmx2g       — maximum heap size (2 GB)
+// Best practice: set -Xms == -Xmx in production to avoid heap resizing overhead
+
+// -XX:+UseG1GC — G1 garbage collector (default in Java 9+, good for low-latency)
+// -XX:+PrintGCDetails — log GC activity for analysis
+
+// Errors you must know:
+// StackOverflowError — deep/infinite recursion exhausts the stack
+// OutOfMemoryError   — heap is full; usually signals a memory leak or undersized heap
+
+public class JvmDemo {
+    // Classic StackOverflowError — unbounded recursion
+    public static int countDown(int n) {
+        return countDown(n - 1); // No base case — stack frames accumulate forever
+    }
+
+    // Classic memory leak pattern — holding references you forgot about
+    private static final List&lt;byte[]&gt; LEAK = new ArrayList&lt;&gt;();
+
+    public static void simulateLeak() {
+        while (true) {
+            LEAK.add(new byte[1024 * 1024]); // 1MB chunks — GC can't collect (still referenced)
+            // Eventually: java.lang.OutOfMemoryError: Java heap space
+        }
+    }
+}
+</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Senior vs Junior Answer</h2>
+
+    <div class="box key-term">
+      <strong>Interview question: "What happens when you call new ArrayList()?"</strong>
+    </div>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior answer</span>
+      <p>"It creates an empty list."</p>
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior answer</span>
+      <p>"<code>new ArrayList()</code> creates an ArrayList backed by an array with an initial capacity of <strong>10</strong>. When you add elements beyond that capacity, ArrayList allocates a new array at <strong>1.5× the current size</strong> and copies all elements over — an O(n) operation, though amortized across many adds it's O(1) per add.</p>
+      <p>If you know the expected size upfront, you should call <code>new ArrayList&lt;&gt;(expectedSize)</code> to avoid the resizing overhead entirely. For example, if you're building a list from a result set of 500 rows, preallocate 500.</p>
+      <p>It's also worth noting that due to <strong>type erasure</strong>, <code>ArrayList&lt;String&gt;</code> and <code>ArrayList&lt;Integer&gt;</code> are the exact same class at runtime — the generic type parameter is a compile-time construct only. This means you can't do <code>instanceof ArrayList&lt;String&gt;</code>; you can only check <code>instanceof ArrayList&lt;?&gt;</code>."</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Practice Questions</h2>
+
+    <div class="exercises">
+
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <h3>Question 1: Reverse a linked list iteratively</h3>
+        <p>Write a Java method that reverses a singly linked list iteratively (not recursively). Include the Node class definition.</p>
+        <details>
+          <summary>Show solution</summary>
+          <pre><code>public class LinkedListReversal {
+
+    static class Node&lt;T&gt; {
+        T data;
+        Node&lt;T&gt; next;
+
+        Node(T data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // Iterative reversal — O(n) time, O(1) space
+    public static &lt;T&gt; Node&lt;T&gt; reverse(Node&lt;T&gt; head) {
+        Node&lt;T&gt; prev = null;
+        Node&lt;T&gt; current = head;
+
+        while (current != null) {
+            Node&lt;T&gt; next = current.next; // Save next before overwriting
+            current.next = prev;          // Reverse the pointer
+            prev = current;               // Move prev forward
+            current = next;               // Move current forward
+        }
+
+        return prev; // prev is now the new head
+    }
+
+    // Helper to print the list
+    public static &lt;T&gt; String listToString(Node&lt;T&gt; head) {
+        StringBuilder sb = new StringBuilder("[");
+        Node&lt;T&gt; current = head;
+        while (current != null) {
+            sb.append(current.data);
+            if (current.next != null) sb.append(" -&gt; ");
+            current = current.next;
+        }
+        return sb.append("]").toString();
+    }
+
+    public static void main(String[] args) {
+        // Build: 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+        Node&lt;Integer&gt; head = new Node&lt;&gt;(1);
+        head.next = new Node&lt;&gt;(2);
+        head.next.next = new Node&lt;&gt;(3);
+        head.next.next.next = new Node&lt;&gt;(4);
+        head.next.next.next.next = new Node&lt;&gt;(5);
+
+        System.out.println("Before: " + listToString(head));
+        // Before: [1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5]
+
+        Node&lt;Integer&gt; reversed = reverse(head);
+        System.out.println("After:  " + listToString(reversed));
+        // After:  [5 -&gt; 4 -&gt; 3 -&gt; 2 -&gt; 1]
+    }
+}
+</code></pre>
+        </details>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <h3>Question 2: Thread-safe counter with AtomicInteger</h3>
+        <p>Implement a thread-safe counter using <code>AtomicInteger</code>. Demonstrate why it's preferable to <code>synchronized</code> for this use case. Include a benchmark comparing both approaches under concurrent load.</p>
+        <details>
+          <summary>Show solution</summary>
+          <pre><code>import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
+
+public class CounterComparison {
+
+    // Approach 1: synchronized — uses OS-level lock (mutex)
+    // Every thread must acquire the lock, even read operations
+    static class SynchronizedCounter {
+        private int count = 0;
+
+        public synchronized void increment() { count++; }
+        public synchronized int getCount() { return count; }
+    }
+
+    // Approach 2: AtomicInteger — uses CPU-level CAS (Compare-And-Swap)
+    // No OS lock needed — hardware instruction handles atomicity
+    // Lower overhead, especially at high concurrency
+    static class AtomicCounter {
+        private final AtomicInteger count = new AtomicInteger(0);
+
+        public void increment() { count.incrementAndGet(); }
+        public int getCount() { return count.get(); }
+
+        // Additional atomic operations not available with synchronized:
+        public int incrementAndGet() { return count.incrementAndGet(); }
+        public boolean compareAndSet(int expected, int update) {
+            return count.compareAndSet(expected, update); // No-op if not expected value
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        final int THREADS = 50;
+        final int INCREMENTS_PER_THREAD = 10_000;
+        final int EXPECTED = THREADS * INCREMENTS_PER_THREAD; // 500,000
+
+        // Test synchronized
+        SynchronizedCounter syncCounter = new SynchronizedCounter();
+        ExecutorService syncPool = Executors.newFixedThreadPool(THREADS);
+        long syncStart = System.currentTimeMillis();
+
+        for (int i = 0; i &lt; THREADS; i++) {
+            syncPool.submit(() -&gt; {
+                for (int j = 0; j &lt; INCREMENTS_PER_THREAD; j++) {
+                    syncCounter.increment();
+                }
+            });
+        }
+        syncPool.shutdown();
+        syncPool.awaitTermination(30, TimeUnit.SECONDS);
+        long syncTime = System.currentTimeMillis() - syncStart;
+
+        // Test AtomicInteger
+        AtomicCounter atomicCounter = new AtomicCounter();
+        ExecutorService atomicPool = Executors.newFixedThreadPool(THREADS);
+        long atomicStart = System.currentTimeMillis();
+
+        for (int i = 0; i &lt; THREADS; i++) {
+            atomicPool.submit(() -&gt; {
+                for (int j = 0; j &lt; INCREMENTS_PER_THREAD; j++) {
+                    atomicCounter.increment();
+                }
+            });
+        }
+        atomicPool.shutdown();
+        atomicPool.awaitTermination(30, TimeUnit.SECONDS);
+        long atomicTime = System.currentTimeMillis() - atomicStart;
+
+        System.out.println("Expected: " + EXPECTED);
+        System.out.printf("Synchronized: %d (correct: %b) in %dms%n",
+            syncCounter.getCount(), syncCounter.getCount() == EXPECTED, syncTime);
+        System.out.printf("Atomic:        %d (correct: %b) in %dms%n",
+            atomicCounter.getCount(), atomicCounter.getCount() == EXPECTED, atomicTime);
+        // AtomicInteger is typically 2-5x faster under high contention
+    }
+}
+
+// Why AtomicInteger wins for simple counters:
+// synchronized: acquire lock (system call) -&gt; do work -&gt; release lock
+//              Other threads BLOCK (context switch overhead)
+// AtomicInteger: CPU executes LOCK CMPXCHG instruction (single atomic cycle)
+//               If CAS fails (another thread won), retry — no thread sleeping
+// Use synchronized when: protecting multiple operations that must be atomic together
+// Use AtomicInteger when: single read-modify-write on one value
+</code></pre>
+        </details>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <h3>Question 3: Spring Boot endpoint — no N+1, transactional, sorted</h3>
+        <p>Write a complete Spring Boot endpoint that: accepts a list of user IDs as a query parameter, fetches ALL users in a single database query (no N+1), returns them sorted by last name, is properly transactional, and handles cases where some IDs don't exist. Include the entity, repository, service, and controller.</p>
+        <details>
+          <summary>Show solution</summary>
+          <pre><code>import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.*;
+import jakarta.persistence.*;
+import java.util.*;
+import java.util.stream.*;
+
+// ============================================================
+// Entity
+// ============================================================
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    // Getters
+    public String getId() { return id; }
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public String getEmail() { return email; }
+}
+
+// ============================================================
+// Repository — ONE query for all IDs using IN clause
+// ============================================================
+public interface UserRepository extends JpaRepository&lt;User, String&gt; {
+
+    // Spring Data generates: SELECT * FROM users WHERE id IN (:ids)
+    // This is the critical method — one query regardless of list size
+    List&lt;User&gt; findAllByIdIn(Collection&lt;String&gt; ids);
+
+    // Alternative with explicit JPQL for complex cases
+    @Query("SELECT u FROM User u WHERE u.id IN :ids ORDER BY u.lastName ASC, u.firstName ASC")
+    List&lt;User&gt; findByIdsOrderedByLastName(@Param("ids") Collection&lt;String&gt; ids);
+}
+
+// ============================================================
+// Response DTO
+// ============================================================
+public record UserSummary(
+    String id,
+    String fullName,
+    String email
+) {}
+
+// ============================================================
+// Result type for partial-hit handling
+// ============================================================
+public record BulkUserResult(
+    List&lt;UserSummary&gt; found,
+    List&lt;String&gt; notFoundIds
+) {}
+
+// ============================================================
+// Service
+// ============================================================
+@Service
+public class UserBulkService {
+    private final UserRepository userRepository;
+
+    public UserBulkService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Transactional(readOnly = true) // readOnly hint: no dirty-checking overhead
+    public BulkUserResult getUsersByIds(List&lt;String&gt; requestedIds) {
+        if (requestedIds == null || requestedIds.isEmpty()) {
+            return new BulkUserResult(Collections.emptyList(), Collections.emptyList());
+        }
+
+        // Deduplicate incoming IDs to avoid wasted work
+        List&lt;String&gt; uniqueIds = requestedIds.stream()
+            .distinct()
+            .collect(Collectors.toList());
+
+        // SINGLE query — IN clause (no N+1)
+        List&lt;User&gt; foundUsers = userRepository.findByIdsOrderedByLastName(uniqueIds);
+
+        // Determine which IDs were not found
+        Set&lt;String&gt; foundIds = foundUsers.stream()
+            .map(User::getId)
+            .collect(Collectors.toSet());
+
+        List&lt;String&gt; notFoundIds = uniqueIds.stream()
+            .filter(id -&gt; !foundIds.contains(id))
+            .collect(Collectors.toList());
+
+        // Map to response DTO — already sorted by last name from query
+        List&lt;UserSummary&gt; summaries = foundUsers.stream()
+            .map(u -&gt; new UserSummary(
+                u.getId(),
+                u.getLastName() + ", " + u.getFirstName(),
+                u.getEmail()
+            ))
+            .collect(Collectors.toList());
+
+        return new BulkUserResult(summaries, notFoundIds);
+    }
+}
+
+// ============================================================
+// Controller
+// ============================================================
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    private final UserBulkService userBulkService;
+
+    public UserController(UserBulkService userBulkService) {
+        this.userBulkService = userBulkService;
+    }
+
+    // GET /api/users/bulk?ids=u1,u2,u3,u4
+    @GetMapping("/bulk")
+    public BulkUserResult getUsersByIds(
+        @RequestParam List&lt;String&gt; ids // Spring auto-splits comma-separated values
+    ) {
+        if (ids.size() &gt; 100) {
+            throw new IllegalArgumentException("Cannot request more than 100 users at once");
+        }
+        return userBulkService.getUsersByIds(ids);
+    }
+}
+
+// ============================================================
+// Example response JSON:
+// GET /api/users/bulk?ids=u1,u2,u3,u999
+// {
+//   "found": [
+//     { "id": "u1", "fullName": "Anderson, Alice", "email": "alice@example.com" },
+//     { "id": "u3", "fullName": "Brown, Carol",   "email": "carol@example.com" },
+//     { "id": "u2", "fullName": "Zhang, Bob",     "email": "bob@example.com"   }
+//   ],
+//   "notFoundIds": ["u999"]
+// }
+// ============================================================
+
+// Why this avoids N+1:
+// BAD (N+1):
+//   for (String id : ids) {
+//       users.add(userRepository.findById(id).orElse(null)); // N separate queries!
+//   }
+//
+// GOOD (1 query):
+//   userRepository.findByIdsOrderedByLastName(ids); // SELECT ... WHERE id IN (...)
+//
+// For very large IN lists (&gt;1000 ids), batch into groups of 1000
+// to avoid DB parameter limits.
+</code></pre>
+        </details>
+      </div>
+
+    </div><!-- /exercises -->
+
+    <!-- ============================================================ -->
+    <div class="summary">
+      <h2>Chapter Summary</h2>
+      <ul>
+        <li><strong>OOP's four pillars</strong> — encapsulation, inheritance, polymorphism, abstraction — are not academic concepts. They're practical decisions: private fields with public interfaces prevent state corruption; polymorphism enables extension without modification; interfaces define contracts, abstract classes share implementation.</li>
+        <li><strong>== vs .equals()</strong> is the most common Java bug in interviews. == compares references; .equals() compares content. Always use .equals() for Strings and object comparisons. Integer caching applies only to values -128 to 127 — beyond that, new Integer() objects are not reference-equal.</li>
+        <li><strong>Never create raw threads</strong> in production — always use ExecutorService. For simple counters, prefer AtomicInteger over synchronized (lock-free CAS vs OS mutex). For protecting multiple operations atomically, synchronized or ReentrantLock is appropriate.</li>
+        <li><strong>Spring Boot's three golden rules</strong>: prefer constructor injection over field @Autowired (testable, immutable), always use @Transactional on the service layer (not the controller), and never call @Transactional methods on yourself within the same class (proxy bypass is a silent bug).</li>
+        <li><strong>Preventing N+1 queries</strong> is a signal of senior experience — use Spring Data's findAllByIdIn, JPQL with IN clauses, or JOIN FETCH for eager associations; never loop-query inside a service method. Set <code>-Xms == -Xmx</code> in production to avoid heap resizing overhead, and know the difference between StackOverflowError (deep recursion) and OutOfMemoryError (heap exhausted).</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> C# and .NET — Microsoft's answer to Java that found a devoted home in enterprise Windows shops, game development with Unity, and cloud services. We'll cover async/await, LINQ, dependency injection, and the patterns that appear in .NET interviews.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-24.html">
+        <span class="nav-label">← Previous</span>
+        <span class="nav-title">TypeScript Deep Dive</span>
+      </a>
+      <a href="chapter-26.html" class="next">
+        <span class="nav-label">Next →</span>
+        <span class="nav-title">C# Deep Dive</span>
+      </a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 31: System Design Case Studies — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-5">Part 5 · Chapter 31</div>
+      <h1>System Design Case Studies</h1>
+      <p class="chapter-intro">Four production-grade walkthroughs — from naive first drafts to the real-world designs that survive scale and failure.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>Why naive designs fail — and the exact failure mode for each case</li>
+        <li>How to evolve a design step-by-step and justify each upgrade</li>
+        <li>Payment system safety: idempotency, saga pattern, and the outbox pattern</li>
+        <li>Notification fan-out, dead-letter queues, and per-channel rate limiting</li>
+        <li>CDC-based search sync and connection pooling for product catalog scale</li>
+        <li>CRDT-based conflict resolution and WebSocket scaling for real-time collaboration</li>
+      </ul>
+    </div>
+
+    <blockquote>
+      <p>"Reading about system design is like reading about swimming. At some point you have to jump in. These four case studies are your pool — practice until the framework is automatic and the building blocks feel like second nature."</p>
+    </blockquote>
+
+    <div class="box analogy">
+      <strong>Analogy: Flight Simulators</strong>
+      <p>Commercial pilots log thousands of hours in flight simulators before commanding a real aircraft. They practice the same emergency scenarios repeatedly until the response is automatic — not because crises are common, but because they must be handled correctly when they happen.</p>
+      <p>System design interviews are your simulator. Run these four scenarios until the decisions come automatically. When an interviewer says "design a payment system," your brain should immediately pattern-match to: idempotency key, saga pattern, outbox pattern — without having to think it through from scratch under pressure.</p>
+    </div>
+
+    <h2>Case Study 1: Payment Processing System</h2>
+
+    <h3>Requirements</h3>
+    <p><strong>Functional:</strong> Process payments (credit card via Stripe), manage order lifecycle, trigger inventory reduction and confirmation email on successful payment.</p>
+    <p><strong>Non-functional:</strong> No double-charges under any circumstances. At-least-once delivery of all downstream effects (inventory, email). Full audit trail. PCI-DSS compliance (no raw card data stored).</p>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A bank teller. If you hand them a check and the system crashes mid-process, you expect exactly one outcome — not zero, not two. The banking world solved this with ledgers and double-entry bookkeeping. Your payment system needs the software equivalent.
+    </div>
+
+    <h3>Naive Design and Why It Fails</h3>
+
+    <div class="diagram">
+<pre>
+NAIVE:
+  [Client] → POST /payments
+               → charge Stripe synchronously
+               → reduce inventory in DB
+               → send confirmation email
+               → return 200 OK
+
+FAILURE MODES:
+  1. Client retries due to network timeout
+     → two Stripe charges for one payment
+     → customer charged twice. Fatal.
+
+  2. Stripe succeeds but database write fails
+     → money taken, order not recorded
+     → inventory not reduced, no confirmation sent
+
+  3. Email send fails
+     → payment succeeded, customer gets nothing
+     → support ticket storm
+</pre>
+    </div>
+
+    <h3>Production Design</h3>
+
+    <p><strong>Idempotency keys</strong> solve double-charging. The client generates a unique key (UUID) before the request. The server stores this key and the payment result. On retry, if the key already exists, return the stored result without re-charging Stripe.</p>
+
+    <div class="diagram">
+<pre>
+Idempotency Key Flow:
+  [Client generates: idempotencyKey = UUID]
+  POST /payments { idempotencyKey, amount, token }
+                     |
+  [API] → Redis: GET payment:idempotencyKey
+              HIT? → return stored result (no re-charge)
+              MISS? → process payment → store result with TTL 24h
+</pre>
+    </div>
+
+    <p><strong>Saga pattern</strong> manages multi-step workflows where each step can fail. Each step has a compensation action that runs if a later step fails.</p>
+
+    <div class="diagram">
+<pre>
+Payment Saga:
+  Step 1: Create Order (PENDING)        ← compensate: mark CANCELLED
+  Step 2: Charge Payment via Stripe     ← compensate: issue refund
+  Step 3: Reduce Inventory              ← compensate: restore inventory
+  Step 4: Send Confirmation Email       ← compensate: send apology email
+
+  If Step 3 fails → run Step 3 compensation (none needed, not done)
+                  → run Step 2 compensation (issue Stripe refund)
+                  → run Step 1 compensation (cancel order)
+</pre>
+    </div>
+
+    <p><strong>Outbox pattern</strong> guarantees that a database write and a message queue publish either both succeed or both fail — without a distributed transaction.</p>
+
+    <div class="diagram">
+<pre>
+Outbox Pattern:
+  [API Server]
+       |
+  BEGIN transaction
+    INSERT INTO payments (id, status, amount) VALUES (...)
+    INSERT INTO outbox (event_type, payload) VALUES ('payment.succeeded', {...})
+  COMMIT transaction   ← atomic: both rows or neither
+
+  [Outbox Relay Service]  ← polls outbox table (or reads WAL)
+       |
+  SELECT * FROM outbox WHERE published = false
+       |
+  PUBLISH to Kafka topic "payment.events"
+       |
+  UPDATE outbox SET published = true
+
+  [Payment Succeeded Consumer]  → reduce inventory
+  [Notification Consumer]       → send confirmation email
+
+  Why this works: if the API server crashes after COMMIT, the relay
+  picks up the unpublished outbox row on next poll. No event lost.
+</pre>
+    </div>
+
+    <p><strong>Payment state machine</strong> makes all transitions explicit and auditable.</p>
+
+    <div class="diagram">
+<pre>
+Payment State Machine:
+  PENDING → PROCESSING → SUCCEEDED
+                      → FAILED
+  SUCCEEDED → REFUNDED
+  Any state → CANCELLED (if not yet PROCESSING)
+</pre>
+    </div>
+
+    <p><strong>PCI-DSS compliance:</strong> Never store raw card numbers. Use Stripe tokenization — the client sends the card to Stripe directly (Stripe.js), receives a token, and sends only the token to your API. Your servers never touch the card number. This takes you out of PCI scope for card data storage.</p>
+
+    <div class="diagram">
+<pre>
+PRODUCTION PAYMENT DESIGN:
+
+[Client]
+   |— Stripe.js → Stripe (card data, direct)
+   |← Stripe token
+   |
+POST /payments { token, amount, idempotencyKey }
+   |
+[API Server]
+   |→ Redis: check idempotency key
+   |→ BEGIN transaction
+       INSERT payment (PENDING)
+       INSERT outbox row
+      COMMIT
+   |→ Saga orchestrator
+       Step 1: Stripe charge API
+       Step 2: Update payment (SUCCEEDED/FAILED)
+       Step 3: Update outbox (published=true via relay)
+   |
+[Outbox Relay] → Kafka "payment.events"
+   |
+[Inventory Service] ← consumes payment.succeeded
+[Notification Service] ← consumes payment.succeeded
+[Audit Service] ← consumes all payment events
+
+Read model: CQRS
+  Writes: PostgreSQL (payments + outbox)
+  Reads: Read replica for payment history pages
+</pre>
+    </div>
+
+    <h2>Case Study 2: Notification Service</h2>
+
+    <h3>Requirements</h3>
+    <p><strong>Functional:</strong> Send notifications via email, push (iOS/Android), and SMS. Support single and bulk (fan-out) notifications. Respect user opt-out preferences per channel.</p>
+    <p><strong>Non-functional:</strong> Notification delivery must not block the triggering request. Retry failed sends. Rate limit to respect channel limits (FCM throttles per token). Dead-letter failed notifications for alerting.</p>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A postal service that accepts letters at the counter, hands them to sorting staff, who route them to the correct delivery van (email truck, push van, SMS motorbike). The counter clerk never delivers letters personally — accepting and delivering are decoupled.
+    </div>
+
+    <h3>Naive Design and Why It Fails</h3>
+
+    <div class="diagram">
+<pre>
+NAIVE:
+  [API Handler]
+       |
+  sendEmail(user, message)   ← synchronous SendGrid API call
+       |
+  return 200 OK
+
+FAILURE MODES:
+  1. SendGrid is slow → user waits 3 seconds for their action to complete
+  2. SendGrid is down → the whole request fails
+  3. Cannot retry: if the handler fails mid-way, email is just lost
+  4. No rate limiting: sending 1M emails at once hits SendGrid limits
+  5. User unsubscribed? We don't check. Compliance violation.
+</pre>
+    </div>
+
+    <h3>Production Design</h3>
+
+    <div class="diagram">
+<pre>
+PRODUCTION NOTIFICATION DESIGN:
+
+INGESTION:
+  [Any Service] → publish to Kafka "notifications.requested"
+                   { userId, type: "order.shipped", channel: ["email","push"] }
+
+PROCESSING:
+  [Notification Worker] ← consumes from Kafka
+       |
+  [Preference Service] ← is user opted in on this channel?
+       |
+  [Channel Router]
+    |── email    → [Email Worker]  → SendGrid API
+    |── push     → [Push Worker]   → FCM (Android) / APNS (iOS)
+    └── sms      → [SMS Worker]    → Twilio API
+
+BULK FAN-OUT:
+  [Marketing Service] → "send promo to 5M users"
+       |
+  [Fan-out Worker] ← reads user segments in batches of 1000
+       |
+  → publish 5000 batches to "notifications.fanout" Kafka topic
+       |
+  [Worker Pool] (100 workers) ← each handles a batch of 1000
+       |
+  [Channel Router] → delivery
+
+RELIABILITY:
+  Each delivery attempt: store deduplication ID in Redis
+  On FCM/APNS failure: retry with exponential backoff (3 attempts)
+  After 3 failures: push to Dead Letter Queue (DLQ)
+  DLQ alert: PagerDuty alert if DLQ depth > threshold
+
+FCM RATE LIMITING:
+  FCM: max 1000 messages/sec per project
+  [Push Worker] → Redis rate limiter (sliding window: 950/sec)
+  → backpressure: slow consumer on Kafka partition
+
+NOTIFICATION PREFERENCES:
+  [Preference Service] → PostgreSQL
+  Cache in Redis (TTL 5 min): user:1234:prefs
+  Invalidate on preference update
+</pre>
+    </div>
+
+    <p><strong>Why the Kafka-based architecture works:</strong> The triggering service (order service, billing service) publishes a notification intent and moves on — decoupled from delivery. The notification worker handles all retry logic, preference checking, and channel routing independently. If FCM is down, notifications queue up in Kafka and drain when FCM recovers, without losing any messages.</p>
+
+    <div class="box tip">
+      <strong>Interview tip:</strong> Explicitly mention the dead-letter queue. Most candidates describe the happy path only. Saying "failed sends after 3 retries go to a DLQ with a PagerDuty alert, so no notification silently disappears" signals operational maturity that stands out.
+    </div>
+
+    <h2>Case Study 3: Product Catalog API at Scale</h2>
+
+    <h3>Requirements</h3>
+    <p><strong>Functional:</strong> Search products by keyword, filter by category/brand/price/rating, sort by relevance and price. Product detail pages. 10M+ products.</p>
+    <p><strong>Non-functional:</strong> Search response under 200ms at p99. Product updates must appear in search within 30 seconds. Product images served globally.</p>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A massive hardware store. The database is the inventory management system in the back office — accurate and authoritative. The search is the knowledgeable sales associate who's memorized every product and can find exactly what you need in seconds. They're two different roles. You don't ask the inventory system to answer customer questions.
+    </div>
+
+    <h3>Naive Design and Why It Fails</h3>
+
+    <div class="diagram">
+<pre>
+NAIVE:
+  GET /products?q=bluetooth+headphones&amp;brand=Sony
+       |
+  SELECT * FROM products
+    WHERE to_tsvector(name || description) @@ plainto_tsquery('bluetooth headphones')
+      AND brand = 'Sony'
+  ORDER BY relevance DESC
+
+FAILURE MODES at 10M+ products:
+  1. Full-text search on PostgreSQL: works at 1M rows, degrades at 10M+
+  2. Faceted filter (brand + price + rating simultaneously): multiple index scans, slow
+  3. Every search is a database query: 1000 searches/sec = database overwhelmed
+  4. Images served from API server: bandwidth bottleneck, no edge caching
+  5. No connection pool: 1000 concurrent searches = 1000 DB connections (PostgreSQL max ~500)
+</pre>
+    </div>
+
+    <h3>Production Design</h3>
+
+    <div class="diagram">
+<pre>
+PRODUCTION CATALOG DESIGN:
+
+WRITE PATH (product update):
+  [Admin API] → UPDATE products SET ... WHERE id = ?
+       |
+  [PostgreSQL Primary] ← source of truth
+       |
+  [Debezium CDC] ← reads PostgreSQL WAL (change data capture)
+       |
+  [Kafka] "products.changes" topic
+       |
+  [Elasticsearch Indexer] ← consumes, upserts product document
+       |
+  [Elasticsearch] ← search reads within ~5 seconds of DB write
+
+READ PATH (search):
+  GET /products?q=bluetooth+headphones&amp;brand=Sony&amp;maxPrice=200
+       |
+  [API Server] → [Redis] cache search result (TTL: 60s)
+                    HIT: return cached
+                    MISS: query Elasticsearch
+       |
+  [Elasticsearch]
+    Bool query:
+      must: { match: { "name^3 description^1": "bluetooth headphones" } }
+      filter: { term: { brand: "Sony" }, range: { price: { lte: 200 } } }
+    → returns product IDs + relevance scores
+
+READ PATH (product detail page):
+  GET /products/12345
+       |
+  [API Server] → [Redis] cache: product:12345 (TTL: 1h)
+                    MISS: [Read Replica PostgreSQL]
+  → response to client
+
+IMAGES:
+  [S3] ← product images (source)
+       |
+  [CloudFront CDN] ← edge serving (global PoPs)
+  URL in product response: https://cdn.example.com/products/12345/hero.jpg
+
+CONNECTION POOL:
+  [API Server] → [PgBouncer] → [PostgreSQL Primary/Replica]
+  PgBouncer: maintains 20 persistent DB connections, serves 1000+ app connections
+  Prevents PostgreSQL connection exhaustion under load
+
+CACHE INVALIDATION ON PRODUCT UPDATE:
+  Debezium event → Kafka → Cache Invalidation Consumer
+                         → Redis DEL product:12345
+                         → also clear any search result caches containing product 12345
+                           (pragmatically: short TTL is often sufficient for search results)
+</pre>
+    </div>
+
+    <p><strong>Why CDC instead of dual-write:</strong> If your application writes to the database and also publishes to Kafka, what happens when the Kafka publish fails? The database has the update but Elasticsearch doesn't — silent inconsistency. Debezium reads the PostgreSQL write-ahead log (WAL) after the transaction commits, guaranteeing exactly-once event generation without touching application code.</p>
+
+    <h2>Case Study 4: Real-Time Collaboration Tool (Google Docs style)</h2>
+
+    <h3>Requirements</h3>
+    <p><strong>Functional:</strong> Multiple users edit the same document simultaneously. Changes appear on all clients within ~100ms. Show presence (who is editing, cursor positions). Support offline editing with merge on reconnect.</p>
+    <p><strong>Non-functional:</strong> No data loss. No edit conflicts that corrupt the document. WebSocket connection for low latency.</p>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A shared whiteboard in a meeting room. When two people write on the board at the same time, the board doesn't crash or refuse one person's marker. Both marks appear. The same must be true in software — simultaneous edits must merge cleanly, not conflict.
+    </div>
+
+    <h3>Naive Design and Why It Fails</h3>
+
+    <div class="diagram">
+<pre>
+NAIVE (REST polling):
+  [Client A types] → PUT /documents/123 { content: "Hello world" }
+  [Client B types] → PUT /documents/123 { content: "Hello earth" }
+  Last-write-wins → one edit silently lost. Unacceptable.
+
+  Polling: GET /documents/123 every 2 seconds
+  → 500ms to 2s delay for other users to see changes
+  → "Collaborative" feels like passing notes, not working together
+
+  Conflict: both clients read "Hello", A types " world", B types " earth"
+  → A sends "Hello world" → saved
+  → B sends "Hello earth" → overwrites A's work → A's changes lost
+</pre>
+    </div>
+
+    <h3>Production Design</h3>
+
+    <p><strong>CRDTs (Conflict-free Replicated Data Types)</strong> are the core algorithmic solution. A CRDT is a data structure where any two concurrent operations can be merged automatically without conflict, and the result is always the same regardless of merge order (commutativity + associativity).</p>
+
+    <div class="box key-term">
+      <strong>Key Term: CRDT</strong>
+      Conflict-free Replicated Data Type. A data structure with a mathematically guaranteed merge function. Two clients with different local states can always be merged to reach the same result. Yjs is the most mature open-source CRDT library for document editing.
+    </div>
+
+    <div class="diagram">
+<pre>
+CRDT Merge Example (Yjs):
+  Shared document state: "Hello"
+
+  Client A (offline): inserts " world" at position 5
+    Local: "Hello world"
+    Operation: Insert(" world", position=5, clientId=A, clock=1)
+
+  Client B (offline): inserts " earth" at position 5
+    Local: "Hello earth"
+    Operation: Insert(" earth", position=5, clientId=B, clock=1)
+
+  When both reconnect, CRDT merge:
+    Both operations applied deterministically
+    Result (ordered by clientId): "Hello world earth"
+    Both clients converge to identical state automatically
+    No conflicts. No data loss.
+</pre>
+    </div>
+
+    <div class="diagram">
+<pre>
+PRODUCTION COLLABORATION DESIGN:
+
+CONNECTION LAYER:
+  [Client A] ←─── WebSocket ───→ [Collab Server 1]
+  [Client B] ←─── WebSocket ───→ [Collab Server 2]
+  [Client C] ←─── WebSocket ───→ [Collab Server 1]
+
+  Sticky sessions (consistent hash on documentId)
+  → all clients editing document 123 connect to same server instance
+  → server can directly broadcast operations to all peers
+
+  Redis Pub/Sub: cross-server broadcast
+  → Server 1 publishes op to Redis channel "doc:123"
+  → Server 2 subscribes, receives, forwards to Client B
+  → Works even when clients for same doc are on different servers
+
+OPERATION FLOW (Client A types a character):
+  [Client A]
+    → apply operation locally (instant, no wait)
+    → send operation via WebSocket to Collab Server
+       |
+  [Collab Server]
+    → apply operation to server-side CRDT state
+    → publish to Redis "doc:123"
+    → acknowledge to Client A
+       |
+  [Redis Pub/Sub] → all Collab Servers subscribed to "doc:123"
+       |
+  [Other Collab Servers] → forward to their connected clients
+       |
+  [Client B, C, D] → apply operation to local CRDT state
+                   → UI updates (cursor moves, text appears)
+
+PRESENCE (who is editing, cursor positions):
+  [Client A] → WebSocket: { type: "presence", cursorPos: 42, userId: "alice" }
+                     |
+  [Collab Server] → Redis: SET doc:123:presence:alice { pos: 42, ts: now }
+                  → Pub/Sub broadcast to all connected clients
+  [Other Clients] → render Alice's cursor at position 42
+
+PERSISTENCE:
+  Periodic snapshot (every 30 seconds):
+    [Collab Server] → encode full CRDT state → PostgreSQL (doc_snapshots table)
+
+  Operation log (for replay / catch-up):
+    [Collab Server] → append each operation → Redis Stream (doc:123:ops)
+    Retention: 24 hours (enough for reconnect catch-up)
+
+OFFLINE SUPPORT:
+  [Client goes offline] → buffers operations locally (IndexedDB)
+  [Client reconnects]
+    → server sends all ops since client's last known clock
+    → client applies buffered local ops on top
+    → CRDT guarantees convergence regardless of order
+
+SCALING WEBSOCKETS:
+  Problem: standard HTTP load balancing breaks WebSocket (connection is long-lived)
+  Solution: sticky sessions by documentId (consistent hash load balancer)
+  → document 123 always routes to server pool A
+  → horizontal scale: add servers, rehash routing table
+
+  Alternative: each client connects to nearest regional WebSocket gateway
+  → operations forwarded to region that "owns" the document
+  → cross-region replication via Kafka
+</pre>
+    </div>
+
+    <p><strong>Why WebSockets instead of HTTP polling:</strong> HTTP is request-response — the client must initiate. For real-time collaboration, the server needs to push changes to clients as they happen. WebSocket provides a persistent, bidirectional channel. Server-Sent Events (SSE) are a simpler alternative for one-directional server push, but collaboration requires bidirectional communication.</p>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior Approach to Real-Time Collab</span>
+      <p>"I'd have clients poll the server every 500 milliseconds for changes. If two users edit at the same time, I'd use a lock so only one can edit at a time."</p>
+      <p><em>Problems: 500ms polling creates terrible UX latency. Locking means only one user can edit at a time — that's not collaboration, that's a queue. Neither solves the core problem.</em></p>
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior Approach to Real-Time Collab</span>
+      <p>"WebSocket connections from clients to collaboration servers, with CRDTs (I'd use Yjs) for conflict-free concurrent editing. Operations are applied locally for instant feedback, then broadcast to peers. Server instances communicate via Redis Pub/Sub so all clients of a document receive operations regardless of which server they're connected to. Persistence is periodic CRDT snapshots to PostgreSQL plus an operation log in a Redis Stream for catch-up on reconnect. The sticky session routing by documentId is the key to making this scale horizontally without excessive cross-server traffic."</p>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Payment systems require idempotency keys (prevent double-charge), the saga pattern (multi-step workflow with compensation), and the outbox pattern (atomic DB write + event publish without distributed transactions).</li>
+        <li>Notification systems decouple delivery from ingestion via Kafka, route through per-channel workers, enforce user preferences, rate-limit to channel APIs, and use dead-letter queues so no notification silently disappears.</li>
+        <li>Product catalog scale requires Elasticsearch for search (synced via CDC, not dual-write), Redis for result caching, PgBouncer for connection pooling, and CDN + S3 for image serving.</li>
+        <li>Real-time collaboration requires WebSockets (bidirectional), CRDTs (conflict-free concurrent editing), sticky sessions by document for WebSocket routing, and Redis Pub/Sub for cross-server broadcast.</li>
+        <li>In every case study, the evolution from naive to production follows the same pattern: identify the exact failure mode, add the minimum necessary components to fix it, and name the tradeoff each addition introduces.</li>
+      </ul>
+    </div>
+
+    <div class="exercises">
+      <h4>Practice Questions</h4>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>In the payment system, how would you handle the case where the outbox relay service crashes after publishing to Kafka but before marking the outbox row as published? Would the event be published twice? How do you make downstream consumers safe against this?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>Your notification system needs to send a promotional campaign to 50 million users in under 1 hour. Walk through the fan-out architecture: how many Kafka partitions, how many worker instances, how do you handle FCM's rate limits?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p>In the product catalog, an admin updates a product while 10,000 users have that product cached in Redis. The update should be visible within 30 seconds. How do you handle cache invalidation at this scale without stampeding the database when all caches expire simultaneously?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p>In the collaboration tool, a client has been offline for 72 hours (longer than your Redis Stream retention of 24 hours). When they reconnect, how do you catch them up? Walk through the complete reconnection protocol including the case where their local CRDT state diverged significantly.</p>
+      </div>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> The case studies show you what to build. Chapter 32 shows you how to think about architecture at the patterns level — event-driven architecture, CQRS, hexagonal architecture, the strangler fig migration, and data consistency patterns that appear in Staff Engineer-level interviews.</p>
+    <div class="chapter-nav">
+      <a href="chapter-30.html"><span class="nav-label">← Previous</span><span class="nav-title">Core Building Blocks</span></a>
+      <a href="chapter-32.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Architecture Patterns for Senior Engineers</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

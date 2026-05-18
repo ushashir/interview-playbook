@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 27: Go Deep Dive — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 27</div>
+      <h1>Go Deep Dive</h1>
+      <p class="chapter-intro">Go was designed by engineers frustrated with C++ and Java. Its philosophy: if a feature makes the language harder to learn or understand, don't add it. The result is a language that's surprisingly powerful for how small it is.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>Goroutines and channels — Go's concurrency model and why it scales to hundreds of thousands</li>
+        <li>Error handling philosophy — why Go's explicit errors beat hidden exceptions in production</li>
+        <li>Interfaces with implicit satisfaction — the most elegant interface system in mainstream languages</li>
+        <li>Go modules — go.mod, go.sum, and dependency management</li>
+        <li>Building REST APIs with net/http and Gin</li>
+        <li>Goroutine leaks, defer, panic, make vs new — the interview gotchas</li>
+        <li>Goroutines vs threads — the M:N scheduling model explained clearly</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Goroutines and Channels</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Think of a factory. Workers are goroutines — cheap to hire, lightweight. The conveyor belt between them is a channel — it moves products (data) from one worker to the next. An unbuffered channel is a belt with no room to queue: the sender must wait until the receiver picks up. A buffered channel is a belt with a small staging area: the sender can drop off a few items without waiting.
+    </div>
+
+    <p>Go is like a perfectly balanced kitchen knife. No 37 attachments. One blade, perfectly balanced, faster and cleaner than the Swiss Army knife. Go prioritizes clarity over cleverness — and in production systems, clarity wins.</p>
+
+    <p>A goroutine costs roughly 2–8 KB of stack memory (it grows dynamically) versus ~1 MB for an OS thread. You can run hundreds of thousands of goroutines on a single machine that would be impossible with OS threads.</p>
+
+    <pre><code>package main
+
+import (
+    "fmt"
+    "sync"
+)
+
+func worker(id int, jobs &lt;-chan int, results chan&lt;- int, wg *sync.WaitGroup) {
+    defer wg.Done()
+    for job := range jobs {
+        result := job * job  // expensive computation simulated
+        results &lt;- result
+    }
+}
+
+func main() {
+    const numWorkers = 5
+    const numJobs    = 20
+
+    jobs    := make(chan int, numJobs)
+    results := make(chan int, numJobs)
+
+    var wg sync.WaitGroup
+
+    // Spawn worker pool
+    for i := 1; i &lt;= numWorkers; i++ {
+        wg.Add(1)
+        go worker(i, jobs, results, &amp;wg)
+    }
+
+    // Send jobs
+    for j := 1; j &lt;= numJobs; j++ {
+        jobs &lt;- j
+    }
+    close(jobs)  // signals workers: no more jobs coming
+
+    // Close results once all workers finish
+    go func() {
+        wg.Wait()
+        close(results)
+    }()
+
+    // Collect results
+    for r := range results {
+        fmt.Println(r)
+    }
+}</code></pre>
+
+    <h3>The select Statement</h3>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> <code>select</code> is like a traffic controller at a multi-road intersection — it waits for whichever road (channel) has a car (data) and lets that one through. If multiple are ready at once, it picks one at random. If none are ready and there's a <code>default</code> case, it takes that immediately (non-blocking).
+    </div>
+
+    <pre><code>func fanIn(ch1, ch2 &lt;-chan string) &lt;-chan string {
+    merged := make(chan string)
+    go func() {
+        defer close(merged)
+        for {
+            select {
+            case msg, ok := &lt;-ch1:
+                if !ok { ch1 = nil }  // nil channel blocks forever — effectively remove it
+                merged &lt;- msg
+            case msg, ok := &lt;-ch2:
+                if !ok { ch2 = nil }
+                merged &lt;- msg
+            }
+            if ch1 == nil &amp;&amp; ch2 == nil {
+                return
+            }
+        }
+    }()
+    return merged
+}</code></pre>
+
+    <h3>Goroutine Leaks and Context Cancellation</h3>
+
+    <div class="box warning">
+      <strong>Goroutine leak:</strong> A goroutine blocked on a channel nobody will ever write to or read from runs forever, consuming memory. This is the most common Go production bug. Always use <code>context.WithCancel</code> or <code>context.WithTimeout</code> to give goroutines an escape hatch.
+    </div>
+
+    <pre><code>package main
+
+import (
+    "context"
+    "fmt"
+    "time"
+)
+
+// LEAK: this goroutine runs forever if nobody reads from done
+func leakySearch(query string) &lt;-chan string {
+    done := make(chan string)
+    go func() {
+        result := expensiveSearch(query)  // takes a long time
+        done &lt;- result                   // if nobody reads this, goroutine hangs
+    }()
+    return done
+}
+
+// FIX: accept context, return early if cancelled
+func safeSearch(ctx context.Context, query string) &lt;-chan string {
+    results := make(chan string, 1)  // buffered: sender won't block even if nobody reads
+    go func() {
+        defer close(results)
+        result := expensiveSearch(query)
+        select {
+        case results &lt;- result:  // send if receiver is ready
+        case &lt;-ctx.Done():       // bail out if context cancelled
+            return
+        }
+    }()
+    return results
+}
+
+func main() {
+    ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+    defer cancel()  // always defer cancel to release resources
+
+    results := safeSearch(ctx, "go concurrency patterns")
+    select {
+    case result := &lt;-results:
+        fmt.Println("Got:", result)
+    case &lt;-ctx.Done():
+        fmt.Println("Search timed out:", ctx.Err())
+    }
+}</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Error Handling in Go</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Go's error handling is like a cashier giving you a receipt with every purchase. The receipt either says "success" or lists exactly what went wrong. There's no hidden alarm that triggers somewhere else in the building — the problem is right in your hand, right now.
+    </div>
+
+    <p>Go has no exceptions. Every function that can fail returns <code>(result, error)</code> as its last two values. This is a deliberate design decision: it makes all fallible operations explicit. You cannot accidentally ignore an error if you're paying attention to the return values.</p>
+
+    <pre><code>package main
+
+import (
+    "errors"
+    "fmt"
+    "strconv"
+)
+
+// Custom error type — implements the error interface
+type ValidationError struct {
+    Field   string
+    Message string
+}
+
+func (e *ValidationError) Error() string {
+    return fmt.Sprintf("validation failed on %s: %s", e.Field, e.Message)
+}
+
+// Sentinel error — compare with errors.Is()
+var ErrNotFound = errors.New("resource not found")
+
+func parsePositiveInt(s string) (int, error) {
+    n, err := strconv.Atoi(s)
+    if err != nil {
+        // Wrap with context using %w — preserves the original error for errors.Is/As
+        return 0, fmt.Errorf("parsePositiveInt: %w", err)
+    }
+    if n &lt;= 0 {
+        return 0, &amp;ValidationError{Field: "value", Message: "must be positive"}
+    }
+    return n, nil
+}
+
+func processInput(s string) error {
+    n, err := parsePositiveInt(s)
+    if err != nil {
+        return fmt.Errorf("processInput: %w", err)  // wrap again, adding context
+    }
+    fmt.Println("Processed:", n)
+    return nil
+}
+
+func main() {
+    err := processInput("-5")
+    if err != nil {
+        // errors.Is checks the entire error chain (unwraps via %w)
+        var valErr *ValidationError
+        if errors.As(err, &amp;valErr) {
+            fmt.Println("Validation error on field:", valErr.Field)
+        }
+        fmt.Println("Full error:", err)
+        // Output: processInput: parsePositiveInt: validation failed on value: must be positive
+    }
+
+    // errors.Is for sentinel errors
+    err2 := fmt.Errorf("lookup: %w", ErrNotFound)
+    fmt.Println(errors.Is(err2, ErrNotFound))  // true — unwraps the chain
+}</code></pre>
+
+    <div class="box tip">
+      <strong>Error wrapping convention:</strong> Always wrap errors with context using <code>fmt.Errorf("operationName: %w", err)</code>. This builds a call-stack-like chain. At the top level you log the full error string and get a complete picture of what happened without a stack trace. Never swallow errors silently — at minimum, log them.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Interfaces — Implicit Satisfaction</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> In Java or C#, implementing an interface is like signing a contract before doing the job. In Go, it's like a job interview — if you can demonstrate the skills on the spot, you're hired, no contract needed. A type satisfies an interface simply by having the right methods.
+    </div>
+
+    <p>This has a profound consequence: Go interfaces are defined by the <em>consumer</em>, not the <em>producer</em>. You can define an interface for any type you don't own and use it polymorphically without modifying that type's package.</p>
+
+    <pre><code>package main
+
+import (
+    "bytes"
+    "fmt"
+    "os"
+)
+
+// io.Writer is defined in the standard library as:
+// type Writer interface {
+//     Write(p []byte) (n int, err error)
+// }
+
+// Our custom logger accepts any io.Writer
+type Logger struct {
+    out    io.Writer
+    prefix string
+}
+
+func NewLogger(out io.Writer, prefix string) *Logger {
+    return &amp;Logger{out: out, prefix: prefix}
+}
+
+func (l *Logger) Log(message string) {
+    fmt.Fprintf(l.out, "[%s] %s\n", l.prefix, message)
+}
+
+// All of these satisfy io.Writer without any declaration:
+//   os.Stdout       (*os.File has Write method)
+//   os.Stderr
+//   bytes.Buffer    (*bytes.Buffer has Write method)
+//   http.ResponseWriter
+
+func main() {
+    // Log to stdout
+    stdLogger := NewLogger(os.Stdout, "INFO")
+    stdLogger.Log("server started")
+
+    // Log to a buffer (useful in tests)
+    var buf bytes.Buffer
+    bufLogger := NewLogger(&amp;buf, "TEST")
+    bufLogger.Log("test message")
+    fmt.Println("Captured:", buf.String())
+}
+
+// Define a small, focused interface yourself
+type Storer interface {
+    Get(key string) ([]byte, error)
+    Set(key string, value []byte) error
+    Delete(key string) error
+}
+
+// Now any struct with these three methods satisfies Storer
+// — whether it's a Redis client, a Postgres implementation,
+//   an in-memory map for tests, or a file system adapter</code></pre>
+
+    <div class="box key-term">
+      <strong>Interface size principle:</strong> The Go standard library's most used interfaces are tiny — <code>io.Reader</code> has one method, <code>io.Writer</code> has one method, <code>error</code> has one method. Prefer small interfaces. A large interface is a sign you're designing around implementation rather than behavior.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Go Modules</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> <code>go.mod</code> is your shopping list — what you need. <code>go.sum</code> is the receipt with cryptographic checksums — proof that what you got is exactly what was listed. Neither can be tampered with without you noticing.
+    </div>
+
+    <pre><code>// go.mod — created with `go mod init module-path`
+module github.com/yourcompany/yourservice
+
+go 1.22
+
+require (
+    github.com/gin-gonic/gin v1.9.1
+    github.com/jackc/pgx/v5 v5.5.4
+    go.uber.org/zap v1.27.0
+)
+
+// Common module commands:
+// go get github.com/some/package@v1.2.3  — add/update dependency
+// go get github.com/some/package@latest  — upgrade to latest
+// go mod tidy                            — remove unused, add missing
+// go mod vendor                          — copy deps to vendor/ directory
+// go mod verify                          — check checksums against go.sum</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Building REST APIs — net/http and Gin</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> The standard library's <code>net/http</code> is a powerful but bare-bones toolkit — like building a desk from lumber. Gin is a pre-cut kit with hardware included. Both produce the same desk; Gin just requires less measuring.
+    </div>
+
+    <pre><code>package main
+
+import (
+    "net/http"
+    "strconv"
+
+    "github.com/gin-gonic/gin"
+    "go.uber.org/zap"
+)
+
+type OrderService interface {
+    GetOrder(id int) (*Order, error)
+    CreateOrder(req CreateOrderRequest) (*Order, error)
+}
+
+type Order struct {
+    ID     int     `json:"id"`
+    Amount float64 `json:"amount"`
+    Status string  `json:"status"`
+}
+
+type CreateOrderRequest struct {
+    Amount float64 `json:"amount" binding:"required,gt=0"`
+    Note   string  `json:"note"`
+}
+
+type OrderHandler struct {
+    svc    OrderService
+    logger *zap.Logger
+}
+
+func NewRouter(svc OrderService, logger *zap.Logger) http.Handler {
+    r := gin.New()
+
+    // Middleware
+    r.Use(gin.Recovery())  // recover from panics, return 500
+    r.Use(func(c *gin.Context) {
+        logger.Info("request",
+            zap.String("method", c.Request.Method),
+            zap.String("path", c.Request.URL.Path),
+        )
+        c.Next()
+    })
+
+    h := &amp;OrderHandler{svc: svc, logger: logger}
+
+    // Route groups
+    api := r.Group("/api/v1")
+    {
+        orders := api.Group("/orders")
+        orders.GET("/:id", h.GetOrder)
+        orders.POST("", h.CreateOrder)
+    }
+
+    return r
+}
+
+func (h *OrderHandler) GetOrder(c *gin.Context) {
+    idStr := c.Param("id")
+    id, err := strconv.Atoi(idStr)
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "invalid order id"})
+        return
+    }
+
+    order, err := h.svc.GetOrder(id)
+    if err != nil {
+        h.logger.Error("GetOrder failed", zap.Int("id", id), zap.Error(err))
+        c.JSON(http.StatusNotFound, gin.H{"error": "order not found"})
+        return
+    }
+
+    c.JSON(http.StatusOK, order)
+}
+
+func (h *OrderHandler) CreateOrder(c *gin.Context) {
+    var req CreateOrderRequest
+    if err := c.ShouldBindJSON(&amp;req); err != nil {
+        // ShouldBindJSON validates struct tags (binding:"required,gt=0")
+        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        return
+    }
+
+    order, err := h.svc.CreateOrder(req)
+    if err != nil {
+        h.logger.Error("CreateOrder failed", zap.Error(err))
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create order"})
+        return
+    }
+
+    c.JSON(http.StatusCreated, order)
+}</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Common Interview Gotchas</h2>
+
+    <h3>defer — LIFO Execution</h3>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> <code>defer</code> is like putting something on a stack of sticky notes for "when I leave the room." The last note you stick on is the first you read on the way out.
+    </div>
+
+    <pre><code>func cleanup() {
+    defer fmt.Println("first defer — runs LAST")
+    defer fmt.Println("second defer — runs SECOND")
+    defer fmt.Println("third defer — runs FIRST")
+    fmt.Println("doing work")
+}
+// Output:
+// doing work
+// third defer — runs FIRST
+// second defer — runs SECOND
+// first defer — runs LAST
+
+// Classic defer for resource cleanup
+func readFile(path string) ([]byte, error) {
+    f, err := os.Open(path)
+    if err != nil {
+        return nil, fmt.Errorf("readFile: %w", err)
+    }
+    defer f.Close()  // always closes, even if error below
+    return io.ReadAll(f)
+}</code></pre>
+
+    <h3>Maps Are Not Safe for Concurrent Use</h3>
+
+    <pre><code>// RACE CONDITION — concurrent reads AND writes on the same map = undefined behavior
+m := make(map[string]int)
+go func() { m["key"] = 1 }()
+go func() { _ = m["key"] }()
+
+// FIX 1: sync.Mutex
+type SafeMap struct {
+    mu sync.RWMutex
+    m  map[string]int
+}
+func (s *SafeMap) Set(k string, v int) {
+    s.mu.Lock(); defer s.mu.Unlock()
+    s.m[k] = v
+}
+func (s *SafeMap) Get(k string) (int, bool) {
+    s.mu.RLock(); defer s.mu.RUnlock()
+    v, ok := s.m[k]; return v, ok
+}
+
+// FIX 2: sync.Map (good for mostly-reads or many-keys workloads)
+var sm sync.Map
+sm.Store("key", 42)
+if v, ok := sm.Load("key"); ok {
+    fmt.Println(v.(int))
+}</code></pre>
+
+    <h3>make vs new</h3>
+
+    <pre><code>// new(T) allocates zeroed memory for T, returns *T
+p := new(int)   // *int pointing to 0
+*p = 42
+
+// make(T, args) initializes slices, maps, channels — returns T (not *T)
+s := make([]int, 0, 10)    // slice: len=0, cap=10
+m := make(map[string]int)  // initialized map — ready to write
+ch := make(chan int, 5)     // buffered channel
+
+// WRONG — common mistake
+m2 := new(map[string]int)  // *map[string]int — the map itself is nil!
+// (*m2)["key"] = 1  // panic: assignment to nil map</code></pre>
+
+    <h3>panic vs error</h3>
+
+    <pre><code>// panic: for programmer errors — things that should never happen
+func mustPositive(n int) int {
+    if n &lt;= 0 {
+        panic(fmt.Sprintf("mustPositive: got %d", n))
+    }
+    return n
+}
+
+// recover: catch a panic inside a deferred function
+func safeDiv(a, b int) (result int, err error) {
+    defer func() {
+        if r := recover(); r != nil {
+            err = fmt.Errorf("recovered panic: %v", r)
+        }
+    }()
+    return a / b, nil
+}
+
+// RULE: return error for expected failure conditions
+//        use panic only for invariant violations (nil pointer you guaranteed wouldn't be nil, etc.)
+//        HTTP servers should recover from panics in middleware so one bad request doesn't kill the server</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Goroutines vs Threads — The Scheduling Model</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> OS threads are like full-time employees — expensive to hire, have a fixed desk, and go through HR. Goroutines are like freelancers — cheap, flexible, and the Go scheduler (the agency) decides which freelancer sits at which desk (OS thread) at any moment.
+    </div>
+
+    <div class="diagram">
+      <table>
+        <thead><tr><th></th><th>OS Thread</th><th>Goroutine</th></tr></thead>
+        <tbody>
+          <tr><td>Stack size</td><td>~1 MB fixed</td><td>2 KB, grows dynamically to ~1 GB</td></tr>
+          <tr><td>Creation cost</td><td>Syscall, ~1ms</td><td>~1 microsecond</td></tr>
+          <tr><td>Practical limit</td><td>Thousands</td><td>Hundreds of thousands</td></tr>
+          <tr><td>Scheduling</td><td>OS preemptive</td><td>Go runtime cooperative + preemptive</td></tr>
+          <tr><td>Context switch</td><td>Kernel space, expensive</td><td>User space, cheap</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Go uses an <strong>M:N threading model</strong>: M goroutines are multiplexed onto N OS threads by the Go runtime scheduler (GOMAXPROCS controls N, defaulting to CPU count). When a goroutine blocks on I/O or a channel, the scheduler parks it and runs another goroutine on that OS thread — the OS thread is never idle waiting for I/O.</p>
+
+    <pre><code>// GOMAXPROCS — number of OS threads running Go code simultaneously
+import "runtime"
+
+func main() {
+    // By default = number of logical CPUs
+    fmt.Println("Logical CPUs:", runtime.NumCPU())
+    fmt.Println("GOMAXPROCS:", runtime.GOMAXPROCS(0))  // 0 = query, don't change
+
+    // Goroutine count — useful for leak detection
+    fmt.Println("Goroutines:", runtime.NumGoroutine())
+}</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Senior vs Junior Comparison</h2>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior answer — "Explain goroutines vs OS threads"</span>
+      <p>"Goroutines are like threads but lighter. You can have a lot more of them. They're cheap to create."</p>
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior answer</span>
+      <p>"Goroutines use an M:N threading model — the Go runtime scheduler maps M goroutines onto N OS threads, where N is typically GOMAXPROCS (defaults to CPU count). Each goroutine starts with a 2 KB stack that grows dynamically, versus a fixed 1 MB for an OS thread. You can realistically run hundreds of thousands of goroutines.</p>
+      <p>The critical difference is how blocking works. When a goroutine blocks on a channel or network I/O, the Go scheduler detects this and runs another goroutine on that OS thread — the OS thread itself is never blocked on I/O. The runtime uses non-blocking syscalls with epoll/kqueue under the hood. This is why Go services handle massive concurrency without the C10k problem.</p>
+      <p>The biggest production pitfall is goroutine leaks — a goroutine blocked on a channel nobody will write to or read from runs forever. We prevent this by propagating context.Context through all long-running operations and selecting on ctx.Done() alongside any channel operation. You can detect leaks with runtime.NumGoroutine() in tests or with pprof's /debug/pprof/goroutine endpoint in production."</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Practice Questions</h2>
+
+    <div class="exercises">
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p><strong>Q: What is the difference between a buffered and an unbuffered channel in Go?</strong></p>
+        <p><strong>A:</strong> An unbuffered channel (<code>make(chan int)</code>) requires the sender and receiver to be ready at exactly the same time. The send blocks until a receiver is ready, and the receive blocks until a sender sends. Think of it as a handshake — both hands must be extended simultaneously. A buffered channel (<code>make(chan int, 5)</code>) has an internal queue. The sender can deposit up to 5 items without a receiver being ready; it only blocks when the buffer is full. The receiver only blocks when the buffer is empty. Use unbuffered channels for synchronization and rendezvous; use buffered channels to decouple sender and receiver speeds.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p><strong>Q: What is a goroutine leak and how do you prevent it? Give a specific code example.</strong></p>
+        <p><strong>A:</strong> A goroutine leak occurs when a goroutine is stuck waiting on a channel that will never receive data or is never drained — it continues consuming memory and scheduler resources indefinitely. Prevention: (1) Always pass a <code>context.Context</code> to long-running goroutines and select on <code>ctx.Done()</code>. (2) Use buffered channels (size 1 is often enough) so that a goroutine can send its result even if the receiver has moved on. (3) Use <code>context.WithTimeout</code> for all operations with an expected duration. In tests, assert <code>runtime.NumGoroutine()</code> before and after to detect leaks. In production, expose <code>/debug/pprof/goroutine?debug=1</code> and monitor the goroutine count metric.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p><strong>Q: Implement a concurrent rate limiter in Go that allows at most N requests per second using the token bucket algorithm. The implementation must be safe for concurrent use.</strong></p>
+
+        <pre><code>package ratelimit
+
+import (
+    "context"
+    "sync"
+    "time"
+)
+
+// TokenBucket implements a thread-safe token bucket rate limiter.
+// The bucket holds up to Capacity tokens. Tokens are added at Rate per second.
+// Each call to Allow() consumes one token. If no token is available, it either
+// waits (via Wait) or returns false (via Allow).
+type TokenBucket struct {
+    capacity  float64
+    tokens    float64
+    rate      float64     // tokens per second
+    lastFill  time.Time
+    mu        sync.Mutex
+}
+
+// New creates a rate limiter allowing `rate` events per second with a
+// burst capacity of `capacity`.
+func New(rate float64, capacity float64) *TokenBucket {
+    return &amp;TokenBucket{
+        capacity: capacity,
+        tokens:   capacity, // start full
+        rate:     rate,
+        lastFill: time.Now(),
+    }
+}
+
+// refill adds tokens proportional to elapsed time since last call.
+// Must be called with mu held.
+func (tb *TokenBucket) refill() {
+    now := time.Now()
+    elapsed := now.Sub(tb.lastFill).Seconds()
+    tb.tokens = min(tb.capacity, tb.tokens+elapsed*tb.rate)
+    tb.lastFill = now
+}
+
+// Allow returns true if a token is available and consumes it.
+// Returns false immediately if the bucket is empty (non-blocking).
+func (tb *TokenBucket) Allow() bool {
+    tb.mu.Lock()
+    defer tb.mu.Unlock()
+
+    tb.refill()
+    if tb.tokens &gt;= 1 {
+        tb.tokens--
+        return true
+    }
+    return false
+}
+
+// Wait blocks until a token is available or the context is cancelled.
+func (tb *TokenBucket) Wait(ctx context.Context) error {
+    for {
+        tb.mu.Lock()
+        tb.refill()
+        if tb.tokens &gt;= 1 {
+            tb.tokens--
+            tb.mu.Unlock()
+            return nil
+        }
+        // Calculate how long until the next token arrives
+        waitFor := time.Duration((1-tb.tokens)/tb.rate * float64(time.Second))
+        tb.mu.Unlock()
+
+        select {
+        case &lt;-ctx.Done():
+            return ctx.Err()
+        case &lt;-time.After(waitFor):
+            // retry
+        }
+    }
+}
+
+func min(a, b float64) float64 {
+    if a &lt; b { return a }
+    return b
+}
+
+// Usage example
+// limiter := ratelimit.New(100, 200)  // 100 req/s, burst up to 200
+//
+// func handler(ctx context.Context) error {
+//     if err := limiter.Wait(ctx); err != nil {
+//         return err  // context cancelled
+//     }
+//     return doWork()
+// }</code></pre>
+
+        <p><strong>Key design decisions:</strong> The mutex protects both the token count and the last-fill timestamp — they must be updated atomically or you'll double-count elapsed time on concurrent calls. Refilling on every check (lazy refill) is simpler than a background ticker and avoids a goroutine. The <code>Wait</code> method calculates how long to sleep rather than busy-polling, reducing CPU usage. Passing a <code>context.Context</code> allows the caller to cancel waiting (e.g., if the HTTP request is cancelled). A burst capacity larger than the rate allows absorbing short spikes without dropping traffic — critical for real-world workloads.</p>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <div class="summary">
+      <h3>Chapter 27 Summary</h3>
+      <ul>
+        <li>Goroutines are multiplexed onto OS threads by the Go scheduler (M:N model) — 2 KB stack, microsecond creation, suitable for hundreds of thousands concurrent; always propagate context to avoid goroutine leaks.</li>
+        <li>Error handling is explicit by design: every fallible function returns <code>(result, error)</code>; wrap errors with <code>fmt.Errorf("%w", err)</code> to build a context chain; use <code>errors.Is</code> and <code>errors.As</code> for type checking.</li>
+        <li>Interfaces are satisfied implicitly — if a type has the required methods it satisfies the interface, enabling powerful composition and easy testing without modifying third-party packages.</li>
+        <li>Maps are not safe for concurrent use — use <code>sync.Mutex</code> with a wrapper or <code>sync.Map</code> for concurrent access; <code>defer</code> executes in LIFO order at function return, not at the point of declaration.</li>
+        <li>Go prioritizes clarity: small interfaces, explicit errors, and no generics bloat (pre-Go 1.18) make the codebase readable by anyone on the team — a key production advantage over feature-heavy languages.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> PHP — the language that runs 43% of the web, and whose modern 8.x incarnation is nothing like its reputation suggests.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-26.html"><span class="nav-label">← Previous</span><span class="nav-title">C# Deep Dive</span></a>
+      <a href="chapter-28.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">PHP Deep Dive</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

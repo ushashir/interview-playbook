@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 32: Architecture Patterns for Senior Engineers — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-5">Part 5 · Chapter 32</div>
+      <h1>Architecture Patterns for Senior Engineers</h1>
+      <p class="chapter-intro">The patterns that appear in Staff and Senior Engineer discussions — not textbook definitions, but how you'd argue for or against them in a real interview.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>Event-driven architecture: loose coupling, independent scaling, and the hard parts</li>
+        <li>CQRS in depth: read model optimization and event sourcing as a projection</li>
+        <li>Hexagonal Architecture: why it matters for testability and long-term maintainability</li>
+        <li>Strangler Fig: how to migrate a monolith without a big-bang rewrite</li>
+        <li>API Gateway patterns: BFF, aggregation, and centralized auth</li>
+        <li>Data consistency patterns: outbox, CDC, and when to use two-phase commit</li>
+      </ul>
+    </div>
+
+    <blockquote>
+      <p>"Knowing design patterns is junior. Knowing when to apply them and when they're overkill is senior. This chapter covers the patterns that appear in real Staff and Senior Engineer discussions — not textbook definitions, but how you'd actually argue for or against them."</p>
+    </blockquote>
+
+    <div class="box analogy">
+      <strong>Analogy: Medical Diagnosis</strong>
+      <p>A doctor who has memorized 100 treatments but cannot diagnose is dangerous. They might prescribe the right drug for the wrong condition. A skilled doctor diagnoses first, then matches treatment to patient and context.</p>
+      <p>Architecture patterns are treatments. Knowing event-driven architecture, CQRS, and the strangler fig pattern is table stakes at senior level. What separates senior from staff is knowing when to prescribe each — and being able to argue against them when the context doesn't warrant the complexity.</p>
+    </div>
+
+    <h2>Pattern 1: Event-Driven Architecture</h2>
+
+    <div class="box analogy">
+      <strong>Analogy: A Newsroom</strong>
+      <p>The editor publishes a story. The print department, the website team, the social media team, and the archive team each independently decide how to respond to it. The editor doesn't know who subscribes, doesn't wait for them to respond, and doesn't care if the social media post takes 30 seconds to go out. Publishers and subscribers are completely decoupled.</p>
+    </div>
+
+    <p>In an event-driven system, services communicate by publishing events to a shared bus (Kafka, EventBridge, SNS) rather than calling each other directly. Publishers emit facts — "order placed," "payment succeeded," "user registered" — without knowing who cares or what they'll do with the information.</p>
+
+    <div class="diagram">
+<pre>
+Synchronous (tight coupling):
+  [Order Service] ──call──→ [Inventory Service]
+                 ──call──→ [Notification Service]
+                 ──call──→ [Analytics Service]
+  Problem: Order Service must know about all three. If any is down, order fails.
+
+Event-Driven (loose coupling):
+  [Order Service] → publish "order.placed" → [Kafka]
+                                                 |
+                              ┌──────────────────┼──────────────────┐
+                    [Inventory Consumer]  [Notification Consumer]  [Analytics Consumer]
+                    (reduce stock)        (send email)             (record event)
+
+  Order Service knows nothing about downstream services.
+  Each consumer independently scales, deploys, and fails.
+</pre>
+    </div>
+
+    <p><strong>When to use event-driven architecture:</strong></p>
+    <ul>
+      <li>Large systems with many teams: teams own their consumers independently</li>
+      <li>Independent scaling: notification service spikes during marketing campaigns, not during checkout</li>
+      <li>Audit trail required: every event is persisted in Kafka with replay capability</li>
+      <li>Long-running workflows: saga pattern coordinates multi-step processes via events</li>
+    </ul>
+
+    <p><strong>When NOT to use event-driven architecture:</strong></p>
+    <ul>
+      <li>Small teams: the operational overhead of Kafka + consumer management outweighs benefits for &lt;5 engineers</li>
+      <li>Synchronous responses required: if the user needs an answer before they can proceed, async events don't fit</li>
+      <li>Simple CRUD apps: adding Kafka to a to-do list app is pure overhead</li>
+    </ul>
+
+    <p><strong>The hard parts that interviewers probe:</strong></p>
+    <ul>
+      <li><strong>Eventual consistency:</strong> downstream services update after a delay. The order service says "paid" but the inventory service hasn't yet decremented the stock. This is acceptable for many use cases and unacceptable for others — be explicit about which.</li>
+      <li><strong>Debugging:</strong> tracing a request through 5 async consumers requires distributed tracing (Jaeger, Zipkin) with a shared correlation ID propagated through every event.</li>
+      <li><strong>Event schema evolution:</strong> if the "order.placed" event schema changes, all consumers must be updated. Backward-compatible changes (additive fields) are safe. Removing fields breaks consumers. Use Avro or Protobuf with a schema registry to enforce compatibility.</li>
+    </ul>
+
+    <div class="box warning">
+      <strong>Interview red flag:</strong> Describing event-driven architecture as "just use Kafka and everything is decoupled." The coupling moves from service-to-service calls to the event schema. Schema evolution is a hidden, long-term coupling that you must address.
+    </div>
+
+    <h2>Pattern 2: CQRS in Depth</h2>
+
+    <div class="box analogy">
+      <strong>Analogy: A Restaurant with Separate Kitchen Staff</strong>
+      <p>The head chef handles complex dish preparation (writes). A separate expediter handles plating and delivery (reads). Different people, different tools, optimized for different tasks. Trying to use the same person for both creates a bottleneck — and a mess.</p>
+    </div>
+
+    <p>Command Query Responsibility Segregation (CQRS) separates the write model (commands that change state) from the read model (queries that return data). This allows each to be independently optimized.</p>
+
+    <h3>Read Model Optimization</h3>
+    <p>The write model normalizes data for integrity (3NF: users table, orders table, line_items table, products table). The read model denormalizes for query performance — a single "order summary" document containing everything a UI needs, pre-joined.</p>
+
+    <div class="diagram">
+<pre>
+Write Model (normalized):
+  users(id, name, email)
+  orders(id, user_id, status, created_at)
+  order_items(id, order_id, product_id, qty, price)
+  products(id, name, image_url)
+
+  Write: INSERT/UPDATE one table at a time. Transactionally consistent.
+  JOIN query for order page: 4 table join — expensive at scale.
+
+Read Model (denormalized, CQRS):
+  order_summaries(
+    order_id, user_name, user_email,
+    status, total,
+    items: [{ name, image_url, qty, price }],
+    created_at
+  )
+
+  Read: single document lookup by order_id. O(1).
+  No joins. Pre-computed. Served from Redis or read replica.
+
+  Updated by: event consumer that listens for "order.*" events
+              and projects the write model onto the read model.
+</pre>
+    </div>
+
+    <h3>Event Sourcing + CQRS</h3>
+    <p>Event sourcing takes CQRS further: the write model stores only events (immutable facts), not current state. Current state is a projection — computed by replaying all events.</p>
+
+    <div class="diagram">
+<pre>
+Event Sourcing:
+  Events table (append-only):
+    { type: "OrderPlaced",   orderId: 123, userId: 456, ts: ... }
+    { type: "PaymentMade",   orderId: 123, amount: 99.00, ts: ... }
+    { type: "OrderShipped",  orderId: 123, trackingCode: "UPS123", ts: ... }
+
+  Current state of order 123: replay all events in sequence
+    → status: SHIPPED, total: 99.00, tracking: UPS123
+
+  Advantages:
+    - Complete audit trail (immutable)
+    - Replay events to rebuild read models after bugs
+    - Time-travel: reconstruct state at any point in history
+
+  Disadvantages:
+    - Current state requires replaying all events (mitigate with snapshots)
+    - Schema evolution of events is hard
+    - Overkill for most domains — only use where audit/replay is genuinely required
+
+Code sketch — projecting to Redis read model:
+</pre>
+<pre><code>// Event handler: when 'order.shipped' event arrives
+async function onOrderShipped(event: OrderShippedEvent) {
+  const key = `order:${event.orderId}:summary`;
+  const current = await redis.get(key);
+  const summary = JSON.parse(current);
+
+  summary.status = 'SHIPPED';
+  summary.trackingCode = event.trackingCode;
+  summary.shippedAt = event.timestamp;
+
+  await redis.set(key, JSON.stringify(summary));
+  // Read model is now up to date — no JOIN query required
+}</code></pre>
+    </div>
+
+    <p><strong>Eventual consistency on reads:</strong> between a write event and the read model being updated, there's a window (typically milliseconds to seconds) where the read model is stale. This is acceptable for most read operations. For critical reads (payment confirmation), read directly from the write model. Design explicitly: "reads of payment status come from PostgreSQL directly — we don't accept staleness there. Order history reads come from the denormalized read model — 30-second staleness is acceptable."</p>
+
+    <h2>Pattern 3: Hexagonal Architecture (Ports and Adapters)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy: A Universal Power Adapter</strong>
+      <p>Your laptop doesn't care if you plug it into a UK socket, a US socket, or a European socket. The adapter handles the translation. The laptop's core functionality — running your code — is completely isolated from the specifics of electrical standards in different countries.</p>
+      <p>Hexagonal architecture does this for your business logic. The core doesn't care if it's talking to PostgreSQL or MongoDB, a REST endpoint or a message queue. Adapters handle the translation.</p>
+    </div>
+
+    <p>In hexagonal architecture, the application is divided into:</p>
+    <ul>
+      <li><strong>Core (Domain)</strong>: pure business logic with no infrastructure dependencies. Can run with no database, no HTTP, no Kafka.</li>
+      <li><strong>Ports</strong>: interfaces the core defines. The core says "I need something that can save a user" — that's a port (UserRepository interface). The core says "I expose this operation" — that's also a port (CreateOrderUseCase interface).</li>
+      <li><strong>Adapters</strong>: implementations of ports. PostgresUserRepository implements UserRepository. InMemoryUserRepository also implements UserRepository — used in tests.</li>
+    </ul>
+
+    <div class="diagram">
+<pre>
+Hexagonal Architecture:
+
+          [REST Controller]   [Kafka Consumer]   [CLI]
+               |                    |              |
+           (Primary Adapters — drive the application)
+               |                    |              |
+               └────────────────────┴──────────────┘
+                                    |
+                          ┌─────────▼──────────┐
+                          │    CORE / DOMAIN   │
+                          │  Business Logic    │
+                          │  (no imports of   │
+                          │   Postgres, Redis, │
+                          │   HTTP, etc.)      │
+                          └─────────┬──────────┘
+                                    |
+               ┌────────────────────┴──────────────┐
+               |                    |              |
+           (Secondary Adapters — driven by the application)
+               |                    |              |
+    [PostgresUserRepo]   [RedisCache]   [SendGridEmailAdapter]
+    implements            implements      implements
+    UserRepository        CachePort       EmailPort
+</pre>
+    </div>
+
+    <p><strong>Why it matters for testability:</strong> In tests, swap PostgresUserRepository for InMemoryUserRepository. Your business logic tests run in milliseconds with no database required. This is the most practical benefit — not theoretical purity, but genuinely fast, reliable tests.</p>
+
+    <p><strong>NestJS directory structure example:</strong></p>
+
+    <div class="diagram">
+<pre>
+src/
+  orders/
+    domain/                    ← Core: no infrastructure
+      order.entity.ts
+      order.repository.ts      ← Port (interface)
+      create-order.use-case.ts ← Business logic
+
+    adapters/
+      inbound/                 ← Primary adapters (drive the app)
+        orders.controller.ts   ← REST
+        order-events.consumer.ts ← Kafka
+
+      outbound/                ← Secondary adapters (driven by app)
+        postgres-order.repository.ts  ← implements order.repository.ts
+        redis-order-cache.ts
+        sendgrid-notification.ts
+
+    orders.module.ts           ← Wire up: bind interface to implementation
+</pre>
+    </div>
+
+    <div class="box tip">
+      <strong>Interview tip:</strong> When asked "how do you structure your NestJS services?" describing hexagonal architecture with this directory structure immediately signals you think about long-term maintainability, not just getting features out. Most candidates describe a flat controllers/services/repos structure — hexagonal differentiates you.
+    </div>
+
+    <h2>Pattern 4: Strangler Fig (Migrating a Monolith)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy: The Strangler Fig Vine</strong>
+      <p>A strangler fig starts as a vine growing around an existing tree. Over years, it grows around the host tree, eventually replacing it. The original tree decomposes from within, leaving the fig standing in the same shape. At no point is the forest without a tree. You never clear-cut and replant.</p>
+      <p>This is exactly how you should migrate a monolith to microservices. Never clear-cut. Never stop the forest.</p>
+    </div>
+
+    <p>The strangler fig migration strategy allows you to incrementally extract functionality from a monolith into services, with the monolith continuing to run throughout the process. Users experience no disruption. Rollback is always available.</p>
+
+    <div class="diagram">
+<pre>
+Strangler Fig Migration Steps:
+
+PHASE 0: Status Quo
+  [Client] → [Monolith] (handles everything)
+
+PHASE 1: Add Facade (proxy layer)
+  [Client] → [Facade / API Gateway]
+                    |
+              [Monolith] (still handles everything)
+  The facade adds zero value at first — just a passthrough.
+  But now you control routing.
+
+PHASE 2: Extract first service (new features go here)
+  [Client] → [Facade / API Gateway]
+               |              |
+        [Notification      [Monolith]
+          Service]         (still handles most things)
+  New "notification preferences" feature → built in the new service
+  Old notification code in monolith still runs old features
+
+PHASE 3: Migrate existing features incrementally
+  For each bounded context (user management, orders, payments):
+    1. Build the service with the same behavior
+    2. Route 1% of traffic to new service (canary)
+    3. Compare outputs (shadow mode)
+    4. Ramp to 100% when confident
+    5. Remove that module from the monolith
+
+PHASE 4 (eventual): Monolith retired
+  [Client] → [API Gateway]
+               |    |    |
+           [User] [Order] [Payment]
+               Services
+
+  The monolith process can now be shut down.
+</pre>
+    </div>
+
+    <p><strong>What NOT to do — the Big Bang Rewrite:</strong> "Let's stop feature development for 6 months, rewrite everything from scratch, and then switch over." This almost always fails or causes chaos. The rewrite is never complete when promised, the old system accumulates new features during the rewrite that must be re-replicated, and the switch-over day is a crisis. The strangler fig's value is that you never have a switch-over day.</p>
+
+    <p><strong>Key principles for strangler fig execution:</strong></p>
+    <ul>
+      <li>Identify bounded contexts before extracting — don't split arbitrarily by technical layer (services layer, repos layer), split by business domain</li>
+      <li>Start with new features, not rewrites of existing features — reduce risk early</li>
+      <li>Measure before and after each extraction: latency, error rate, throughput</li>
+      <li>Maintain data compatibility during transition — both monolith and service may need to read/write shared data temporarily</li>
+    </ul>
+
+    <h2>Pattern 5: API Gateway Patterns</h2>
+
+    <div class="box analogy">
+      <strong>Analogy: A Hotel Concierge</strong>
+      <p>A hotel guest doesn't call the kitchen, the housekeeping department, and the valet separately. They call the concierge, who coordinates all of it. The guest makes one call, the concierge handles the rest. The API gateway is your concierge.
+      </p>
+    </div>
+
+    <h3>Backend for Frontend (BFF)</h3>
+    <p>A single API gateway for all clients is a compromise — the mobile app needs different data shapes than the web app, and both need different things than a third-party partner API. The BFF pattern creates separate gateway instances per client type, each optimized for its client's needs.</p>
+
+    <div class="diagram">
+<pre>
+Without BFF (one API fits all — poorly):
+  [Web App]    ─┐
+  [Mobile App] ─┤→ [Single API Gateway] → [Services]
+  [Partner API]─┘
+  Problem: API becomes a bloated compromise
+
+With BFF:
+  [Web App]     → [Web BFF]     → aggregates data optimized for desktop UI
+  [Mobile App]  → [Mobile BFF]  → minimal payload, battery-efficient responses
+  [Partner API] → [Partner BFF] → versioned, stable, documented API surface
+  Each BFF independently deployed, independently versioned.
+</pre>
+    </div>
+
+    <h3>Aggregation at the Gateway</h3>
+    <p>Rather than the client making 5 separate API calls to render a page (user profile + recent orders + notifications + recommendations + cart), the gateway aggregates: calls all 5 services in parallel, merges the responses, and returns one payload. This reduces client latency (one round-trip vs. five) and reduces the number of connections clients must manage.</p>
+
+    <div class="diagram">
+<pre>
+Gateway Aggregation (parallel fan-out):
+  Client → GET /dashboard
+               |
+         [API Gateway]
+          /   |   |   \
+    [User] [Orders] [Notif] [Cart]  ← parallel calls
+          \   |   |   /
+           merged response
+               |
+          Client renders
+
+  Latency: max(user, orders, notif, cart) instead of sum
+  Timeout: if one service exceeds 500ms, return partial data + default
+</pre>
+    </div>
+
+    <h3>Rate Limiting and Auth at the Gateway</h3>
+    <p>Authentication (JWT validation) and rate limiting should live at the gateway, not duplicated in every downstream service. If every service validates JWT independently, a security bug in the validation logic must be patched in 20 places. Centralized at the gateway: patch once.</p>
+
+    <p>Rate limiting at the gateway: 1000 requests/minute per API key. Services never see more than their designed load. Downstream services trust that requests passing the gateway are authenticated and within rate limits.</p>
+
+    <h2>Pattern 6: Data Consistency Patterns</h2>
+
+    <div class="box analogy">
+      <strong>Analogy: Moving Houses</strong>
+      <p>When you move, you need your furniture out of the old house and into the new one without ever having no furniture at all. Data consistency patterns are strategies for moving data between systems while keeping everything coherent — no data in neither place, no data in both places at once.</p>
+    </div>
+
+    <h3>Outbox Pattern (recap)</h3>
+    <p>Write to the database and insert an "outbox" event row in the same transaction. A relay service polls the outbox and publishes to Kafka. Guarantees at-least-once event delivery without distributed transactions. Covered in detail in Chapter 31.</p>
+
+    <h3>Change Data Capture (CDC)</h3>
+    <p>Debezium reads the PostgreSQL write-ahead log (WAL) — the database's own durability mechanism — and publishes change events to Kafka. Every INSERT, UPDATE, DELETE becomes a Kafka event. No changes to application code required.</p>
+
+    <div class="diagram">
+<pre>
+CDC Architecture:
+  [Application] → writes to [PostgreSQL]
+                                |
+                    PostgreSQL WAL (write-ahead log)
+                                |
+                         [Debezium Connector]
+                         (reads WAL as a Postgres client)
+                                |
+                           [Kafka topics]
+                           "postgres.public.orders"
+                                |
+                  ┌─────────────┴──────────────┐
+        [Elasticsearch Indexer]      [Analytics Consumer]
+        [Read Model Updater]         [Audit Log Writer]
+
+  Advantages over dual-write:
+    - Application writes to ONE place (Postgres only)
+    - No risk of partial write (DB wrote, Kafka didn't)
+    - Captures all changes including bulk updates and admin edits
+    - Zero application code change to add a new consumer
+</pre>
+    </div>
+
+    <h3>Two-Phase Commit (2PC)</h3>
+    <p>Two-phase commit achieves strong consistency across multiple databases or services without an outbox pattern. In phase 1 (prepare), all participants vote whether they can commit. In phase 2 (commit or abort), the coordinator either commits all or aborts all based on votes.</p>
+
+    <div class="diagram">
+<pre>
+Two-Phase Commit:
+  Phase 1 (Prepare):
+    Coordinator → "Can you commit?" → Database A → "YES (vote)"
+    Coordinator → "Can you commit?" → Database B → "YES (vote)"
+
+  Phase 2 (Commit):
+    All voted YES → Coordinator → "Commit" → Database A + B commit
+
+  Phase 2 (Abort):
+    Any voted NO  → Coordinator → "Abort"  → Database A + B roll back
+
+  Problem: if coordinator crashes after Phase 1 but before Phase 2,
+  participants are stuck in limbo — blocking protocol.
+  This is why 2PC is rarely used in practice for distributed systems.
+  Know the theory. Explain why you'd use Saga + Outbox instead.
+</pre>
+    </div>
+
+    <p><strong>When 2PC is used in practice:</strong> within a single database engine (PostgreSQL supports 2PC for distributed queries with its foreign data wrapper). Across entirely separate systems, the blocking nature and coordinator single-point-of-failure make it impractical. The outbox pattern + saga pattern provides equivalent consistency guarantees without the blocking.</p>
+
+    <h2>Senior vs. Junior: Monolith Migration</h2>
+
+    <p><em>"How would you migrate our monolith to microservices?"</em></p>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior</span>
+      <p>"I'd break it up into smaller services. Maybe take each module and make it a separate service with its own database. Probably need Docker and Kubernetes."</p>
+      <p><em>Problems: no migration strategy, no risk mitigation, no mention of bounded contexts, no discussion of data sharing during transition, no plan for what happens when the new services have bugs, no rollback strategy.</em></p>
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior</span>
+      <p>"I'd use the Strangler Fig pattern — never a big-bang rewrite. First step: add a facade (API gateway) in front of the monolith with a passthrough configuration. This costs nothing and immediately gives us routing control.</p>
+      <p>Next, I'd identify bounded contexts within the monolith — not technical layers, but business domains. For a typical e-commerce monolith: user management, catalog, orders, payments, notifications. Each becomes a candidate service.</p>
+      <p>I'd start with new features rather than rewrites — any new capability goes into a new service from day one, routed through the facade. This builds team confidence and production experience with the new infrastructure without risking existing functionality.</p>
+      <p>For migrating existing features, I'd do canary releases: route 1% of traffic to the new service, compare outputs to the monolith in shadow mode, ramp up when parity is confirmed. Rollback is always one routing change away.</p>
+      <p>The key risk is shared data during migration. If both the monolith and the orders service write to the same database table temporarily, that's acceptable — it's a migration, not a permanent state. Once the monolith's orders module is retired, the orders service owns its data exclusively.</p>
+      <p>Timeline: expect 6-18 months for a meaningful monolith depending on size. Anyone promising 3 months hasn't done this before."</p>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Event-driven architecture decouples services and enables independent scaling, but introduces eventual consistency and moves coupling from service calls to event schemas — schema evolution is the long-term challenge.</li>
+        <li>CQRS separates write and read models for independent optimization; event sourcing takes this further by storing events as the write model, with current state computed as a projection. Use event sourcing only where audit trail and replay are genuine requirements.</li>
+        <li>Hexagonal architecture (ports and adapters) isolates business logic from infrastructure, enabling fast tests with in-memory adapters and painless swaps of infrastructure components — the practical benefit is test speed, not theoretical elegance.</li>
+        <li>The Strangler Fig is the only safe monolith migration strategy at production scale: facade first, new features in services second, incremental migration with canary releases third, monolith retirement last — never a big-bang rewrite.</li>
+        <li>Data consistency across services: use the outbox pattern for guaranteed event publishing, CDC (Debezium) for zero-code-change event generation from database changes, and sagas for multi-step workflow coordination. Two-phase commit is theoretically interesting but practically abandoned due to its blocking nature.</li>
+      </ul>
+    </div>
+
+    <div class="exercises">
+      <h4>Practice Questions</h4>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>You're asked to add CQRS to an existing e-commerce application. Walk through: what becomes the write model, what becomes the read model, how does the read model stay in sync, and what is the consistency guarantee for reads immediately after a write?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>An interviewer asks: "Should we add an API gateway to our system?" Your system currently has 5 backend services and 2 client types (web, mobile). Walk through the tradeoffs of adding a gateway vs. having clients call services directly. When does the gateway become worth the complexity?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p>You're leading a strangler fig migration of a 500K line Rails monolith. The monolith uses ActiveRecord, which means all models share one database. How do you handle data ownership during the migration? At what point does the orders service get its own database, and what does the transition look like?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p>Your event-driven system has 12 consumers of the "order.placed" event. You need to add a new required field (fulfillmentWarehouseId) to the event schema. Walk through the migration strategy that doesn't break existing consumers while they're updated. What role does a schema registry play?</p>
+      </div>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> You've completed the system design part of the playbook. Part 6 covers the interview process itself — how AI is changing interviews, and how to negotiate an offer that matches your worth.</p>
+    <div class="chapter-nav">
+      <a href="chapter-31.html"><span class="nav-label">← Previous</span><span class="nav-title">System Design Case Studies</span></a>
+      <a href="../part-6/chapter-33.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">AI-Assisted Interviews</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

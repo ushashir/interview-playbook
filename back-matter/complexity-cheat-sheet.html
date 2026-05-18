@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algorithm Complexity Cheat Sheet — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag" style="background:#4b5563;">Back Matter</div>
+      <h1>Algorithm Complexity Cheat Sheet</h1>
+      <p class="chapter-intro">Everything you need on one page, in the format your brain needs it during the interview.</p>
+    </div>
+
+    <!-- 1. Big O Reference Table -->
+    <h2>Big O Reference Table</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Notation</th>
+          <th>Name</th>
+          <th>Example</th>
+          <th>n = 100 operations (approx.)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>O(1)</code></td>
+          <td>Constant</td>
+          <td>Hash table lookup, array index access</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td><code>O(log n)</code></td>
+          <td>Logarithmic</td>
+          <td>Binary search, balanced BST lookup</td>
+          <td>~7</td>
+        </tr>
+        <tr>
+          <td><code>O(n)</code></td>
+          <td>Linear</td>
+          <td>Linear scan, single loop</td>
+          <td>100</td>
+        </tr>
+        <tr>
+          <td><code>O(n log n)</code></td>
+          <td>Linearithmic</td>
+          <td>Merge sort, heap sort, most efficient comparison sort</td>
+          <td>~664</td>
+        </tr>
+        <tr>
+          <td><code>O(n²)</code></td>
+          <td>Quadratic</td>
+          <td>Bubble sort, nested loop over same array</td>
+          <td>10,000</td>
+        </tr>
+        <tr>
+          <td><code>O(2^n)</code></td>
+          <td>Exponential</td>
+          <td>Recursive Fibonacci, subset enumeration</td>
+          <td>~1.27 × 10<sup>30</sup></td>
+        </tr>
+        <tr>
+          <td><code>O(n!)</code></td>
+          <td>Factorial</td>
+          <td>Brute-force permutations, travelling salesman</td>
+          <td>9.33 × 10<sup>157</sup></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 2. Complexity Ladder -->
+    <h2>Complexity Ladder</h2>
+    <div class="diagram">
+<pre>
+  BEST  ─────────────────────────────────────────────────
+  O(1)        Constant      │ Array[i], HashMap.get()
+  ─────────────────────────────────────────────────────
+  O(log n)    Logarithmic   │ Binary search, BST lookup
+  ─────────────────────────────────────────────────────
+  O(n)        Linear        │ Array scan, single for-loop
+  ─────────────────────────────────────────────────────
+  O(n log n)  Linearithmic  │ Merge sort, Tim sort
+  ─────────────────────────────────────────────────────
+  O(n²)       Quadratic     │ Bubble sort, nested loops
+  ─────────────────────────────────────────────────────
+  O(2^n)      Exponential   │ Recursive Fibonacci (naïve)
+  ─────────────────────────────────────────────────────
+  O(n!)       Factorial     │ Brute-force permutations
+  WORST ─────────────────────────────────────────────────
+</pre>
+    </div>
+
+    <!-- 3. Data Structures Operations Table -->
+    <h2>Data Structure Operations</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Structure</th>
+          <th>Access</th>
+          <th>Search</th>
+          <th>Insert</th>
+          <th>Delete</th>
+          <th>Space</th>
+          <th>Best Use Case</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Array</td>
+          <td><code>O(1)</code></td>
+          <td><code>O(n)</code></td>
+          <td><code>O(n)</code></td>
+          <td><code>O(n)</code></td>
+          <td><code>O(n)</code></td>
+          <td>Index-based access, cache-friendly iteration</td>
+        </tr>
+        <tr>
+          <td>Linked List</td>
+          <td><code>O(n)</code></td>
+          <td><code>O(n)</code></td>
+          <td><code>O(1)</code></td>
+          <td><code>O(1)</code></td>
+          <td><code>O(n)</code></td>
+          <td>Frequent head/tail insertions, unknown size</td>
+        </tr>
+        <tr>
+          <td>Stack</td>
+          <td><code>O(n)</code></td>
+          <td><code>O(n)</code></td>
+          <td><code>O(1)</code></td>
+          <td><code>O(1)</code></td>
+          <td><code>O(n)</code></td>
+          <td>DFS, undo/redo, expression evaluation</td>
+        </tr>
+        <tr>
+          <td>Queue</td>
+          <td><code>O(n)</code></td>
+          <td><code>O(n)</code></td>
+          <td><code>O(1)</code></td>
+          <td><code>O(1)</code></td>
+          <td><code>O(n)</code></td>
+          <td>BFS, task scheduling, FIFO processing</td>
+        </tr>
+        <tr>
+          <td>Hash Table</td>
+          <td>N/A</td>
+          <td><code>O(1)*</code></td>
+          <td><code>O(1)*</code></td>
+          <td><code>O(1)*</code></td>
+          <td><code>O(n)</code></td>
+          <td>Fast lookup by key; *amortized, O(n) worst case</td>
+        </tr>
+        <tr>
+          <td>Balanced BST</td>
+          <td><code>O(log n)</code></td>
+          <td><code>O(log n)</code></td>
+          <td><code>O(log n)</code></td>
+          <td><code>O(log n)</code></td>
+          <td><code>O(n)</code></td>
+          <td>Sorted data, range queries (e.g. TreeMap)</td>
+        </tr>
+        <tr>
+          <td>Heap (Binary)</td>
+          <td><code>O(1)</code> (min/max)</td>
+          <td><code>O(n)</code></td>
+          <td><code>O(log n)</code></td>
+          <td><code>O(log n)</code></td>
+          <td><code>O(n)</code></td>
+          <td>Priority queue, kth-largest, Dijkstra</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 4. Sorting Algorithms Table -->
+    <h2>Sorting Algorithms</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Algorithm</th>
+          <th>Best</th>
+          <th>Average</th>
+          <th>Worst</th>
+          <th>Space</th>
+          <th>Stable?</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bubble Sort</td>
+          <td><code>O(n)</code></td>
+          <td><code>O(n²)</code></td>
+          <td><code>O(n²)</code></td>
+          <td><code>O(1)</code></td>
+          <td>Yes</td>
+          <td>Only useful as a teaching example</td>
+        </tr>
+        <tr>
+          <td>Selection Sort</td>
+          <td><code>O(n²)</code></td>
+          <td><code>O(n²)</code></td>
+          <td><code>O(n²)</code></td>
+          <td><code>O(1)</code></td>
+          <td>No</td>
+          <td>Minimizes swaps; never adaptive</td>
+        </tr>
+        <tr>
+          <td>Insertion Sort</td>
+          <td><code>O(n)</code></td>
+          <td><code>O(n²)</code></td>
+          <td><code>O(n²)</code></td>
+          <td><code>O(1)</code></td>
+          <td>Yes</td>
+          <td>Excellent on small or nearly sorted data</td>
+        </tr>
+        <tr>
+          <td>Merge Sort</td>
+          <td><code>O(n log n)</code></td>
+          <td><code>O(n log n)</code></td>
+          <td><code>O(n log n)</code></td>
+          <td><code>O(n)</code></td>
+          <td>Yes</td>
+          <td>Predictable; preferred for linked lists</td>
+        </tr>
+        <tr>
+          <td>Quick Sort</td>
+          <td><code>O(n log n)</code></td>
+          <td><code>O(n log n)</code></td>
+          <td><code>O(n²)</code></td>
+          <td><code>O(log n)</code></td>
+          <td>No</td>
+          <td>Fastest in practice; worst case on sorted input with bad pivot</td>
+        </tr>
+        <tr>
+          <td>Heap Sort</td>
+          <td><code>O(n log n)</code></td>
+          <td><code>O(n log n)</code></td>
+          <td><code>O(n log n)</code></td>
+          <td><code>O(1)</code></td>
+          <td>No</td>
+          <td>In-place with guaranteed worst case; poor cache performance</td>
+        </tr>
+        <tr>
+          <td>Counting Sort</td>
+          <td><code>O(n + k)</code></td>
+          <td><code>O(n + k)</code></td>
+          <td><code>O(n + k)</code></td>
+          <td><code>O(k)</code></td>
+          <td>Yes</td>
+          <td>Non-comparison sort; only for integer keys in range k</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 5. Recursion and Space Complexity -->
+    <h2>Recursion &amp; Space Complexity</h2>
+    <div class="box key-term">
+      <table>
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>Space Complexity</th>
+            <th>Explanation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Linear recursion (depth n)</td>
+            <td><code>O(n)</code></td>
+            <td>Each call frame lives on the stack until the base case is reached</td>
+          </tr>
+          <tr>
+            <td>Balanced divide-and-conquer</td>
+            <td><code>O(log n)</code></td>
+            <td>Tree depth is log n (e.g., binary search, merge sort call stack)</td>
+          </tr>
+          <tr>
+            <td>In-place algorithms</td>
+            <td><code>O(1)</code></td>
+            <td>No extra memory proportional to input (e.g., heap sort, two-pointer)</td>
+          </tr>
+          <tr>
+            <td>Memoization added to O(2^n)</td>
+            <td><code>O(n)</code> added</td>
+            <td>Cache stores n unique subproblems; time drops from O(2^n) to O(n)</td>
+          </tr>
+          <tr>
+            <td>Tail recursion (optimized)</td>
+            <td><code>O(1)</code></td>
+            <td>Compiler reuses stack frame; not guaranteed in all languages</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 6. Pattern → Complexity Guide -->
+    <h2>Pattern → Complexity Guide</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Code Pattern</th>
+          <th>Typical Time Complexity</th>
+          <th>Example Problem</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Single loop over n elements</td>
+          <td><code>O(n)</code></td>
+          <td>Find max, linear search, prefix sum</td>
+        </tr>
+        <tr>
+          <td>Nested loops over same array</td>
+          <td><code>O(n²)</code></td>
+          <td>Bubble sort, all-pairs comparison, brute-force two-sum</td>
+        </tr>
+        <tr>
+          <td>Binary search on sorted input</td>
+          <td><code>O(log n)</code></td>
+          <td>Search in rotated array, find insertion point</td>
+        </tr>
+        <tr>
+          <td>Divide and conquer (halving)</td>
+          <td><code>O(n log n)</code></td>
+          <td>Merge sort, closest pair of points</td>
+        </tr>
+        <tr>
+          <td>Hash map lookup / insert</td>
+          <td><code>O(1)</code> amortized</td>
+          <td>Two-sum, anagram detection, frequency count</td>
+        </tr>
+        <tr>
+          <td>BFS / DFS on graph</td>
+          <td><code>O(V + E)</code></td>
+          <td>Connected components, shortest path (unweighted), cycle detection</td>
+        </tr>
+        <tr>
+          <td>DP with 1D state array</td>
+          <td><code>O(n)</code> time, <code>O(n)</code> or <code>O(1)</code> space</td>
+          <td>Fibonacci, coin change, climbing stairs</td>
+        </tr>
+        <tr>
+          <td>DP with 2D state table</td>
+          <td><code>O(n×m)</code> time, <code>O(n×m)</code> space</td>
+          <td>Longest common subsequence, edit distance, 0/1 knapsack</td>
+        </tr>
+        <tr>
+          <td>Heap / priority queue operations</td>
+          <td><code>O(log n)</code> per op</td>
+          <td>Kth largest, merge k sorted lists, Dijkstra's algorithm</td>
+        </tr>
+        <tr>
+          <td>Sliding window (fixed or variable)</td>
+          <td><code>O(n)</code></td>
+          <td>Max subarray, longest substring without repeats</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 7. Quick Estimation Tips -->
+    <h2>Quick Estimation Tips</h2>
+    <div class="box tip">
+      <p><strong>Rule of thumb:</strong> ~10<sup>8</sup> simple operations per second in most compiled/JIT languages. Use 10<sup>7</sup>–10<sup>8</sup> as your budget and work backwards from input size.</p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Input Size (n)</th>
+          <th>Acceptable Complexity</th>
+          <th>Unacceptable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>n ≤ 20</td>
+          <td><code>O(2^n)</code> or even <code>O(n!)</code> acceptable</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>n ≤ 100</td>
+          <td><code>O(n³)</code> borderline (10<sup>6</sup>)</td>
+          <td><code>O(2^n)</code></td>
+        </tr>
+        <tr>
+          <td>n ≤ 1,000</td>
+          <td><code>O(n²)</code> = 10<sup>6</sup> (fast)</td>
+          <td><code>O(n³)</code> = 10<sup>9</sup> (too slow)</td>
+        </tr>
+        <tr>
+          <td>n ≤ 10<sup>5</sup></td>
+          <td><code>O(n log n)</code> = ~1.7 × 10<sup>6</sup></td>
+          <td><code>O(n²)</code> = 10<sup>10</sup></td>
+        </tr>
+        <tr>
+          <td>n ≤ 10<sup>6</sup></td>
+          <td><code>O(n)</code> = 10<sup>6</sup>, <code>O(n log n)</code> ≈ 2 × 10<sup>7</sup></td>
+          <td><code>O(n²)</code> = 10<sup>12</sup> (never)</td>
+        </tr>
+        <tr>
+          <td>n ≤ 10<sup>9</sup></td>
+          <td><code>O(log n)</code> or <code>O(1)</code> only</td>
+          <td>Anything linear or worse</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box tip">
+      <strong>Interview shortcut:</strong> State the complexity before you code. Say: "This will be O(n log n) time and O(n) space — is that acceptable?" It signals you think about tradeoffs, not just solutions.
+    </div>
+
+    <div class="chapter-nav">
+      <a href="../part-6/chapter-34.html"><span class="nav-label">← Previous</span><span class="nav-title">Ch 34 · Offer &amp; Negotiation</span></a>
+      <a href="system-design-reference.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">System Design Reference</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

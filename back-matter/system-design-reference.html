@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Design Building Blocks Reference — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag" style="background:#4b5563;">Back Matter</div>
+      <h1>System Design Building Blocks Reference</h1>
+      <p class="chapter-intro">The 10 components that appear in 90% of system design interviews, and the tradeoffs that make or break your answer.</p>
+    </div>
+
+    <!-- 1. Building Blocks Quick Reference -->
+    <h2>Building Blocks Quick Reference</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>What It Does</th>
+          <th>Use When</th>
+          <th>Don't Use When</th>
+          <th>Interview Red Flag</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Load Balancer</strong></td>
+          <td>Distributes incoming traffic across multiple server instances</td>
+          <td>Multiple application instances; need high availability or horizontal scale</td>
+          <td>Single server, low traffic, or stateful sessions without sticky routing</td>
+          <td>Adding one without explaining sticky sessions / health checks</td>
+        </tr>
+        <tr>
+          <td><strong>PostgreSQL</strong></td>
+          <td>ACID-compliant relational database with advanced query support</td>
+          <td>Structured data, complex JOINs, strong consistency requirements, default choice</td>
+          <td>Massive horizontal write scale needs or true schema-less documents</td>
+          <td>Choosing NoSQL by default "for scale" without reasoning</td>
+        </tr>
+        <tr>
+          <td><strong>MongoDB</strong></td>
+          <td>Document database with flexible schema and horizontal sharding</td>
+          <td>Varied/nested document structures, rapid schema evolution, denormalized reads</td>
+          <td>Multi-document transactions at high volume, complex relational queries</td>
+          <td>Using it because "it's faster" — it isn't, by default</td>
+        </tr>
+        <tr>
+          <td><strong>Redis</strong></td>
+          <td>In-memory key-value store with persistence options and pub/sub</td>
+          <td>Caching hot reads, session storage, rate limiting, leaderboards, pub/sub fanout</td>
+          <td>Primary data store for large datasets; data you cannot afford to lose without persistence config</td>
+          <td>Treating it as a primary DB without acknowledging data loss risk</td>
+        </tr>
+        <tr>
+          <td><strong>Kafka</strong></td>
+          <td>Distributed, durable, high-throughput event streaming log</td>
+          <td>High-volume event pipelines, audit logs, event sourcing, fan-out to many consumers, replay</td>
+          <td>Simple task queues, low-volume messaging, when operational complexity isn't justified</td>
+          <td>Adding Kafka to every design regardless of volume requirements</td>
+        </tr>
+        <tr>
+          <td><strong>RabbitMQ</strong></td>
+          <td>Message broker with flexible routing, acknowledgments, and dead-letter queues</td>
+          <td>Task queues, work distribution, complex routing logic, guaranteed delivery</td>
+          <td>Event replay / reprocessing history; high-throughput streaming</td>
+          <td>Confusing it with Kafka — they solve different problems</td>
+        </tr>
+        <tr>
+          <td><strong>CDN</strong></td>
+          <td>Globally distributed edge cache serving static and dynamic content close to users</td>
+          <td>Static assets, media, geographically distributed users, high-traffic reads</td>
+          <td>Highly personalized or real-time content that cannot be cached</td>
+          <td>Not considering cache invalidation strategy</td>
+        </tr>
+        <tr>
+          <td><strong>API Gateway</strong></td>
+          <td>Single entry point for routing, auth, rate limiting, and protocol translation</td>
+          <td>Microservices with many clients, cross-cutting concerns (auth, rate limit, logging)</td>
+          <td>Simple monolith or single-client architecture where added latency isn't justified</td>
+          <td>Making it a single point of failure without HA configuration</td>
+        </tr>
+        <tr>
+          <td><strong>Elasticsearch</strong></td>
+          <td>Distributed full-text search and analytics engine built on Lucene</td>
+          <td>Full-text search, faceted filtering, log aggregation, autocomplete</td>
+          <td>Primary transactional store; data requiring strong consistency</td>
+          <td>Using it as the source of truth — always a secondary read store synced via CDC</td>
+        </tr>
+        <tr>
+          <td><strong>S3 / Object Store</strong></td>
+          <td>Infinitely scalable blob storage for arbitrary binary objects</td>
+          <td>User uploads, media files, backups, large binary data, static website hosting</td>
+          <td>Structured queryable data, sub-millisecond access patterns, small transactional records</td>
+          <td>Storing application state or using it as a database</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 2. Capacity Estimation Reference Card -->
+    <h2>Capacity Estimation Reference Card</h2>
+    <div class="summary">
+      <table>
+        <thead>
+          <tr>
+            <th>Conversion</th>
+            <th>Value</th>
+            <th>Useful For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1M requests/day</td>
+            <td>≈ 12 req/sec</td>
+            <td>Baseline for mid-size apps</td>
+          </tr>
+          <tr>
+            <td>100M requests/day</td>
+            <td>≈ 1,157 req/sec</td>
+            <td>Large consumer product</td>
+          </tr>
+          <tr>
+            <td>1B requests/day</td>
+            <td>≈ 11,574 req/sec</td>
+            <td>Major platform scale</td>
+          </tr>
+          <tr>
+            <td>1M records × 1 KB each</td>
+            <td>= 1 GB</td>
+            <td>User profile storage estimate</td>
+          </tr>
+          <tr>
+            <td>1B records × 1 KB each</td>
+            <td>= 1 TB</td>
+            <td>Large-scale metadata store</td>
+          </tr>
+          <tr>
+            <td>1B records × 1 MB each</td>
+            <td>= 1 PB</td>
+            <td>Media/video storage estimate</td>
+          </tr>
+          <tr>
+            <td>1 Gbps link throughput</td>
+            <td>≈ 125 MB/s real</td>
+            <td>Bandwidth bottleneck estimate</td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="margin-top:1rem;">
+        <thead>
+          <tr>
+            <th>Uptime SLA</th>
+            <th>Allowed Downtime / Year</th>
+            <th>Allowed Downtime / Month</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>99% ("two nines")</td>
+            <td>87.6 hours</td>
+            <td>7.3 hours</td>
+          </tr>
+          <tr>
+            <td>99.9% ("three nines")</td>
+            <td>8.76 hours</td>
+            <td>43.8 minutes</td>
+          </tr>
+          <tr>
+            <td>99.99% ("four nines")</td>
+            <td>52.6 minutes</td>
+            <td>4.4 minutes</td>
+          </tr>
+          <tr>
+            <td>99.999% ("five nines")</td>
+            <td>5.26 minutes</td>
+            <td>26 seconds</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3. Tradeoffs Reference Card -->
+    <h2>Tradeoffs Reference Card</h2>
+
+    <h3>SQL vs NoSQL</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Use SQL when...</th>
+          <th>Use NoSQL when...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Data has well-defined, stable schema</td>
+          <td>Schema varies per record or evolves rapidly</td>
+        </tr>
+        <tr>
+          <td>You need multi-table JOINs and complex queries</td>
+          <td>Access patterns are simple (lookup by key/range)</td>
+        </tr>
+        <tr>
+          <td>ACID transactions across multiple entities</td>
+          <td>Need horizontal write scale across many nodes</td>
+        </tr>
+        <tr>
+          <td>Starting a new project (default to PostgreSQL)</td>
+          <td>Data naturally fits a document, graph, or wide-column model</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>REST vs GraphQL vs gRPC</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Use REST when...</th>
+          <th>Use GraphQL when...</th>
+          <th>Use gRPC when...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Public APIs, widely consumed, HTTP cache matters</td>
+          <td>Multiple client types need different data shapes</td>
+          <td>Internal service-to-service communication</td>
+        </tr>
+        <tr>
+          <td>Simple CRUD resources, standard tooling</td>
+          <td>Clients suffer from over-fetching / under-fetching</td>
+          <td>High-performance, low-latency, binary protocol</td>
+        </tr>
+        <tr>
+          <td>Team unfamiliar with schema-first design</td>
+          <td>Rapid frontend iteration without backend changes</td>
+          <td>Strongly typed contracts between services</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Sync vs Async Communication</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Use Synchronous when...</th>
+          <th>Use Asynchronous when...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>The caller needs the result immediately to proceed</td>
+          <td>Work can be decoupled from the request/response cycle</td>
+        </tr>
+        <tr>
+          <td>Simple request/response fits the use case</td>
+          <td>Operations are slow (email, video encoding, notifications)</td>
+        </tr>
+        <tr>
+          <td>Failure handling is straightforward (retry, error return)</td>
+          <td>Need to absorb traffic spikes or rate-limit downstream calls</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Monolith vs Microservices</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Use Monolith when...</th>
+          <th>Use Microservices when...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Early-stage product; domain boundaries not yet clear</td>
+          <td>Teams need to deploy independently of each other</td>
+        </tr>
+        <tr>
+          <td>Small team (fewer than 10 engineers)</td>
+          <td>Services have vastly different scaling requirements</td>
+        </tr>
+        <tr>
+          <td>Operational simplicity is a priority</td>
+          <td>Clear domain boundaries exist (DDD bounded contexts)</td>
+        </tr>
+        <tr>
+          <td>Latency between services would be unacceptable</td>
+          <td>Org structure already reflects independent teams (Conway's Law)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Cache Strategies</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Strategy</th>
+          <th>How It Works</th>
+          <th>Best For</th>
+          <th>Drawback</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Cache-aside</strong></td>
+          <td>App checks cache; on miss, reads DB and populates cache</td>
+          <td>Read-heavy workloads, lazy population</td>
+          <td>Cache miss storm on cold start; stale data risk</td>
+        </tr>
+        <tr>
+          <td><strong>Write-through</strong></td>
+          <td>App writes to cache and DB simultaneously on every write</td>
+          <td>Read-after-write consistency required</td>
+          <td>Write penalty; cache fills with rarely-read data</td>
+        </tr>
+        <tr>
+          <td><strong>Write-behind</strong></td>
+          <td>App writes to cache; DB is updated asynchronously later</td>
+          <td>Write-heavy; tolerate eventual persistence</td>
+          <td>Data loss risk if cache node fails before flush</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 4. Common Patterns Quick Reference -->
+    <h2>Common System Design Patterns</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Pattern</th>
+          <th>Problem It Solves</th>
+          <th>Key Mechanism</th>
+          <th>Chapter</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CQRS</strong></td>
+          <td>Read and write models with different shape/scale requirements</td>
+          <td>Separate command (write) and query (read) models; sync via events</td>
+          <td>Ch 32</td>
+        </tr>
+        <tr>
+          <td><strong>Saga</strong></td>
+          <td>Distributed transactions across multiple services</td>
+          <td>Sequence of local transactions; compensating transactions on failure</td>
+          <td>Ch 19</td>
+        </tr>
+        <tr>
+          <td><strong>Outbox</strong></td>
+          <td>Dual-write problem: DB update + event publish must be atomic</td>
+          <td>Write event to outbox table in same DB transaction; relay publishes it</td>
+          <td>Ch 19</td>
+        </tr>
+        <tr>
+          <td><strong>Circuit Breaker</strong></td>
+          <td>Prevent cascading failures when a downstream service is degraded</td>
+          <td>Track failure rate; open circuit (fail fast) when threshold exceeded</td>
+          <td>Ch 19</td>
+        </tr>
+        <tr>
+          <td><strong>Strangler Fig</strong></td>
+          <td>Incrementally migrate a monolith to microservices without big-bang rewrite</td>
+          <td>Route traffic for new features to new service; strangle old code over time</td>
+          <td>Ch 32</td>
+        </tr>
+        <tr>
+          <td><strong>BFF (Backend for Frontend)</strong></td>
+          <td>Different clients need different API shapes from the same backend</td>
+          <td>Dedicated aggregator service per client type (web, mobile, partner)</td>
+          <td>Ch 32</td>
+        </tr>
+        <tr>
+          <td><strong>Rate Limiting (Token Bucket)</strong></td>
+          <td>Protect services from traffic spikes and abusive clients</td>
+          <td>Bucket fills at fixed rate; each request consumes a token; empty = reject</td>
+          <td>Ch 30</td>
+        </tr>
+        <tr>
+          <td><strong>Consistent Hashing</strong></td>
+          <td>Minimize key remapping when nodes are added/removed from a cluster</td>
+          <td>Hash ring; each node owns a range; add/remove only remaps adjacent keys</td>
+          <td>Ch 30</td>
+        </tr>
+        <tr>
+          <td><strong>Event Sourcing</strong></td>
+          <td>Audit trail, time travel, and rebuilding state from history</td>
+          <td>Store all state changes as immutable events; derive state by replaying</td>
+          <td>Ch 32</td>
+        </tr>
+        <tr>
+          <td><strong>Hexagonal Architecture</strong></td>
+          <td>Decouple business logic from infrastructure (DB, HTTP, queues)</td>
+          <td>Core domain surrounded by ports; adapters plug in at the edges</td>
+          <td>Ch 32</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 5. Database Choice Decision Tree -->
+    <h2>Database Choice Decision Tree</h2>
+    <div class="diagram">
+<pre>
+  Start: What is your primary data access pattern?
+  │
+  ├── Need complex multi-table JOINs or ACID transactions?
+  │     └── YES → PostgreSQL (or MySQL)
+  │
+  ├── Need horizontal write scale with flexible schema?
+  │     └── YES → MongoDB (or DynamoDB for AWS)
+  │
+  ├── Need full-text search and faceted filtering?
+  │     └── YES → Elasticsearch (as a secondary read store, synced via CDC)
+  │
+  ├── Need sub-millisecond reads / caching / session store?
+  │     └── YES → Redis
+  │
+  ├── Need time-series data at high write volume?
+  │     └── YES → Cassandra or TimescaleDB
+  │
+  ├── Need a wide-column store for massive scale reads?
+  │     └── YES → Cassandra or HBase
+  │
+  └── Not sure / starting fresh?
+        └── DEFAULT → PostgreSQL
+              (Mature, reliable, extensible. Migrate later if you hit its limits.)
+</pre>
+    </div>
+
+    <div class="box tip">
+      <strong>Interview tip:</strong> Always say "I'd start with PostgreSQL unless there's a specific access pattern that rules it out." This shows you understand premature optimization is a real cost — and that SQL is not a performance liability for most systems.
+    </div>
+
+    <div class="chapter-nav">
+      <a href="complexity-cheat-sheet.html"><span class="nav-label">← Previous</span><span class="nav-title">Algorithm Complexity Cheat Sheet</span></a>
+      <a href="backend-taxonomy.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Backend Question Taxonomy</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 30: Core Building Blocks — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-5">Part 5 · Chapter 30</div>
+      <h1>Core Building Blocks</h1>
+      <p class="chapter-intro">Ten components that assemble into almost any system — master not just what they are, but when to reach for them and when they're the wrong tool.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>The 10 standard building blocks used in virtually every system design interview</li>
+        <li>For each: when to use it, when NOT to use it, and the interview-critical fact</li>
+        <li>The common candidate mistake for each block — and how to avoid it</li>
+        <li>A master comparison table to use as a study reference</li>
+        <li>How to justify component selection the way senior engineers do</li>
+      </ul>
+    </div>
+
+    <blockquote>
+      <p>"Every system design interview answer is built from the same 10 building blocks. Master these — not what they are, but when to reach for them and when NOT to — and you can design almost any system."</p>
+    </blockquote>
+
+    <div class="box analogy">
+      <strong>Analogy: LEGO Bricks</strong>
+      <p>A master LEGO builder doesn't design a castle from scratch on every build. They know which bricks exist, how they connect, and which combinations are structurally sound. The creativity is in the assembly — not in reinventing the bricks.</p>
+      <p>System design is the same. The building blocks are fixed. Your skill is knowing which ones to assemble for the problem in front of you, and being able to explain why you chose each piece over the alternatives.</p>
+    </div>
+
+    <h2>Building Block 1: Load Balancer</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A traffic cop at a busy intersection — directing cars to whichever lane is moving fastest, pulling cars out of the lane if a crash occurs.
+    </div>
+
+    <p>A load balancer distributes incoming traffic across multiple server instances. Without one, scaling horizontally is impossible — all traffic hits one server.</p>
+
+    <p><strong>L4 vs L7:</strong></p>
+    <ul>
+      <li><strong>Layer 4 (transport)</strong>: routes by IP and TCP port. Fast, but can't inspect HTTP content. Use for raw TCP performance.</li>
+      <li><strong>Layer 7 (application)</strong>: routes by HTTP headers, URL path, cookies. More flexible — can route <code>/api/*</code> to one pool and <code>/static/*</code> to another. Use for web applications.</li>
+    </ul>
+
+    <p><strong>Routing algorithms:</strong></p>
+    <ul>
+      <li><strong>Round-robin</strong>: requests distributed evenly in sequence. Simple, no state required.</li>
+      <li><strong>Least-connections</strong>: send to the server with the fewest active connections. Better for long-lived connections.</li>
+      <li><strong>Consistent hashing</strong>: routes the same client consistently to the same server. Required for sticky sessions without server-side session storage.</li>
+    </ul>
+
+    <p><strong>When to use:</strong> Any stateless, horizontally scaled application.<br>
+    <strong>When NOT to use:</strong> There is no scenario where you don't want a load balancer if you have more than one server instance. The question is which type.<br>
+    <strong>Interview-critical fact:</strong> Sticky sessions (session affinity) routes a client to the same server every time. It sounds good but creates hot spots and complicates deploys. The better solution is to store sessions in Redis so any server can serve any client.</p>
+
+    <div class="box warning">
+      <strong>Common candidate mistake:</strong> Drawing a load balancer but saying "the servers can share session state" without explaining how. If your servers are stateless, say so explicitly and explain where session state lives (Redis, JWT tokens, etc.).
+    </div>
+
+    <h2>Building Block 2: Relational Database (PostgreSQL / MySQL)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> An organized filing cabinet with strict cross-references — every drawer has labeled folders, and a folder in one drawer can officially reference a folder in another.
+    </div>
+
+    <p>Relational databases enforce schema, support ACID transactions, and allow complex JOINs across related data. PostgreSQL is the current industry preference for new systems — it supports JSON columns, full-text search, and advanced indexing (GIN, GiST) beyond basic B-tree.</p>
+
+    <p><strong>Use when:</strong> data has complex relationships (orders → line items → products → inventory), you need transactions (debit account A, credit account B — atomically), or your schema is stable and well-understood.</p>
+
+    <p><strong>Don't use when:</strong> you need horizontal write scaling beyond a few terabytes. PostgreSQL scales reads easily with read replicas but write throughput is bounded by the single primary. At write-heavy TB-scale, you need a different tool.</p>
+
+    <p><strong>Interview-critical fact:</strong> B-tree indexes make range queries and equality queries fast (O(log n)). A missing index on a foreign key is the most common production performance bug in relational databases. Always mention indexes when discussing database design.</p>
+
+    <div class="box tip">
+      <strong>Tip:</strong> When an interviewer asks "how would you scale your database?", the correct first answer is almost always "read replicas for read scaling, then connection pooling (PgBouncer), and only then sharding if the data truly requires it." Jumping to sharding before exhausting simpler options signals you're pattern-matching, not reasoning.
+    </div>
+
+    <h2>Building Block 3: NoSQL — Document Store (MongoDB)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A flexible corkboard where you can pin anything in any shape — sticky notes, index cards, photos — without needing every item to look the same.
+    </div>
+
+    <p>Document databases store JSON-like documents. Schema is flexible per-document. Embedded documents allow you to store related data together (a product with embedded reviews) rather than joining across tables.</p>
+
+    <p><strong>Use when:</strong> schema changes frequently during development, content is hierarchical (CMS, product catalogs with varied attributes), or you need to embed related data for read performance without JOINs.</p>
+
+    <p><strong>Don't use when:</strong> you have complex many-to-many relationships that require joins, or you need ACID transactions across multiple documents. MongoDB added multi-document transactions in 4.0, but they are slower than PostgreSQL equivalents and the data model fights them.</p>
+
+    <p><strong>Interview-critical fact:</strong> The most common MongoDB mistake is embedding unbounded arrays in documents (e.g., embedding all comments in a post document). MongoDB has a 16 MB document size limit. For data that grows unboundedly, use a separate collection with a reference.</p>
+
+    <div class="box warning">
+      <strong>Common candidate mistake:</strong> Choosing MongoDB "for flexibility" without identifying what specifically needs to be flexible. Interviewers hear this as "I don't know what my data looks like." Be specific: "I'd use a document store here because the product attribute schema varies by category — electronics have voltage specs, clothing has sizes and colors — and a relational schema would require an EAV pattern which is painful."
+    </div>
+
+    <h2>Building Block 4: NoSQL — Key-Value Store (Redis / DynamoDB)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A set of labeled drawers — you know exactly which drawer holds what, open it directly, and get sub-millisecond access. No searching, no sorting.
+    </div>
+
+    <p>Key-value stores trade query flexibility for raw speed. You can only look up by key — no range scans, no full-text search, no complex filters.</p>
+
+    <p><strong>Redis:</strong> in-memory, optional disk persistence (RDB snapshots, AOF log), rich data structures beyond simple string values:</p>
+    <ul>
+      <li><strong>Sorted sets</strong>: leaderboards, rate limiting with sliding windows</li>
+      <li><strong>Lists</strong>: activity feeds, queues</li>
+      <li><strong>Pub/Sub</strong>: lightweight real-time messaging between services</li>
+      <li><strong>Streams</strong>: persistent log with consumer groups (lightweight Kafka alternative)</li>
+    </ul>
+
+    <p><strong>DynamoDB:</strong> managed AWS service, serverless pricing, single-digit millisecond latency at any scale. No tuning required. Global tables for multi-region active-active. The tradeoff: you're locked into AWS and the access pattern must be designed upfront.</p>
+
+    <p><strong>Use when:</strong> caching, session storage, rate limiting, leaderboards, feature flags, distributed locks.</p>
+    <p><strong>Don't use when:</strong> you need complex queries, reporting, or relationships. Key-value is a specialized accelerator, not a general-purpose database.</p>
+
+    <p><strong>Interview-critical fact:</strong> Redis is single-threaded for command execution, which is why it can make 100,000+ operations/sec guarantees — no lock contention. Redis Cluster shards across nodes for horizontal scale when a single instance isn't enough.</p>
+
+    <h2>Building Block 5: NoSQL — Wide-Column Store (Cassandra)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A spreadsheet on steroids — optimized for appending rows incredibly fast, with columns that can vary by row and queries that are optimized for reading time-ordered slices.
+    </div>
+
+    <p>Cassandra is a distributed database designed for write-heavy, time-series workloads. It writes to an in-memory structure (memtable) and an append-only log, then flushes to disk — making writes extremely fast. Reads are slightly more expensive.</p>
+
+    <p><strong>Use when:</strong> IoT sensor data, event logs, time-series metrics, activity streams — anything where you write continuously and read time-ordered slices.</p>
+    <p><strong>Don't use when:</strong> you need complex queries, transactions, or flexible access patterns. Cassandra's data model must be designed around your query patterns — changing queries later often means restructuring tables.</p>
+
+    <p><strong>Interview-critical fact:</strong> Cassandra uses eventual consistency by default. You can tune consistency level per query (QUORUM reads guarantee reading the latest write, at the cost of latency). In interviews, acknowledge this when recommending Cassandra: "We'd accept eventual consistency on metrics dashboards, but order history would require QUORUM reads."</p>
+
+    <div class="box warning">
+      <strong>Common candidate mistake:</strong> Recommending Cassandra because "it's distributed and scalable." PostgreSQL with read replicas and partitioning handles most workloads to hundreds of millions of rows. Cassandra adds significant operational complexity — justify it with write volume (millions of writes/sec) or data volume (tens of TB+) that genuinely exceeds what PostgreSQL can handle.
+    </div>
+
+    <h2>Building Block 6: Cache (Redis)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A sticky note on your monitor with the phone number you call every day — faster than looking it up in your contacts every time.
+    </div>
+
+    <p>Caching stores frequently accessed data in fast memory (Redis) to avoid repeated expensive computation or database queries.</p>
+
+    <p><strong>Cache-aside pattern</strong> (the most common): application checks cache first. On miss, reads from database and writes to cache. On write, invalidates or updates the cache.</p>
+
+    <div class="diagram">
+<pre>
+Cache-Aside Read:
+  [App] → GET user:1234 → [Redis]
+              MISS? → [PostgreSQL] → return data → [App]
+                                               → [Redis] SET user:1234 (TTL: 1h)
+              HIT? → return data → [App]
+
+Cache Key Design:
+  user:1234:profile        ← entity:id:property
+  product:5678:inventory   ← namespaced with colons
+  rate:192.168.1.1:minute  ← rate limit by IP + window
+</pre>
+    </div>
+
+    <p><strong>Cache invalidation strategies:</strong></p>
+    <ul>
+      <li><strong>TTL-based</strong>: set an expiry time. Simple. Accepts stale data up to TTL duration. Good for product catalog, public data.</li>
+      <li><strong>Event-based</strong>: when data changes, immediately delete or update the cache key. Consistent but adds coupling. Good for user sessions, profile data.</li>
+      <li><strong>Write-through</strong>: on every write to the database, also write to cache. Cache always warm. Tradeoff: cache fills with infrequently-read data.</li>
+    </ul>
+
+    <p><strong>Eviction policies:</strong></p>
+    <ul>
+      <li><strong>LRU (Least Recently Used)</strong>: evicts the least recently accessed keys first. Good for general-purpose caches.</li>
+      <li><strong>LFU (Least Frequently Used)</strong>: evicts the least accessed over time. Better for keeping "popular" items — hot products, trending content.</li>
+      <li><strong>TTL</strong>: evicts keys based purely on expiry time. Predictable.</li>
+    </ul>
+
+    <p><strong>Interview-critical fact:</strong> Cache keys without TTL are memory leaks. If your application sets keys but never expires them, Redis will fill up and start evicting based on eviction policy — which may evict the wrong things. Always set TTLs.</p>
+
+    <h2>Building Block 7: Message Queue (Kafka / RabbitMQ / SQS)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A postal sorting facility. The sender drops off a package (message). The facility holds it until the recipient is ready. The sender and recipient never have to be available at the same time.
+    </div>
+
+    <p>Message queues decouple producers (services that generate events) from consumers (services that react to them). This enables async processing, independent scaling, and resilience to consumer failures.</p>
+
+    <h3>Kafka</h3>
+    <p>A distributed, log-based message system. Messages are stored durably on disk with configurable retention (days, weeks, forever). Consumers read from an offset — they can replay past messages. Consumer groups allow parallelism within a topic.</p>
+    <p><strong>Use Kafka when:</strong> event sourcing, audit logs, stream processing, high-throughput pipelines (millions of events/sec), or when you need replay capability (re-process events after a bug fix).</p>
+    <p><strong>Kafka's tradeoff:</strong> operationally complex. Requires ZooKeeper (or KRaft in newer versions), partition management, offset management. Worth it at scale. Overkill for simple task queues.</p>
+
+    <h3>RabbitMQ</h3>
+    <p>A traditional message broker. Messages are routed via exchanges and bindings to queues. Supports complex routing topologies (fanout, direct, topic). Messages are deleted after consumption.</p>
+    <p><strong>Use RabbitMQ when:</strong> task queues (background jobs), RPC-over-queue patterns, routing complexity, or when your team already runs it. The AMQP protocol is widely understood.</p>
+
+    <h3>SQS (Amazon Simple Queue Service)</h3>
+    <p>Managed AWS queue. No infrastructure to run. At-least-once delivery (design for idempotency). FIFO queues for guaranteed ordering at lower throughput.</p>
+    <p><strong>Use SQS when:</strong> AWS-native stack, you don't need Kafka's replay capability, and you want zero operational overhead. The right choice for most AWS workloads that don't need Kafka features.</p>
+
+    <div class="diagram">
+<pre>
+Message Queue Decision Tree:
+  Need replay/event-sourcing?  → Kafka
+  Need complex routing?        → RabbitMQ
+  AWS-native, simple task?     → SQS
+  Need ordered FIFO?           → SQS FIFO or Kafka (with single partition)
+</pre>
+    </div>
+
+    <h2>Building Block 8: CDN (Content Delivery Network)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A warehouse network that stores your products near your customers — instead of shipping everything from one factory across the country, you stock regional fulfillment centers.
+    </div>
+
+    <p>A CDN caches content at geographically distributed edge nodes. When a user in Tokyo requests an asset, they get it from Tokyo's edge node, not a server in Virginia.</p>
+
+    <p><strong>Use for:</strong> static assets (JS, CSS, images, fonts) always. Also: video streams, software downloads, and — often overlooked — API responses that are cacheable (public product catalog, search results with cache-control headers).</p>
+
+    <p><strong>Pull vs Push model:</strong></p>
+    <ul>
+      <li><strong>Pull</strong>: CDN fetches from origin on first request, caches based on Cache-Control headers. Simple. Use for most web assets.</li>
+      <li><strong>Push</strong>: you proactively upload content to CDN edge nodes. Use for large files (video) where you want to pre-populate before users request.</li>
+    </ul>
+
+    <p><strong>Edge computing:</strong> Cloudflare Workers, Lambda@Edge allow running code at CDN edge nodes. Use for: auth token validation without round-trip to origin, A/B testing, bot detection.</p>
+
+    <p><strong>Interview-critical fact:</strong> Cache-Control headers control CDN behavior. <code>Cache-Control: public, max-age=86400</code> means cache this for 24 hours. <code>Cache-Control: private, no-store</code> means never cache (for authenticated user-specific responses).</p>
+
+    <div class="box warning">
+      <strong>Common candidate mistake:</strong> Only applying CDN to static files. In interviews, explicitly mention that cacheable API responses (product listings, public content, search results) should also be cached at the CDN. This demonstrates you understand CDN as a general caching layer, not just a file server.
+    </div>
+
+    <h2>Building Block 9: Search Engine (Elasticsearch)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A librarian who has memorized every word on every page of every book in the library — and can tell you instantly which books contain "machine learning" within 10 words of "Python," ranked by relevance.
+    </div>
+
+    <p>Elasticsearch (and OpenSearch, its open-source fork) provides full-text search, faceted filtering, fuzzy matching, and relevance scoring. It inverts the data — instead of "book has words," it stores "word appears in these books" — enabling sub-second full-text queries across billions of documents.</p>
+
+    <p><strong>Use when:</strong> full-text search (e-commerce product search, blog search), faceted filtering (filter by brand, price range, rating simultaneously), fuzzy matching (typo tolerance), or complex aggregations for analytics dashboards.</p>
+
+    <p><strong>Don't use as a primary database.</strong> Elasticsearch is eventually consistent, doesn't support ACID transactions, and loses data more easily than PostgreSQL. Always sync data FROM your primary database INTO Elasticsearch.</p>
+
+    <div class="diagram">
+<pre>
+Correct Elasticsearch Architecture:
+  [Writes] → [PostgreSQL] ← source of truth
+                  |
+          [Debezium CDC]  ← reads PostgreSQL WAL
+                  |
+              [Kafka]
+                  |
+        [Elasticsearch Consumer]
+                  |
+           [Elasticsearch] ← search reads only
+</pre>
+    </div>
+
+    <p><strong>Interview-critical fact:</strong> Elasticsearch relevance scoring uses TF-IDF and BM25 algorithms. Documents that mention a search term more frequently (TF) and in smaller documents (IDF) score higher. In practice: acknowledge relevance tuning exists and mention that boosting fields (title > description > body) is a common production concern.</p>
+
+    <h2>Building Block 10: Object Storage (S3 / GCS)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> An infinitely expandable filing cabinet in a warehouse — you can put any size file in any drawer, the cabinet never fills up, and you pay only for what you store.
+    </div>
+
+    <p>Object storage is the right answer for any binary large object: user-uploaded images, videos, audio, PDF documents, database backups, ML model artifacts, log archives.</p>
+
+    <p><strong>Use when:</strong> storing files of any size. Never store BLOBs in your relational database — it bloats the database, defeats indexes, and makes backups enormous. Store the file in S3, store the S3 key (URL) in the database.</p>
+
+    <p><strong>Always pair with a CDN</strong> for serving. Direct S3 access is slower and costs more in data transfer than serving through CloudFront. S3 is optimized for durability and storage cost, not for serving high-frequency requests.</p>
+
+    <p><strong>Key features to mention in interviews:</strong></p>
+    <ul>
+      <li><strong>Versioning</strong>: S3 can keep every version of every file. Critical for user documents.</li>
+      <li><strong>Lifecycle policies</strong>: automatically move objects to cheaper storage tiers (S3 Glacier) after 90 days. Move to deep archive after 1 year.</li>
+      <li><strong>Pre-signed URLs</strong>: generate a time-limited URL allowing a client to upload directly to S3, bypassing your server. Removes your server from the upload path — better performance, lower egress cost.</li>
+    </ul>
+
+    <p><strong>Interview-critical fact:</strong> Pre-signed upload URLs are the correct pattern for user file uploads. Client requests a pre-signed URL from your API, uploads directly to S3, then calls your API to confirm the upload. Your server never handles the binary data.</p>
+
+    <h2>Master Comparison Table</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Building Block</th>
+          <th>Best For</th>
+          <th>Scale Ceiling</th>
+          <th>Key Interview Red Flag</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Load Balancer</td>
+          <td>Horizontal scaling, HA</td>
+          <td>Essentially unlimited (route to more servers)</td>
+          <td>Mentioning sticky sessions without explaining where sessions actually live</td>
+        </tr>
+        <tr>
+          <td>PostgreSQL / MySQL</td>
+          <td>Relational data, transactions, complex queries</td>
+          <td>~10K writes/sec, ~50K reads/sec (single node)</td>
+          <td>Jumping to sharding before read replicas</td>
+        </tr>
+        <tr>
+          <td>MongoDB</td>
+          <td>Flexible schema, hierarchical content</td>
+          <td>High with sharding</td>
+          <td>Embedding unbounded arrays in documents</td>
+        </tr>
+        <tr>
+          <td>Redis (KV)</td>
+          <td>Cache, sessions, rate limiting, leaderboards</td>
+          <td>~100K ops/sec single node; cluster for more</td>
+          <td>Not setting TTLs on keys</td>
+        </tr>
+        <tr>
+          <td>Cassandra</td>
+          <td>Time-series, write-heavy, IoT</td>
+          <td>Linearly with nodes</td>
+          <td>Using it for relational data or complex queries</td>
+        </tr>
+        <tr>
+          <td>Kafka</td>
+          <td>Event sourcing, high-throughput streams, replay</td>
+          <td>Millions of events/sec with partitions</td>
+          <td>Using it where SQS would suffice</td>
+        </tr>
+        <tr>
+          <td>CDN</td>
+          <td>Static assets, cacheable content, global latency</td>
+          <td>Effectively unlimited</td>
+          <td>Only mentioning it for static files, ignoring cacheable APIs</td>
+        </tr>
+        <tr>
+          <td>Elasticsearch</td>
+          <td>Full-text search, faceting, fuzzy matching</td>
+          <td>Billions of documents with sharding</td>
+          <td>Using as the primary database</td>
+        </tr>
+        <tr>
+          <td>Object Storage (S3)</td>
+          <td>Files, images, videos, backups</td>
+          <td>Unlimited</td>
+          <td>Serving directly from S3 without CDN</td>
+        </tr>
+        <tr>
+          <td>RabbitMQ / SQS</td>
+          <td>Task queues, background jobs, routing</td>
+          <td>Tens of thousands of messages/sec</td>
+          <td>Not designing for at-least-once (idempotency)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Senior vs. Junior: Component Selection</h2>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior</span>
+      <p>"I'd store user avatars in the database as a BLOB. That keeps everything in one place. For search, I'd just use a LIKE query on the PostgreSQL table. For caching, I'd add Redis."</p>
+      <p><em>Problems: BLOBs in relational DB bloat backups and defeat indexes. LIKE queries don't scale to millions of rows. "Add Redis" without explaining what to cache, TTLs, or invalidation strategy is not a design decision.</em></p>
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior</span>
+      <p>"Avatars go in S3 with CloudFront in front for serving — never in the database. The database stores only the S3 key. For search, at 10M+ products a LIKE query is unusable — I'd sync from PostgreSQL to Elasticsearch via Debezium CDC and serve all search queries from Elasticsearch. PostgreSQL remains the source of truth; Elasticsearch is a read projection. For the Redis cache, I'd cache product detail pages with a 1-hour TTL and invalidate on update events. Sessions I'd cache with a 24-hour TTL and invalidate on logout. The tradeoff on Elasticsearch is operational complexity — syncing and managing two stores — but at our scale there's no alternative for full-text search quality."</p>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>The 10 building blocks — load balancer, relational DB, document store, key-value store, wide-column store, cache, message queue, CDN, search engine, object storage — assemble into virtually any system design answer.</li>
+        <li>The senior signal is not knowing all 10 exist — it is knowing when NOT to use each one and being able to articulate the tradeoffs of your choice.</li>
+        <li>Redis without TTLs is a memory leak. Elasticsearch as a primary database is a data loss risk. BLOBs in PostgreSQL are a backup disaster. Know the failure modes.</li>
+        <li>Always justify component selection: "I'd use Kafka because we need event replay for audit compliance, though the operational overhead vs SQS is real — at our team size, SQS would be acceptable if replay weren't required."</li>
+        <li>Pre-signed S3 URLs, Debezium CDC into Elasticsearch, and Redis sorted sets for leaderboards are three patterns that immediately signal experience when mentioned correctly.</li>
+      </ul>
+    </div>
+
+    <div class="exercises">
+      <h4>Practice Questions</h4>
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p>A candidate says "I'd use Redis for everything because it's fast." Identify three scenarios where Redis would be the wrong choice and explain why.</p>
+      </div>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>You need to add full-text search to an existing PostgreSQL-backed application. Walk through the complete architecture for syncing data to Elasticsearch, handling out-of-order updates, and keeping the systems consistent if the Elasticsearch indexer has downtime.</p>
+      </div>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>An interviewer asks: "Your design uses both Kafka and Redis. That seems like a lot. Could you simplify?" How do you defend keeping both, or how do you decide which to drop?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p>Design the data layer for a multi-tenant SaaS application. Each tenant has between 100 and 10 million records. How do you decide between: a shared database with tenant_id columns, a database-per-tenant, and a schema-per-tenant? Walk through the tradeoffs for each.</p>
+      </div>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> You have the framework and the building blocks. Chapter 31 puts them together through four complete case studies — payment processing, notifications, product catalog, and real-time collaboration — designed so you can practice until the decisions come automatically.</p>
+    <div class="chapter-nav">
+      <a href="chapter-29.html"><span class="nav-label">← Previous</span><span class="nav-title">How to Approach System Design Questions</span></a>
+      <a href="chapter-31.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">System Design Case Studies</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

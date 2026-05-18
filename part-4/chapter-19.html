@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 19: Microservices and Distributed Systems — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 19</div>
+      <h1>Microservices and Distributed Systems</h1>
+      <p class="chapter-intro">Microservices are not an architecture — they're a tradeoff. Know exactly what you're trading before you commit.</p>
+    </div>
+
+    <div class="learn-box"><h4>What you'll learn</h4><ul>
+      <li>The honest tradeoffs between monoliths and microservices, and when each wins</li>
+      <li>Conway's Law and why org structure drives architecture</li>
+      <li>Synchronous vs asynchronous service communication with real code</li>
+      <li>CQRS, Saga, Event Sourcing, and Circuit Breaker patterns with TypeScript examples</li>
+      <li>CAP Theorem and why you can never have everything</li>
+    </ul></div>
+
+    <p>"The moment someone says 'we should use microservices' without finishing the sentence '...because our team is too large to coordinate on a monolith,' you should be worried. Microservices are not an architecture. They're a tradeoff."</p>
+
+    <p>Most engineers learn microservices by working with them. Fewer learn <em>why</em> they exist, and almost none can articulate clearly when they're the wrong call. In interviews, examiners are looking for the latter. This chapter gives you the honest, nuanced answer.</p>
+
+    <h2>1. The Big Idea: Swiss Army Knife vs Toolbox</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A monolith is a Swiss Army knife — everything in one tool, easy to carry, convenient for most jobs. But if the corkscrew breaks, the entire knife has to come in for repair. Microservices are a toolbox of specialized tools. Each tool is independently replaceable and upgradeable. But you're now carrying a heavy box, tools have to be handed between workers, and coordinating who uses what requires real effort.
+    </div>
+
+    <p>Neither is universally better. The question is always: what are you optimizing for?</p>
+
+    <h2>2. Monolith vs Microservices — Honest Tradeoffs</h2>
+
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>Monolith</th><th>Microservices</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Deployment</td><td>One artifact, simple</td><td>Many artifacts, complex orchestration</td></tr>
+        <tr><td>Local development</td><td>One process to run</td><td>Run 10+ services locally (docker-compose)</td></tr>
+        <tr><td>Latency</td><td>In-process function calls (nanoseconds)</td><td>Network calls (milliseconds)</td></tr>
+        <tr><td>Team independence</td><td>Shared codebase — coordination required</td><td>Teams own services — can deploy independently</td></tr>
+        <tr><td>Failure blast radius</td><td>One bug can take down everything</td><td>One service fails, rest can degrade gracefully</td></tr>
+        <tr><td>Scaling</td><td>Scale the whole app (wasteful)</td><td>Scale only the bottleneck service</td></tr>
+        <tr><td>Data consistency</td><td>Single database, ACID transactions trivial</td><td>Distributed transactions are hard; eventual consistency</td></tr>
+        <tr><td>Debugging</td><td>One log stream, simple stack traces</td><td>Distributed tracing required across many services</td></tr>
+        <tr><td>Operational overhead</td><td>Low</td><td>High — CI/CD per service, service mesh, observability</td></tr>
+      </tbody>
+    </table>
+
+    <div class="box tip">
+      <strong>When to use a monolith:</strong> Early-stage startups, small teams (&lt;10 engineers), unclear domain boundaries, or any time speed of iteration matters more than independent deployability. Amazon, Netflix, and Airbnb all started as monoliths.
+    </div>
+
+    <div class="box tip">
+      <strong>When to use microservices:</strong> Large organizations where multiple teams need to deploy independently. Domains with wildly different scaling requirements (e.g., image processing vs user auth). When a monolith has become genuinely painful to deploy.
+    </div>
+
+    <h2>3. Conway's Law</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> If you have three teams working on a compiler, you'll get a three-pass compiler. Software architecture mirrors the communication structure of the organization that builds it. This isn't metaphor — it's observed reality.
+    </div>
+
+    <p>Melvin Conway wrote in 1968: "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations."</p>
+
+    <p>The practical implication: asking "should we use microservices?" is really asking "is our organization structured to operate distributed systems?" If your team has one ops person and five developers all working together on Slack, deploying ten microservices will not make you faster. It will make you slower and more brittle.</p>
+
+    <p>Mature microservices organizations (Netflix, Spotify, Uber) have dedicated platform teams, mature internal developer platforms, and service ownership models baked into the culture. The architecture follows the org, not the reverse.</p>
+
+    <h2>4. Service Communication Patterns</h2>
+
+    <h3>Synchronous: REST and gRPC</h3>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A phone call. Both parties must be present and available. The caller waits on the line until the recipient responds. Use this when the caller needs the result before it can do anything else.
+    </div>
+
+    <p>REST over HTTP is familiar and easy to debug with tools like curl and Postman. gRPC is faster (binary Protobuf encoding), supports streaming, and enforces a typed contract via <code>.proto</code> files — preferred for high-throughput internal service-to-service calls.</p>
+
+    <p><strong>Synchronous call — direct API call from Order Service to Inventory Service:</strong></p>
+<pre><code>// order-service/src/order.service.ts
+import { Injectable, HttpException } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
+
+@Injectable()
+export class OrderService {
+  constructor(private readonly http: HttpService) {}
+
+  async placeOrder(userId: string, productId: string, qty: number): Promise<void> {
+    // Synchronous call — we WAIT for inventory to respond before continuing
+    const { data } = await firstValueFrom(
+      this.http.post('http://inventory-service/reserve', { productId, qty })
+    );
+
+    if (!data.success) {
+      throw new HttpException('Insufficient stock', 409);
+    }
+
+    // Only after a successful inventory response do we save the order
+    await this.saveOrder({ userId, productId, qty, status: 'confirmed' });
+  }
+}</code></pre>
+
+    <h3>Asynchronous: Kafka and RabbitMQ</h3>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> An email. You write it, hit send, and immediately move on to your next task. You don't wait for a reply before doing something else. The recipient processes it when they're ready. Use this for fire-and-forget operations, fan-out (one event, many consumers), and decoupling services so one slowdown doesn't cascade.
+    </div>
+
+    <p><strong>Asynchronous — publishing an event after order is saved:</strong></p>
+<pre><code>// order-service/src/order.service.ts
+import { Injectable } from '@nestjs/common';
+import { ClientKafka } from '@nestjs/microservices';
+
+@Injectable()
+export class OrderService {
+  constructor(private readonly kafkaClient: ClientKafka) {}
+
+  async placeOrder(userId: string, productId: string, qty: number): Promise<void> {
+    // Save immediately — don't wait for downstream services
+    const order = await this.saveOrder({ userId, productId, qty, status: 'pending' });
+
+    // Fire event and move on. Inventory, notification, analytics services all consume independently.
+    this.kafkaClient.emit('order.placed', {
+      orderId: order.id,
+      userId,
+      productId,
+      qty,
+      timestamp: new Date().toISOString(),
+    });
+
+    // Returns immediately — no waiting for inventory or email to finish
+  }
+}
+
+// inventory-service/src/inventory.consumer.ts
+import { Controller } from '@nestjs/common';
+import { EventPattern, Payload } from '@nestjs/microservices';
+
+@Controller()
+export class InventoryConsumer {
+  @EventPattern('order.placed')
+  async handleOrderPlaced(@Payload() event: { orderId: string; productId: string; qty: number }) {
+    await this.reserveStock(event.productId, event.qty);
+    // If this fails, a dead-letter queue captures it for retry — order service never knows
+  }
+}</code></pre>
+
+    <div class="box key-term">
+      <strong>Key rule:</strong> Use synchronous communication when the caller cannot proceed without the response (e.g., checking if a user exists before creating a session). Use asynchronous when downstream work is independent — notifications, analytics, audit logs, inventory updates.
+    </div>
+
+    <h2>5. CQRS — Command Query Responsibility Segregation</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A library has two desks. The check-in/check-out desk handles commands — returning books, borrowing books, state changes. The reference desk handles queries — "where is the science fiction section?", "do you have this title?" — purely reading information. They're staffed differently, optimized differently. CQRS applies this to your codebase and optionally your databases.
+    </div>
+
+    <p><strong>Simple CQRS</strong> (same database, separate code paths) — the most common and practical starting point:</p>
+
+<pre><code>// commands/create-order.command.ts
+export class CreateOrderCommand {
+  constructor(
+    public readonly userId: string,
+    public readonly productId: string,
+    public readonly qty: number,
+  ) {}
+}
+
+// command-handlers/create-order.handler.ts
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CreateOrderCommand } from '../commands/create-order.command';
+
+@CommandHandler(CreateOrderCommand)
+export class CreateOrderHandler implements ICommandHandler<CreateOrderCommand> {
+  async execute(command: CreateOrderCommand): Promise<void> {
+    // Writes go through this handler — validates, applies business rules, writes to DB
+    await this.orderRepository.save({
+      userId: command.userId,
+      productId: command.productId,
+      qty: command.qty,
+      status: 'pending',
+    });
+  }
+}
+
+// queries/get-orders.query.ts
+export class GetOrdersQuery {
+  constructor(public readonly userId: string) {}
+}
+
+// query-handlers/get-orders.handler.ts
+@QueryHandler(GetOrdersQuery)
+export class GetOrdersHandler implements IQueryHandler<GetOrdersQuery> {
+  async execute(query: GetOrdersQuery): Promise<Order[]> {
+    // Reads can be optimized independently — add caching, read replicas, denormalized views
+    return this.orderReadRepository.findByUser(query.userId);
+  }
+}</code></pre>
+
+    <p><strong>Full CQRS</strong> adds a separate read database (e.g., write to PostgreSQL, sync to Elasticsearch or a Redis read model). This enables independent scaling of reads vs writes and optimized query models. The tradeoff is eventual consistency between write and read stores.</p>
+
+    <div class="box warning">
+      <strong>When NOT to use CQRS:</strong> Simple CRUD applications where reads and writes have the same shape. If you're not hitting scale problems and your domain logic is straightforward, CQRS adds complexity for no return. Start simple.
+    </div>
+
+    <h2>6. The Saga Pattern — Distributed Transactions</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Booking a holiday package — flights, hotel, car rental. If the hotel is fully booked after you've confirmed the flight, you can't atomically roll back your flight in a single database transaction. Each booking system is separate. You must call each vendor and cancel individually. That's a saga: a sequence of local transactions with compensating actions when something goes wrong.
+    </div>
+
+    <p>There are two saga coordination styles:</p>
+
+    <p><strong>Choreography saga</strong>: each service listens for events and reacts. No central coordinator. Simple but hard to track the overall flow.</p>
+
+    <p><strong>Orchestration saga</strong>: a central orchestrator tells each service what to do and handles compensation if anything fails. Easier to reason about. Example:</p>
+
+<pre><code>// order-saga.orchestrator.ts
+@Injectable()
+export class OrderSagaOrchestrator {
+  async execute(order: CreateOrderDto): Promise<void> {
+    const sagaId = uuidv4();
+
+    try {
+      // Step 1: Reserve inventory
+      await this.inventoryService.reserve({ sagaId, productId: order.productId, qty: order.qty });
+
+      // Step 2: Charge payment
+      await this.paymentService.charge({ sagaId, userId: order.userId, amount: order.totalAmount });
+
+      // Step 3: Confirm order
+      await this.orderRepository.updateStatus(order.id, 'confirmed');
+
+      // Step 4: Send notification (fire-and-forget — failure here doesn't roll back the order)
+      this.notificationService.send({ userId: order.userId, event: 'order_confirmed' }).catch(() => {
+        this.logger.warn('Notification failed, will retry via queue');
+      });
+
+    } catch (error) {
+      this.logger.error(`Saga ${sagaId} failed at step: ${error.step}`, error);
+
+      // Compensating transactions — undo in reverse order
+      await this.compensate(sagaId, error.step, order);
+      throw new Error('Order placement failed — all steps rolled back');
+    }
+  }
+
+  private async compensate(sagaId: string, failedStep: string, order: CreateOrderDto): Promise<void> {
+    if (failedStep === 'payment' || failedStep === 'confirm') {
+      // Release the inventory reservation
+      await this.inventoryService.release({ sagaId, productId: order.productId, qty: order.qty });
+    }
+    if (failedStep === 'confirm') {
+      // Refund the payment
+      await this.paymentService.refund({ sagaId, userId: order.userId, amount: order.totalAmount });
+    }
+  }
+}</code></pre>
+
+    <div class="box tip">
+      <strong>Idempotency is critical.</strong> Every saga step must be idempotent — safe to retry. The orchestrator may retry on transient failures. Use the <code>sagaId</code> to deduplicate repeat calls.
+    </div>
+
+    <h2>7. Event Sourcing</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Your bank account doesn't store "current balance: $1,234." It stores every transaction that ever happened: deposit $500, withdraw $200, deposit $934. The balance is derived by replaying those events. Event sourcing applies this to your entire application state.
+    </div>
+
+    <p>Instead of storing current state, you store a log of every event that caused state changes. To get current state, replay the events.</p>
+
+    <p><strong>Benefits:</strong> Full audit trail for free. Time travel — reconstruct state at any point in the past. Events become the integration point for other services. Easier to debug because you have the full history.</p>
+
+    <p><strong>Challenges:</strong> Querying is non-trivial — you need projections (read models). Event schema evolution is hard. Storage grows unbounded (use snapshots after N events). Not suitable for every domain.</p>
+
+    <div class="box warning">
+      <strong>When to use event sourcing:</strong> Domains where audit trails are critical (banking, healthcare, compliance). High-value domains where you might need to replay history. Do not reach for it by default — the operational overhead is real.
+    </div>
+
+    <h2>8. Circuit Breaker</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Your home's electrical circuit breaker. Under normal load, current flows freely (Closed state). If a surge occurs, the breaker trips and cuts power immediately (Open state) — protecting the wiring from damage. After a timeout, it allows a small test current (Half-Open state) to check if conditions have normalized.
+    </div>
+
+    <p>In distributed systems, if Service A calls Service B and B is slow or down, without a circuit breaker, A accumulates blocked threads and slow requests — eventually A falls over too. The circuit breaker detects failure and short-circuits calls to B immediately, returning a fallback response until B recovers.</p>
+
+    <p><strong>Node.js example with opossum:</strong></p>
+
+<pre><code>import CircuitBreaker from 'opossum';
+import axios from 'axios';
+
+const options = {
+  timeout: 3000,           // If the request takes longer than 3s, count as failure
+  errorThresholdPercentage: 50,  // Open circuit if 50% of requests fail
+  resetTimeout: 10000,     // After 10s in Open, try Half-Open
+};
+
+async function callInventoryService(productId: string) {
+  return axios.get(`http://inventory-service/stock/${productId}`);
+}
+
+const breaker = new CircuitBreaker(callInventoryService, options);
+
+// Fallback: return a safe default when circuit is open
+breaker.fallback(() => ({ available: false, reason: 'inventory-service unavailable' }));
+
+breaker.on('open', () => console.warn('Circuit OPEN: inventory-service is failing'));
+breaker.on('halfOpen', () => console.log('Circuit HALF-OPEN: testing inventory-service'));
+breaker.on('close', () => console.log('Circuit CLOSED: inventory-service recovered'));
+
+// Use the breaker instead of calling directly
+const result = await breaker.fire('product-123');
+console.log(result); // Safe even if inventory-service is down</code></pre>
+
+    <h2>9. CAP Theorem</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> You're running a restaurant with multiple chefs. You can guarantee that all chefs have the same up-to-date menu (Consistency), that chefs can always take orders (Availability), and that the kitchen keeps running even if the comms system between stations fails (Partition Tolerance). But if communication between stations breaks down, you have to choose: stop taking orders until menus are re-synced (CP) or keep taking orders with potentially stale menus (AP). You can't do both.
+    </div>
+
+    <p>CAP states: in a distributed system, you can guarantee at most two of Consistency, Availability, and Partition Tolerance. Since network partitions are a fact of distributed life, you effectively choose between CP and AP.</p>
+
+    <p><strong>CP systems</strong> (Consistent + Partition-tolerant): when a network partition occurs, the system refuses to respond rather than return stale data. Examples: HBase, Zookeeper, traditional RDBMS in a cluster. Good for banking, financial ledgers, anything where stale data causes real harm.</p>
+
+    <p><strong>AP systems</strong> (Available + Partition-tolerant): when a network partition occurs, the system continues serving requests but may return stale data. Examples: DNS, Cassandra, CouchDB, shopping carts (Amazon's Dynamo paper chose AP — better to show a slightly stale cart than refuse to serve the page). Data eventually becomes consistent once the partition heals.</p>
+
+    <div class="box key-term">
+      <strong>Interview framing:</strong> "It depends on the use case. For a bank transfer I'd choose CP — stale balance data causes real financial harm. For a product recommendations system I'd choose AP — showing slightly stale recommendations is completely acceptable. The tradeoff is always between correctness and availability."
+    </div>
+
+    <h2>Senior vs Junior</h2>
+
+    <p><strong>Question: "When would you NOT recommend microservices?"</strong></p>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior Answer</span>
+      "I'd always recommend microservices because they're more scalable and modern."
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior Answer</span>
+      "There are several clear cases where I'd push back. If it's an early-stage startup with a team under ten engineers, the operational overhead of microservices — separate CI/CD pipelines, service discovery, distributed tracing, managing multiple deployments — will eat velocity that the business can't afford. If the domain boundaries aren't well-understood yet, splitting into microservices means you'll need to do expensive refactoring later when you discover the boundaries were wrong. I'd also push back if the team doesn't have a mature DevOps culture. Microservices require platform engineering investment. Without it, you get all the downsides — distributed system complexity, network failures, cascading errors — without the benefits. I'd start with a well-structured modular monolith and extract services only when a specific pain point — team autonomy, independent scaling, or a genuinely distinct technical requirement — makes the tradeoff clearly worth it."
+    </div>
+
+    <div class="exercises">
+      <h3>Practice Questions</h3>
+
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p><strong>What is the difference between a monolith and microservices? Name one advantage of each.</strong></p>
+        <p>A monolith is a single deployable unit where all code runs in one process — simple to develop and deploy. A microservice architecture splits the application into independently deployable services. Advantage of monolith: simple local development and easy refactoring across boundaries. Advantage of microservices: teams can deploy their service independently without coordinating with other teams.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p><strong>Explain CQRS. When would you use it and when would you avoid it?</strong></p>
+        <p>CQRS separates the code paths (and optionally the databases) for reads and writes. Commands mutate state; queries return data. Use it when read and write workloads have different scale requirements, when you need denormalized read models for performance, or when your domain logic benefits from explicit command/event modeling. Avoid it for simple CRUD applications — the added indirection creates overhead without payoff.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p><strong>Design an order placement flow using the Saga pattern. The flow involves payment, inventory reservation, and notification. What happens if payment succeeds but inventory reservation fails?</strong></p>
+        <p>Use an orchestration saga. The orchestrator:</p>
+        <ol>
+          <li>Calls <code>inventory.reserve()</code> first — if it fails, no money has moved. Return error to user.</li>
+          <li>Calls <code>payment.charge()</code> — if it fails, call <code>inventory.release()</code> as compensation, then return error.</li>
+          <li>Calls <code>order.confirm()</code> — if it fails, call <code>payment.refund()</code> and <code>inventory.release()</code>.</li>
+          <li>Fires <code>notification.send()</code> as a non-critical fire-and-forget event — failure does not roll back the order.</li>
+        </ol>
+        <p>Each compensation action must be idempotent. Use a unique <code>sagaId</code> (UUID) as an idempotency key passed to every service so retries don't double-charge or double-reserve. Store saga state in a durable store so the orchestrator can resume after its own crash.</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h3>Chapter Summary</h3>
+      <ul>
+        <li>Microservices are a tradeoff, not a default. Choose them when team independence and independent scalability genuinely justify the operational complexity.</li>
+        <li>Conway's Law: your architecture will mirror your org structure. Fix the org before you fix the architecture.</li>
+        <li>Use synchronous communication (REST/gRPC) when the caller needs the response to continue; use async (Kafka/RabbitMQ) for decoupled, fire-and-forget, or fan-out operations.</li>
+        <li>Sagas solve the distributed transaction problem with compensating actions. Always use idempotency keys.</li>
+        <li>CAP Theorem forces a choice between CP (consistent but may be unavailable) and AP (always available but possibly stale). Match the choice to the business requirement.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Your microservices are running — but are they healthy? Chapter 20 covers performance profiling, observability, and the metrics that matter when production goes wrong.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-18.html"><span class="nav-label">← Previous</span><span class="nav-title">Databases</span></a>
+      <a href="chapter-20.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Performance &amp; Observability</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

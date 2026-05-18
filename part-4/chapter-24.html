@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 24: TypeScript Deep Dive — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 24</div>
+      <h1>TypeScript Deep Dive</h1>
+      <p class="chapter-intro">TypeScript is not a different language. It's JavaScript with a spell-checker installed and the ability to read your mind. The spell-checker catches errors before the browser does. Both together mean fewer 2am production surprises.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>Structural typing and why TypeScript's type system is fundamentally different from Java or C#</li>
+        <li>Type narrowing techniques: typeof, instanceof, in, type guards, and discriminated unions</li>
+        <li>Generics from first principles through generic constraints and repository patterns</li>
+        <li>The critical difference between <code>unknown</code> and <code>any</code> — and why <code>any</code> is a code smell</li>
+        <li>All major utility types with real NestJS production examples</li>
+        <li>Discriminated unions for making impossible states unrepresentable</li>
+        <li>interface vs type: practical rules and when each is required</li>
+        <li>NestJS decorators, DI, class-validator, and full DTO validation</li>
+        <li>Monorepo type versioning and shared type strategies</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>1. Structural Typing vs Nominal Typing</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — The Dress Code:</strong> A restaurant has a dress code: "collared shirt and dress shoes." They don't care whether you bought your shirt from Ralph Lauren or a market stall. If it has a collar, it qualifies. TypeScript works the same way. It doesn't care about the label on the tin — only the shape of what's inside.
+    </div>
+
+    <p>Most statically typed languages use <strong>nominal typing</strong>: a class is only compatible with a type if it explicitly declares that it implements it. Java requires <code>implements Runnable</code>. TypeScript uses <strong>structural typing</strong>: if an object has the right shape (the right properties and method signatures), it satisfies the type — regardless of what it's called or whether it was explicitly declared to implement anything.</p>
+
+    <pre><code>interface Serializable {
+  serialize(): string;
+}
+
+// No "implements Serializable" — yet this works perfectly
+class UserSession {
+  constructor(
+    public userId: string,
+    public token: string,
+    public expiresAt: Date
+  ) {}
+
+  serialize(): string {
+    return JSON.stringify({
+      userId: this.userId,
+      token: this.token,
+      expiresAt: this.expiresAt.toISOString(),
+    });
+  }
+}
+
+function saveToCache(item: Serializable): void {
+  const data = item.serialize();
+  console.log('Saving to cache:', data);
+}
+
+const session = new UserSession('u123', 'tok_abc', new Date());
+saveToCache(session); // TypeScript is perfectly happy — shape matches
+</code></pre>
+
+    <p>This is powerful for composition. You can define interfaces after the fact, test code with mock objects that just happen to have the right shape, and use third-party classes without touching their source code.</p>
+
+    <!-- ============================================================ -->
+    <h2>2. Type Narrowing</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — The Detective:</strong> Sherlock Holmes doesn't say "I know nothing about this person." He starts with broad information (a human being) and narrows it down with each clue: military posture (soldier), tan line (served abroad), calluses (manual work). TypeScript's type narrowing works identically — you start with a broad type and use checks to narrow it to something specific.
+    </div>
+
+    <h3>typeof narrowing</h3>
+    <pre><code>function formatId(id: string | number): string {
+  if (typeof id === 'string') {
+    // TypeScript knows: id is string here
+    return id.toUpperCase();
+  }
+  // TypeScript knows: id is number here
+  return id.toFixed(0);
+}
+</code></pre>
+
+    <h3>instanceof narrowing</h3>
+    <pre><code>function handleError(err: unknown): string {
+  if (err instanceof Error) {
+    // TypeScript knows: err has .message, .stack, etc.
+    return err.message;
+  }
+  return String(err);
+}
+</code></pre>
+
+    <h3>in operator narrowing</h3>
+    <pre><code>interface Cat { meow(): void }
+interface Dog { bark(): void }
+
+function makeNoise(animal: Cat | Dog): void {
+  if ('meow' in animal) {
+    animal.meow(); // TypeScript: Cat
+  } else {
+    animal.bark(); // TypeScript: Dog
+  }
+}
+</code></pre>
+
+    <h3>User-defined type guards (is operator)</h3>
+    <pre><code>interface AdminUser {
+  role: 'admin';
+  permissions: string[];
+}
+
+interface RegularUser {
+  role: 'user';
+}
+
+type User = AdminUser | RegularUser;
+
+// The "is" operator creates a type predicate — tells TS what narrowing means
+function isAdmin(user: User): user is AdminUser {
+  return user.role === 'admin';
+}
+
+function getPermissions(user: User): string[] {
+  if (isAdmin(user)) {
+    return user.permissions; // TypeScript knows: AdminUser
+  }
+  return [];
+}
+</code></pre>
+
+    <h3>Discriminated unions with switch/case</h3>
+    <pre><code>type Shape =
+  | { kind: 'circle'; radius: number }
+  | { kind: 'rectangle'; width: number; height: number }
+  | { kind: 'triangle'; base: number; height: number };
+
+function area(shape: Shape): number {
+  switch (shape.kind) {
+    case 'circle':
+      return Math.PI * shape.radius ** 2;
+    case 'rectangle':
+      return shape.width * shape.height;
+    case 'triangle':
+      return 0.5 * shape.base * shape.height;
+    default:
+      // Exhaustiveness check — TypeScript will error if a case is unhandled
+      const _exhaustive: never = shape;
+      throw new Error(`Unhandled shape: ${_exhaustive}`);
+  }
+}
+</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>3. Generics</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Labeled Storage Boxes:</strong> Imagine a warehouse with generic boxes. A plain box holds anything. But once you label it "BOOKS ONLY," the warehouse system enforces it — you can't accidentally shove a lamp inside. Generics let you write one piece of code that works for any type, while the caller chooses what label goes on the box.
+    </div>
+
+    <h3>Basic generic function</h3>
+    <pre><code>function first&lt;T&gt;(arr: T[]): T | undefined {
+  return arr[0];
+}
+
+const name = first(['Alice', 'Bob']); // TypeScript infers: string | undefined
+const score = first([98, 87, 76]);    // TypeScript infers: number | undefined
+</code></pre>
+
+    <h3>Generic constraints with extends</h3>
+    <pre><code>function getProperty&lt;T, K extends keyof T&gt;(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+const user = { id: 1, name: 'Alice', email: 'alice@example.com' };
+const email = getProperty(user, 'email'); // string — type-safe key access
+// getProperty(user, 'password');         // TypeScript ERROR — key doesn't exist
+</code></pre>
+
+    <h3>Generic repository pattern (NestJS-ready)</h3>
+    <pre><code>interface Repository&lt;T, ID = number&gt; {
+  findById(id: ID): Promise&lt;T | null&gt;;
+  findAll(): Promise&lt;T[]&gt;;
+  save(entity: T): Promise&lt;T&gt;;
+  delete(id: ID): Promise&lt;void&gt;;
+}
+
+// A concrete implementation for users
+@Injectable()
+class UserRepository implements Repository&lt;User, string&gt; {
+  constructor(
+    @InjectRepository(UserEntity)
+    private readonly repo: TypeOrmRepository&lt;UserEntity&gt;
+  ) {}
+
+  async findById(id: string): Promise&lt;User | null&gt; {
+    const entity = await this.repo.findOne({ where: { id } });
+    return entity ? this.toDomain(entity) : null;
+  }
+
+  async findAll(): Promise&lt;User[]&gt; {
+    const entities = await this.repo.find();
+    return entities.map(this.toDomain);
+  }
+
+  async save(user: User): Promise&lt;User&gt; {
+    const saved = await this.repo.save(this.toEntity(user));
+    return this.toDomain(saved);
+  }
+
+  async delete(id: string): Promise&lt;void&gt; {
+    await this.repo.delete(id);
+  }
+
+  private toDomain(e: UserEntity): User { /* mapping */ return e as unknown as User; }
+  private toEntity(u: User): UserEntity { /* mapping */ return u as unknown as UserEntity; }
+}
+</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>4. unknown vs any — The Critical Section</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Package Labels:</strong> You receive two packages. The first is labeled <strong>"STUFF"</strong> — you reach in, grab whatever, use it however, and hope for the best. That's <code>any</code>: the compiler steps aside and trusts you completely. The second is labeled <strong>"UNKNOWN CONTENTS"</strong> — before you use anything, you open it, check what's inside, and handle it appropriately. That's <code>unknown</code>: safe by default.
+    </div>
+
+    <div class="box warning">
+      <strong>Warning:</strong> <code>any</code> silently disables TypeScript's type checking. Every <code>any</code> in your codebase is a lie you're telling the compiler — and lies compound at runtime.
+    </div>
+
+    <h3>any disables type checking — leading to runtime crashes</h3>
+    <pre><code>function processUserInput_UNSAFE(input: any): string {
+  // TypeScript won't complain — even though this crashes at runtime
+  // if input is a number, boolean, null, or object
+  return input.toUpperCase(); // Runtime TypeError: input.toUpperCase is not a function
+}
+
+processUserInput_UNSAFE(42);    // CRASH at runtime
+processUserInput_UNSAFE(null);  // CRASH at runtime
+</code></pre>
+
+    <h3>unknown forces narrowing — type safe</h3>
+    <pre><code>function processUserInput_SAFE(input: unknown): string {
+  // TypeScript FORCES you to check before using
+  if (typeof input === 'string') {
+    return input.toUpperCase(); // Safe — narrowed to string
+  }
+  if (typeof input === 'number') {
+    return input.toFixed(2);    // Safe — narrowed to number
+  }
+  throw new Error(`Unsupported input type: ${typeof input}`);
+}
+
+processUserInput_SAFE('hello'); // "HELLO"
+processUserInput_SAFE(42);      // "42.00"
+// processUserInput_SAFE(null); // throws descriptive error — predictable
+</code></pre>
+
+    <h3>When to use unknown</h3>
+    <pre><code>// 1. JSON.parse always returns any — cast to unknown immediately
+function safeParse(json: string): unknown {
+  return JSON.parse(json) as unknown;
+}
+
+// 2. API responses from external sources
+async function fetchExternalData(url: string): Promise&lt;unknown&gt; {
+  const res = await fetch(url);
+  return res.json() as unknown; // Treat as unknown, validate before using
+}
+
+// 3. Error catch blocks — errors can be anything
+function handleCaughtError(err: unknown): string {
+  if (err instanceof Error) return err.message;
+  if (typeof err === 'string') return err;
+  return 'An unknown error occurred';
+}
+</code></pre>
+
+    <div class="box key-term">
+      <strong>Rule:</strong> Use <code>unknown</code> everywhere you'd be tempted to use <code>any</code>. If you find yourself reaching for <code>any</code> in production code, stop — it's a code smell. The only legitimate use of <code>any</code> is during incremental JavaScript-to-TypeScript migration, and even then, mark those spots with <code>// TODO: remove any</code> comments.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>5. Utility Types — Real-World Examples</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Power Tools for Types:</strong> You could build a table with hand tools. Or you could use a circular saw, a sander, and a drill press. Utility types are TypeScript's power tools — they derive new types from existing ones automatically, so you don't write the same shape twice with slight variations.
+    </div>
+
+    <pre><code>// Base entity — the source of truth
+interface User {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  role: 'admin' | 'user';
+  createdAt: Date;
+}
+
+// Partial&lt;T&gt; — for PATCH requests: all fields optional
+type UpdateUserDto = Partial&lt;Pick&lt;User, 'email' | 'name' | 'role'&gt;&gt;;
+// Result: { email?: string; name?: string; role?: 'admin' | 'user' }
+
+// Required&lt;T&gt; — enforce all fields (useful for post-validation shapes)
+type ValidatedUser = Required&lt;User&gt;;
+
+// Pick&lt;T, Keys&gt; — select subset for API response (exclude internals)
+type UserProfile = Pick&lt;User, 'id' | 'name' | 'email' | 'role'&gt;;
+// Result: { id: string; name: string; email: string; role: ... }
+
+// Omit&lt;T, Keys&gt; — exclude sensitive fields from public response
+type PublicUser = Omit&lt;User, 'password' | 'createdAt'&gt;;
+// Result: { id: string; email: string; name: string; role: ... }
+
+// Record&lt;K, V&gt; — typed dictionary for config objects and cache maps
+type RolePermissions = Record&lt;User['role'], string[]&gt;;
+const permissions: RolePermissions = {
+  admin: ['read', 'write', 'delete', 'manage-users'],
+  user: ['read'],
+};
+
+// ReturnType&lt;F&gt; — extract what a function returns (useful for mocks)
+async function findUser(id: string): Promise&lt;PublicUser | null&gt; {
+  // Implementation...
+  return null;
+}
+type FindUserResult = ReturnType&lt;typeof findUser&gt;;
+// Resolves to: Promise&lt;PublicUser | null&gt;
+</code></pre>
+
+    <h3>Full NestJS DTO hierarchy using utility types</h3>
+    <pre><code>import { IsString, IsEmail, IsEnum, IsOptional, MinLength } from 'class-validator';
+
+// Base class captures the full shape with validators
+class BaseUserDto {
+  @IsEmail()
+  email!: string;
+
+  @IsString()
+  @MinLength(8)
+  password!: string;
+
+  @IsString()
+  name!: string;
+
+  @IsEnum(['admin', 'user'])
+  role!: 'admin' | 'user';
+}
+
+// CreateUserDto — all fields required (inherits from base)
+export class CreateUserDto extends BaseUserDto {}
+
+// UpdateUserDto — all fields optional for PATCH
+// Use PartialType from @nestjs/mapped-types (preserves validators!)
+import { PartialType, OmitType } from '@nestjs/mapped-types';
+
+export class UpdateUserDto extends PartialType(
+  OmitType(BaseUserDto, ['password'] as const)
+) {}
+// Result: { email?: string; name?: string; role?: ... } — no password on update
+</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>6. Discriminated Unions — Making Impossible States Unrepresentable</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Shipping Labels:</strong> A package can be "in transit," "delivered," or "failed." Each state has different fields: in-transit has an ETA, delivered has a timestamp, failed has a reason. You'd never have both a deliveryTimestamp AND a failureReason on the same package — that's a contradiction. Discriminated unions enforce these rules at compile time.
+    </div>
+
+    <pre><code>// The discriminant is the "success" field — it determines the shape
+type Result&lt;T, E = string&gt; =
+  | { success: true; data: T }
+  | { success: false; error: E };
+
+// A function that returns Result instead of throwing
+async function findUserById(id: string): Promise&lt;Result&lt;PublicUser&gt;&gt; {
+  try {
+    const user = await userRepository.findById(id);
+    if (!user) {
+      return { success: false, error: `User ${id} not found` };
+    }
+    return { success: true, data: user };
+  } catch (err) {
+    return { success: false, error: 'Database error' };
+  }
+}
+
+// Consuming the Result — TypeScript narrows automatically
+async function handleGetUser(id: string): Promise&lt;void&gt; {
+  const result = await findUserById(id);
+
+  if (result.success) {
+    // TypeScript knows: result.data is PublicUser
+    console.log(`Found user: ${result.data.name}`);
+  } else {
+    // TypeScript knows: result.error is string
+    console.error(`Error: ${result.error}`);
+    // result.data would be a TYPE ERROR here — impossible state blocked!
+  }
+}
+</code></pre>
+
+    <div class="box tip">
+      <strong>Tip:</strong> The Result pattern eliminates the try/catch pyramid of doom from your controllers. Every async operation returns a Result; controllers check success and respond accordingly. No uncaught exceptions, no 500s from forgotten try/catch blocks.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>7. interface vs type — The Question Everyone Asks</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Corporate Contracts vs Algebraic Equations:</strong> An interface is like a signed contract between parties — open, formal, can be amended (extended) later by anyone. A type alias is like a mathematical equation — precise, can express complex relationships, but once written it's exactly what it says.
+    </div>
+
+    <p>They're mostly the same. The key differences are:</p>
+
+    <ul>
+      <li><strong>Interfaces are open (declaration merging):</strong> You can add properties to an existing interface by declaring it again. Types cannot be reopened.</li>
+      <li><strong>Types can represent anything:</strong> Union types, intersection types, tuples, primitives — these require <code>type</code>. Interfaces can only describe object shapes.</li>
+      <li><strong>Error messages:</strong> Interfaces sometimes give cleaner errors in complex scenarios.</li>
+    </ul>
+
+    <pre><code>// interface — open, can be merged (essential for augmenting third-party types)
+interface UserRequest {
+  userId: string;
+}
+// Later, in another file or declaration file:
+interface UserRequest {
+  tenantId: string; // Merges with above — now has both userId and tenantId
+}
+
+// Augmenting Express Request (requires interface — type cannot merge)
+declare global {
+  namespace Express {
+    interface Request {
+      user?: AuthenticatedUser;
+    }
+  }
+}
+
+// type — required for unions, tuples, and complex type algebra
+type StringOrNumber = string | number;        // Can't do with interface
+type Pair&lt;T&gt; = [T, T];                        // Tuple — can't do with interface
+type Status = 'pending' | 'active' | 'inactive'; // Literal union
+
+// Rule of thumb:
+// - interface for object shapes (signals "this is a contract")
+// - type for unions, intersections, tuples, or complex compositions
+</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>8. NestJS with TypeScript: Decorators and DI</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Name Badges at a Conference:</strong> A decorator is like putting a name badge on someone. The badge doesn't change who they are — it adds metadata that the system (in this case, NestJS's IoC container) reads to decide what role they play, who needs them, and how to wire them together.
+    </div>
+
+    <pre><code>// Full NestJS controller + DTO with nested validation + custom validator
+
+import {
+  Controller, Post, Body, Param, Get, Query, HttpCode, HttpStatus
+} from '@nestjs/common';
+import {
+  IsString, IsEmail, IsUUID, IsOptional, IsInt, Min, Max,
+  ValidatorConstraint, ValidatorConstraintInterface,
+  ValidationArguments, Validate, ValidateNested, Type as TransformType
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import { Injectable } from '@nestjs/common';
+
+// Custom validator
+@ValidatorConstraint({ name: 'isStrongPassword', async: false })
+class IsStrongPassword implements ValidatorConstraintInterface {
+  validate(password: string, _args: ValidationArguments): boolean {
+    return (
+      password.length >= 8 &&
+      /[A-Z]/.test(password) &&
+      /[0-9]/.test(password) &&
+      /[^A-Za-z0-9]/.test(password)
+    );
+  }
+  defaultMessage(): string {
+    return 'Password must be 8+ chars with uppercase, number, and special character';
+  }
+}
+
+// Nested DTO
+class AddressDto {
+  @IsString()
+  street!: string;
+
+  @IsString()
+  city!: string;
+
+  @IsString()
+  country!: string;
+}
+
+// Main create DTO
+class CreateUserDto {
+  @IsEmail()
+  email!: string;
+
+  @IsString()
+  @Validate(IsStrongPassword)
+  password!: string;
+
+  @IsString()
+  name!: string;
+
+  @ValidateNested()
+  @TransformType(() => AddressDto)
+  address!: AddressDto;
+}
+
+// Pagination DTO
+class PaginationDto {
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Type(() => Number)
+  page?: number = 1;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(100)
+  @Type(() => Number)
+  limit?: number = 20;
+}
+
+// Service
+@Injectable()
+class UserService {
+  async create(dto: CreateUserDto): Promise&lt;Result&lt;PublicUser&gt;&gt; {
+    // Implementation
+    return { success: true, data: { id: 'u1', ...dto, role: 'user' } as PublicUser };
+  }
+  async findAll(page: number, limit: number): Promise&lt;PublicUser[]&gt; {
+    return []; // Implementation
+  }
+  async findOne(id: string): Promise&lt;Result&lt;PublicUser&gt;&gt; {
+    return { success: false, error: 'Not found' };
+  }
+}
+
+// Controller
+@Controller('users')
+class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  async create(@Body() dto: CreateUserDto) {
+    const result = await this.userService.create(dto);
+    if (!result.success) throw new Error(result.error);
+    return result.data;
+  }
+
+  @Get()
+  async findAll(@Query() pagination: PaginationDto) {
+    return this.userService.findAll(pagination.page!, pagination.limit!);
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const result = await this.userService.findOne(id);
+    if (!result.success) throw new Error(result.error);
+    return result.data;
+  }
+}
+</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>9. Monorepo Type Versioning</h2>
+
+    <div class="box analogy">
+      <strong>Analogy — Shared Parts Catalog:</strong> Imagine a car factory where the design team updates the spec for a door hinge, but the assembly line keeps using the old spec. Parts that were supposed to fit together don't. A shared types package is the single source of truth — everyone reads from the same spec.
+    </div>
+
+    <p>When frontend and backend share a monorepo, the risk is silent type drift: the backend updates the <code>User</code> type, the frontend still compiles (it has the old cached type), but at runtime the shape is wrong and things break in subtle ways.</p>
+
+    <p><strong>Solution 1 — Shared types package (for tRPC or internal APIs):</strong></p>
+    <pre><code>// packages/shared-types/src/user.ts
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'user';
+}
+
+// apps/backend/src/users/users.service.ts
+import type { User } from '@myapp/shared-types';
+
+// apps/frontend/src/api/users.ts
+import type { User } from '@myapp/shared-types';
+// When the backend changes User, TypeScript errors appear in the FRONTEND too
+</code></pre>
+
+    <p><strong>Solution 2 — Generated types from OpenAPI schema:</strong></p>
+    <pre><code>// In package.json
+// "generate:types": "openapi-typescript openapi.yaml -o src/api-types.ts"
+// Run after any backend API change — types are always in sync with the contract
+</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Senior vs Junior Answer</h2>
+
+    <div class="box key-term">
+      <strong>Interview question: "What's the difference between interface and type in TypeScript?"</strong>
+    </div>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior answer</span>
+      <p>"Interface is for objects and type is for primitives. You use interface when you want to describe an object shape."</p>
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior answer</span>
+      <p>"They're largely interchangeable for object shapes, but the key differences matter in practice. Interfaces support <strong>declaration merging</strong> — you can re-declare an interface in multiple places and TypeScript merges the declarations. This is essential when augmenting third-party types, like adding a <code>user</code> property to Express's <code>Request</code> interface. Types are closed — you can't reopen them.</p>
+      <p>On the other side, <code>type</code> is more powerful for type algebra: it can represent union types (<code>string | number</code>), intersection types, tuples, and mapped types — things interface simply cannot express.</p>
+      <p>My rule of thumb: use <code>interface</code> for object contracts (it signals 'this is a shape something must conform to') and <code>type</code> for unions, intersections, and complex derived types. TypeScript's structural type system means both work for simple object shapes, so don't overthink it — pick a consistent convention and stick to it."</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Practice Questions</h2>
+
+    <div class="exercises">
+
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <h3>Question 1: Fix the any — Use unknown with type narrowing</h3>
+        <p>The following code uses <code>any</code> and will crash at runtime. Identify the problem and rewrite it using <code>unknown</code> with proper type narrowing.</p>
+        <pre><code>// BROKEN CODE
+function parseApiResponse(response: any): string {
+  return response.data.name.toUpperCase();
+}
+
+// This crashes when called with:
+parseApiResponse({ error: 'Not found' });  // runtime crash
+parseApiResponse(null);                     // runtime crash
+</code></pre>
+        <details>
+          <summary>Show solution</summary>
+          <pre><code>interface SuccessResponse {
+  data: { name: string };
+}
+
+interface ErrorResponse {
+  error: string;
+}
+
+type ApiResponse = SuccessResponse | ErrorResponse;
+
+function isSuccessResponse(r: unknown): r is SuccessResponse {
+  return (
+    typeof r === 'object' &&
+    r !== null &&
+    'data' in r &&
+    typeof (r as SuccessResponse).data?.name === 'string'
+  );
+}
+
+function parseApiResponse(response: unknown): string {
+  if (isSuccessResponse(response)) {
+    // TypeScript knows: response.data.name is a string
+    return response.data.name.toUpperCase();
+  }
+  if (
+    typeof response === 'object' &&
+    response !== null &&
+    'error' in response &&
+    typeof (response as ErrorResponse).error === 'string'
+  ) {
+    throw new Error((response as ErrorResponse).error);
+  }
+  throw new Error('Unexpected response shape');
+}
+
+// Now safe:
+parseApiResponse({ data: { name: 'alice' } }); // "ALICE"
+// parseApiResponse({ error: 'Not found' });    // throws Error: Not found
+</code></pre>
+        </details>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <h3>Question 2: Generic Result&lt;T, E&gt; type with fetchUser</h3>
+        <p>Write a generic <code>Result&lt;T, E = string&gt;</code> discriminated union type. Then implement a <code>fetchUser(id: string)</code> function that returns <code>Promise&lt;Result&lt;User&gt;&gt;</code>. Demonstrate proper narrowing at the call site.</p>
+        <details>
+          <summary>Show solution</summary>
+          <pre><code>// The generic Result type
+type Result&lt;T, E = string&gt; =
+  | { success: true; data: T }
+  | { success: false; error: E };
+
+// Helper constructors for readability
+const ok = &lt;T&gt;(data: T): Result&lt;T, never&gt; =&gt; ({ success: true, data });
+const err = &lt;E = string&gt;(error: E): Result&lt;never, E&gt; =&gt; ({ success: false, error });
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+// Simulated DB
+const users: Record&lt;string, User&gt; = {
+  'u1': { id: 'u1', name: 'Alice', email: 'alice@example.com' },
+};
+
+async function fetchUser(id: string): Promise&lt;Result&lt;User&gt;&gt; {
+  if (!id || id.trim() === '') {
+    return err('User ID cannot be empty');
+  }
+  const user = users[id];
+  if (!user) {
+    return err(`User with id "${id}" not found`);
+  }
+  return ok(user);
+}
+
+// Consuming with narrowing
+async function displayUser(id: string): Promise&lt;void&gt; {
+  const result = await fetchUser(id);
+
+  if (result.success) {
+    // TypeScript: result.data is User
+    console.log(`Name: ${result.data.name}, Email: ${result.data.email}`);
+  } else {
+    // TypeScript: result.error is string
+    console.error(`Failed: ${result.error}`);
+    // result.data; // TYPE ERROR — impossible state blocked
+  }
+}
+
+displayUser('u1');    // Name: Alice, Email: alice@example.com
+displayUser('u999');  // Failed: User with id "u999" not found
+</code></pre>
+        </details>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <h3>Question 3: Full NestJS service with generic repository, utility types, and error handling</h3>
+        <p>Write a complete, runnable TypeScript module containing: a generic <code>Repository&lt;T, ID&gt;</code> interface, a <code>User</code> entity, <code>CreateUserDto</code>, <code>UpdateUserDto</code> (using <code>Partial</code> + <code>Omit</code>), an in-memory <code>UserRepository</code> implementation, a <code>UserService</code> using the <code>Result</code> pattern, and demonstrate usage. No frameworks required — pure TypeScript that can run in Node.</p>
+        <details>
+          <summary>Show solution</summary>
+          <pre><code>// ============================================================
+// types.ts — shared types
+// ============================================================
+type Result&lt;T, E = string&gt; =
+  | { success: true; data: T }
+  | { success: false; error: E };
+
+const ok = &lt;T&gt;(data: T): Result&lt;T&gt; =&gt; ({ success: true, data });
+const fail = (error: string): Result&lt;never&gt; =&gt; ({ success: false, error });
+
+// ============================================================
+// user.entity.ts
+// ============================================================
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'user';
+  passwordHash: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// PublicUser — never expose passwordHash
+type PublicUser = Omit&lt;User, 'passwordHash'&gt;;
+
+// CreateUserDto — all required except id, timestamps (those are generated)
+type CreateUserDto = Pick&lt;User, 'email' | 'name' | 'role'&gt; &amp; { password: string };
+
+// UpdateUserDto — all fields optional, cannot update email or password here
+type UpdateUserDto = Partial&lt;Pick&lt;User, 'name' | 'role'&gt;&gt;;
+
+// ============================================================
+// repository.interface.ts
+// ============================================================
+interface Repository&lt;T, ID = string&gt; {
+  findById(id: ID): Promise&lt;T | null&gt;;
+  findAll(): Promise&lt;T[]&gt;;
+  findByEmail?(email: string): Promise&lt;T | null&gt;;
+  save(entity: Omit&lt;T, 'id' | 'createdAt' | 'updatedAt'&gt; &amp; Partial&lt;Pick&lt;T, 'id'&gt;&gt;): Promise&lt;T&gt;;
+  update(id: ID, partial: Partial&lt;Omit&lt;T, 'id' | 'createdAt'&gt;&gt;): Promise&lt;T | null&gt;;
+  delete(id: ID): Promise&lt;boolean&gt;;
+}
+
+// ============================================================
+// user.repository.ts — in-memory implementation
+// ============================================================
+class UserRepository implements Repository&lt;User&gt; {
+  private store: Map&lt;string, User&gt; = new Map();
+  private nextId = 1;
+
+  async findById(id: string): Promise&lt;User | null&gt; {
+    return this.store.get(id) ?? null;
+  }
+
+  async findAll(): Promise&lt;User[]&gt; {
+    return Array.from(this.store.values());
+  }
+
+  async findByEmail(email: string): Promise&lt;User | null&gt; {
+    for (const user of this.store.values()) {
+      if (user.email === email) return user;
+    }
+    return null;
+  }
+
+  async save(
+    data: Omit&lt;User, 'id' | 'createdAt' | 'updatedAt'&gt;
+  ): Promise&lt;User&gt; {
+    const user: User = {
+      ...data,
+      id: `u${this.nextId++}`,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.store.set(user.id, user);
+    return user;
+  }
+
+  async update(id: string, partial: Partial&lt;Omit&lt;User, 'id' | 'createdAt'&gt;&gt;): Promise&lt;User | null&gt; {
+    const existing = this.store.get(id);
+    if (!existing) return null;
+    const updated: User = { ...existing, ...partial, updatedAt: new Date() };
+    this.store.set(id, updated);
+    return updated;
+  }
+
+  async delete(id: string): Promise&lt;boolean&gt; {
+    return this.store.delete(id);
+  }
+}
+
+// ============================================================
+// user.service.ts
+// ============================================================
+class UserService {
+  constructor(private readonly repo: UserRepository) {}
+
+  private toPublic(user: User): PublicUser {
+    const { passwordHash, ...publicUser } = user;
+    return publicUser;
+  }
+
+  // Simple hash simulation — in production use bcrypt
+  private hashPassword(password: string): string {
+    return `hashed_${password}_${Date.now()}`;
+  }
+
+  async createUser(dto: CreateUserDto): Promise&lt;Result&lt;PublicUser&gt;&gt; {
+    // Check for duplicate email
+    const existing = await this.repo.findByEmail(dto.email);
+    if (existing) {
+      return fail(`Email ${dto.email} is already registered`);
+    }
+
+    // Validate password length
+    if (dto.password.length &lt; 8) {
+      return fail('Password must be at least 8 characters');
+    }
+
+    const user = await this.repo.save({
+      email: dto.email,
+      name: dto.name,
+      role: dto.role,
+      passwordHash: this.hashPassword(dto.password),
+    });
+
+    return ok(this.toPublic(user));
+  }
+
+  async getUser(id: string): Promise&lt;Result&lt;PublicUser&gt;&gt; {
+    const user = await this.repo.findById(id);
+    if (!user) return fail(`User ${id} not found`);
+    return ok(this.toPublic(user));
+  }
+
+  async updateUser(id: string, dto: UpdateUserDto): Promise&lt;Result&lt;PublicUser&gt;&gt; {
+    if (Object.keys(dto).length === 0) {
+      return fail('No fields provided for update');
+    }
+    const updated = await this.repo.update(id, dto);
+    if (!updated) return fail(`User ${id} not found`);
+    return ok(this.toPublic(updated));
+  }
+
+  async deleteUser(id: string): Promise&lt;Result&lt;{ deleted: true }&gt;&gt; {
+    const deleted = await this.repo.delete(id);
+    if (!deleted) return fail(`User ${id} not found`);
+    return ok({ deleted: true });
+  }
+
+  async listUsers(): Promise&lt;PublicUser[]&gt; {
+    const users = await this.repo.findAll();
+    return users.map(this.toPublic.bind(this));
+  }
+}
+
+// ============================================================
+// demo — runnable in Node
+// ============================================================
+async function main(): Promise&lt;void&gt; {
+  const repo = new UserRepository();
+  const service = new UserService(repo);
+
+  // Create users
+  const r1 = await service.createUser({
+    email: 'alice@example.com', name: 'Alice', role: 'admin', password: 'SecurePass1!'
+  });
+  const r2 = await service.createUser({
+    email: 'bob@example.com', name: 'Bob', role: 'user', password: 'SecurePass2!'
+  });
+
+  console.log('Created:', r1.success ? r1.data.name : r1.error); // Alice
+  console.log('Created:', r2.success ? r2.data.name : r2.error); // Bob
+
+  // Duplicate email
+  const r3 = await service.createUser({
+    email: 'alice@example.com', name: 'Alice2', role: 'user', password: 'AnotherPass1!'
+  });
+  console.log('Duplicate:', r3.success ? 'ok' : r3.error);
+  // "Email alice@example.com is already registered"
+
+  // Get user
+  if (r1.success) {
+    const user = await service.getUser(r1.data.id);
+    if (user.success) {
+      console.log('Fetched:', user.data.name, '— has passwordHash?', 'passwordHash' in user.data); // false
+    }
+  }
+
+  // Update user
+  if (r1.success) {
+    const updated = await service.updateUser(r1.data.id, { name: 'Alice Senior' });
+    console.log('Updated name:', updated.success ? updated.data.name : updated.error);
+  }
+
+  // List all
+  const all = await service.listUsers();
+  console.log('All users:', all.map(u =&gt; u.name)); // ['Alice Senior', 'Bob']
+}
+
+main().catch(console.error);
+</code></pre>
+        </details>
+      </div>
+
+    </div><!-- /exercises -->
+
+    <!-- ============================================================ -->
+    <div class="summary">
+      <h2>Chapter Summary</h2>
+      <ul>
+        <li><strong>Structural typing</strong> means TypeScript checks shape, not name — enabling powerful composition and duck-typed interfaces without explicit declarations.</li>
+        <li><strong>Type narrowing</strong> (typeof, instanceof, in, type guards, discriminated unions) is how TypeScript progresses from broad to specific types safely — use the exhaustiveness check (<code>never</code>) in switch statements to catch unhandled cases at compile time.</li>
+        <li><strong>unknown over any</strong> — always. <code>any</code> disables the type checker; <code>unknown</code> forces you to prove what you have before using it. Every <code>any</code> in production code is a crash waiting to happen.</li>
+        <li><strong>Utility types</strong> (Partial, Omit, Pick, Record, ReturnType) let you derive DTOs and response shapes from a single source-of-truth type — keeping your NestJS DTO hierarchy DRY and consistent.</li>
+        <li><strong>Discriminated unions</strong> with the Result pattern make impossible states unrepresentable — replacing try/catch spaghetti with explicit, type-safe success/failure handling that compilers can verify.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Java — the language the internet keeps declaring dead while enterprises keep hiring Java engineers by the thousands. We'll cover the JVM, Spring Boot, concurrency, and the collection gotchas that trip up interviewers.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-23.html">
+        <span class="nav-label">← Previous</span>
+        <span class="nav-title">Node.js Deep Dive</span>
+      </a>
+      <a href="chapter-25.html" class="next">
+        <span class="nav-label">Next →</span>
+        <span class="nav-title">Java Deep Dive</span>
+      </a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

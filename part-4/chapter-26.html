@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 26: C# Deep Dive — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 26</div>
+      <h1>C# Deep Dive</h1>
+      <p class="chapter-intro">C# is the language Microsoft spent 20 years quietly perfecting. If you're interviewing at a company with Azure infrastructure, a Windows-native product, or a .NET ecosystem, C# questions will come. The candidates who know it deeply stand out because most devs treat it as "Java but verbose."</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>How C# meaningfully differs from Java and why those differences matter in interviews</li>
+        <li>LINQ — the most powerful data-querying feature in any mainstream language</li>
+        <li>async/await, Task&lt;T&gt;, ConfigureAwait(false), and cancellation tokens</li>
+        <li>ASP.NET Core patterns: controllers, DI lifetimes, Entity Framework Core</li>
+        <li>Value types vs reference types — structs, boxing, and when each matters</li>
+        <li>Nullable reference types and the compiler's null-safety system</li>
+        <li>C# 9+ records, extension methods, sealed classes, and IDisposable</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>C# vs Java — What the Interview Actually Tests</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> C# is like a watch built by copying a Swiss watch (Java), then spending 25 years adding their own innovations until it became its own thing. Both tell time, but the internal mechanisms are increasingly different. A watchmaker who says "they're basically the same" hasn't looked inside one in years.
+    </div>
+
+    <p>Both languages share a garbage-collected runtime, strong static typing, and class-based OOP. But the design decisions diverge significantly after that. Here are the differences interviewers specifically probe:</p>
+
+    <div class="diagram">
+      <table>
+        <thead><tr><th>Feature</th><th>Java</th><th>C#</th></tr></thead>
+        <tbody>
+          <tr><td>Properties</td><td>Manual getters/setters</td><td>Built-in <code>get</code>/<code>set</code> syntax</td></tr>
+          <tr><td>Data querying</td><td>Stream API (Java 8+)</td><td>LINQ — first-class, richer syntax</td></tr>
+          <tr><td>async model</td><td>CompletableFuture</td><td>async/await with Task&lt;T&gt;</td></tr>
+          <tr><td>Null safety</td><td>Optional&lt;T&gt; (optional use)</td><td>Nullable reference types (compiler-enforced)</td></tr>
+          <tr><td>Value types</td><td>primitives only</td><td>struct — user-defined value types</td></tr>
+          <tr><td>Events</td><td>Observer pattern manually</td><td>delegate + event — built into the language</td></tr>
+          <tr><td>Immutable data</td><td>record (Java 16+)</td><td>record (C# 9+) with with-expressions</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Properties</strong> are the first thing that trips Java developers. In Java you write <code>getName()</code> and <code>setName()</code>. In C# the property syntax is a first-class citizen:</p>
+
+    <pre><code>// Java style — still works in C# but nobody does this
+public string GetName() { return _name; }
+public void SetName(string value) { _name = value; }
+
+// C# properties — what you should write
+public string Name { get; set; }           // auto-property
+public string Name { get; private set; }   // read-only from outside
+public string Name { get; init; }          // set only during object initialization (C# 9+)
+
+// Computed property — no backing field needed
+public string FullName => $"{FirstName} {LastName}";</code></pre>
+
+    <p><strong>Events and delegates</strong> encode the observer pattern directly into the type system. A <code>delegate</code> is a type-safe function pointer. An <code>event</code> is a delegate with restricted access (only the declaring class can invoke it).</p>
+
+    <pre><code>public delegate void OrderShipped(string orderId);
+
+public class OrderService
+{
+    public event OrderShipped? OnOrderShipped;
+
+    public void Ship(string orderId)
+    {
+        // ... ship logic
+        OnOrderShipped?.Invoke(orderId);  // null-conditional invoke
+    }
+}
+
+// Subscriber
+orderService.OnOrderShipped += id => Console.WriteLine($"Shipped: {id}");</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>LINQ — SQL for Objects</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> LINQ is SQL, but your data lives in memory instead of a database. The mental model is identical: you describe <em>what</em> you want (filter, transform, sort, group), not <em>how</em> to iterate.
+    </div>
+
+    <p>LINQ (Language Integrated Query) is one of C#'s genuine design masterpieces. It works on any type that implements <code>IEnumerable&lt;T&gt;</code>, which means arrays, lists, dictionaries, database queries, and even infinite sequences.</p>
+
+    <p>You have two syntaxes — method syntax (preferred in professional code) and query syntax (looks like SQL):</p>
+
+    <pre><code>var orders = new List&lt;Order&gt;
+{
+    new Order { Id = 1, CustomerId = 10, Amount = 250m, Status = "shipped" },
+    new Order { Id = 2, CustomerId = 10, Amount = 80m,  Status = "pending" },
+    new Order { Id = 3, CustomerId = 11, Amount = 500m, Status = "shipped" },
+};
+
+// Method syntax — used in 90% of professional code
+var result = orders
+    .Where(o => o.Status == "shipped")
+    .OrderByDescending(o => o.Amount)
+    .Select(o => new { o.Id, o.Amount });
+
+// Query syntax — occasionally clearer for joins and grouping
+var result2 = from o in orders
+              where o.Status == "shipped"
+              orderby o.Amount descending
+              select new { o.Id, o.Amount };</code></pre>
+
+    <p>The key operators you must know cold:</p>
+
+    <pre><code>// Filtering
+orders.Where(o => o.Amount > 100)
+
+// Projection
+orders.Select(o => o.CustomerId)          // map
+orders.SelectMany(o => o.Items)           // flatMap
+
+// Aggregation
+orders.Any(o => o.Status == "pending")    // exists?
+orders.All(o => o.Amount > 0)            // all match?
+orders.Count(o => o.Status == "shipped")
+orders.Sum(o => o.Amount)
+orders.Average(o => o.Amount)
+
+// Single element
+orders.First()                            // throws if empty
+orders.FirstOrDefault()                   // returns null/default if empty
+orders.Single()                           // throws if != 1 result
+orders.SingleOrDefault()
+
+// Sorting
+orders.OrderBy(o => o.Amount)
+orders.OrderByDescending(o => o.Amount)
+    .ThenBy(o => o.Id)
+
+// Grouping
+orders.GroupBy(o => o.CustomerId)
+      .Select(g => new {
+          CustomerId = g.Key,
+          Total = g.Sum(o => o.Amount)
+      })</code></pre>
+
+    <div class="box warning">
+      <strong>Deferred execution — the most misunderstood LINQ concept.</strong> LINQ queries are lazy. They don't execute until you enumerate them (with foreach, ToList(), ToArray(), Count(), etc.). This is powerful but creates a trap:
+    </div>
+
+    <pre><code>// DANGER: ToList() inside a loop — executes query N times
+foreach (var customerId in customerIds)
+{
+    // This hits the database (or iterates the collection) once per customer
+    var customerOrders = allOrders.Where(o => o.CustomerId == customerId).ToList();
+}
+
+// CORRECT: materialize once, then group in memory
+var ordersByCustomer = allOrders
+    .GroupBy(o => o.CustomerId)
+    .ToDictionary(g => g.Key, g => g.ToList());
+
+foreach (var customerId in customerIds)
+{
+    var customerOrders = ordersByCustomer.GetValueOrDefault(customerId)
+                         ?? new List&lt;Order&gt;();
+}</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>async/await in C#</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> <code>Task&lt;T&gt;</code> is C#'s equivalent of JavaScript's <code>Promise&lt;T&gt;</code>. If you understand async/await in JS, you already understand the concept in C# — the mechanism is nearly identical. The syntax differences are minor.
+    </div>
+
+    <pre><code>// JavaScript Promise comparison
+// JS:  async function fetchUser(id: string): Promise&lt;User&gt;
+// C#:  async Task&lt;User&gt; FetchUserAsync(string id)
+
+// Full C# async example with HttpClient and CancellationToken
+public class UserService
+{
+    private readonly HttpClient _httpClient;
+
+    public UserService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
+    public async Task&lt;User?&gt; FetchUserAsync(
+        string userId,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var response = await _httpClient
+                .GetAsync($"/api/users/{userId}", cancellationToken)
+                .ConfigureAwait(false);  // important for library code
+
+            response.EnsureSuccessStatusCode();
+
+            var user = await response.Content
+                .ReadFromJsonAsync&lt;User&gt;(cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
+
+            return user;
+        }
+        catch (HttpRequestException ex)
+        {
+            // log ex
+            return null;
+        }
+        catch (OperationCanceledException)
+        {
+            // caller cancelled — bubble up or return null
+            throw;
+        }
+    }
+}</code></pre>
+
+    <div class="box key-term">
+      <strong>ConfigureAwait(false)</strong> — When you await a task in a UI application or ASP.NET (older), the continuation resumes on the original SynchronizationContext (the UI thread or the request context). This is expensive overhead for library code that doesn't need it. Calling <code>.ConfigureAwait(false)</code> tells the runtime: "I don't care which thread continues this — use the thread pool." Library code should always use it. Application-level code (controllers, view models) usually doesn't need to, because you <em>do</em> want to return to the right context.
+    </div>
+
+    <p>Parallel async operations with <code>Task.WhenAll</code>:</p>
+
+    <pre><code>// Sequential — slow, each awaits before starting the next
+var user  = await FetchUserAsync(userId);
+var prefs = await FetchPrefsAsync(userId);
+
+// Parallel — both start immediately, wait for both to finish
+var (user, prefs) = await Task.WhenAll(
+    FetchUserAsync(userId),
+    FetchPrefsAsync(userId)
+);  // actually need tuple deconstruction via:
+var userTask  = FetchUserAsync(userId);
+var prefsTask = FetchPrefsAsync(userId);
+await Task.WhenAll(userTask, prefsTask);
+var user  = await userTask;
+var prefs = await prefsTask;</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>ASP.NET Core — Controllers, DI, and Entity Framework</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> ASP.NET Core's Dependency Injection container is like a hotel concierge. You tell the concierge what you need (an <code>IOrderService</code>), and it figures out how to get it to you — you don't know or care whether it's the same instance everyone shares, a fresh one per request, or a unique one just for you. That's DI lifetimes.
+    </div>
+
+    <p>The three DI lifetimes are a guaranteed interview question:</p>
+
+    <div class="diagram">
+      <table>
+        <thead><tr><th>Lifetime</th><th>How long it lives</th><th>Use for</th></tr></thead>
+        <tbody>
+          <tr><td><code>AddSingleton</code></td><td>Entire app lifetime</td><td>Config, caches, thread-safe stateless services</td></tr>
+          <tr><td><code>AddScoped</code></td><td>One HTTP request</td><td>DbContext, services that hold per-request state</td></tr>
+          <tr><td><code>AddTransient</code></td><td>Every injection</td><td>Lightweight stateless services, utilities</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box warning">
+      <strong>Captive dependency bug:</strong> Never inject a Scoped service into a Singleton. The Singleton lives forever and captures the Scoped instance at startup — it will never be replaced, leaking stale state across all requests. ASP.NET Core will throw an exception at startup if it detects this.
+    </div>
+
+    <pre><code>// Program.cs — service registration
+builder.Services.AddDbContext&lt;AppDbContext&gt;(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+
+builder.Services.AddScoped&lt;IOrderService, OrderService&gt;();
+builder.Services.AddSingleton&lt;ICacheService, RedisCacheService&gt;();
+builder.Services.AddTransient&lt;IEmailFormatter, HtmlEmailFormatter&gt;();
+
+// Full controller example
+[ApiController]
+[Route("api/[controller]")]
+public class OrdersController : ControllerBase
+{
+    private readonly IOrderService _orderService;
+    private readonly AppDbContext _db;
+
+    public OrdersController(IOrderService orderService, AppDbContext db)
+    {
+        _orderService = orderService;
+        _db = db;
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task&lt;ActionResult&lt;OrderDto&gt;&gt; GetOrder(
+        int id,
+        CancellationToken ct)
+    {
+        var order = await _db.Orders
+            .Include(o => o.Items)
+            .FirstOrDefaultAsync(o => o.Id == id, ct);
+
+        if (order is null) return NotFound();
+
+        return Ok(new OrderDto(order));
+    }
+
+    [HttpPost]
+    public async Task&lt;ActionResult&lt;OrderDto&gt;&gt; CreateOrder(
+        CreateOrderRequest request,
+        CancellationToken ct)
+    {
+        var order = await _orderService.CreateAsync(request, ct);
+        return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, new OrderDto(order));
+    }
+}
+
+// Entity Framework Core DbContext
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions&lt;AppDbContext&gt; options) : base(options) { }
+
+    public DbSet&lt;Order&gt; Orders =&gt; Set&lt;Order&gt;();
+    public DbSet&lt;OrderItem&gt; OrderItems =&gt; Set&lt;OrderItem&gt;();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity&lt;Order&gt;(entity =>
+        {
+            entity.HasKey(o => o.Id);
+            entity.Property(o => o.Amount).HasPrecision(18, 2);
+            entity.HasMany(o => o.Items).WithOne(i => i.Order);
+        });
+    }
+}</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Value Types vs Reference Types</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Reference types are like a shared Google Doc — when you pass it around, everyone edits the same document. Value types are like printing out the doc and handing someone a copy — they can scribble on their copy without affecting yours.
+    </div>
+
+    <p>Classes are reference types. Structs are value types. This distinction affects memory layout, performance, and correctness.</p>
+
+    <pre><code>// Reference type — class
+public class Point3DClass
+{
+    public double X { get; set; }
+    public double Y { get; set; }
+    public double Z { get; set; }
+}
+
+// Value type — struct
+public readonly struct Point3D
+{
+    public double X { get; }
+    public double Y { get; }
+    public double Z { get; }
+
+    public Point3D(double x, double y, double z)
+        => (X, Y, Z) = (x, y, z);
+
+    public double DistanceTo(Point3D other)
+        => Math.Sqrt(
+            Math.Pow(X - other.X, 2) +
+            Math.Pow(Y - other.Y, 2) +
+            Math.Pow(Z - other.Z, 2));
+}
+
+// Mutation difference
+void ModifyClass(Point3DClass p) { p.X = 99; }  // mutates the original
+void ModifyStruct(Point3D p)     { /* can't — readonly struct */ }
+
+var cls = new Point3DClass { X = 1 };
+ModifyClass(cls);
+Console.WriteLine(cls.X);  // 99 — mutated
+
+var val = new Point3D(1, 2, 3);
+ModifyStruct(val);           // copy passed in — original untouched</code></pre>
+
+    <p>Use <code>struct</code> when: the type is small (rule of thumb: &lt; 16 bytes), conceptually a value (not an identity), short-lived, and ideally immutable. <code>DateTime</code>, <code>Guid</code>, <code>TimeSpan</code>, <code>Vector2</code> are all structs for this reason.</p>
+
+    <p><strong>Boxing</strong> is the silent performance killer: when a value type is stored in an <code>object</code> variable, it gets wrapped in a heap-allocated object. In hot paths, this causes GC pressure.</p>
+
+    <pre><code>// Boxing — creates heap allocation
+object boxed = 42;          // int is boxed into an object
+int unboxed = (int)boxed;   // unboxing — explicit cast required
+
+// Avoid boxing with generics
+List&lt;int&gt; ints = new();   // no boxing — generic preserves value type
+ArrayList legacy = new();   // boxes every int — avoid this</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Nullable Reference Types (C# 8+)</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Nullable reference types give the compiler a checklist. When you declare <code>string name</code>, the compiler adds it to the "must not be null" list and warns you if you put something that might be null into it. <code>string? name</code> means "this one is allowed to be null — I'll handle it." It's like opt-in null safety.
+    </div>
+
+    <p>Enable in your <code>.csproj</code> with <code>&lt;Nullable&gt;enable&lt;/Nullable&gt;</code> (on by default in .NET 6+ templates).</p>
+
+    <pre><code>// Without nullable enabled, both compile fine — both are traps
+string name = null;    // runtime NullReferenceException waiting to happen
+string? name = null;   // same behavior, different semantics
+
+// With nullable enabled
+string name = null;    // COMPILER WARNING: cannot assign null to non-nullable
+string? name = null;   // fine — you've acknowledged it can be null
+
+// The compiler tracks flow:
+public void Greet(string? name)
+{
+    Console.WriteLine(name.Length);      // WARNING: possible null dereference
+
+    if (name is not null)
+    {
+        Console.WriteLine(name.Length);  // OK — compiler knows name != null here
+    }
+
+    Console.WriteLine(name?.Length ?? 0); // null-conditional + null-coalescing: safe
+}
+
+// The null-forgiving operator ! — use sparingly
+string definitelyNotNull = GetName()!;  // tells compiler "trust me, not null"
+// Use only when you know something the compiler doesn't (e.g., after external validation)</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Common C# Interview Questions</h2>
+
+    <h3>IEnumerable vs IList vs IQueryable</h3>
+
+    <div class="box key-term">
+      <strong>IEnumerable&lt;T&gt;</strong> — forward-only, lazy iteration. No indexing, no count. Works on anything iterable. LINQ operations on it execute in memory.<br><br>
+      <strong>IList&lt;T&gt;</strong> — extends ICollection, adds indexing (<code>list[i]</code>) and <code>Insert</code>/<code>RemoveAt</code>. Already materialized in memory.<br><br>
+      <strong>IQueryable&lt;T&gt;</strong> — extends IEnumerable, but LINQ operations build an <em>expression tree</em> that gets translated to SQL (or another query language) when enumerated. Use for database queries via Entity Framework.
+    </div>
+
+    <pre><code>// IQueryable — query is translated to SQL, runs on the database
+IQueryable&lt;Order&gt; query = _db.Orders.Where(o => o.Status == "shipped");
+query = query.OrderByDescending(o => o.Amount);  // still SQL, no data fetched yet
+var results = await query.ToListAsync();          // NOW it hits the database
+
+// IEnumerable — once you do AsEnumerable(), you're in memory
+var memoryQuery = _db.Orders.AsEnumerable()
+    .Where(o => o.Status == "shipped");  // fetches ALL orders, filters in C#
+    // VERY DIFFERENT — don't do this accidentally</code></pre>
+
+    <h3>using Statement and IDisposable</h3>
+
+    <pre><code>// IDisposable pattern — deterministic cleanup of unmanaged resources
+public class FileProcessor : IDisposable
+{
+    private readonly FileStream _stream;
+    private bool _disposed;
+
+    public FileProcessor(string path)
+    {
+        _stream = File.Open(path, FileMode.Open);
+    }
+
+    public void Dispose()
+    {
+        if (!_disposed)
+        {
+            _stream.Dispose();
+            _disposed = true;
+        }
+    }
+}
+
+// using statement — Dispose() called automatically, even on exception
+using var processor = new FileProcessor("/data/orders.csv");
+// processor.Dispose() called when scope exits
+
+// Classic using block — identical behavior
+using (var processor = new FileProcessor("/data/orders.csv"))
+{
+    // use it
+}  // Dispose() called here</code></pre>
+
+    <h3>Records (C# 9+)</h3>
+
+    <pre><code>// Record — immutable, value-based equality, with-expressions
+public record OrderSummary(int Id, decimal Amount, string Status);
+
+var original = new OrderSummary(1, 250m, "pending");
+var updated  = original with { Status = "shipped" }; // creates new instance
+
+Console.WriteLine(original == updated);  // false — different Status
+Console.WriteLine(original.Id == updated.Id);  // true</code></pre>
+
+    <h3>Extension Methods</h3>
+
+    <pre><code>// Extension methods — add methods to types you don't own
+public static class StringExtensions
+{
+    public static bool IsValidEmail(this string value)
+        => !string.IsNullOrWhiteSpace(value) && value.Contains('@');
+
+    public static string Truncate(this string value, int maxLength)
+        => value.Length <= maxLength ? value : value[..maxLength] + "...";
+}
+
+// Usage — reads naturally
+"user@example.com".IsValidEmail();  // true
+"This is a very long string".Truncate(10);  // "This is a ..."</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Senior vs Junior Comparison</h2>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior answer — "Explain async/await in C#"</span>
+      <p>"async/await lets you write asynchronous code without callbacks. You put async on a method and await on the thing that takes time. It makes the code easier to read."</p>
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior answer</span>
+      <p>"async/await is syntactic sugar over the Task Parallel Library. The compiler rewrites an async method as a state machine — each await point is a state. When the awaited Task completes, execution resumes from that state on a thread pool thread (unless a SynchronizationContext is captured).</p>
+      <p>In library code I always use ConfigureAwait(false) to avoid capturing the caller's SynchronizationContext — this prevents deadlocks in environments with synchronization contexts like WinForms or classic ASP.NET, and reduces overhead in ASP.NET Core even though it doesn't deadlock there.</p>
+      <p>I use CancellationToken throughout the call chain so that if the HTTP request is cancelled — say the user navigated away — we stop all downstream work immediately rather than burning CPU on a response nobody will read. Task.WhenAll lets me fire parallel async operations and collect all results in one await rather than awaiting sequentially."</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Practice Questions</h2>
+
+    <div class="exercises">
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p><strong>Q: What is the difference between <code>First()</code> and <code>FirstOrDefault()</code> in LINQ?</strong></p>
+        <p><strong>A:</strong> <code>First()</code> throws an <code>InvalidOperationException</code> if the sequence is empty. <code>FirstOrDefault()</code> returns <code>default(T)</code> — which is <code>null</code> for reference types and <code>0</code> for value types — if the sequence is empty. Use <code>First()</code> when an empty result is a programming error. Use <code>FirstOrDefault()</code> when empty is a valid expected case and you'll null-check the result.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p><strong>Q: What is the difference between <code>AddScoped</code>, <code>AddTransient</code>, and <code>AddSingleton</code> in ASP.NET Core DI? Give a real example of when each is appropriate.</strong></p>
+        <p><strong>A:</strong> Singleton lives for the entire application lifetime — use for <code>IConfiguration</code>, an <code>IMemoryCache</code>, or a connection pool wrapper that is thread-safe and stateless across requests. Scoped lives for one HTTP request — use for <code>DbContext</code> (Entity Framework) because it tracks entity state per request and is not thread-safe. Transient lives for the duration of a single injection — use for a lightweight formatter or validator that carries no state. The key danger is injecting a Scoped service into a Singleton, which captures a stale instance forever. ASP.NET Core detects and throws on this at startup in development.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p><strong>Q: Implement a generic in-memory cache with expiry using C# that is thread-safe. Use <code>ConcurrentDictionary</code> and explain why <code>Dictionary</code> alone is insufficient.</strong></p>
+
+        <pre><code>using System.Collections.Concurrent;
+
+public class ExpiringCache&lt;TKey, TValue&gt; where TKey : notnull
+{
+    private record CacheEntry(TValue Value, DateTimeOffset ExpiresAt);
+
+    private readonly ConcurrentDictionary&lt;TKey, CacheEntry&gt; _store = new();
+
+    public void Set(TKey key, TValue value, TimeSpan ttl)
+    {
+        var entry = new CacheEntry(value, DateTimeOffset.UtcNow + ttl);
+        _store[key] = entry;
+    }
+
+    public bool TryGet(TKey key, out TValue? value)
+    {
+        if (_store.TryGetValue(key, out var entry) &&
+            entry.ExpiresAt > DateTimeOffset.UtcNow)
+        {
+            value = entry.Value;
+            return true;
+        }
+
+        // Lazy eviction — remove stale entry
+        _store.TryRemove(key, out _);
+        value = default;
+        return false;
+    }
+
+    public TValue GetOrAdd(TKey key, Func&lt;TKey, TValue&gt; factory, TimeSpan ttl)
+    {
+        if (TryGet(key, out var cached))
+            return cached!;
+
+        var value = factory(key);
+        Set(key, value, ttl);
+        return value;
+    }
+
+    public void Evict()
+    {
+        var now = DateTimeOffset.UtcNow;
+        foreach (var (key, entry) in _store)
+        {
+            if (entry.ExpiresAt &lt;= now)
+                _store.TryRemove(key, out _);
+        }
+    }
+}
+
+// Usage
+var cache = new ExpiringCache&lt;string, UserProfile&gt;();
+var profile = cache.GetOrAdd(
+    "user-42",
+    id => userService.FetchProfile(id),  // only called on cache miss
+    TimeSpan.FromMinutes(5)
+);</code></pre>
+
+        <p><strong>Why not Dictionary?</strong> <code>Dictionary&lt;K,V&gt;</code> is not thread-safe. Concurrent reads are usually fine, but a read concurrent with a write can corrupt internal state and throw <code>InvalidOperationException</code> or loop forever. <code>ConcurrentDictionary</code> uses fine-grained locking per bucket, making reads lock-free and writes lock only the affected bucket. For a true high-throughput cache with atomic get-or-add semantics, <code>ConcurrentDictionary.GetOrAdd</code> with a factory overload is the right primitive — though the factory may be called more than once under contention, so it must be idempotent.</p>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <div class="summary">
+      <h3>Chapter 26 Summary</h3>
+      <ul>
+        <li>C# diverges from Java significantly: properties, LINQ, records, nullable reference types, and events are first-class language features, not library add-ons.</li>
+        <li>LINQ's deferred execution means queries don't run until enumerated — calling <code>ToList()</code> inside a loop is a classic performance bug.</li>
+        <li>async/await in C# is a state machine over the Task Parallel Library; use <code>ConfigureAwait(false)</code> in library code and pass <code>CancellationToken</code> throughout your call chains.</li>
+        <li>DI lifetimes are a common interview question: Singleton (app), Scoped (request), Transient (injection) — never inject a shorter lifetime into a longer one.</li>
+        <li>Nullable reference types (C# 8+) make null safety compiler-enforced; <code>IQueryable</code> vs <code>IEnumerable</code> determines whether filtering happens in the database or in memory — a critical performance distinction.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Go — the language designed for engineers who wanted the power of C without the complexity, and got something even better.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-25.html"><span class="nav-label">← Previous</span><span class="nav-title">Java Deep Dive</span></a>
+      <a href="chapter-27.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Go Deep Dive</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

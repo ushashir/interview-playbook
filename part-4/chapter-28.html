@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 28: PHP Deep Dive — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 28</div>
+      <h1>PHP Deep Dive</h1>
+      <p class="chapter-intro">PHP powers WordPress (43% of the web), Slack's early backend, and Facebook's origins. Its reputation is a decade out of date. PHP 8.x is a genuinely modern language — and if you're interviewing at agencies, media companies, or traditional web shops, PHP questions will come.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>PHP 8.x features that separate modern PHP from its legacy reputation</li>
+        <li>Laravel patterns: Eloquent ORM, service container, queues, middleware</li>
+        <li>The type juggling trap — <code>==</code> vs <code>===</code> and why it costs jobs</li>
+        <li>Composer, PSR-4 autoloading, and dependency management</li>
+        <li>Performance tuning: OPcache, JIT, and connection pooling</li>
+        <li>Array functions, closures, generators, traits, and anonymous classes</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>PHP 8.x — What Makes Modern PHP Different</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> PHP is like a city that grew organically over 30 years — some neighborhoods are old and messy, some are brand new and beautiful. The key is knowing which neighborhood you're in. Modern PHP 8.x with Laravel is like a newly built district — clean streets, well-planned infrastructure. Legacy PHP 4 code from 2002 is a different city entirely. Most interviewers want to know: do you know the new part of town?
+    </div>
+
+    <h3>Named Arguments (PHP 8.0)</h3>
+
+    <p>Named arguments let you pass values by parameter name, skipping positional order and making calls self-documenting. They also let you skip optional parameters you don't care about.</p>
+
+    <pre><code>&lt;?php
+
+// Without named arguments — you have to look up what true, 0, false mean
+$result = array_slice($array, 0, 5, true);
+
+// With named arguments — self-documenting
+$result = array_slice(array: $array, offset: 0, length: 5, preserve_keys: true);
+
+// Skip optional parameters without passing placeholders
+function createUser(
+    string $name,
+    string $email,
+    string $role = 'user',
+    bool   $active = true,
+    ?string $avatar = null
+): User {
+    // ...
+}
+
+// Only set what you need — no need to pass 'user', true, null
+$user = createUser(name: 'Alice', email: 'alice@example.com', active: false);</code></pre>
+
+    <h3>Match Expression (PHP 8.0)</h3>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> <code>match</code> is <code>switch</code> that grew up. It's exhaustive (throws if no arm matches), returns a value (no assignment needed inside), uses strict comparison (<code>===</code> not <code>==</code>), and has no fall-through. It's what switch always should have been.
+    </div>
+
+    <pre><code>&lt;?php
+
+$status = 'shipped';
+
+// Old switch — verbose, fall-through risk, == comparison
+switch ($status) {
+    case 'pending':
+        $label = 'Pending';
+        break;
+    case 'shipped':
+        $label = 'Shipped';
+        break;
+    default:
+        $label = 'Unknown';
+}
+
+// New match — concise, strict, returns value, throws UnhandledMatchError on no match
+$label = match($status) {
+    'pending'    => 'Pending',
+    'shipped',
+    'delivered'  => 'On its way',    // multiple arms share a result
+    'cancelled'  => 'Cancelled',
+    default      => throw new \InvalidArgumentException("Unknown status: $status"),
+};
+
+// match with no-subject form (PHP 8.0)
+$discount = match(true) {
+    $total > 1000 => 0.20,
+    $total > 500  => 0.10,
+    $total > 100  => 0.05,
+    default       => 0.00,
+};</code></pre>
+
+    <h3>Enums (PHP 8.1)</h3>
+
+    <pre><code>&lt;?php
+
+// Pure enum — no backing value
+enum Direction {
+    case North;
+    case South;
+    case East;
+    case West;
+}
+
+// Backed enum — each case has a scalar value (string or int)
+enum OrderStatus: string
+{
+    case Pending   = 'pending';
+    case Shipped   = 'shipped';
+    case Delivered = 'delivered';
+    case Cancelled = 'cancelled';
+
+    // Enums can have methods
+    public function label(): string
+    {
+        return match($this) {
+            self::Pending   => 'Awaiting processing',
+            self::Shipped   => 'On its way',
+            self::Delivered => 'Delivered',
+            self::Cancelled => 'Cancelled',
+        };
+    }
+
+    public function isFinal(): bool
+    {
+        return in_array($this, [self::Delivered, self::Cancelled]);
+    }
+}
+
+// Usage
+$status = OrderStatus::from('shipped');       // throws ValueError if not found
+$status = OrderStatus::tryFrom('unknown');    // returns null if not found
+
+echo $status->value;         // 'shipped'
+echo $status->label();       // 'On its way'
+echo $status->name;          // 'Shipped'
+
+// Enums can implement interfaces
+interface HasColor {
+    public function color(): string;
+}
+
+enum Priority: int implements HasColor
+{
+    case Low    = 1;
+    case Medium = 2;
+    case High   = 3;
+
+    public function color(): string
+    {
+        return match($this) {
+            self::Low    => 'green',
+            self::Medium => 'yellow',
+            self::High   => 'red',
+        };
+    }
+}</code></pre>
+
+    <h3>Constructor Property Promotion (PHP 8.0)</h3>
+
+    <pre><code>&lt;?php
+
+// Before — 3x boilerplate repetition
+class OrderService
+{
+    private OrderRepository $repository;
+    private PaymentGateway $payments;
+    private EventDispatcher $events;
+
+    public function __construct(
+        OrderRepository $repository,
+        PaymentGateway  $payments,
+        EventDispatcher $events
+    ) {
+        $this-&gt;repository = $repository;
+        $this-&gt;payments   = $payments;
+        $this-&gt;events     = $events;
+    }
+}
+
+// After — property declaration + assignment in one shot
+class OrderService
+{
+    public function __construct(
+        private readonly OrderRepository $repository,
+        private readonly PaymentGateway  $payments,
+        private readonly EventDispatcher $events,
+    ) {}
+}</code></pre>
+
+    <h3>Nullsafe Operator, Union Types, and Fibers</h3>
+
+    <pre><code>&lt;?php
+
+// Nullsafe operator (PHP 8.0) — short-circuits on null
+// Before:
+$avatar = null;
+if ($user !== null &amp;&amp; $user-&gt;profile !== null) {
+    $avatar = $user-&gt;profile-&gt;avatar;
+}
+
+// After:
+$avatar = $user?-&gt;profile?-&gt;avatar;  // null if any step is null
+
+// Chain method calls too
+$country = $order?-&gt;getCustomer()?-&gt;getAddress()?-&gt;getCountry();
+
+// Union types (PHP 8.0)
+function processId(int|string $id): int|string
+{
+    return is_string($id) ? (int) ltrim($id, '#') : $id;
+}
+
+// Fibers (PHP 8.1) — cooperative multitasking / coroutines
+$fiber = new Fiber(function (): void {
+    $value = Fiber::suspend('first');   // pause, yield 'first' to caller
+    echo "Fiber received: $value\n";
+    Fiber::suspend('second');
+});
+
+$result1 = $fiber-&gt;start();            // runs until first suspend
+echo "Got from fiber: $result1\n";     // 'first'
+
+$result2 = $fiber-&gt;resume('hello');   // resumes, passes 'hello' in
+echo "Got from fiber: $result2\n";     // 'second'
+// Fibers are the foundation for async PHP libraries like ReactPHP and Revolt</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Laravel Patterns</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Laravel is to PHP what Spring Boot is to Java, or NestJS is to Node.js — an opinionated, batteries-included framework. Learning its patterns is more important than raw PHP trivia in Laravel-shop interviews.
+    </div>
+
+    <h3>Eloquent ORM</h3>
+
+    <pre><code>&lt;?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class User extends Model
+{
+    protected $fillable = ['name', 'email', 'role'];
+    protected $hidden   = ['password', 'remember_token'];
+    protected $casts    = [
+        'email_verified_at' => 'datetime',
+        'is_admin'          => 'boolean',
+    ];
+
+    public function orders(): HasMany
+    {
+        return $this-&gt;hasMany(Order::class);
+    }
+}
+
+class Order extends Model
+{
+    protected $fillable = ['user_id', 'amount', 'status'];
+    protected $casts    = ['amount' => 'decimal:2'];
+
+    public function user(): BelongsTo
+    {
+        return $this-&gt;belongsTo(User::class);
+    }
+
+    // Local scope — reusable query constraint
+    public function scopeShipped($query)
+    {
+        return $query-&gt;where('status', 'shipped');
+    }
+}
+
+// Fluent query builder
+$users = User::where('active', true)
+    -&gt;orderBy('name')
+    -&gt;paginate(20);                          // SELECT ... LIMIT 20 OFFSET ...
+
+// Eager loading — avoid N+1
+$orders = Order::with(['user', 'items'])    // one query for orders, one for users, one for items
+    -&gt;shipped()                             // local scope
+    -&gt;whereBetween('created_at', [now()-&gt;subMonth(), now()])
+    -&gt;get();
+
+// Chunking — process large datasets without loading all into memory
+Order::where('status', 'pending')
+    -&gt;chunk(100, function ($orders) {
+        foreach ($orders as $order) {
+            ProcessOrder::dispatch($order);
+        }
+    });</code></pre>
+
+    <h3>Service Container and Dependency Injection</h3>
+
+    <pre><code>&lt;?php
+
+// Laravel's service container resolves dependencies automatically
+// Just type-hint in constructors and Laravel injects them
+
+class OrderController extends Controller
+{
+    public function __construct(
+        private readonly OrderService     $orderService,
+        private readonly PaymentGateway   $payments,
+    ) {}
+
+    public function store(CreateOrderRequest $request): JsonResponse
+    {
+        // $request is a Form Request — validation runs before this method
+        $order = $this-&gt;orderService-&gt;create($request-&gt;validated());
+        return response()-&gt;json($order, 201);
+    }
+}
+
+// Bind an interface to a concrete implementation in AppServiceProvider
+public function register(): void
+{
+    $this-&gt;app-&gt;bind(
+        PaymentGateway::class,
+        fn() =&gt; new StripeGateway(config('services.stripe.secret'))
+    );
+
+    // Singleton — same instance for the whole request lifecycle
+    $this-&gt;app-&gt;singleton(CacheWarmer::class);
+}
+
+// Form Request — validation logic extracted from controller
+class CreateOrderRequest extends FormRequest
+{
+    public function rules(): array
+    {
+        return [
+            'amount'   =&gt; ['required', 'numeric', 'min:0.01'],
+            'items'    =&gt; ['required', 'array', 'min:1'],
+            'items.*.product_id' =&gt; ['required', 'exists:products,id'],
+            'items.*.quantity'   =&gt; ['required', 'integer', 'min:1'],
+        ];
+    }
+}</code></pre>
+
+    <h3>Queues and Jobs</h3>
+
+    <pre><code>&lt;?php
+
+// Create a job: php artisan make:job ProcessOrderJob
+class ProcessOrderJob implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    public int $tries = 3;
+    public int $backoff = 60;  // seconds between retries
+
+    public function __construct(
+        public readonly Order $order
+    ) {}
+
+    public function handle(NotificationService $notifications): void
+    {
+        // Runs asynchronously in a queue worker process
+        $this-&gt;order-&gt;process();
+        $notifications-&gt;sendConfirmation($this-&gt;order);
+    }
+
+    public function failed(\Throwable $exception): void
+    {
+        // Called when all retries exhausted
+        Log::error('Order processing failed', [
+            'order_id' =&gt; $this-&gt;order-&gt;id,
+            'error'    =&gt; $exception-&gt;getMessage(),
+        ]);
+    }
+}
+
+// Dispatch — push to queue (Redis, database, SQS, etc.)
+ProcessOrderJob::dispatch($order);
+ProcessOrderJob::dispatch($order)-&gt;delay(now()-&gt;addMinutes(5));
+ProcessOrderJob::dispatch($order)-&gt;onQueue('critical');
+
+// Run workers: php artisan queue:work redis --queue=critical,default</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>The Type Juggling Trap — == vs ===</h2>
+
+    <div class="box warning">
+      <strong>This is the most dangerous PHP feature for interview candidates.</strong> PHP's loose comparison operator <code>==</code> performs type coercion before comparing. The results are counterintuitive enough to trip up experienced developers. Always use <code>===</code> (strict equality) in professional code.
+    </div>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Using <code>==</code> in PHP is like asking "is this document approximately the same as that one?" PHP tries to interpret both sides as the same type, then compares. Using <code>===</code> is asking "are these identical in both value AND type?" — which is almost always what you want.
+    </div>
+
+    <pre><code>&lt;?php
+
+// Dangerous == results that trip up candidates
+var_dump(0    == "foo");    // TRUE  — "foo" cast to int = 0, then 0 == 0
+var_dump(0    == "");       // TRUE  — "" cast to int = 0 in PHP 7 (FALSE in PHP 8!)
+var_dump(0    == "0");      // TRUE  — "0" cast to int = 0
+var_dump("1"  == "01");     // TRUE  — both cast to int
+var_dump("1"  == "1.0");    // TRUE  — both cast to float
+var_dump(100  == "1e2");    // TRUE  — "1e2" = 100.0 in scientific notation
+var_dump(""   == false);    // TRUE  — both falsy
+var_dump("0"  == false);    // TRUE  — "0" is falsy
+var_dump(null == false);    // TRUE
+var_dump(null == "");       // TRUE
+var_dump(1    == true);     // TRUE
+var_dump(0    == false);    // TRUE
+
+// None of these are true with ===
+var_dump(0    === "foo");   // false — different types
+var_dump(""   === false);   // false
+var_dump(null === false);   // false
+
+// Security implication — hash comparison vulnerability (PHP 7 and earlier)
+// Magic hash: MD5 of "240610708" starts with "0e" — looks like 0 * 10^something
+$hash = md5("240610708");   // "0e462097431906509019562988736854"
+var_dump($hash == 0);       // TRUE in PHP 7! (0e... cast to 0.0 == 0)
+var_dump($hash === 0);      // false — correct
+
+// Type coercion in arithmetic context
+var_dump("5 apples" + 3);   // 8 — PHP reads leading integer, ignores rest
+var_dump("apples" + 3);     // 3 — "apples" coerces to 0
+
+// The null coalescing operators — safe defaults
+$value = $data['key'] ?? 'default';           // returns $data['key'] if set and not null
+$data['key'] ??= 'default';                   // assigns 'default' only if null/missing
+
+// Correct string-to-int comparison
+$idFromQuery = "42";  // comes from URL or form
+if ($idFromQuery === (string) $user-&gt;id) { /* correct */ }
+if ((int) $idFromQuery === $user-&gt;id)    { /* correct */ }
+if ($idFromQuery == $user-&gt;id)           { /* works but fragile */ }</code></pre>
+
+    <div class="box tip">
+      <strong>PHP 8 changed some of these.</strong> In PHP 8, <code>0 == "foo"</code> is now <code>false</code> (non-numeric strings no longer cast to 0 when compared with integers). But this is a nuance — the only safe rule is: always use <code>===</code> for comparisons, always use strict types at the top of your files (<code>declare(strict_types=1);</code>).
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Composer and Autoloading</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Composer is PHP's npm. <code>composer.json</code> is your <code>package.json</code>, <code>composer.lock</code> is your <code>package-lock.json</code>. PSR-4 is the naming convention that maps namespaces to directory paths — the PHP equivalent of ES module resolution.
+    </div>
+
+    <pre><code>// composer.json
+{
+    "name": "yourcompany/your-service",
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^11.0",
+        "predis/predis": "^2.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0",
+        "pestphp/pest": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\": "database/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
+
+// PSR-4 resolution:
+// Namespace App\Services\OrderService
+//       maps to app/Services/OrderService.php
+// Case-sensitive on Linux — must match exactly</code></pre>
+
+    <pre><code># Common composer commands
+composer install          # install from composer.lock (CI, production)
+composer update           # upgrade within constraints, update lock file
+composer require foo/bar  # add new dependency
+composer remove foo/bar   # remove dependency
+composer dump-autoload    # regenerate autoloader classmap
+composer audit            # check for known security vulnerabilities</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>PHP Performance — OPcache, JIT, and Connection Pooling</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Without OPcache, PHP reads the source file, tokenizes it, parses it, and compiles it to bytecode on every single request — like reprinting a recipe card every time you cook the same dish. OPcache caches the compiled bytecode in shared memory so the compilation step is skipped entirely on subsequent requests.
+    </div>
+
+    <h3>OPcache — Always Enable in Production</h3>
+
+    <pre><code>; php.ini — production OPcache settings
+opcache.enable=1
+opcache.memory_consumption=256        ; MB of shared memory for bytecode cache
+opcache.interned_strings_buffer=16    ; MB for string deduplication
+opcache.max_accelerated_files=20000   ; max number of cached files
+opcache.validate_timestamps=0         ; DISABLE in production (use deploy hook to clear)
+opcache.revalidate_freq=0             ; only matters if validate_timestamps=1
+opcache.save_comments=1               ; needed for Doctrine/Laravel annotations
+
+; Clear OPcache after deployment
+; opcache_reset() in a deploy script, or restart PHP-FPM</code></pre>
+
+    <h3>JIT (PHP 8.0+)</h3>
+
+    <pre><code>; php.ini — JIT settings (PHP 8.0+)
+opcache.jit=tracing         ; best for most workloads (tracing JIT)
+opcache.jit_buffer_size=128M
+
+; JIT helps most with CPU-bound workloads: image processing, math, parsers
+; JIT helps LITTLE with typical I/O-bound web apps (most time is in DB/network)
+; Measure before enabling — for web apps, OPcache alone is the big win</code></pre>
+
+    <h3>Connection Pooling</h3>
+
+    <p>PHP has a fundamental challenge: each request spawns a new PHP-FPM worker process. Each process opens its own database connection. With 500 concurrent workers, you have 500 open connections to Postgres — which can overwhelm the database (default max_connections is 100).</p>
+
+    <p>The solution is a connection pooler that sits between PHP-FPM and the database:</p>
+
+    <div class="diagram">
+      <table>
+        <thead><tr><th>Tool</th><th>Use case</th><th>Mode</th></tr></thead>
+        <tbody>
+          <tr><td>PgBouncer</td><td>PostgreSQL</td><td>Transaction pooling (best for PHP)</td></tr>
+          <tr><td>ProxySQL</td><td>MySQL / MariaDB</td><td>Query routing + pooling</td></tr>
+          <tr><td>RDS Proxy</td><td>AWS RDS / Aurora</td><td>Managed pooling</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <pre><code># PgBouncer config — pgbouncer.ini
+[databases]
+mydb = host=postgres-primary port=5432 dbname=mydb
+
+[pgbouncer]
+pool_mode = transaction         # connection returned to pool after each transaction
+max_client_conn = 1000          # PHP-FPM workers can connect
+default_pool_size = 20          # actual DB connections: 20 total
+min_pool_size = 5
+server_idle_timeout = 600
+
+# Result: 1000 PHP workers share 20 actual Postgres connections
+# PHP connects to PgBouncer on port 5432 — completely transparent</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Common PHP Interview Questions</h2>
+
+    <h3>Array Functions</h3>
+
+    <pre><code>&lt;?php
+
+$numbers = [1, 2, 3, 4, 5];
+$orders  = [
+    ['id' =&gt; 1, 'amount' =&gt; 100],
+    ['id' =&gt; 2, 'amount' =&gt; 50],
+    ['id' =&gt; 3, 'amount' =&gt; 200],
+];
+
+// array_map — transform each element, returns new array
+$doubled = array_map(fn($n) =&gt; $n * 2, $numbers);         // [2,4,6,8,10]
+$amounts = array_map(fn($o) =&gt; $o['amount'], $orders);     // [100,50,200]
+
+// array_filter — keep elements matching predicate
+$even     = array_filter($numbers, fn($n) =&gt; $n % 2 === 0); // [1=&gt;2, 3=&gt;4]
+// NOTE: array_filter preserves keys — use array_values() to reindex
+
+// array_reduce — fold to a single value
+$total = array_reduce($orders, fn($carry, $o) =&gt; $carry + $o['amount'], 0); // 350
+
+// usort — sort by custom comparator
+usort($orders, fn($a, $b) =&gt; $a['amount'] &lt;=&gt; $b['amount']);  // &lt;=&gt; is spaceship operator
+
+// array_column — extract a column (like SQL SELECT column)
+$ids = array_column($orders, 'id');                             // [1,2,3]
+$byId = array_column($orders, null, 'id');                     // indexed by id
+
+// array_combine — zip keys and values
+$keys   = ['name', 'email', 'role'];
+$values = ['Alice', 'alice@example.com', 'admin'];
+$user = array_combine($keys, $values);  // ['name'=&gt;'Alice', ...]</code></pre>
+
+    <h3>Closures with use Keyword</h3>
+
+    <pre><code>&lt;?php
+
+$multiplier = 3;
+
+// Capture by value — $multiplier is copied at definition time
+$times3 = function(int $n) use ($multiplier): int {
+    return $n * $multiplier;
+};
+
+$multiplier = 10;  // this change has NO effect on $times3
+echo $times3(5);   // 15 — uses the captured value of 3
+
+// Capture by reference — changes to $multiplier ARE reflected
+$times3ref = function(int $n) use (&amp;$multiplier): int {
+    return $n * $multiplier;
+};
+
+echo $times3ref(5);  // 50 — uses current value of $multiplier (10)
+
+// Arrow functions (PHP 7.4+) — auto-capture by value, single expression
+$times3arrow = fn(int $n): int =&gt; $n * $multiplier;
+// Note: arrow functions capture all outer variables automatically (by value)</code></pre>
+
+    <h3>Generators</h3>
+
+    <pre><code>&lt;?php
+
+// Generator — lazy iteration, processes one item at a time, no memory spike
+function readLargeFile(string $path): \Generator
+{
+    $handle = fopen($path, 'r');
+    if ($handle === false) {
+        throw new \RuntimeException("Cannot open: $path");
+    }
+
+    try {
+        while (($line = fgets($handle)) !== false) {
+            yield trim($line);  // pause here, return line to caller
+        }
+    } finally {
+        fclose($handle);  // always close, even if generator is abandoned
+    }
+}
+
+// Process a 2GB CSV without loading it all into memory
+foreach (readLargeFile('/data/orders.csv') as $line) {
+    $row = str_getcsv($line);
+    processRow($row);
+}
+
+// Generator with keys
+function indexedItems(array $items): \Generator
+{
+    foreach ($items as $index =&gt; $item) {
+        yield $index =&gt; strtoupper($item);
+    }
+}
+
+// Send values INTO a generator
+function accumulator(): \Generator
+{
+    $total = 0;
+    while (true) {
+        $value = yield $total;  // yield current total, receive next value via send()
+        if ($value === null) break;
+        $total += $value;
+    }
+}
+
+$gen = accumulator();
+$gen-&gt;current();       // initialize
+$gen-&gt;send(10);        // send 10, total = 10
+$gen-&gt;send(25);        // send 25, total = 35
+echo $gen-&gt;current();  // 35</code></pre>
+
+    <h3>Traits</h3>
+
+    <pre><code>&lt;?php
+
+// Trait — horizontal code reuse (PHP has no multiple inheritance)
+trait Timestamps
+{
+    private \DateTimeImmutable $createdAt;
+    private \DateTimeImmutable $updatedAt;
+
+    public function touch(): void
+    {
+        $this-&gt;updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this-&gt;createdAt;
+    }
+}
+
+trait SoftDeletes
+{
+    private ?\DateTimeImmutable $deletedAt = null;
+
+    public function softDelete(): void
+    {
+        $this-&gt;deletedAt = new \DateTimeImmutable();
+    }
+
+    public function isDeleted(): bool
+    {
+        return $this-&gt;deletedAt !== null;
+    }
+}
+
+class Order
+{
+    use Timestamps, SoftDeletes;  // compose both traits
+
+    public function __construct(
+        private readonly int $id,
+        private float $amount,
+    ) {
+        $this-&gt;createdAt = new \DateTimeImmutable();
+        $this-&gt;updatedAt = new \DateTimeImmutable();
+    }
+}</code></pre>
+
+    <!-- ============================================================ -->
+    <h2>Senior vs Junior Comparison</h2>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior answer — "What is the difference between == and === in PHP?"</span>
+      <p>"Double equals checks value, triple equals checks value and type. So <code>1 == "1"</code> is true but <code>1 === "1"</code> is false."</p>
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior answer</span>
+      <p>"Triple equals (<code>===</code>) is strict identity — both operands must be the same type AND have the same value. Double equals (<code>==</code>) coerces operands to a common type first, following PHP's type juggling rules — and those rules are genuinely dangerous.</p>
+      <p>The most critical case in production code is the so-called 'magic hash' vulnerability in PHP 7: strings starting with <code>0e</code> followed by digits are interpreted as floating-point numbers in scientific notation, so two completely different MD5 hashes starting with <code>0e</code> would be considered equal under <code>==</code>. This breaks hash comparison authentication.</p>
+      <p>In practice, I enforce <code>declare(strict_types=1)</code> in every file — this makes all native type coercions explicit failures rather than silent — and I use <code>===</code> everywhere. The only time <code>==</code> is defensible is comparing a known integer to a value you've already validated as numeric. But at that point you've already cast it, so you're using <code>===</code> anyway.</p>
+      <p>With PHP 8, some of the worst cases changed — <code>0 == "foo"</code> is now false — but the rules are still non-obvious enough that relying on <code>==</code> anywhere is technical debt."</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Practice Questions</h2>
+
+    <div class="exercises">
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p><strong>Q: What does <code>declare(strict_types=1)</code> do in PHP, and why should you always include it?</strong></p>
+        <p><strong>A:</strong> It enables strict type checking for scalar types in that file. Without it (in the default "coercive mode"), PHP silently converts a <code>string "5"</code> to <code>int 5</code> when passed to a function declaring <code>int $id</code>. With strict types enabled, passing a string to an int parameter throws a <code>TypeError</code> immediately — the bug surfaces at call time rather than producing wrong results silently. It must be the very first statement in the file (before namespace declarations). Using it consistently across your codebase makes type errors loud and early, which is always better than silent coercion in production code.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p><strong>Q: Explain the N+1 query problem in Eloquent and how to fix it.</strong></p>
+        <p><strong>A:</strong> The N+1 problem occurs when you load a collection of N models and then access a relationship on each — triggering one query to load the collection, plus one query per row to load the related model (N more). For example: <code>$orders = Order::all(); foreach ($orders as $order) { echo $order->user->name; }</code> fires 1 query for orders + 1 query per order for the user = 1+N queries. Fix with eager loading: <code>$orders = Order::with('user')->get();</code> which fires exactly 2 queries regardless of N — one for orders, one to load all related users using WHERE id IN (...). For nested relationships: <code>Order::with('user.address')->get()</code>. In production, use Laravel Telescope or a query logger in development to catch N+1 issues before they reach production.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p><strong>Q: Implement a type-safe pipeline pattern in PHP 8.2 where each stage transforms data and the output type of one stage must match the input type of the next. Include error handling.</strong></p>
+
+        <pre><code>&lt;?php
+
+declare(strict_types=1);
+
+namespace App\Pipeline;
+
+/**
+ * A Stage transforms data of type TIn to TOut.
+ * PHP can't enforce generic type constraints at runtime, so we use
+ * the type system where we can and document the contract clearly.
+ *
+ * @template TIn
+ * @template TOut
+ */
+interface Stage
+{
+    /** @param TIn $data */
+    public function process(mixed $data): mixed;
+}
+
+/**
+ * @template T
+ */
+final class Pipeline
+{
+    /** @var list&lt;Stage&gt; */
+    private array $stages = [];
+
+    public static function send(mixed $data): self
+    {
+        $pipeline = new self();
+        $pipeline-&gt;passable = $data;
+        return $pipeline;
+    }
+
+    private mixed $passable;
+
+    public function through(Stage ...$stages): self
+    {
+        $this-&gt;stages = array_values($stages);
+        return $this;
+    }
+
+    public function thenReturn(): mixed
+    {
+        $data = $this-&gt;passable;
+        foreach ($this-&gt;stages as $index =&gt; $stage) {
+            try {
+                $data = $stage-&gt;process($data);
+            } catch (\Throwable $e) {
+                throw new PipelineException(
+                    message: sprintf(
+                        'Pipeline failed at stage %d (%s): %s',
+                        $index,
+                        $stage::class,
+                        $e-&gt;getMessage()
+                    ),
+                    stage: $index,
+                    stageName: $stage::class,
+                    previous: $e
+                );
+            }
+        }
+        return $data;
+    }
+}
+
+final class PipelineException extends \RuntimeException
+{
+    public function __construct(
+        string             $message,
+        public readonly int    $stage,
+        public readonly string $stageName,
+        ?\Throwable        $previous = null
+    ) {
+        parent::__construct($message, 0, $previous);
+    }
+}
+
+// --- Concrete stages for an order processing pipeline ---
+
+final class ValidateOrder implements Stage
+{
+    public function process(mixed $data): array
+    {
+        if (!is_array($data)) {
+            throw new \InvalidArgumentException('Expected array order data');
+        }
+        if (empty($data['items'])) {
+            throw new \DomainException('Order must have at least one item');
+        }
+        if (($data['amount'] ?? 0) &lt;= 0) {
+            throw new \DomainException('Order amount must be positive');
+        }
+        return $data;
+    }
+}
+
+final class EnrichWithCustomer implements Stage
+{
+    public function __construct(
+        private readonly CustomerRepository $customers
+    ) {}
+
+    public function process(mixed $data): array
+    {
+        $customer = $this-&gt;customers-&gt;find($data['customer_id'])
+            ?? throw new \RuntimeException("Customer {$data['customer_id']} not found");
+
+        return [...$data, 'customer' =&gt; $customer];
+    }
+}
+
+final class ApplyDiscounts implements Stage
+{
+    public function process(mixed $data): array
+    {
+        $discount = match(true) {
+            $data['amount'] &gt; 1000 =&gt; 0.20,
+            $data['amount'] &gt; 500  =&gt; 0.10,
+            $data['amount'] &gt; 100  =&gt; 0.05,
+            default                 =&gt; 0.00,
+        };
+
+        return [
+            ...$data,
+            'discount'        =&gt; $discount,
+            'discounted_amount' =&gt; round($data['amount'] * (1 - $discount), 2),
+        ];
+    }
+}
+
+// Usage
+try {
+    $processedOrder = Pipeline::send($rawOrderData)
+        -&gt;through(
+            new ValidateOrder(),
+            new EnrichWithCustomer($customerRepo),
+            new ApplyDiscounts(),
+        )
+        -&gt;thenReturn();
+} catch (PipelineException $e) {
+    Log::error('Order pipeline failed', [
+        'stage'     =&gt; $e-&gt;stage,
+        'stageName' =&gt; $e-&gt;stageName,
+        'error'     =&gt; $e-&gt;getMessage(),
+        'cause'     =&gt; $e-&gt;getPrevious()?-&gt;getMessage(),
+    ]);
+    throw $e;
+}</code></pre>
+
+        <p><strong>Key design decisions:</strong> Each stage is a small, testable class with a single responsibility — you can unit test <code>ValidateOrder</code> in complete isolation. PHP's type system can't enforce generic constraints at runtime, but PHPDoc generics (<code>@template</code>) give IDEs and static analysis tools (Psalm, PHPStan) enough information to flag type mismatches at development time. The <code>PipelineException</code> wraps the original exception while adding which stage failed — critical for debugging pipelines in production logs. The spread operator <code>[...$data, 'key' => 'value']</code> creates immutable-style transformations without mutating the original array.</p>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <div class="summary">
+      <h3>Chapter 28 Summary</h3>
+      <ul>
+        <li>Modern PHP 8.x is a fundamentally different language from its legacy reputation: named arguments, match expressions, enums, fibers, constructor promotion, and nullsafe operators make it expressive and safe when used correctly.</li>
+        <li>Laravel's ecosystem (Eloquent, service container, queues, form requests) follows the same DI and ORM patterns as Spring Boot and NestJS — understanding those patterns transfers directly.</li>
+        <li>Always use <code>===</code> and <code>declare(strict_types=1)</code> — PHP's type juggling with <code>==</code> produces genuinely dangerous results and has caused real security vulnerabilities; this is a guaranteed interview question in PHP shops.</li>
+        <li>OPcache is the single biggest PHP performance win — it caches compiled bytecode so PHP never re-parses source files on production traffic; always enable it and clear it as part of your deployment pipeline.</li>
+        <li>Generators solve the large-dataset memory problem cleanly, connection pooling (PgBouncer/ProxySQL) solves the "500 workers = 500 DB connections" problem, and eager loading with <code>with()</code> solves the N+1 query problem — knowing all three shows production-grade PHP thinking.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> System Design — how to approach the open-ended architectural challenges that separate senior engineers from the rest.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-27.html"><span class="nav-label">← Previous</span><span class="nav-title">Go Deep Dive</span></a>
+      <a href="../part-5/chapter-29.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">System Design Approach</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

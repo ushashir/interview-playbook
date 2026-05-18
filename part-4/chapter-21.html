@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 21: CI/CD, Git, and DevOps — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 21</div>
+      <h1>CI/CD, Git, and DevOps</h1>
+      <p class="chapter-intro">Shipping software is as important as writing it. The team that ships ten times a day catches bugs earlier, delivers value faster, and has a smaller blast radius when something goes wrong.</p>
+    </div>
+
+    <div class="learn-box"><h4>What you'll learn</h4><ul>
+      <li>GitFlow vs Trunk-Based Development vs GitHub Flow — when each strategy wins</li>
+      <li>Designing a CI/CD pipeline with a full GitHub Actions example</li>
+      <li>Docker fundamentals: multi-stage builds, layer caching, and image optimization</li>
+      <li>Kubernetes essentials: Pods, Deployments, rolling updates, and health probes</li>
+      <li>Blue/Green vs Canary deployments, TDD, and Feature Flags</li>
+    </ul></div>
+
+    <p>"Shipping software is as important as writing it. The team that ships 10 times a day catches bugs earlier, delivers value faster, and has a smaller blast radius when something goes wrong."</p>
+
+    <p>This chapter covers the tooling and practices that separate a developer who writes code from a senior engineer who ships production software reliably. Interviewers who hire for backend roles almost always ask about CI/CD, deployment strategies, and Docker/Kubernetes basics. Know them cold.</p>
+
+    <h2>1. The Big Idea: Custom Workshop vs Assembly Line</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A custom workshop quality-checks everything at the end — the craftsperson builds the entire chair, then inspects it. The factory assembly line has a quality check at every single station. If a defect appears at station 3, it's caught immediately. It never reaches station 10. CI/CD is the assembly line for software. Every commit triggers a sequence of automated checks. Defects are caught at the earliest possible moment, when they're cheapest to fix.
+    </div>
+
+    <h2>2. Git Branching Strategies</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Think of git branches as parallel universe timelines. The main timeline (main/master) is the stable universe everyone can see. A feature branch is a private universe where you experiment. When your experiment succeeds, you merge your timeline back into the stable one. The question is: how long do parallel universes live before merging, and how many parallel universes are you managing at once?
+    </div>
+
+    <h3>GitFlow</h3>
+    <p>Two long-lived branches: <code>main</code> (always deployable) and <code>develop</code> (integration branch). Short-lived branches: <code>feature/*</code>, <code>hotfix/*</code>, <code>release/*</code>.</p>
+    <p><strong>Good for:</strong> versioned software with explicit release cycles (mobile apps, packaged software, libraries). Clear semantics for hotfixes and release preparation.</p>
+    <p><strong>Downsides:</strong> complex ceremony. Long-lived feature branches create merge hell. Develop and main diverging creates confusion. Teams new to git often get lost in the flow.</p>
+
+    <h3>Trunk-Based Development</h3>
+    <p>Everyone merges to <code>main</code> at least daily. No long-lived branches. Incomplete features are hidden behind feature flags, not isolated branches.</p>
+    <p><strong>Good for:</strong> high-frequency deployment. This is how Google, Facebook, and Netflix ship. Requires mature CI that catches breakages in minutes, and discipline to use feature flags properly.</p>
+    <p><strong>Downsides:</strong> requires strong CI and a team culture of small, safe commits. Feature flags add complexity. Not suitable for versioned releases.</p>
+
+    <h3>GitHub Flow</h3>
+    <p>A simplified middle ground: <code>main</code> is always deployable. Developers create short-lived feature branches, open pull requests, get code review, and merge. Deploy on merge to main.</p>
+    <p><strong>Good for:</strong> most web application teams. Simple enough for beginners, fast enough for most teams, and enforces code review via PRs.</p>
+
+    <div class="box tip">
+      <strong>Decision rule:</strong> Use trunk-based development if your team deploys continuously and has mature CI. Use GitFlow if you have versioned releases (e.g., mobile apps, open-source libraries). Use GitHub Flow for most web services — it's the practical default.
+    </div>
+
+    <h2>3. CI/CD Pipeline Design</h2>
+
+    <p>A CI/CD pipeline is a sequence of automated steps that run on every commit. The golden rule: <strong>if any step fails, the pipeline stops. Never deploy broken code.</strong></p>
+
+    <div class="diagram">
+      <strong>Pipeline stages (in order):</strong><br>
+      Lint → Unit Tests → Build → Integration Tests → Security Scan → Deploy Staging → Smoke Tests → Deploy Production
+    </div>
+
+    <p>Each step acts as a gate. Linting catches style and obvious errors cheaply. Unit tests run fast and catch logic bugs. The build step verifies the artifact compiles. Integration tests verify service boundaries. Security scans catch known vulnerabilities in dependencies. Staging deploy verifies the artifact actually runs. Smoke tests verify the deployment is healthy. Only then does production get touched.</p>
+
+    <p><strong>Full GitHub Actions CI/CD pipeline for a Node.js/NestJS service:</strong></p>
+
+<pre><code># .github/workflows/ci.yml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  test:
+    name: Lint, Test, Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci   # ci is faster than install, respects package-lock.json exactly
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm run test -- --coverage
+        env:
+          NODE_ENV: test
+
+      - name: Build
+        run: npm run build
+
+      - name: Security audit
+        run: npm audit --audit-level=high   # Fail if high or critical vulns found
+
+  docker:
+    name: Build &amp; Push Docker Image
+    runs-on: ubuntu-latest
+    needs: test   # Only runs if test job passes
+    if: github.ref == 'refs/heads/main'   # Only on merge to main
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=gha     # Use GitHub Actions cache for Docker layer cache
+          cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: docker
+    environment: production   # Requires manual approval gate in GitHub
+    steps:
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl set image deployment/api-service \
+            api=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+            --namespace=production</code></pre>
+
+    <h2>4. Docker — What It Actually Solves</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Before standardized shipping containers, loading cargo onto ships required custom handling for every item. Different shapes, sizes, packing methods — a logistical nightmare. The standardized shipping container changed everything. Any ship can carry any container. Any port can load or unload any container. Docker does the same for software: the container is a standardized unit that runs identically on a developer's laptop, in CI, on staging, and in production.
+    </div>
+
+    <div class="box key-term">
+      <strong>Image vs Container:</strong> An image is the blueprint — a static, immutable snapshot of the filesystem and configuration. A container is a running instance of that image. One image can spawn many containers, just as one house blueprint can build many houses.
+    </div>
+
+    <p><strong>Multi-stage Dockerfile for NestJS</strong> — this is the pattern you should know cold:</p>
+
+<pre><code># Dockerfile
+
+# ── Stage 1: Build ────────────────────────────────────────────────────────────
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# CRITICAL: Copy package files BEFORE source code.
+# Docker caches each layer. If you copy package.json first and it hasn't changed,
+# Docker reuses the npm install cache even if your source code changed.
+# This turns a 90-second npm install into a 2-second cache hit.
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Now copy source — cache-busting only happens when source actually changes
+COPY . .
+RUN npm run build   # Outputs compiled JS to /app/dist
+
+
+# ── Stage 2: Production ───────────────────────────────────────────────────────
+FROM node:20-alpine AS production
+WORKDIR /app
+ENV NODE_ENV=production
+
+# Only copy production dependencies — devDependencies stay in builder stage
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
+# Copy the compiled output from the builder stage — NOT the source code
+COPY --from=builder /app/dist ./dist
+
+# Run as non-root user for security
+USER node
+
+EXPOSE 3000
+CMD ["node", "dist/main.js"]</code></pre>
+
+    <div class="box tip">
+      <strong>Result:</strong> The production image contains only the compiled JS and production node_modules. The TypeScript compiler, source files, devDependencies, and build cache are all left in the builder stage and discarded. Image size typically drops from ~600MB to ~150MB.
+    </div>
+
+    <h2>5. Kubernetes Basics</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Kubernetes is a fleet manager for containers. You don't say "start container X on server 3." You say "I need 5 copies of this service running at all times." Kubernetes decides which servers they go on, restarts them if they crash, and gradually replaces them when you deploy a new version — without you needing to manage individual machines.
+    </div>
+
+    <p>The key resources to know for interviews:</p>
+
+    <ul>
+      <li><strong>Pod:</strong> The smallest deployable unit. Usually one container. Ephemeral — pods die and are replaced, not repaired.</li>
+      <li><strong>Deployment:</strong> Manages a set of identical pods. Declares desired state: "run 3 replicas of this image." Kubernetes reconciles reality to match.</li>
+      <li><strong>Service:</strong> Stable network endpoint (IP + DNS name) that routes to pods. Pods come and go; the Service address stays constant.</li>
+      <li><strong>Ingress:</strong> HTTP routing into the cluster. Routes <code>/api/*</code> to the API service, <code>/static/*</code> to the CDN, etc.</li>
+      <li><strong>ConfigMap / Secret:</strong> Inject configuration and credentials as environment variables without baking them into the image.</li>
+      <li><strong>HPA (Horizontal Pod Autoscaler):</strong> Automatically scales replica count based on CPU/memory/custom metrics.</li>
+    </ul>
+
+    <p><strong>Rolling deployment</strong> (the default): Kubernetes brings up new pods one at a time and takes down old pods only after new ones are healthy. Zero downtime. Controlled by <code>maxSurge</code> and <code>maxUnavailable</code> settings.</p>
+
+    <p><strong>Readiness probe vs Liveness probe:</strong></p>
+    <ul>
+      <li><strong>Readiness:</strong> "Is this pod ready to receive traffic?" Until ready, Kubernetes removes it from the Service's load-balancer pool. Use this to prevent requests from hitting a pod that's still warming up.</li>
+      <li><strong>Liveness:</strong> "Is this pod alive?" If the liveness probe fails, Kubernetes kills and replaces the pod. Use this to detect deadlocks or infinite loops where the process is running but stuck.</li>
+    </ul>
+
+<pre><code># deployment.yaml (simplified)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-service
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Allow 1 extra pod during rollout (4 total briefly)
+      maxUnavailable: 0  # Never reduce below desired count (no downtime)
+  template:
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/myorg/api-service:abc123
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20</code></pre>
+
+    <h2>6. Blue/Green vs Canary Deployments</h2>
+
+    <div class="box analogy">
+      <strong>Blue/Green:</strong> You have two identical production environments — Blue (live) and Green (idle). Deploy new version to Green. Test it thoroughly. Flip the load balancer to send 100% of traffic to Green in one instant. Blue immediately becomes your rollback — one switch and you're back. No gradual ramp, no partial exposure.
+    </div>
+
+    <div class="box analogy">
+      <strong>Canary:</strong> Like a canary in a coal mine. Send 5% of real traffic to the new version first. Monitor error rates, latency, and business metrics. If metrics look healthy, ramp to 20%, then 50%, then 100%. If something looks wrong, route 100% back to the old version immediately with minimal users exposed.
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Strategy</th><th>Rollout</th><th>Rollback</th><th>Best For</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Blue/Green</td><td>Instant 0% → 100%</td><td>Instant (flip back)</td><td>Simple apps, low risk tolerance, easy infra</td></tr>
+        <tr><td>Canary</td><td>Gradual (5% → 100%)</td><td>Fast (route traffic back)</td><td>High-traffic services, risk-sensitive changes, A/B testing</td></tr>
+        <tr><td>Rolling</td><td>Pod-by-pod</td><td>Kubernetes rollout undo</td><td>Default for most Kubernetes workloads</td></tr>
+      </tbody>
+    </table>
+
+    <h2>7. Test-Driven Development (TDD) in Interviews</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> Writing a test before the code is like drawing the target before throwing the dart. You define exactly what success looks like before you try to achieve it. This forces you to think about the interface before implementation.
+    </div>
+
+    <p>The red-green-refactor cycle:</p>
+    <ol>
+      <li><strong>Red:</strong> Write a failing test that describes the behavior you want.</li>
+      <li><strong>Green:</strong> Write the minimum code to make the test pass. Don't over-engineer.</li>
+      <li><strong>Refactor:</strong> Clean up the code while keeping tests green.</li>
+    </ol>
+
+<pre><code>// tdd-example.test.ts — TDD'ing a simple discount calculator
+
+// RED: Write the test first. This fails because discountedPrice doesn't exist yet.
+import { discountedPrice } from './pricing';
+
+describe('discountedPrice', () => {
+  it('applies percentage discount correctly', () => {
+    expect(discountedPrice(100, 20)).toBe(80);
+  });
+
+  it('returns original price when discount is 0', () => {
+    expect(discountedPrice(100, 0)).toBe(100);
+  });
+
+  it('throws when discount exceeds 100%', () => {
+    expect(() => discountedPrice(100, 110)).toThrow('Discount cannot exceed 100%');
+  });
+});
+
+// GREEN: Write minimum code to pass all tests.
+// pricing.ts
+export function discountedPrice(price: number, discountPercent: number): number {
+  if (discountPercent > 100) {
+    throw new Error('Discount cannot exceed 100%');
+  }
+  return price * (1 - discountPercent / 100);
+}
+
+// REFACTOR: Add input validation for negative values, extract the multiplier, etc.
+// Tests stay green throughout.</code></pre>
+
+    <h2>8. Feature Flags</h2>
+
+    <div class="box analogy">
+      <strong>Analogy:</strong> A light switch is binary — on or off. A dimmer switch lets you gradually increase brightness. Feature flags are dimmer switches for code. Instead of deploying a feature fully on or off, you can roll it out to 1% of users, then 10%, then everyone — all without redeploying.
+    </div>
+
+    <p><strong>Use cases:</strong></p>
+    <ul>
+      <li><strong>Gradual rollout:</strong> 5% of users see the new checkout flow. Monitor conversion rate. Ramp if it's better.</li>
+      <li><strong>A/B testing:</strong> 50% see version A, 50% see version B. Measure which converts better.</li>
+      <li><strong>Kill switch:</strong> Flag disables a feature instantly in production without a code deploy.</li>
+      <li><strong>Trunk-based development:</strong> Incomplete features merged to main but hidden behind a flag.</li>
+    </ul>
+
+<pre><code>// Simple feature flag via environment variable (suitable for early-stage)
+const NEW_CHECKOUT_ENABLED = process.env.FF_NEW_CHECKOUT === 'true';
+
+if (NEW_CHECKOUT_ENABLED) {
+  return newCheckoutFlow(cart);
+} else {
+  return legacyCheckoutFlow(cart);
+}
+
+// Mature feature flag with per-user targeting (using Unleash or LaunchDarkly SDK)
+import { isEnabled } from 'unleash-client';
+
+async function checkout(userId: string, cart: Cart) {
+  if (isEnabled('new-checkout', { userId })) {
+    return newCheckoutFlow(cart);
+  }
+  return legacyCheckoutFlow(cart);
+}
+// Unleash/LaunchDarkly evaluates the flag per user — 10% of user IDs get true,
+// consistently. The same user always sees the same experience.</code></pre>
+
+    <h2>Senior vs Junior</h2>
+
+    <p><strong>Question: "How do you deploy without downtime?"</strong></p>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior Answer</span>
+      "I'd use Kubernetes rolling deployments."
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior Answer</span>
+      "Zero-downtime deployment is a system-level concern, not just a deployment strategy. At the infrastructure level, I'd use Kubernetes rolling deployments with <code>maxUnavailable: 0</code> so the old pods stay up until new pods pass their readiness probe. I'd configure readiness probes to check that the app has finished warming up — connected to the database, loaded caches — before taking traffic. At the application level, I'd make sure database migrations are backward-compatible: never drop or rename a column in the same deploy that removes the code using it. Deploy the code change first, verify it's healthy, then clean up the old schema in a second migration. I'd also use feature flags for high-risk changes so I can ship code to production without exposing it to users until I'm confident. For highest-risk releases, I'd use a canary deployment — 5% of traffic to the new version, monitor error rate and p99 latency for 10 minutes, then ramp up. If anything looks wrong, route 100% back immediately."
+    </div>
+
+    <div class="exercises">
+      <h3>Practice Questions</h3>
+
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p><strong>What is the difference between Continuous Integration (CI) and Continuous Deployment (CD)?</strong></p>
+        <p>CI is the practice of merging code changes frequently and automatically running tests to catch integration issues early. CD extends this by automatically deploying passing builds to production (or staging). CI catches bugs early; CD ensures that every passing build can reach users quickly. Some teams practice Continuous Delivery (code is always in a deployable state, but requires manual approval to deploy) vs Continuous Deployment (automatically deploys without manual gates).
+        </p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p><strong>Explain Docker layer caching. Why does the order of instructions in a Dockerfile matter?</strong></p>
+        <p>Docker builds images layer by layer. Each instruction (<code>COPY</code>, <code>RUN</code>, etc.) creates a layer. If Docker detects a layer hasn't changed, it reuses the cached version and skips re-executing it — and all layers built on top of it. This means instruction order is performance-critical. If you <code>COPY . .</code> before <code>RUN npm install</code>, any source file change invalidates the <code>COPY</code> layer, forcing a fresh <code>npm install</code> even when <code>package.json</code> hasn't changed. The correct pattern: <code>COPY package.json package-lock.json ./</code> then <code>RUN npm ci</code>, then <code>COPY . .</code>. The install layer is cached as long as dependencies don't change — typically the 90% case.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p><strong>Design a complete CI/CD pipeline for a NestJS microservice. What stages would you include, why, and how would you handle database migrations?</strong></p>
+        <p><strong>Pipeline stages:</strong></p>
+        <ol>
+          <li><strong>Lint:</strong> ESLint + Prettier check. Cheap, fast. Catches obvious issues before we waste CI time.</li>
+          <li><strong>Unit tests:</strong> Jest with coverage threshold (e.g., 80%). No external dependencies — mock everything. Run in parallel. Must complete in under 2 minutes.</li>
+          <li><strong>Build:</strong> <code>npm run build</code>. Verifies TypeScript compiles. Fails fast on type errors.</li>
+          <li><strong>Integration tests:</strong> Spin up a test PostgreSQL via docker-compose service in the CI environment. Run tests against real DB. Tests are slower but catch SQL bugs and query performance issues.</li>
+          <li><strong>Security scan:</strong> <code>npm audit --audit-level=high</code>. Optionally Snyk or Trivy to scan the Docker image for OS-level vulnerabilities.</li>
+          <li><strong>Docker build + push:</strong> Multi-stage build. Tag with commit SHA. Push to container registry. Only on merge to main.</li>
+          <li><strong>Deploy to staging:</strong> <code>kubectl set image</code> or Helm upgrade. Run smoke tests against staging (health endpoint, one happy-path API call).</li>
+          <li><strong>Database migration:</strong> Run <code>npm run migration:run</code> as a Kubernetes Job before the rolling deployment. The migration must be backward-compatible — the old app version must still work with the new schema while the rolling update is in progress. Never drop columns in the same migration as the code change that stops using them.</li>
+          <li><strong>Production deploy:</strong> Gated by a manual approval step in GitHub Environments. Rolling deployment with <code>maxUnavailable: 0</code>. Readiness probe ensures new pods are healthy before old ones are terminated.</li>
+          <li><strong>Post-deploy monitoring:</strong> Alert on error rate spike or p99 latency increase in the 5 minutes after deploy. Automated rollback or manual flag to roll back if thresholds are breached.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h3>Chapter Summary</h3>
+      <ul>
+        <li>Choose your branching strategy based on deployment frequency: trunk-based for continuous deployment, GitFlow for versioned releases, GitHub Flow for most web services.</li>
+        <li>A CI/CD pipeline is a sequence of automated gates: if any step fails, the pipeline stops. Never deploy broken code.</li>
+        <li>Multi-stage Docker builds produce small, secure production images. Layer caching order — package files before source code — is a mandatory optimization.</li>
+        <li>Kubernetes rolling deployments achieve zero downtime. Readiness probes prevent traffic from reaching unhealthy pods. Liveness probes restart stuck processes.</li>
+        <li>Canary deployments reduce blast radius for high-risk changes. Feature flags decouple deployment from release, enabling gradual rollouts without redeployment.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Your pipeline is solid and you're shipping frequently — but is what you're shipping secure? Chapter 22 covers authentication, authorization, and the vulnerabilities that turn senior engineers into cautionary tales.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-20.html"><span class="nav-label">← Previous</span><span class="nav-title">Performance &amp; Observability</span></a>
+      <a href="chapter-22.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Security</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

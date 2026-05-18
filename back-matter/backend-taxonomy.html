@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backend Question Taxonomy — Hired: A Senior Engineer's Interview Playbook</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">Hired</div>
+        <div class="book-subtitle">A Senior Engineer's Interview Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag" style="background:#4b5563;">Back Matter</div>
+      <h1>Backend Question Taxonomy</h1>
+      <p class="chapter-intro">A classified list of 70+ real interview questions, organized by category with difficulty ratings and key concepts to address.</p>
+    </div>
+
+    <div class="box tip">
+      <strong>How to use this page:</strong> Scan for questions you can't answer confidently. Go to the chapter listed and study that section. Return here and answer the question out loud — without notes — until it flows naturally.
+    </div>
+
+    <!-- API Design -->
+    <h2>API Design <span style="font-weight:400;font-size:0.9rem;color:#6b7280;">— Ch 17</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Difficulty</th>
+          <th>Key Concept to Address</th>
+          <th>Ch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>What's the difference between PUT and PATCH?</td>
+          <td><span class="badge beginner">Beginner</span></td>
+          <td>Idempotency; PUT replaces the full resource, PATCH applies a partial update</td>
+          <td>17</td>
+        </tr>
+        <tr>
+          <td>How would you design a rate-limited API?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Token bucket or sliding window algorithm; Redis counter; HTTP 429 response; retry-after header</td>
+          <td>17</td>
+        </tr>
+        <tr>
+          <td>Explain REST constraints.</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Stateless, cacheable, uniform interface, layered system, client-server, code on demand (optional)</td>
+          <td>17</td>
+        </tr>
+        <tr>
+          <td>How do you version a REST API?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>URL path (/v1/), Accept header, query param; tradeoffs of each; deprecation strategy</td>
+          <td>17</td>
+        </tr>
+        <tr>
+          <td>When would you use GraphQL over REST?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Over-fetching / under-fetching; multiple client types with different data needs; schema-first development</td>
+          <td>17</td>
+        </tr>
+        <tr>
+          <td>What is idempotency and why does it matter?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Same request, same result no matter how many times called; safe retries; POST idempotency key pattern</td>
+          <td>17</td>
+        </tr>
+        <tr>
+          <td>How do you design a REST API for a multi-tenant SaaS?</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Tenant isolation (subdomain vs header vs path); authorization checks on every resource; row-level security</td>
+          <td>17</td>
+        </tr>
+        <tr>
+          <td>Explain the Richardson Maturity Model.</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Level 0 (one URI); Level 1 (resources); Level 2 (HTTP verbs); Level 3 (HATEOAS hypermedia)</td>
+          <td>17</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Databases -->
+    <h2>Databases <span style="font-weight:400;font-size:0.9rem;color:#6b7280;">— Ch 18</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Difficulty</th>
+          <th>Key Concept to Address</th>
+          <th>Ch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>What is a database index?</td>
+          <td><span class="badge beginner">Beginner</span></td>
+          <td>B-tree structure; speeds up reads at the cost of write overhead and storage; when not to add one</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>What is the N+1 query problem?</td>
+          <td><span class="badge beginner">Beginner</span></td>
+          <td>1 query to fetch a list + N queries for related data; fix with eager loading, JOIN, or DataLoader</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>Explain ACID properties.</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Atomicity (all or nothing), Consistency (valid state), Isolation (concurrent tx don't interfere), Durability (persists after crash)</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>When would you choose NoSQL over SQL?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Flexible/evolving schema, horizontal write scale, access patterns that don't need JOINs, document or key-value model</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>How do you optimize a slow query?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>EXPLAIN ANALYZE; check for missing index; covering index; avoid SELECT *; rewrite with CTE or subquery</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>Explain database normalization.</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>1NF (atomic values), 2NF (no partial dependency), 3NF (no transitive dependency); denormalization for read performance</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>How do you design a Redis caching layer?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Cache-aside pattern; key naming convention; TTL strategy; cache invalidation on write; stampede protection</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>What is database sharding?</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Horizontal partitioning; shard key selection; hotspot risk; cross-shard queries; resharding complexity</td>
+          <td>18</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Distributed Systems -->
+    <h2>Distributed Systems <span style="font-weight:400;font-size:0.9rem;color:#6b7280;">— Ch 19</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Difficulty</th>
+          <th>Key Concept to Address</th>
+          <th>Ch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>What is CAP theorem?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Consistency, Availability, Partition Tolerance — can only guarantee two; CP vs AP systems; real-world examples (Zookeeper = CP, Cassandra = AP)</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>Explain the Saga pattern.</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Distributed transactions via sequence of local transactions; choreography (events) vs orchestration (central coordinator); compensating transactions</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>When would you NOT use microservices?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Small team, early-stage product, unclear domain boundaries, operational complexity not justified; Conway's Law implication</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>What is event sourcing?</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Store all state changes as immutable events; derive current state by replaying; audit trail; pairs naturally with CQRS; projection challenges</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>Explain the Outbox pattern.</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Solves dual-write: write event to outbox table in same DB transaction; separate relay process publishes to message broker; CDC as alternative</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>How do you handle distributed transactions?</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>2PC vs Saga; why 2PC is impractical (blocking, coordinator as SPOF); Saga preferred; eventual consistency acceptance</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>What is consistent hashing and why is it useful?</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Hash ring maps keys to nodes; adding/removing a node only remaps adjacent keys; virtual nodes for better distribution; used in distributed caches</td>
+          <td>19</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Performance & Observability -->
+    <h2>Performance &amp; Observability <span style="font-weight:400;font-size:0.9rem;color:#6b7280;">— Ch 20</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Difficulty</th>
+          <th>Key Concept to Address</th>
+          <th>Ch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>What is P99 latency?</td>
+          <td><span class="badge beginner">Beginner</span></td>
+          <td>99th percentile; 99% of requests are faster; tail latency; why mean/average hides bad user experiences</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>What are SLO, SLA, and SLI?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>SLI = measured indicator; SLO = internal target; SLA = contractual agreement with penalty; error budget = 1 - SLO</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>How do you debug a production outage?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Check dashboards → recent deploys → infrastructure metrics → logs → isolate to service/endpoint → fix or rollback</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>What are the three pillars of observability?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Logs (events), Metrics (aggregated numbers over time), Traces (request flow across services); each answers different questions</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>How do you implement graceful shutdown?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Listen for SIGTERM; stop accepting new connections; drain in-flight requests; close DB connections; exit cleanly</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>What causes memory leaks in Node.js?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Unremoved event listeners, closures holding references, unbounded global caches, missing cleanup in setInterval; detection with heap snapshots</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>How do you reduce P99 latency?</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Identify tail causes (GC pause, lock contention, cold cache); hedged requests; async where possible; caching; timeout budgets</td>
+          <td>20</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Security -->
+    <h2>Security <span style="font-weight:400;font-size:0.9rem;color:#6b7280;">— Ch 22</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Difficulty</th>
+          <th>Key Concept to Address</th>
+          <th>Ch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>What's the difference between authentication and authorization?</td>
+          <td><span class="badge beginner">Beginner</span></td>
+          <td>Authentication = who are you (identity); Authorization = what are you allowed to do (access control)</td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <td>Why shouldn't you store passwords in plain text?</td>
+          <td><span class="badge beginner">Beginner</span></td>
+          <td>Data breach exposes all passwords; rainbow table attacks; use bcrypt/Argon2 with per-user salt</td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <td>What is SQL injection and how do you prevent it?</td>
+          <td><span class="badge beginner">Beginner</span></td>
+          <td>Attacker injects SQL via user input; prevent with parameterized queries / prepared statements; ORM helps but doesn't eliminate</td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <td>What is JWT and how does it work?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Header.Payload.Signature; server signs with secret; stateless auth; token expiry; refresh token pattern; never store sensitive data in payload</td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <td>Explain XSS and how to prevent it.</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Attacker injects malicious script into page viewed by other users; prevent with output escaping, CSP headers, textContent vs innerHTML</td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <td>What is CSRF and how do you prevent it?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Forged cross-site request using victim's session; prevent with SameSite cookie attribute, CSRF token in forms/headers</td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <td>What is SSRF?</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Server-Side Request Forgery; attacker makes server fetch internal URLs (metadata endpoints, internal services); prevent with URL allowlist, block private IP ranges</td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <td>How would you secure a multi-tenant API?</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Verify tenant ownership on every resource access; row-level security in DB; never trust tenant ID from client alone; audit log all sensitive operations</td>
+          <td>22</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- System Design -->
+    <h2>System Design <span style="font-weight:400;font-size:0.9rem;color:#6b7280;">— Ch 29–32</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Difficulty</th>
+          <th>Key Concept to Address</th>
+          <th>Ch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Design a URL shortener.</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Base62 hash or counter; redirect (301 vs 302); scale reads with cache; analytics via async events; custom aliases</td>
+          <td>31</td>
+        </tr>
+        <tr>
+          <td>Design a notification service.</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Queue-based fanout; channel routing (push/email/SMS); retry with exponential backoff; idempotency; preference management</td>
+          <td>31</td>
+        </tr>
+        <tr>
+          <td>Design a rate limiter.</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Token bucket or sliding window log; Redis for distributed counter; per-user vs per-IP vs per-endpoint; HTTP 429 + retry-after</td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td>Design a product search system.</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Elasticsearch as read store; CDC sync from primary DB; relevance scoring; faceted filters; autocomplete; search latency SLO</td>
+          <td>31</td>
+        </tr>
+        <tr>
+          <td>Design a real-time chat application.</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>WebSockets for bidirectional connection; message ordering guarantees; persistence in DB; fan-out for group chats; presence indicators</td>
+          <td>31</td>
+        </tr>
+        <tr>
+          <td>Design a distributed cache.</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Consistent hashing for key distribution; eviction policies (LRU, LFU); replication for availability; cache coherence strategy</td>
+          <td>30</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Behavioral -->
+    <h2>Behavioral <span style="font-weight:400;font-size:0.9rem;color:#6b7280;">— Ch 1–3</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Difficulty</th>
+          <th>Key Concept to Address</th>
+          <th>Ch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tell me about yourself.</td>
+          <td><span class="badge beginner">Beginner</span></td>
+          <td>Past-Present-Future structure; 90 seconds max; end with why you're interested in this role specifically</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>Describe a challenging bug you fixed.</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>STAR format + technical detail; explain how you isolated it; what you learned; include metrics if possible</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>How have you handled a conflict with a teammate?</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>STAR format; outcome-focused, not adversarial; show you sought to understand their perspective; describe the resolution</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Tell me about a time you failed.</td>
+          <td><span class="badge intermediate">Intermediate</span></td>
+          <td>Real failure (not a disguised success); genuine learning; concrete behavior change since; no defensiveness</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>How do you approach technical debt?</td>
+          <td><span class="badge advanced">Advanced</span></td>
+          <td>Debt register / visibility; business case for addressing it; incremental reduction during feature work; when to tackle it head-on</td>
+          <td>3</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="chapter-nav">
+      <a href="system-design-reference.html"><span class="nav-label">← Previous</span><span class="nav-title">System Design Reference</span></a>
+      <a href="recommended-reading.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Recommended Reading</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>
