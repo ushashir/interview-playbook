@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 14: Frontend Performance and DevTools — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-3">Part 3 · Chapter 14</div>
+      <h1>Frontend Performance and DevTools</h1>
+      <p class="chapter-intro">A user decides whether your app is fast or slow in about 300 milliseconds. That's not a UX preference — that's neuroscience. If you can't talk confidently about web performance, you will not get senior frontend roles at product companies.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>Core Web Vitals — Google's three performance metrics and exactly how to fix each one</li>
+        <li>The browser rendering pipeline from HTML bytes to pixels on screen</li>
+        <li>JavaScript performance: long tasks, code splitting, lazy loading, and tree shaking</li>
+        <li>Network performance: HTTP/2, resource hints, caching, and image optimization</li>
+        <li>How to use Chrome DevTools like a senior engineer — Performance, Network, Memory, and Coverage panels</li>
+        <li>Frontend memory leaks: how they happen and how to find them</li>
+      </ul>
+    </div>
+
+    <h2>Core Web Vitals</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: The Restaurant Health Inspection</div>
+      <p>A restaurant's health inspection doesn't measure everything — it focuses on three critical areas that determine if you're allowed to stay open: food temperature, cross-contamination prevention, and sanitation. If any of the three fails, you fail. Google's Core Web Vitals work the same way: three specific measurements that determine whether your page is considered "good" by search engines and users alike. Pass all three, you're healthy. Fail any one, and your search ranking pays the price.</p>
+    </div>
+
+    <p>Core Web Vitals are not abstract engineering metrics — they directly affect Google search ranking and user retention. A 100ms improvement in load time can produce measurable increases in conversion rates. This is why performance is a business conversation, not just a technical one.</p>
+
+    <h3>LCP — Largest Contentful Paint</h3>
+
+    <p><strong>What it measures:</strong> How long until the largest content element visible in the viewport finishes rendering. This is typically the hero image, a large text block, or a video poster.</p>
+    <p><strong>Good threshold:</strong> Under 2.5 seconds.</p>
+
+    <p><strong>What causes poor LCP:</strong></p>
+    <ul>
+      <li>A large hero image served at full resolution without optimization</li>
+      <li>Render-blocking resources (large CSS or JavaScript files in <code>&lt;head&gt;</code>) that delay rendering</li>
+      <li>Slow server response time (TTFB — Time To First Byte over 600ms)</li>
+      <li>Client-side rendering where the page is blank until JavaScript runs</li>
+    </ul>
+
+    <p><strong>How to fix it:</strong></p>
+    <pre><code class="language-html">&lt;!-- 1. Preload the LCP image — tells the browser to fetch it immediately --&gt;
+&lt;link rel="preload" as="image" href="hero.webp" fetchpriority="high"&gt;
+
+&lt;!-- 2. Use modern image formats --&gt;
+&lt;picture&gt;
+  &lt;source srcset="hero.avif" type="image/avif"&gt;
+  &lt;source srcset="hero.webp" type="image/webp"&gt;
+  &lt;img src="hero.jpg" alt="Hero" width="1200" height="600"
+       fetchpriority="high"&gt;
+  &lt;!-- fetchpriority="high" on the LCP image is one of the highest-ROI optimizations --&gt;
+&lt;/picture&gt;
+
+&lt;!-- 3. Never lazy-load above-the-fold images --&gt;
+&lt;img src="hero.webp" loading="eager" alt="Hero"&gt;  &lt;!-- eager = load immediately --&gt;
+&lt;img src="below-fold.webp" loading="lazy" alt="..."&gt; &lt;!-- lazy for everything else --&gt;
+</code></pre>
+
+    <pre><code class="language-javascript">// 4. Measure LCP in code (useful for Real User Monitoring)
+const observer = new PerformanceObserver((list) => {
+  const entries = list.getEntries();
+  const lastEntry = entries[entries.length - 1]; // Last LCP candidate wins
+  console.log('LCP:', lastEntry.startTime, 'ms');
+  console.log('LCP element:', lastEntry.element);
+});
+observer.observe({ type: 'largest-contentful-paint', buffered: true });
+</code></pre>
+
+    <h3>CLS — Cumulative Layout Shift</h3>
+
+    <p><strong>What it measures:</strong> The total amount of unexpected layout movement as the page loads. Every time content jumps — because an image loaded and pushed text down, or an ad appeared — that shift is scored.</p>
+    <p><strong>Good threshold:</strong> Under 0.1 (it's a score, not a time unit).</p>
+
+    <p><strong>What causes poor CLS:</strong></p>
+    <ul>
+      <li>Images without explicit <code>width</code> and <code>height</code> attributes — the browser doesn't know how much space to reserve</li>
+      <li>Dynamically injected content above existing content (ads, banners, cookie notices)</li>
+      <li>Web fonts causing text to reflow when they load (FOUT — Flash of Unstyled Text)</li>
+      <li>Animations that trigger layout (never animate <code>width</code>, <code>height</code>, <code>margin</code>, <code>padding</code>, <code>top</code>, <code>left</code>)</li>
+    </ul>
+
+    <p><strong>How to fix it:</strong></p>
+    <pre><code class="language-html">&lt;!-- Always set explicit dimensions on images --&gt;
+&lt;img src="product.jpg" width="400" height="300" alt="Product"&gt;
+&lt;!-- The browser now knows this will be 400×300 and reserves the space
+     before the image loads. No jump when the image appears. --&gt;
+
+&lt;!-- For responsive images, use aspect-ratio in CSS instead --&gt;
+</code></pre>
+    <pre><code class="language-css">/* Use aspect-ratio to reserve space for responsive media */
+.responsive-image-wrapper {
+  aspect-ratio: 16 / 9;    /* Reserve the space */
+  width: 100%;
+  overflow: hidden;
+  background: #f0f0f0;     /* Placeholder color while loading */
+}
+
+.responsive-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* For web fonts: font-display: swap prevents invisible text but can shift */
+/* font-display: optional avoids shift by using fallback if font isn't cached */
+/* Preload critical fonts to minimize FOUT */
+</code></pre>
+    <pre><code class="language-html">&lt;!-- Preload critical fonts to reduce font-caused layout shift --&gt;
+&lt;link rel="preload" href="/fonts/inter-var.woff2" as="font"
+      type="font/woff2" crossorigin&gt;
+</code></pre>
+
+    <h3>INP — Interaction to Next Paint</h3>
+
+    <p><strong>What it measures:</strong> How fast the page responds to user interactions — clicks, taps, keyboard input. INP replaced FID (First Input Delay) in 2024 because it measures all interactions throughout the page lifecycle, not just the first one.</p>
+    <p><strong>Good threshold:</strong> Under 200ms.</p>
+
+    <p><strong>What causes poor INP:</strong></p>
+    <ul>
+      <li>Long tasks on the main thread — JavaScript running for more than 50ms blocks the browser from responding to input</li>
+      <li>Expensive event handlers (doing too much work on click)</li>
+      <li>Forced synchronous layouts (reading layout properties after writing to the DOM)</li>
+      <li>Third-party scripts running on the main thread</li>
+    </ul>
+
+    <p><strong>How to fix it:</strong></p>
+    <pre><code class="language-javascript">// BAD: expensive work runs synchronously on click, blocking the thread
+button.addEventListener('click', () => {
+  const data = fetchAndProcessLargeDataset(); // takes 400ms — terrible INP
+  renderResults(data);
+});
+
+// GOOD: break long tasks using scheduler or setTimeout
+button.addEventListener('click', async () => {
+  // Show immediate feedback — critical for perceived responsiveness
+  showLoadingState();
+
+  // Yield to the browser between heavy operations
+  await yieldToMain();
+  const data = await fetchData();
+
+  await yieldToMain(); // let the browser paint before the next heavy step
+  renderResults(data);
+  hideLoadingState();
+});
+
+// The yield-to-main pattern: gives the browser a chance to handle input/paint
+function yieldToMain() {
+  return new Promise(resolve => {
+    // scheduler.postTask is the modern API (Chrome 94+)
+    if ('scheduler' in window && 'postTask' in scheduler) {
+      scheduler.postTask(resolve, { priority: 'user-visible' });
+    } else {
+      // Fallback: setTimeout(0) yields to the event loop
+      setTimeout(resolve, 0);
+    }
+  });
+}
+
+// Measure INP in code
+const observer = new PerformanceObserver((list) => {
+  for (const entry of list.getEntries()) {
+    if (entry.interactionId) {
+      console.log('Interaction duration:', entry.duration, 'ms');
+    }
+  }
+});
+observer.observe({ type: 'event', buffered: true, durationThreshold: 16 });
+</code></pre>
+
+    <h2>The Browser Rendering Pipeline</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Printing a Newspaper</div>
+      <p>Think of the browser rendering a page like a newspaper going through a printing press. First, typesetters lay out all the articles (parsing HTML into structure). The layout team arranges everything on the page grid (applying CSS). Then the paste-up team calculates exactly where each element sits (layout/reflow). The press then applies ink to the paper (paint). Finally, the printed sections are stacked together (compositing). If any stage changes, some or all of the stages after it must run again — which is why understanding which CSS properties trigger which stages is a performance superpower.</p>
+    </div>
+
+    <div class="diagram">
+HTML Bytes
+    ↓
+  Parse HTML → DOM Tree
+  Parse CSS  → CSSOM Tree
+    ↓
+  Combine → Render Tree
+  (only visible nodes, with styles attached)
+    ↓
+  Layout (Reflow)
+  Calculate exact position and size of every element
+    ↓
+  Paint
+  Fill in pixels: colors, borders, shadows, text
+    ↓
+  Composite
+  Combine painted layers in GPU memory
+  (transform and opacity live here)
+    ↓
+  Screen
+    </div>
+
+    <p>Understanding this pipeline lets you answer "why is my animation janky?" definitively. The answer always traces back to which stage your code is triggering repeatedly.</p>
+
+    <h3>What Triggers What</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Change</th>
+          <th>Triggers</th>
+          <th>Cost</th>
+          <th>Examples</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Geometry changes</td>
+          <td>Layout → Paint → Composite</td>
+          <td>Most expensive</td>
+          <td><code>width</code>, <code>height</code>, <code>margin</code>, <code>padding</code>, <code>top</code>, <code>left</code>, <code>font-size</code></td>
+        </tr>
+        <tr>
+          <td>Visual changes</td>
+          <td>Paint → Composite</td>
+          <td>Moderate</td>
+          <td><code>color</code>, <code>background-color</code>, <code>border-color</code>, <code>box-shadow</code></td>
+        </tr>
+        <tr>
+          <td>Composited properties</td>
+          <td>Composite only</td>
+          <td>Cheapest (GPU)</td>
+          <td><code>transform</code>, <code>opacity</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <pre><code class="language-css">/* WRONG: animating left triggers layout on every frame — janky */
+.element {
+  position: absolute;
+  left: 0;
+  transition: left 0.3s ease;
+}
+.element:hover {
+  left: 100px;
+}
+
+/* RIGHT: animating transform stays on the compositor — smooth 60fps */
+.element {
+  position: absolute;
+  left: 0;
+  transition: transform 0.3s ease;
+  will-change: transform;   /* hint to browser: promote this to its own layer */
+}
+.element:hover {
+  transform: translateX(100px);
+}
+
+/* will-change: use sparingly. Each layer uses GPU memory.
+   Promoting everything to its own layer can actually HURT performance. */
+</code></pre>
+
+    <h3>Forced Synchronous Layout — The Performance Killer</h3>
+
+    <pre><code class="language-javascript">// WRONG: forces the browser to recalculate layout on every iteration
+// This is called "layout thrashing"
+const elements = document.querySelectorAll('.box');
+
+elements.forEach(el => {
+  const height = el.offsetHeight;     // READ — forces layout calculation
+  el.style.height = height * 2 + 'px'; // WRITE — invalidates layout
+  // On the next iteration, READ again forces ANOTHER layout calculation
+  // This can produce hundreds of layout calculations per second
+});
+
+// RIGHT: batch reads first, then writes
+const heights = Array.from(elements).map(el => el.offsetHeight); // all reads
+
+heights.forEach((height, i) => {
+  elements[i].style.height = height * 2 + 'px'; // all writes
+});
+// Layout is calculated once. All writes apply to the invalidated layout.
+
+// Even better: use CSS for layout changes when possible, not JavaScript
+</code></pre>
+
+    <h2>JavaScript Performance</h2>
+
+    <p>JavaScript is the most expensive resource on the web. A JavaScript file doesn't just cost network time — it costs parse time, compile time, and execution time. An equivalent PNG costs only download time. This is why JavaScript budgets matter.</p>
+
+    <h3>Long Tasks and the 50ms Rule</h3>
+
+    <p>The browser's main thread handles JavaScript execution, layout, painting, and user input. It can only do one thing at a time. Any task that runs longer than 50ms is considered a "long task" and blocks user input during that window. This is the root cause of poor INP.</p>
+
+    <pre><code class="language-javascript">// Identifying long tasks in the Performance Observer API
+const observer = new PerformanceObserver((list) => {
+  list.getEntries().forEach(entry => {
+    console.warn(`Long task: ${entry.duration}ms at ${entry.startTime}ms`);
+    // Check entry.attribution to find what caused it
+  });
+});
+observer.observe({ type: 'longtask', buffered: true });
+</code></pre>
+
+    <h3>Code Splitting</h3>
+
+    <p>Ship only the code the current page needs. Load everything else on demand.</p>
+
+    <pre><code class="language-javascript">// Static import: always bundled, always downloaded
+import { HeavyChart } from './HeavyChart';
+
+// Dynamic import: loaded on demand — returns a Promise
+async function showChart() {
+  // The HeavyChart module is NOT in the initial bundle
+  // It's fetched from the server only when this function is called
+  const { HeavyChart } = await import('./HeavyChart');
+  return new HeavyChart();
+}
+
+// React.lazy() — component-level code splitting
+import React, { lazy, Suspense } from 'react';
+
+const AdminPanel = lazy(() => import('./AdminPanel'));
+// AdminPanel is not in the initial bundle. It's fetched when first rendered.
+
+function App() {
+  return (
+    &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+      &lt;AdminPanel /&gt;
+    &lt;/Suspense&gt;
+  );
+}
+
+// Route-based splitting (most impactful split point)
+// In React Router:
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Settings  = lazy(() => import('./pages/Settings'));
+const Profile   = lazy(() => import('./pages/Profile'));
+// Each route is a separate chunk downloaded only when navigated to
+</code></pre>
+
+    <h3>Tree Shaking — Dead Code Elimination</h3>
+
+    <pre><code class="language-javascript">// Tree shaking only works with ES module syntax (import/export)
+// It does NOT work with CommonJS (require/module.exports)
+
+// BAD: imports entire lodash library (~70KB gzipped)
+const _ = require('lodash');
+const result = _.debounce(fn, 300);
+
+// GOOD: import only what you use — bundler eliminates the rest
+import { debounce } from 'lodash-es';  // lodash-es is the ES module version
+const result = debounce(fn, 300);
+
+// Even better for small utilities: write your own or use a tiny alternative
+const debounce = (fn, delay) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn(...args), delay);
+  };
+};
+
+// Bundle analysis — find what's actually in your bundle
+// Run: npx webpack-bundle-analyzer stats.json
+// Or with Vite: npx vite-bundle-visualizer
+// This shows you a treemap of every module's size contribution
+</code></pre>
+
+    <h3>Memoization in a Performance Context</h3>
+
+    <p>We covered memoization in Chapter 12 from a React perspective. In a performance interview, the framing shifts: memoization prevents expensive re-renders and recalculations that would otherwise block the main thread.</p>
+
+    <pre><code class="language-javascript">// React.memo: prevent re-render if props haven't changed
+const ExpensiveList = React.memo(({ items, onSelect }) => {
+  // This component only re-renders when items or onSelect reference changes
+  return items.map(item => &lt;Row key={item.id} item={item} onSelect={onSelect} /&gt;);
+});
+
+// useMemo: cache expensive computed values
+function DataGrid({ rawData, filters }) {
+  const processedData = useMemo(() => {
+    // This runs only when rawData or filters changes
+    // Without useMemo, it runs on every render — potentially 60x per second during animations
+    return rawData
+      .filter(row => matchesFilters(row, filters))
+      .sort((a, b) => a.value - b.value)
+      .slice(0, 100);
+  }, [rawData, filters]);
+
+  return &lt;Grid data={processedData} /&gt;;
+}
+
+// useCallback: stable function reference for memoized children
+function Parent({ items }) {
+  const handleSelect = useCallback((id) => {
+    setSelectedId(id);
+  }, []); // stable reference — ExpensiveList won't re-render due to this prop
+
+  return &lt;ExpensiveList items={items} onSelect={handleSelect} /&gt;;
+}
+</code></pre>
+
+    <h2>Network Performance</h2>
+
+    <h3>HTTP/2 vs HTTP/1.1</h3>
+
+    <p>HTTP/1.1 is serial: browsers open multiple TCP connections (typically 6 per host) and send one request per connection. Requests queue behind each other — this is called head-of-line blocking. HTTP/2 is multiplexed: a single TCP connection carries multiple requests simultaneously, interleaved in frames. You can make 100 requests and get responses in parallel over one connection.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>HTTP/1.1</th>
+          <th>HTTP/2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Requests per connection</td>
+          <td>1 (queued)</td>
+          <td>Many (multiplexed)</td>
+        </tr>
+        <tr>
+          <td>Header compression</td>
+          <td>No</td>
+          <td>Yes (HPACK)</td>
+        </tr>
+        <tr>
+          <td>Server push</td>
+          <td>No</td>
+          <td>Yes (rarely used)</td>
+        </tr>
+        <tr>
+          <td>Text vs binary</td>
+          <td>Text</td>
+          <td>Binary frames</td>
+        </tr>
+        <tr>
+          <td>Implication for perf</td>
+          <td>Bundle aggressively, fewer requests</td>
+          <td>Many small files can be fine</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Resource Hints</h3>
+
+    <pre><code class="language-html">&lt;!-- preconnect: establish TCP/TLS connection to an origin early
+     Use for: API servers, CDNs, analytics, font providers --&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://api.example.com" crossorigin&gt;
+
+&lt;!-- preload: fetch a specific resource early, at high priority
+     Use for: LCP image, critical fonts, critical scripts --&gt;
+&lt;link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin&gt;
+&lt;link rel="preload" href="/hero.webp" as="image" fetchpriority="high"&gt;
+
+&lt;!-- prefetch: fetch a resource you expect to need for the NEXT navigation
+     Low priority — happens in idle time, doesn't hurt current page --&gt;
+&lt;link rel="prefetch" href="/dashboard" as="document"&gt;
+&lt;link rel="prefetch" href="/chunk-dashboard.js" as="script"&gt;
+
+&lt;!-- dns-prefetch: resolve DNS for an origin — cheaper than preconnect --&gt;
+&lt;link rel="dns-prefetch" href="https://third-party-analytics.com"&gt;
+</code></pre>
+
+    <h3>Caching Strategy</h3>
+
+    <pre><code class="language-javascript">// Cache-Control header patterns
+// Served from your server (Node/Express example)
+
+// Static assets with content hash in filename (e.g., main.a3f9b2c1.js)
+// These can be cached forever — if the file changes, the hash changes
+res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+// max-age=31536000 = 1 year in seconds
+// immutable: tells the browser never to revalidate (no conditional requests)
+
+// HTML files — should not be cached aggressively (they reference the hashed assets)
+res.setHeader('Cache-Control', 'no-cache');
+// no-cache doesn't mean "don't cache" — it means "validate before using cache"
+// The browser still caches it, but checks the server first (using ETag or Last-Modified)
+// If unchanged, server returns 304 Not Modified with no body — very fast
+
+// API responses — usually short-lived or private
+res.setHeader('Cache-Control', 'private, max-age=60');   // user-specific, 1 minute
+res.setHeader('Cache-Control', 'no-store');               // never cache (sensitive data)
+
+// ETag workflow:
+// Server sends: ETag: "abc123"
+// Browser caches with this tag
+// Next request: browser sends If-None-Match: "abc123"
+// If unchanged: server returns 304 (just headers, no body) — huge bandwidth saving
+// If changed: server returns 200 with new body and new ETag
+</code></pre>
+
+    <h3>Image Optimization</h3>
+
+    <pre><code class="language-html">&lt;!-- Format comparison (same visual quality):
+  JPEG:  100KB (established, good support)
+  WebP:  65KB  (25-35% smaller than JPEG, 95%+ browser support)
+  AVIF:  45KB  (40-50% smaller than JPEG, modern browsers only)
+  Strategy: serve AVIF with WebP fallback with JPEG ultimate fallback --&gt;
+
+&lt;picture&gt;
+  &lt;source srcset="image.avif" type="image/avif"&gt;
+  &lt;source srcset="image.webp" type="image/webp"&gt;
+  &lt;img src="image.jpg" alt="Description" width="800" height="600"
+       loading="lazy" decoding="async"&gt;
+&lt;/picture&gt;
+
+&lt;!-- loading="lazy": defers loading until near the viewport — use for everything below the fold
+     decoding="async": decodes the image off the main thread — minor but free win
+     Never use loading="lazy" on above-the-fold images — it delays LCP --&gt;
+</code></pre>
+
+    <h2>DevTools Profiling — Practical Walkthrough</h2>
+
+    <p>Knowing that performance is important is table stakes. Knowing how to <em>find</em> the problem is the skill that gets you hired. Here's how to use Chrome DevTools for each type of investigation.</p>
+
+    <h3>Performance Panel — Reading a Flame Chart</h3>
+
+    <pre><code class="language-javascript">// Step 1: Open DevTools → Performance tab
+// Step 2: Click record, perform the interaction you're investigating, stop
+// Step 3: Read the flame chart
+
+// The flame chart shows call stacks over time:
+// - Horizontal axis = time
+// - Vertical axis = call stack (top of stack at top)
+// - Width of a bar = how long that function ran
+// - Long, wide bars at the bottom of the stack = expensive work
+// - Look for red triangles = browser's warning for long tasks
+
+// What to look for:
+// 1. Long tasks (red) — anything over 50ms
+// 2. The widest bars — those are your bottlenecks
+// 3. "Recalculate Style" and "Layout" entries — CSS-triggered work
+// 4. "Evaluate Script" entries — JavaScript parse/compile cost
+
+// Practical script to mark your own code in the timeline:
+performance.mark('component-render-start');
+// ... render work ...
+performance.mark('component-render-end');
+performance.measure('component-render', 'component-render-start', 'component-render-end');
+// Your measure now appears as a labeled bar in the Performance panel
+</code></pre>
+
+    <h3>Network Panel — Finding Render-Blocking Resources</h3>
+
+    <pre><code class="language-javascript">// In the Network panel waterfall view:
+// - Each row = one resource
+// - Blue bar = Time to First Byte (server processing + network)
+// - Gray bar = queued/blocked time
+// - Resources with "Render Blocking" in the Type column are critical
+
+// Common render-blocking patterns:
+// 1. Large CSS files in &lt;head&gt; without media queries
+// 2. &lt;script&gt; tags without async or defer
+// 3. Synchronous third-party scripts (analytics, chat widgets)
+
+// Fixes in HTML:
+// CSS that's not needed immediately:
+// &lt;link rel="stylesheet" href="print.css" media="print"&gt;  — not render-blocking
+
+// JavaScript loading strategies:
+// &lt;script src="app.js"&gt;&lt;/script&gt;            — blocks HTML parsing (worst)
+// &lt;script src="app.js" defer&gt;&lt;/script&gt;      — parsed in parallel, runs after HTML parsed
+// &lt;script src="app.js" async&gt;&lt;/script&gt;      — parsed in parallel, runs as soon as ready
+// Use defer for most scripts. Use async only for fully independent scripts (analytics).
+</code></pre>
+
+    <h3>Memory Panel — Detecting Memory Leaks</h3>
+
+    <pre><code class="language-javascript">// Step 1: Open DevTools → Memory tab
+// Step 2: Take a heap snapshot (before the suspected leak)
+// Step 3: Perform the action that might leak (navigate away and back, etc.)
+// Step 4: Take another heap snapshot
+// Step 5: Change the view to "Comparison" and look for objects that increased
+
+// What to look for in the snapshot:
+// - "Detached HTMLElement" — DOM nodes held in memory after removal
+// - Closures with large retained sizes
+// - Event listeners that accumulated
+
+// Programmatic memory monitoring:
+performance.measureUserAgentSpecificMemory().then(memory => {
+  console.log('JS heap:', memory.bytes / 1024 / 1024, 'MB');
+  // Requires cross-origin isolation headers to use
+});
+
+// Simple leak detection:
+const startHeap = performance.memory?.usedJSHeapSize;
+// ... perform operation ...
+const endHeap = performance.memory?.usedJSHeapSize;
+console.log('Memory delta:', (endHeap - startHeap) / 1024, 'KB');
+// Note: performance.memory is Chrome-only and not standardized
+</code></pre>
+
+    <h3>Coverage Tool — Unused CSS and JS</h3>
+
+    <pre><code class="language-javascript">// Open DevTools → More Tools → Coverage (Ctrl+Shift+P → "coverage")
+// Click record, interact with the page, stop
+// The tool shows each file with a bar indicating used (green) vs unused (red) bytes
+
+// Typical finding: 60-80% of CSS in many apps is never used on load
+// Action: use PurgeCSS or the equivalent for your framework to eliminate unused CSS
+
+// For unused JavaScript:
+// - Code splitting (covered above) is the systematic fix
+// - The coverage tool shows you which functions were never called — candidates for lazy loading
+
+// Example PurgeCSS config (PostCSS plugin):
+// purgecss({
+//   content: ['./src/**/*.html', './src/**/*.jsx', './src/**/*.tsx'],
+//   defaultExtractor: content => content.match(/[\w-/:]+(?&lt;!:)/g) || []
+// })
+// This scans your HTML/JS and removes any CSS class not found in those files
+</code></pre>
+
+    <h2>Frontend Memory Leaks</h2>
+
+    <p>Memory leaks in frontend applications are a class of bug where JavaScript holds references to objects that should have been garbage collected. The application grows in memory over time, eventually causing slowness, janky animations, or a browser tab crash.</p>
+
+    <h3>Cause 1: Detached DOM Nodes (Most Common)</h3>
+
+    <pre><code class="language-javascript">// The classic detached DOM leak:
+let detachedNode;
+
+function createLeak() {
+  const div = document.createElement('div');
+  document.body.appendChild(div);
+  detachedNode = div;  // We store a reference...
+  document.body.removeChild(div); // ...then remove it from the DOM
+  // The div is gone from the page, but detachedNode still holds a reference
+  // The garbage collector cannot free it — it's a "detached DOM node"
+}
+
+// Fix: null out references when you're done
+function noLeak() {
+  const div = document.createElement('div');
+  document.body.appendChild(div);
+  // ... use div ...
+  document.body.removeChild(div);
+  // No stored reference — garbage collector can free the memory
+}
+
+// In React: this is mostly handled for you.
+// But be careful with imperative refs stored in module scope or closures.
+</code></pre>
+
+    <h3>Cause 2: Event Listeners Never Removed</h3>
+
+    <pre><code class="language-javascript">// Covered in Chapter 12 — a brief performance-framing recap:
+
+// LEAK: the DOM element is removed but the handler still references it
+class Component {
+  constructor() {
+    this.handleResize = () => this.onResize(); // bound method
+    window.addEventListener('resize', this.handleResize); // registered
+  }
+  destroy() {
+    // Component is destroyed but listener is still attached to window
+    // window.removeEventListener is never called — memory leak
+  }
+}
+
+// FIX: always pair addEventListener with removeEventListener
+class Component {
+  constructor() {
+    this.handleResize = () => this.onResize();
+    window.addEventListener('resize', this.handleResize);
+  }
+  destroy() {
+    window.removeEventListener('resize', this.handleResize); // clean up
+  }
+}
+
+// In React: use the useEffect cleanup function
+useEffect(() => {
+  const handleResize = () => setSize(window.innerWidth);
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize); // cleanup
+}, []);
+</code></pre>
+
+    <h3>Cause 3: Closures Holding Large Data</h3>
+
+    <pre><code class="language-javascript">// A closure that accidentally retains a large object
+function processLargeArray(data) {
+  const results = expensiveTransformation(data); // data might be 50MB
+
+  return function getResult(index) {
+    // This closure captures the entire 'data' array in its scope,
+    // even though it only needs 'results'
+    return results[index];
+  };
+}
+
+// Fix: don't capture more than you need
+function processLargeArray(data) {
+  const results = expensiveTransformation(data);
+  data = null; // explicitly release the reference (won't help if captured in closure)
+
+  // Better: process outside the closure scope
+  return (index) => results[index];
+  // data is not captured here — only results is
+}
+</code></pre>
+
+    <h2>Senior vs Junior: Diagnosing a Slow Page</h2>
+
+    <p><strong>Interviewer:</strong> "How would you improve the performance of a slow e-commerce product page?"</p>
+
+    <div class="junior">
+      <div class="answer-label">Junior Answer</div>
+      <p>"I'd minimize the JavaScript and compress the images."</p>
+      <p>This is technically correct but useless. It's like a doctor saying "I'd prescribe medicine" without examining the patient. You haven't measured anything, you don't know what's actually slow, and minification is something your build tool does automatically anyway.</p>
+    </div>
+
+    <div class="senior">
+      <div class="answer-label">Senior Answer</div>
+      <p>"I'd start by measuring — never optimize what you haven't measured. I'd run Lighthouse to get a baseline score and identify which Core Web Vital is failing. Then I'd dig into the specific problem:</p>
+      <p>If LCP is poor, I'd identify the largest element in the viewport. Is it a hero image? I'd switch to WebP/AVIF format, add an explicit <code>preload</code> hint, add explicit dimensions, and make sure it's not accidentally lazy-loaded. If LCP is a text element, I'd look at render-blocking CSS or fonts.</p>
+      <p>If CLS is poor, I'd look for images without explicit dimensions, late-loading ads or banners pushing content, and web font swaps. I'd add <code>width</code>/<code>height</code> attributes to all images and add <code>font-display: optional</code> or preload the critical font.</p>
+      <p>If INP is poor, I'd open the Performance panel, record an interaction, and find the long task. Is it JavaScript? I'd check the bundle analyzer for large unnecessary imports. Is it a carousel initialization? I'd defer it until after the user scrolls or interacts. Is it layout thrashing? I'd batch my DOM reads and writes.</p>
+      <p>I'd also check the Network panel waterfall for render-blocking resources and confirm that static assets are served with long cache headers from a CDN. Then I'd measure again with Lighthouse to verify the improvements and set a performance budget in CI to prevent regressions."</p>
+    </div>
+
+    <div class="exercises">
+      <h3>Practice Questions</h3>
+      <div class="exercise">
+        <p><span class="badge beginner">Beginner</span> Explain Core Web Vitals to a non-technical product manager who wants to know why the team is spending a sprint on "web vitals." What do LCP, CLS, and INP measure in plain English, and why should the business care?</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge beginner">Beginner</span> A team member complains that a CSS animation is "janky" on mobile. Without looking at the code, name the three most likely causes and the one question you'd ask first to narrow it down.</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge intermediate">Intermediate</span> Write a custom debounce function that won't block the main thread for expensive scroll handlers. Then explain the difference between debouncing, throttling, and using <code>requestAnimationFrame</code> for scroll events, and when you'd choose each.</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge intermediate">Intermediate</span> A React app has a list component that re-renders 200 list items every time the parent state changes. The user reports lag when typing in a search field. Describe a complete fix using the tools covered in this chapter and Chapter 12.</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge advanced">Advanced</span> A single-page application has a memory leak — users report the tab consuming 2GB of RAM after an hour of use. Walk through your entire debugging process: which DevTools panels you'd use, what you'd look for in each, and how you'd isolate the root cause. Then describe how you'd prevent this class of bug in a code review.</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Core Web Vitals: LCP (main content loads fast — &lt;2.5s), CLS (page doesn't shift — &lt;0.1), INP (interactions feel instant — &lt;200ms). These affect SEO and user retention directly.</li>
+        <li>The browser rendering pipeline: Parse HTML → DOM, Parse CSS → CSSOM, Render Tree, Layout (reflow), Paint, Composite. Animations should only touch <code>transform</code> and <code>opacity</code> — they skip to composite and run on the GPU.</li>
+        <li>Long tasks (&gt;50ms) are the enemy of INP. Break them up with the yield-to-main pattern. Code splitting, lazy loading, and tree shaking reduce the amount of JavaScript that runs at all.</li>
+        <li>Network: Use HTTP/2 for multiplexing. Resource hints (preconnect, preload, prefetch) guide the browser's loading priority. Cache static assets forever with content hashes. Serve images in WebP/AVIF from a CDN.</li>
+        <li>DevTools: Performance panel for flame charts and long tasks, Network panel for render-blocking resources, Memory panel for heap snapshots and leak detection, Coverage for unused code.</li>
+        <li>Always measure before you optimize. A senior engineer gives a diagnosis before a prescription.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Individual components and performance optimizations are component-level thinking. Chapter 15 scales up to the architectural level — how to design entire frontend systems, from component libraries to real-time dashboards, in a system design interview.</p>
+    <div class="chapter-nav">
+      <a href="chapter-13.html"><span class="nav-label">← Previous</span><span class="nav-title">Ch 13: CSS &amp; Layout</span></a>
+      <a href="chapter-15.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Ch 15: Frontend System Design</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

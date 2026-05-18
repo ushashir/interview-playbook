@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 9: Algorithms by Domain — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-2">Part 2 · Chapter 9</div>
+      <h1>Algorithms by Domain</h1>
+      <p class="chapter-intro">The algorithm section of most books stops here — abstract problems solved in isolation. But at your actual job, algorithms live in context. A rate limiter is an algorithm. A search-as-you-type is an algorithm. Debounce is an algorithm.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>Token Bucket rate limiting — full implementation, comparison with fixed-window counter</li>
+        <li>Consistent Hashing — why naive modulo fails and how the ring solves it</li>
+        <li>LRU Cache — the HashMap + Doubly Linked List combo that gives O(1) for both get and put</li>
+        <li>Distributed locks — enough Redis SETNX knowledge to answer the interview question</li>
+        <li>Debounce and throttle — full JavaScript implementations you can write from scratch</li>
+        <li>Memoization in the frontend context — a generic memoize() function and its React applications</li>
+        <li>Virtual List / Windowing — how rendering 100,000 rows without killing the browser works</li>
+        <li>DOM Tree Traversal — BFS and DFS as they actually appear in frontend code</li>
+      </ul>
+    </div>
+
+    <div class="box analogy">
+      <strong>The Athlete Analogy</strong><br>
+      A sprinter drills isolated technique — arm mechanics, stride length, foot strike. But in the actual race, none of those exist in isolation. The technique serves the race. Abstract algorithm problems are technique drills. This chapter is the race: algorithms operating in real systems, under real constraints, optimizing for real business goals. A candidate who can connect "this is a sliding window" to "this is how I'd implement a rate limiter" is demonstrably more senior than one who can only do LeetCode in a vacuum.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Backend Algorithms</h2>
+    <!-- ============================================================ -->
+
+    <!-- ============================================================ -->
+    <h3>1. Rate Limiting — Token Bucket Algorithm</h3>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: A Bucket That Fills With Tokens</strong><br>
+      Imagine a bucket that holds at most 10 tokens. Every second, 2 new tokens are added (up to the maximum). Each incoming request takes one token from the bucket. If the bucket is empty when a request arrives, the request is rejected. A bucket with tokens means spare capacity — the user has headroom. An empty bucket means the user is rate-limited. This model allows short bursts (draining the full bucket quickly) while enforcing a steady average rate over time.
+    </div>
+
+    <pre><code>class TokenBucket {
+  /**
+   * @param {number} capacity  - Maximum tokens the bucket can hold
+   * @param {number} refillRate - Tokens added per second
+   */
+  constructor(capacity, refillRate) {
+    this.capacity   = capacity;
+    this.refillRate = refillRate;       // tokens per second
+    this.tokens     = capacity;         // start full
+    this.lastRefill = Date.now();       // timestamp of last refill
+  }
+
+  // Refill tokens based on elapsed time since last refill
+  refill() {
+    const now     = Date.now();
+    const elapsed = (now - this.lastRefill) / 1000;  // seconds
+    const added   = elapsed * this.refillRate;
+
+    this.tokens     = Math.min(this.capacity, this.tokens + added);
+    this.lastRefill = now;
+  }
+
+  // Returns true if request is allowed, false if rate limited
+  consume(tokens = 1) {
+    this.refill();
+
+    if (this.tokens >= tokens) {
+      this.tokens -= tokens;
+      return true;   // request allowed
+    }
+
+    return false;    // rate limited
+  }
+}
+
+// One bucket per user — stored in Redis for distributed systems
+const userBuckets = new Map();
+
+function rateLimitMiddleware(userId) {
+  if (!userBuckets.has(userId)) {
+    // 10 tokens capacity, 2 tokens/second refill
+    userBuckets.set(userId, new TokenBucket(10, 2));
+  }
+
+  const bucket = userBuckets.get(userId);
+  return bucket.consume();   // true = allow, false = reject
+}
+
+// Simulate 15 rapid requests from user 'alice'
+for (let i = 0; i < 15; i++) {
+  const allowed = rateLimitMiddleware('alice');
+  console.log(`Request ${i + 1}: ${allowed ? 'ALLOWED' : 'REJECTED'}`);
+}
+// Requests 1-10: ALLOWED (bucket starts full)
+// Requests 11-15: REJECTED (bucket empty, not enough time to refill)</code></pre>
+
+    <h3>Alternative: Fixed Window Counter</h3>
+
+    <pre><code>class FixedWindowCounter {
+  constructor(limit, windowMs) {
+    this.limit    = limit;
+    this.windowMs = windowMs;
+    this.counts   = new Map();  // userId → { count, windowStart }
+  }
+
+  isAllowed(userId) {
+    const now = Date.now();
+    const entry = this.counts.get(userId);
+
+    if (!entry || now - entry.windowStart >= this.windowMs) {
+      // New window
+      this.counts.set(userId, { count: 1, windowStart: now });
+      return true;
+    }
+
+    if (entry.count < this.limit) {
+      entry.count++;
+      return true;
+    }
+
+    return false;  // over limit in current window
+  }
+}
+
+// 100 requests per minute per user
+const limiter = new FixedWindowCounter(100, 60 * 1000);</code></pre>
+
+    <div class="diagram">
+      <table>
+        <thead>
+          <tr><th>Property</th><th>Token Bucket</th><th>Fixed Window Counter</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Allows bursts</td><td>Yes (up to capacity)</td><td>Yes (up to limit at window start)</td></tr>
+          <tr><td>Boundary exploit</td><td>No</td><td>Yes — 2× limit across window boundary</td></tr>
+          <tr><td>Implementation complexity</td><td>Moderate</td><td>Simple</td></tr>
+          <tr><td>Distributed-friendly</td><td>Needs atomic ops (Redis Lua)</td><td>Easy with Redis INCR + EXPIRE</td></tr>
+          <tr><td>Use when</td><td>Smooth rate enforcement, burst tolerance needed</td><td>Simple "N per minute" with acceptable edge-case tolerance</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box tip">
+      <strong>In a system design interview</strong><br>
+      If asked "how would you rate limit at scale?", mention Token Bucket for the algorithm, Redis for distributed state (one key per user, Lua script for atomic consume), and a sidecar or API gateway layer for enforcement. This shows you know the algorithm and the deployment story.
+    </div>
+
+    <!-- ============================================================ -->
+    <h3>2. Consistent Hashing</h3>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Servers on a Clock Face</strong><br>
+      Place three servers at positions on a clock face: Server A at 12 o'clock, Server B at 4 o'clock, Server C at 8 o'clock. When a request arrives, hash it to a position on the clock. It goes to the first server clockwise from that position. Server A handles hashes from 8:01 to 12:00. Server B handles 12:01 to 4:00. Server C handles 4:01 to 8:00. Now add a new Server D at 2 o'clock. Only the hashes between 12:01 and 2:00 migrate from B to D. Everything else is untouched.
+    </div>
+
+    <h3>Why Naive Modulo Hashing Fails</h3>
+    <p>With 3 servers, you hash a key and do <code>key_hash % 3</code> to pick a server. Simple and fast. The problem: add a 4th server and now every key that was at server <code>key_hash % 3</code> needs to move to <code>key_hash % 4</code>. In practice, roughly 75% of all keys migrate. For Redis or a CDN cache, this means a massive cache miss storm precisely when you're scaling up — the worst possible time.</p>
+
+    <h3>The Ring Concept</h3>
+    <pre><code>// Simplified consistent hashing ring
+class ConsistentHashRing {
+  constructor(virtualNodes = 150) {
+    this.virtualNodes = virtualNodes;  // each server gets N virtual positions
+    this.ring = new Map();             // hash → server name
+    this.sortedHashes = [];
+  }
+
+  // Simple deterministic hash function (use murmurhash or md5 in production)
+  hash(key) {
+    let h = 0;
+    for (let i = 0; i < key.length; i++) {
+      h = ((h << 5) - h + key.charCodeAt(i)) | 0;
+    }
+    return Math.abs(h);
+  }
+
+  addServer(serverName) {
+    for (let i = 0; i < this.virtualNodes; i++) {
+      const virtualKey = `${serverName}:${i}`;
+      const h = this.hash(virtualKey);
+      this.ring.set(h, serverName);
+      this.sortedHashes.push(h);
+    }
+    this.sortedHashes.sort((a, b) => a - b);
+  }
+
+  removeServer(serverName) {
+    for (let i = 0; i < this.virtualNodes; i++) {
+      const h = this.hash(`${serverName}:${i}`);
+      this.ring.delete(h);
+    }
+    this.sortedHashes = this.sortedHashes.filter(h => this.ring.has(h));
+  }
+
+  getServer(key) {
+    if (this.ring.size === 0) return null;
+
+    const h = this.hash(key);
+
+    // Find the first virtual node clockwise from h
+    for (const ringHash of this.sortedHashes) {
+      if (ringHash >= h) return this.ring.get(ringHash);
+    }
+
+    // Wrap around: return the first node on the ring
+    return this.ring.get(this.sortedHashes[0]);
+  }
+}
+
+const ring = new ConsistentHashRing(150);
+ring.addServer('redis-1');
+ring.addServer('redis-2');
+ring.addServer('redis-3');
+
+console.log(ring.getServer('user:12345'));   // some server
+console.log(ring.getServer('session:abc'));  // some server
+
+// Adding a 4th server only reshuffles ~25% of keys
+ring.addServer('redis-4');</code></pre>
+
+    <p><strong>Why it matters in interviews:</strong> Consistent hashing comes up in Redis clustering, CDN cache routing, and any distributed key-value store design. The key facts: virtual nodes give better load distribution; adding/removing a server reshuffles only <code>1/N</code> of keys on average; the ring naturally handles replication by assigning a key to the next R clockwise servers.</p>
+
+    <!-- ============================================================ -->
+    <h3>3. LRU Cache</h3>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Your Phone's Recent Apps</strong><br>
+      Your phone shows recently used apps in a row. When you use an app, it jumps to the front of the row. When memory is full and a new app needs space, the one at the very end of the row — the one you haven't touched in the longest time — gets evicted. That's LRU: Least Recently Used eviction. The newest use is always "most recent." The untouched item is always "least recent."
+    </div>
+
+    <p>The challenge: both <code>get</code> and <code>put</code> must be O(1). A plain array gives O(n) for removal or search. A plain HashMap gives O(1) lookup but no ordering. The solution: combine a HashMap (for O(1) lookup) with a Doubly Linked List (for O(1) insertion and removal from any position).</p>
+
+    <pre><code>class LRUCache {
+  constructor(capacity) {
+    this.capacity = capacity;
+    this.map = new Map();  // key → node
+
+    // Dummy head and tail — simplifies edge cases (no null checks)
+    this.head = { key: null, val: null, prev: null, next: null };
+    this.tail = { key: null, val: null, prev: null, next: null };
+    this.head.next = this.tail;
+    this.tail.prev = this.head;
+  }
+
+  // Remove a node from its current position in the list
+  remove(node) {
+    node.prev.next = node.next;
+    node.next.prev = node.prev;
+  }
+
+  // Insert a node immediately after head (most recently used position)
+  insertAtFront(node) {
+    node.next = this.head.next;
+    node.prev = this.head;
+    this.head.next.prev = node;
+    this.head.next = node;
+  }
+
+  get(key) {
+    if (!this.map.has(key)) return -1;
+
+    const node = this.map.get(key);
+    this.remove(node);          // move to front: remove from current position
+    this.insertAtFront(node);   // then insert at front
+    return node.val;
+  }
+
+  put(key, val) {
+    if (this.map.has(key)) {
+      // Update existing key
+      const node = this.map.get(key);
+      node.val = val;
+      this.remove(node);
+      this.insertAtFront(node);
+    } else {
+      // New key
+      if (this.map.size >= this.capacity) {
+        // Evict LRU: the node just before tail
+        const lru = this.tail.prev;
+        this.remove(lru);
+        this.map.delete(lru.key);
+      }
+
+      const node = { key, val, prev: null, next: null };
+      this.map.set(key, node);
+      this.insertAtFront(node);
+    }
+  }
+}
+
+// Test
+const cache = new LRUCache(3);
+cache.put(1, 'one');
+cache.put(2, 'two');
+cache.put(3, 'three');
+cache.get(1);           // access key 1 → moves to front; order: 1, 3, 2
+cache.put(4, 'four');   // capacity exceeded; evict LRU (key 2); order: 4, 1, 3
+console.log(cache.get(2));  // -1 (evicted)
+console.log(cache.get(3));  // 'three'</code></pre>
+
+    <p><strong>Complexity:</strong> O(1) for both <code>get</code> and <code>put</code>. The HashMap gives constant-time lookup of the node. The doubly linked list gives constant-time insertion and removal once you have the node pointer.</p>
+
+    <div class="box tip">
+      <strong>This is one of the most common algorithm + system design hybrid questions.</strong> You'll see it phrased as "implement an LRU cache" or "how would you cache at the application layer?" The doubly linked list with dummy head/tail is the answer every time. JavaScript's <code>Map</code> preserves insertion order, so you can implement a simplified version using Map alone — but know the HashMap + DLL solution for the interview.
+    </div>
+
+    <!-- ============================================================ -->
+    <h3>4. Distributed Locks</h3>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: A Single Bathroom Key</strong><br>
+      A coffee shop has one bathroom and one key hanging by the counter. You take the key, use the bathroom, return the key. While you have the key, nobody else can enter. A distributed lock works the same way — a single shared resource (a Redis key) that only one process can hold at a time, with an automatic expiry so a crashed process doesn't hold it forever.
+    </div>
+
+    <p>The Redis pattern is <strong>SETNX + EXPIRE</strong> — "SET if Not eXists" combined with an expiry. Modern Redis supports this atomically with a single command:</p>
+
+    <pre><code>// Pseudocode — in a real app use ioredis or node-redis
+async function acquireLock(redis, lockKey, ttlMs, ownerId) {
+  // NX = only set if not exists; PX = expire in milliseconds
+  // This is atomic — no race condition between SET and EXPIRE
+  const result = await redis.set(lockKey, ownerId, 'NX', 'PX', ttlMs);
+  return result === 'OK';  // true = lock acquired
+}
+
+async function releaseLock(redis, lockKey, ownerId) {
+  // Only release if we own the lock — prevents releasing another process's lock
+  // Use a Lua script for atomic compare-and-delete
+  const script = `
+    if redis.call("get", KEYS[1]) == ARGV[1] then
+      return redis.call("del", KEYS[1])
+    else
+      return 0
+    end
+  `;
+  await redis.eval(script, 1, lockKey, ownerId);
+}
+
+// Usage
+const LOCK_KEY  = 'payment:user:42:lock';
+const OWNER_ID  = `worker-${process.pid}-${Date.now()}`;
+const TTL_MS    = 5000;  // 5 second timeout — prevents dead locks
+
+const acquired = await acquireLock(redis, LOCK_KEY, TTL_MS, OWNER_ID);
+if (acquired) {
+  try {
+    // Critical section — only one process runs this at a time
+    await processPayment(userId, amount);
+  } finally {
+    await releaseLock(redis, LOCK_KEY, OWNER_ID);
+  }
+} else {
+  // Lock held by another process — retry, queue, or reject
+  throw new Error('Could not acquire payment lock — try again');
+}</code></pre>
+
+    <p><strong>Interview talking points:</strong> TTL prevents dead locks if the holder crashes. The ownerId (unique per process/request) prevents accidentally releasing another holder's lock. For stronger guarantees, mention Redlock — a multi-Redis-node consensus algorithm — but note it's complex and rarely needed unless Redis itself is the single point of failure.</p>
+
+    <!-- ============================================================ -->
+    <h2>Frontend Algorithms</h2>
+    <!-- ============================================================ -->
+
+    <!-- ============================================================ -->
+    <h3>5. Debounce and Throttle</h3>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: A Search Box and an Elevator</strong><br>
+      <strong>Debounce:</strong> You're typing in a search box. You don't want to fire a network request after every single keystroke — "p", "py", "pyt", "pyth"... You want to wait until the user pauses and fire once. Debounce: "call this function only after X milliseconds of silence." <br><br>
+      <strong>Throttle:</strong> An elevator has a "close door" button. Pressing it 20 times doesn't make the door close 20 times — it closes once, and further presses during the closing period are ignored. Throttle: "call this function at most once per X milliseconds, no matter how many times it's triggered."
+    </div>
+
+    <h3>Debounce Implementation</h3>
+
+    <pre><code>// Debounce: delays execution until after `wait` ms of inactivity
+function debounce(fn, wait) {
+  let timer = null;
+
+  return function(...args) {
+    const context = this;
+
+    clearTimeout(timer);  // cancel any pending call
+
+    timer = setTimeout(() => {
+      timer = null;
+      fn.apply(context, args);  // call with original this and args
+    }, wait);
+  };
+}
+
+// Usage: fire search only after user stops typing for 300ms
+const searchInput = document.getElementById('search');
+const handleSearch = debounce((event) => {
+  fetchSearchResults(event.target.value);
+}, 300);
+
+searchInput.addEventListener('input', handleSearch);</code></pre>
+
+    <h3>Throttle Implementation</h3>
+
+    <pre><code>// Throttle: allows at most one call per `limit` ms
+function throttle(fn, limit) {
+  let lastCall = 0;
+
+  return function(...args) {
+    const now = Date.now();
+
+    if (now - lastCall >= limit) {
+      lastCall = now;
+      return fn.apply(this, args);
+    }
+    // If called within the limit window, this call is dropped
+  };
+}
+
+// Usage: track scroll position at most 10 times per second (every 100ms)
+const handleScroll = throttle(() => {
+  updateScrollPosition(window.scrollY);
+}, 100);
+
+window.addEventListener('scroll', handleScroll);</code></pre>
+
+    <div class="diagram">
+      <table>
+        <thead>
+          <tr><th>Property</th><th>Debounce</th><th>Throttle</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Behavior</td><td>Fires after silence of X ms</td><td>Fires at most once per X ms</td></tr>
+          <tr><td>If called 10 times rapidly</td><td>Fires once (after last call + wait)</td><td>Fires N times (one per window)</td></tr>
+          <tr><td>Best for</td><td>Search-as-you-type, form validation, resize handler</td><td>Scroll events, mouse moves, progress tracking</td></tr>
+          <tr><td>Risk if omitted</td><td>Hundreds of API calls per second</td><td>Hundreds of DOM updates per second</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ============================================================ -->
+    <h3>6. Memoization in the Frontend</h3>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: The Student with a Whiteboard</strong><br>
+      A student is asked the same math questions over and over by different classmates. Smart student: write the answer on the whiteboard the first time you solve it. Next person who asks? Just read it off. The computation happened once; every subsequent call is a lookup. Memoization is this — a function that caches its return value keyed by its arguments.
+    </div>
+
+    <pre><code>// Generic memoize function — works for any pure function
+function memoize(fn) {
+  const cache = new Map();
+
+  return function(...args) {
+    // Create a cache key from all arguments
+    // JSON.stringify works for serializable args; for complex objects use WeakMap or a hash
+    const key = JSON.stringify(args);
+
+    if (cache.has(key)) {
+      return cache.get(key);  // cache hit — O(1) lookup
+    }
+
+    const result = fn.apply(this, args);
+    cache.set(key, result);
+    return result;
+  };
+}
+
+// Example: expensive fibonacci (naive exponential becomes linear after memoization)
+const fib = memoize(function(n) {
+  if (n <= 1) return n;
+  return fib(n - 1) + fib(n - 2);
+});
+
+console.log(fib(50));  // instant — 12586269025
+
+// Example: expensive calculation on large datasets
+const processUserData = memoize(function(userId, filters) {
+  // imagine this queries a local store and runs aggregations
+  return heavyComputation(userId, filters);
+});
+
+// Second call with same args returns cached result immediately
+processUserData('user-42', { role: 'admin' });
+processUserData('user-42', { role: 'admin' });  // cache hit</code></pre>
+
+    <h3>React's Built-in Memoization</h3>
+    <p>React exposes two hooks that apply the same concept:</p>
+    <ul>
+      <li><strong>useMemo:</strong> Caches the result of an expensive calculation. Recalculates only when the dependency array changes. <code>const sorted = useMemo(() => sort(items), [items]);</code></li>
+      <li><strong>useCallback:</strong> Caches a function reference. Prevents child components from re-rendering when the parent re-renders if the function is passed as a prop. <code>const handleClick = useCallback(() => onClick(id), [id]);</code></li>
+    </ul>
+    <p>The difference: <code>useMemo</code> caches a <em>value</em>. <code>useCallback</code> caches a <em>function</em>. Both are memoization — one for data, one for behavior.</p>
+
+    <!-- ============================================================ -->
+    <h3>7. Virtual List / Windowing</h3>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: The Train Window Again</strong><br>
+      You're on a train. Outside there are 100,000 telegraph poles. You can only see the 10 currently in your window. A naive implementation would render all 100,000 poles as DOM nodes. Virtual list rendering only creates DOM nodes for the 10 poles visible through the window — plus a small buffer — and recycles them as the train moves. The scroll container is tall enough to give the impression of 100,000 items, but only a handful of real DOM nodes ever exist.
+    </div>
+
+    <p>Rendering 100,000 table rows in a browser creates 100,000 DOM nodes. Each has style, layout, and paint cost. At scale, this locks the main thread and makes the page feel broken. Virtual list libraries solve this by rendering only the visible subset.</p>
+
+    <h3>Core Concept — Implement from Scratch</h3>
+
+    <pre><code>// Minimal virtual list implementation
+// This demonstrates the concept — production use: TanStack Virtual or react-window
+class VirtualList {
+  constructor({ container, itemCount, itemHeight, renderItem }) {
+    this.container  = container;
+    this.itemCount  = itemCount;
+    this.itemHeight = itemHeight;  // fixed height per item (variable height needs bisect search)
+    this.renderItem = renderItem;
+
+    // Set container height to simulate full list
+    this.container.style.position = 'relative';
+    this.container.style.height   = `${itemCount * itemHeight}px`;
+    this.container.style.overflow = 'auto';
+
+    // Viewport: the visible area
+    this.viewport = document.createElement('div');
+    this.viewport.style.position = 'absolute';
+    this.viewport.style.top      = '0';
+    this.viewport.style.width    = '100%';
+    this.container.appendChild(this.viewport);
+
+    this.container.addEventListener('scroll', () => this.render());
+    this.render();
+  }
+
+  render() {
+    const scrollTop    = this.container.scrollTop;
+    const viewHeight   = this.container.clientHeight;
+    const buffer       = 5;  // extra items above/below visible area
+
+    const firstVisible = Math.max(0, Math.floor(scrollTop / this.itemHeight) - buffer);
+    const lastVisible  = Math.min(
+      this.itemCount - 1,
+      Math.ceil((scrollTop + viewHeight) / this.itemHeight) + buffer
+    );
+
+    // Position the visible slice
+    this.viewport.style.top = `${firstVisible * this.itemHeight}px`;
+
+    // Render only visible items
+    const fragment = document.createDocumentFragment();
+    for (let i = firstVisible; i <= lastVisible; i++) {
+      const el = this.renderItem(i);
+      el.style.height = `${this.itemHeight}px`;
+      fragment.appendChild(el);
+    }
+
+    this.viewport.innerHTML = '';
+    this.viewport.appendChild(fragment);
+  }
+}
+
+// Usage
+const list = new VirtualList({
+  container: document.getElementById('list-container'),
+  itemCount: 100000,
+  itemHeight: 40,
+  renderItem: (index) => {
+    const div = document.createElement('div');
+    div.textContent = `Item ${index}`;
+    return div;
+  }
+});</code></pre>
+
+    <p>Libraries like <strong>TanStack Virtual</strong> and <strong>react-window</strong> extend this with variable item heights, horizontal virtualization, and framework integrations. The algorithm is the same: compute first/last visible index, render only that slice, offset it to the correct scroll position.</p>
+
+    <!-- ============================================================ -->
+    <h3>8. DOM Tree Traversal — BFS and DFS in Practice</h3>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Inspecting a Building</strong><br>
+      BFS inspects floor by floor — finish the entire ground floor before going upstairs. DFS inspects room by room — enter a room, inspect everything in it (including closets, nested spaces), finish completely before moving to the next room on the same floor. The DOM is a tree. BFS and DFS are real tools for navigating it.
+    </div>
+
+    <h3>BFS Over the DOM</h3>
+
+    <pre><code>// BFS: find all elements matching a selector in level-order
+// Useful when you want to process parents before children
+function bfsDom(root, selector) {
+  const found = [];
+  const queue = [root];
+
+  while (queue.length > 0) {
+    const node = queue.shift();
+
+    if (node.matches && node.matches(selector)) {
+      found.push(node);
+    }
+
+    // Enqueue all children
+    for (const child of node.children) {
+      queue.push(child);
+    }
+  }
+
+  return found;
+}
+
+// Find all buttons in the page using BFS
+const allButtons = bfsDom(document.body, 'button');
+console.log(`Found ${allButtons.length} buttons`);</code></pre>
+
+    <h3>DFS Over the DOM</h3>
+
+    <pre><code>// DFS: walk the entire subtree depth-first
+// Useful for operations where children must be processed before parents
+// (like computing layout sizes bottom-up)
+function dfsDom(root, callback) {
+  // Pre-order: process node before its children
+  callback(root);
+
+  for (const child of root.children) {
+    dfsDom(child, callback);
+  }
+}
+
+// Iterative DFS — avoids call stack limits on deep trees
+function dfsDomIterative(root, callback) {
+  const stack = [root];
+
+  while (stack.length > 0) {
+    const node = stack.pop();
+    callback(node);
+
+    // Push children in reverse so leftmost is processed first
+    for (let i = node.children.length - 1; i >= 0; i--) {
+      stack.push(node.children[i]);
+    }
+  }
+}
+
+// Find all elements with a specific data attribute
+const elementsWithTracking = [];
+dfsDomIterative(document.body, (node) => {
+  if (node.dataset && node.dataset.trackingId) {
+    elementsWithTracking.push(node);
+  }
+});
+
+// Walk a React component tree (conceptually)
+// React's own reconciler does DFS when diffing the virtual DOM
+function walkReactTree(fiber, visitor) {
+  if (!fiber) return;
+  visitor(fiber);
+  walkReactTree(fiber.child, visitor);     // DFS into children
+  walkReactTree(fiber.sibling, visitor);   // then siblings
+}</code></pre>
+
+    <p><strong>Real use cases in frontend interviews:</strong></p>
+    <ul>
+      <li>"Find all focusable elements in a modal for accessibility tab trapping" — DFS</li>
+      <li>"Serialize a component tree to JSON" — DFS post-order</li>
+      <li>"Find the shallowest element matching a selector" — BFS (stops at the first level it finds one)</li>
+      <li>"Re-render components level by level" — BFS (React's concurrent mode batches work this way)</li>
+    </ul>
+
+    <!-- ============================================================ -->
+    <h2>Exercises</h2>
+    <!-- ============================================================ -->
+
+    <div class="exercises">
+
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <strong>Implement Debounce From Scratch</strong><br>
+        Without looking at the code above, implement <code>debounce(fn, wait)</code>. It should return a function that, when called repeatedly, only executes <code>fn</code> once after <code>wait</code> milliseconds of silence. Test it by wrapping <code>console.log</code> and calling it 5 times rapidly, then waiting.
+
+        <pre><code>function debounce(fn, wait) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), wait);
+  };
+}
+
+// Quick test
+const log = debounce(console.log, 200);
+log('a');  // cancelled
+log('b');  // cancelled
+log('c');  // fires after 200ms of silence → 'c'</code></pre>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <strong>LRU Cache With O(1) Operations</strong><br>
+        Implement an LRU Cache with capacity 3. Test this sequence: put(1,'a'), put(2,'b'), put(3,'c'), get(1), put(4,'d'), get(2). The get(2) should return -1 because key 2 should have been evicted (it was LRU when key 4 was inserted — key 1 was accessed after key 2, making key 2 the least recently used).
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <strong>Full Worked Solution: Sliding Window Rate Limiter (100 requests/minute per user)</strong><br>
+        Design a rate limiter that allows 100 requests per minute per user with <em>sliding window</em> semantics. Unlike fixed window, a sliding window ensures the limit holds for any rolling 60-second period — not just the calendar minute boundary.
+
+        <pre><code>// Sliding Window Log — stores timestamps of all requests in the window
+// Each user gets a queue of timestamps
+class SlidingWindowRateLimiter {
+  constructor(limit, windowMs) {
+    this.limit    = limit;      // max requests
+    this.windowMs = windowMs;   // window size in ms
+    this.logs     = new Map();  // userId → sorted array of timestamps
+  }
+
+  isAllowed(userId) {
+    const now        = Date.now();
+    const windowStart = now - this.windowMs;
+
+    if (!this.logs.has(userId)) {
+      this.logs.set(userId, []);
+    }
+
+    const log = this.logs.get(userId);
+
+    // Evict timestamps older than the current window (slide the window)
+    // Use binary search for efficiency on large logs
+    let i = 0;
+    while (i < log.length && log[i] <= windowStart) i++;
+    log.splice(0, i);  // remove expired entries
+
+    if (log.length < this.limit) {
+      log.push(now);  // record this request's timestamp
+      return true;    // under limit — allow
+    }
+
+    return false;  // at or over limit — reject
+  }
+
+  // For large-scale: replace the in-memory Map with Redis sorted sets
+  // ZREMRANGEBYSCORE removes old entries; ZCARD counts current window
+  // This gives the same sliding window semantics, distributed across instances
+}
+
+const limiter = new SlidingWindowRateLimiter(100, 60 * 1000);
+
+// Simulate requests
+for (let i = 0; i < 105; i++) {
+  const allowed = limiter.isAllowed('user-42');
+  if (i >= 99) console.log(`Request ${i + 1}: ${allowed ? 'ALLOWED' : 'REJECTED'}`);
+}
+// Request 100: ALLOWED
+// Request 101: REJECTED
+// ...
+
+// ---- At scale: Redis sorted set approach ----
+// For each user, maintain a Redis sorted set where score = timestamp
+//
+// async function isAllowedRedis(redis, userId, limit, windowMs) {
+//   const now = Date.now();
+//   const windowStart = now - windowMs;
+//   const key = `ratelimit:${userId}`;
+//
+//   const pipeline = redis.pipeline();
+//   pipeline.zremrangebyscore(key, 0, windowStart);  // remove old entries
+//   pipeline.zadd(key, now, `${now}-${Math.random()}`);  // add current
+//   pipeline.zcard(key);                               // count in window
+//   pipeline.expire(key, Math.ceil(windowMs / 1000)); // TTL cleanup
+//
+//   const results = await pipeline.exec();
+//   const count = results[2][1];
+//   return count <= limit;
+// }</code></pre>
+
+        <strong>Complexity:</strong> O(n) per request for the eviction step in the in-memory version (where n = requests in window). O(log n) with a Redis sorted set and ZREMRANGEBYSCORE (uses skip list). At 100 requests per user per minute at scale, the Redis version is the right answer.
+
+        <strong>Key talking points:</strong>
+        <ul>
+          <li>Fixed window lets a user fire 100 requests at 11:59:59 and another 100 at 12:00:01 — 200 in 2 seconds. Sliding window prevents this.</li>
+          <li>In-memory works for single-node; Redis sorted sets give the same guarantees, distributed.</li>
+          <li>Sliding window log stores all timestamps — memory-intensive. Sliding window counter (dividing the window into sub-buckets) trades precision for memory at scale.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <div class="summary">
+      <h3>Chapter 9 Summary</h3>
+      <ul>
+        <li><strong>Rate Limiting:</strong> Token Bucket allows bursts and enforces a steady average rate. Fixed Window Counter is simpler but has boundary exploits. Sliding Window Log gives exact semantics at higher memory cost. In production, enforce via Redis for distribution.</li>
+        <li><strong>Consistent Hashing:</strong> Solves the mass key migration problem of naive modulo hashing. Servers sit on a ring; a request goes to the first server clockwise. Adding/removing a server reshuffles only 1/N of keys. Virtual nodes improve load balance.</li>
+        <li><strong>LRU Cache:</strong> HashMap + Doubly Linked List = O(1) get and put. The HashMap gives constant-time node lookup. The DLL gives constant-time node move-to-front and tail eviction. Dummy head and tail simplify pointer manipulation.</li>
+        <li><strong>Debounce vs Throttle:</strong> Debounce fires once after X ms of silence — use it for search input and resize events. Throttle fires at most once per X ms — use it for scroll events and mouse moves. Both are implemented with <code>setTimeout</code> and a timer reference.</li>
+        <li><strong>Virtual List:</strong> Only render the visible slice of a large list — N visible items instead of 100,000 DOM nodes. Compute first/last visible index from scroll position, render only those items, offset the container with CSS. This is the core algorithm behind TanStack Virtual and react-window.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Part 3 moves into the frontend interview itself — HTML semantics, the browser rendering pipeline, and the DOM questions that trip up developers who code React all day but haven't thought about the underlying platform in years.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-8.html"><span class="nav-label">← Previous</span><span class="nav-title">Advanced Algorithms</span></a>
+      <a href="../part-3/chapter-10.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Frontend Fundamentals</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

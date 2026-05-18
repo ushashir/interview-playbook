@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 10: Frontend Interview Fundamentals — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html" class="active">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-3">Part 3 · Chapter 10</div>
+      <h1>Frontend Interview Fundamentals</h1>
+      <p class="chapter-intro">Frontend interviews have a reputation for being about trivia — "what does display:flex do?" — and that reputation is half-earned. But the companies you actually want to work at are testing something much deeper than trivia.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>What frontend interviews actually look like at Big Tech, scale-ups, and startups</li>
+        <li>The seven core competencies that appear in every frontend loop</li>
+        <li>How to talk about your own projects in a way that signals seniority</li>
+        <li>Which study path to follow based on your target role</li>
+        <li>The most common frontend interview mistakes — and how to avoid them</li>
+        <li>How to position yourself as a senior versus a junior candidate</li>
+      </ul>
+    </div>
+
+    <!-- BIG IDEA ANALOGY -->
+    <div class="box analogy">
+      <h4>The Cooking Competition Analogy</h4>
+      <p>A frontend interview is like a cooking competition with three rounds. The first round tests whether you can follow a recipe — these are the basic JavaScript and CSS questions. The second round puts you in a live restaurant kitchen under pressure — this is the live coding exercise. The third round asks you to design the restaurant from scratch — this is the system design portion.</p>
+      <p>Most candidates prepare only for round one. They memorize definitions. They can recite what <code>display: flex</code> does. But they fall apart in round two because they've never practiced the kitchen. And they've never even thought about round three.</p>
+      <p>This chapter orients you on all three rounds before the detailed chapters that follow.</p>
+    </div>
+
+    <h2>1. The Frontend Interview Landscape</h2>
+    <p>Frontend interviews are not uniform. The experience varies drastically depending on the company's size, stage, and engineering culture. Before you prepare, understand what game you're playing.</p>
+
+    <h3>Big Tech (FAANG and FAANG-adjacent)</h3>
+    <p>Companies like Google, Meta, Amazon, Apple, and Microsoft run structured loops that were designed for general software engineers and adapted — sometimes awkwardly — for frontend roles. Expect:</p>
+    <ul>
+      <li><strong>Heavy algorithms:</strong> LeetCode medium and hard problems, often on trees, graphs, dynamic programming. The frontend context is thin or absent.</li>
+      <li><strong>Frontend-specific rounds:</strong> One or two rounds focused on JavaScript internals, browser APIs, or frontend system design (build a widget, design an autocomplete).</li>
+      <li><strong>System design:</strong> How would you architect a large-scale frontend application? This tests your ability to think at scale.</li>
+      <li><strong>Behavioral rounds:</strong> Structured STAR-format questions mapped to company-specific leadership principles.</li>
+    </ul>
+    <p>The key insight for Big Tech: strong algorithms are table stakes. If you cannot solve a medium LeetCode problem in 30 minutes, you will not clear the bar regardless of how good your CSS is.</p>
+
+    <h3>Scale-ups (Series B through D)</h3>
+    <p>Companies that have found product-market fit and are scaling their engineering teams tend to run more practical interviews. Expect:</p>
+    <ul>
+      <li><strong>Project discussion:</strong> A deep conversation about something you've actually built. What tradeoffs did you make? What would you do differently?</li>
+      <li><strong>Real-world coding problems:</strong> Build a component, debug a performance issue, fix a bug in provided code.</li>
+      <li><strong>Framework proficiency:</strong> React (mostly), Vue, or Angular. They want to know you can be productive on day one.</li>
+      <li><strong>Medium algorithms:</strong> Not as brutal as Big Tech, but you should be comfortable with arrays, strings, hashmaps, and trees.</li>
+    </ul>
+    <p>The key insight for scale-ups: practical judgment beats theoretical knowledge. Show that you've made hard decisions under real constraints.</p>
+
+    <h3>Startups (Seed through Series A)</h3>
+    <p>Startups are hiring someone to ship. They care about velocity. Expect:</p>
+    <ul>
+      <li><strong>Project review:</strong> Show us something you've built. Walk us through the code. What are you proud of?</li>
+      <li><strong>Practical take-home or whiteboard:</strong> "Build this feature." Not "reverse a linked list."</li>
+      <li><strong>Culture fit:</strong> Will you move fast, tolerate ambiguity, and own problems end-to-end?</li>
+      <li><strong>Light or no algorithms:</strong> Some startups skip algorithm questions entirely. Some have a short, practical coding challenge.</li>
+    </ul>
+    <p>The key insight for startups: demonstrate that you can own a problem from design to deployment. Generalists who can touch backend, deployment, and design are especially valued.</p>
+
+    <h3>AI-Assisted Screening (micro1, HireVue, and others)</h3>
+    <p>An increasingly common first filter is an AI-scored interview. Platforms like micro1 and HireVue record your video responses to behavioral and technical questions, then score them algorithmically before a human sees them. Expect:</p>
+    <ul>
+      <li><strong>Behavioral questions scored by NLP:</strong> Answer clearly and concisely. Use STAR structure. Avoid filler words.</li>
+      <li><strong>Technical questions:</strong> Conceptual explanations of JavaScript or CSS topics, sometimes followed by a coding challenge in a browser IDE.</li>
+      <li><strong>Timed constraints:</strong> You may have 90 seconds to answer a behavioral question and 30 minutes for the coding section.</li>
+    </ul>
+    <p>The key insight for AI screening: clarity and structure are scored. An articulate, well-organized answer will outperform a rambling answer that contains more information. Practice speaking your answers aloud before the test.</p>
+
+    <h2>2. The Core Frontend Competencies</h2>
+    <p>Across all company types, frontend interviews test a consistent set of underlying competencies. Knowing this list lets you audit your own preparation honestly.</p>
+
+    <div class="diagram">
+      <strong>The 7 Frontend Interview Competencies</strong><br><br>
+      1. JavaScript fundamentals &nbsp;·&nbsp; 2. Browser internals &nbsp;·&nbsp; 3. Framework proficiency<br>
+      4. CSS and layout &nbsp;·&nbsp; 5. Performance &nbsp;·&nbsp; 6. System design &nbsp;·&nbsp; 7. Communication
+    </div>
+
+    <h3>JavaScript Fundamentals</h3>
+    <p>This is the foundation. Interviewers probe closures, <code>this</code>, the prototype chain, asynchronous execution, and the event loop. These are not trivia questions — they are the building blocks of every non-trivial application. Chapter 11 covers each one with code examples and interview-ready explanations.</p>
+
+    <h3>Browser Internals</h3>
+    <p>Understanding what happens between "user hits Enter" and "page is painted" sets senior engineers apart. The rendering pipeline (parse HTML → build DOM → style → layout → paint → composite), the event loop, and the network stack are all fair game. This is also where performance questions originate: if you don't know what causes reflow, you can't answer "how would you optimize this page?"</p>
+
+    <h3>Framework Proficiency</h3>
+    <p>Most companies interview in React. Some use Vue or Angular. Proficiency means more than knowing the API — it means understanding the component lifecycle, state management patterns, render optimization, and when <em>not</em> to reach for a framework feature. Chapter 12 covers this in depth.</p>
+
+    <h3>CSS and Layout</h3>
+    <p>CSS interview questions are underestimated. Specificity rules, the cascade, flexbox, grid, stacking contexts, and responsive design all appear in frontend loops. Chapter 13 covers the patterns that come up most.</p>
+
+    <h3>Performance</h3>
+    <p>Can you identify why a page is slow, and can you fix it? Core Web Vitals (LCP, CLS, INP) are the language of modern web performance. Knowing how to profile, what to measure, and what levers to pull is a genuine differentiator. Chapter 14 covers this.</p>
+
+    <h3>System Design</h3>
+    <p>"How would you architect a large frontend application?" is a question that separates mid-level from senior candidates. It tests your ability to make tradeoffs at scale: state management strategy, component architecture, code splitting, caching, accessibility, and integration with a backend API. Chapter 15 covers frontend system design.</p>
+
+    <h3>Communication</h3>
+    <p>This is the invisible competency. It's being tested in every round, not just behavioral interviews. Can you explain a complex concept clearly? Do you narrate your thinking while coding? Do you ask clarifying questions before diving in? Senior engineers are multipliers — their value comes partly from how well they communicate technical ideas to non-engineers and to other engineers alike.</p>
+
+    <h2>3. How to Talk About Your Projects</h2>
+    <p>For experience-based interviews — which dominate at scale-ups and startups — your project history is your primary evidence. Most candidates present their projects the wrong way.</p>
+
+    <div class="box warning">
+      <h4>The technology list trap</h4>
+      <p>"I built a task management app using React, Redux, Node.js, and MongoDB." This tells the interviewer almost nothing. Anyone can list technologies. What they want to know is: did you make judgment calls? Did you understand the tradeoffs? Were you the person thinking, or were you the person executing?</p>
+    </div>
+
+    <p>The better way to talk about a project is the "tradeoff narrative." For every meaningful technical decision, answer three questions:</p>
+    <ol>
+      <li><strong>What was the decision?</strong> (not just what you chose, but what the alternatives were)</li>
+      <li><strong>Why did you make that choice?</strong> (constraints, priorities, team context)</li>
+      <li><strong>What was the result?</strong> (ideally with a number)</li>
+    </ol>
+
+    <div class="box tip">
+      <h4>Tradeoff narrative in practice</h4>
+      <p>"I chose React over Vue for the frontend because our team had existing React experience, and the ecosystem around React — especially for the data-table library we needed — was more mature. Vue would have had a shallower learning curve for new hires, but consistency with our existing codebase was the higher priority. The choice let us move fast without onboarding friction."</p>
+      <p>Compare this to: "I used React." One of these signals an engineer. The other signals a person who used a technology.</p>
+    </div>
+
+    <h3>Quantify everything you can</h3>
+    <p>Numbers create credibility. They also force you to understand your own work more deeply, which helps in follow-up questions. Some examples of quantified impact:</p>
+    <ul>
+      <li>"Reduced our JavaScript bundle size by 40% by implementing code splitting and removing unused dependencies."</li>
+      <li>"Cut page load time from 4.2 seconds to 1.1 seconds by lazy-loading images and deferring non-critical scripts. This directly improved our Core Web Vitals score and reduced bounce rate by 18%."</li>
+      <li>"Rewrote the product grid component to use virtualization. The list now renders 10,000 items with no visible lag, down from a 3-second freeze."</li>
+    </ul>
+    <p>If you don't have numbers yet, go measure your existing projects before the interview. Open DevTools. Run Lighthouse. Look at your bundle analyzer. The numbers are there — you just haven't captured them.</p>
+
+    <h3>Know your own code deeply</h3>
+    <p>A common trap: candidates list their own projects on their resume, then stumble when asked "walk me through your most complex component." You must be able to explain any piece of work on your resume without preparation. If you haven't looked at a project in six months, spend two hours reviewing it before the interview. Know why you wrote things the way you did.</p>
+
+    <h2>4. Study Paths for Frontend Candidates</h2>
+    <p>There is no single optimal study path — it depends on your target role and your current weaknesses. Here are three structured paths.</p>
+
+    <h3>Generalist Path (targeting Big Tech or full-stack roles)</h3>
+    <p>This path prioritizes breadth across all seven competencies, with algorithms treated as a serious discipline rather than an afterthought.</p>
+    <ol>
+      <li>Chapter 11 (JavaScript fundamentals — your bedrock)</li>
+      <li>Chapter 12 (frameworks and component architecture)</li>
+      <li>Chapters 4–8 (algorithms — spend 4–6 weeks here minimum)</li>
+      <li>Chapters 29–32 (system design — one mock design per week)</li>
+      <li>Chapters 13–14 (CSS and performance — fill gaps)</li>
+    </ol>
+
+    <h3>CSS Specialist Path (targeting design-system or UI platform roles)</h3>
+    <ol>
+      <li>Chapter 13 (CSS and layout — go deep, read the spec sections it references)</li>
+      <li>Chapter 11 (JavaScript fundamentals)</li>
+      <li>Chapter 14 (performance — especially paint and composite)</li>
+      <li>Chapter 12 (frameworks — particularly component API design)</li>
+    </ol>
+
+    <h3>React-Focused Path (targeting product engineer roles at scale-ups)</h3>
+    <ol>
+      <li>Chapter 12 (framework depth — spend twice as long here)</li>
+      <li>Chapter 11 (JavaScript — the underlying model you need to debug React)</li>
+      <li>Chapter 14 (performance — React profiler, memo, code splitting)</li>
+      <li>Chapter 15 (frontend system design — how large React apps are structured)</li>
+    </ol>
+
+    <h2>5. Common Frontend Interview Mistakes</h2>
+    <p>These patterns appear in candidate after candidate. Recognizing them is the first step to eliminating them from your own interviews.</p>
+
+    <h3>Starting to code before understanding the problem</h3>
+    <p>This is the number-one failure mode in live coding rounds. A candidate sees the prompt, starts typing, builds the wrong thing, and spends 20 minutes solving a problem they misunderstood. The fix is simple but requires discipline: spend the first 5 minutes asking clarifying questions and restating your understanding before you write a single line of code. Interviewers reward this — it signals the behavior of a real engineer, not someone who just executes tickets.</p>
+
+    <h3>Not handling edge cases</h3>
+    <p>A solution that works for the happy path and crashes on null, an empty array, or undefined is not a complete solution. After your initial implementation, explicitly say: "Let me think about edge cases." Then enumerate them: null input, empty input, negative numbers, very large input, duplicate values, etc. Fix at least the ones that are obvious.</p>
+
+    <h3>Misunderstanding time complexity of built-in methods</h3>
+    <p>Candidates often use array methods without knowing their cost. <code>Array.prototype.includes</code> is O(n). <code>Array.prototype.indexOf</code> is O(n). Using either of these inside a loop creates an O(n²) algorithm. A Set lookup is O(1). Knowing this difference is the gap between a solution that passes and one that fails performance requirements.</p>
+
+    <div class="box key-term">
+      <h4>Know before you use it</h4>
+      <ul>
+        <li><code>arr.includes(x)</code> — O(n), linear scan</li>
+        <li><code>arr.indexOf(x)</code> — O(n), linear scan</li>
+        <li><code>arr.sort()</code> — O(n log n)</li>
+        <li><code>set.has(x)</code> — O(1), hash lookup</li>
+        <li><code>map.get(k)</code> — O(1), hash lookup</li>
+        <li><code>obj[key]</code> — O(1), hash lookup</li>
+      </ul>
+    </div>
+
+    <h3>Not knowing the difference between repaint, reflow, and composite</h3>
+    <p>When a performance question comes up, candidates who don't know the browser rendering pipeline have no systematic way to answer it. Reflow (also called layout) recalculates the geometry of every affected element — it's expensive. Repaint redraws pixels without changing geometry — cheaper. Composite rearranges already-painted layers — cheapest. Transforming an element with <code>transform: translateX()</code> triggers only composite, not reflow. This is why it's preferred for animations. If you don't know this, you'll give a vague answer where a precise one was possible.</p>
+
+    <h2>6. Senior vs. Junior Positioning</h2>
+    <p>Interviewers are calibrating your level throughout the entire conversation — not just during the technical rounds. The way you frame your answers either confirms or contradicts the level you're applying for.</p>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior framing</span>
+      "I know React and can build UIs with it. I've used hooks, I know useState and useEffect, and I can work with REST APIs."
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior framing</span>
+      "I think about the frontend as a system. Component architecture and state management boundaries are the first things I design — because those decisions determine how maintainable the app is six months later when no one remembers why the components are structured the way they are. Performance is a budget, not an afterthought — I think about LCP and INP from the first design decision, not after users complain. Accessibility is a requirement, not an enhancement — I'd rather build it in than retrofit it. And the frontend always has a relationship with the API contract — I try to be involved in that design, because a bad API makes the frontend brittle. React is the tool I use most. But the thinking is framework-agnostic."
+    </div>
+
+    <p>Notice that the senior answer doesn't just add more technical terms. It demonstrates a way of thinking — systems thinking, tradeoff awareness, awareness of the full stack, and proactive ownership. These are the signals that move you from mid-level compensation to senior compensation.</p>
+
+    <h2>Practice Questions</h2>
+
+    <div class="exercises">
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p><strong>Describe the frontend interview process at a company you'd like to work for. What rounds would you expect, and how would you prepare for each?</strong></p>
+        <p>Practice answer: Look up the company on Glassdoor and Blind for real interview reports. Map their process to the three-round model. Identify which competencies are most heavily weighted and prioritize accordingly.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p><strong>Take one project from your resume and write the tradeoff narrative for three technical decisions you made. Include the alternatives you considered and the measurable result.</strong></p>
+        <p>Practice answer: If you don't have numbers, open DevTools on the project now and run Lighthouse, the Network panel, and the Performance profiler. Capture three metrics you can cite in an interview.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p><strong>A candidate at a senior frontend role says "the page was slow, so I added memoization everywhere." What's wrong with this approach, and what would you do instead?</strong></p>
+        <p>Practice answer: Memoization without measurement is premature optimization. The correct approach is to profile first (Chrome DevTools Performance tab, React Profiler), identify the actual bottleneck, then apply the appropriate fix — which may be memoization, virtualization, code splitting, server-side rendering, or fixing an N+1 API call. Indiscriminate memoization adds complexity without guaranteed benefit and can introduce bugs when dependencies are incorrectly specified.</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Frontend interviews have three rounds: knowledge, live coding, and system design. Prepare for all three — not just the first.</li>
+        <li>The interview experience varies by company stage: Big Tech emphasizes algorithms; scale-ups test practical judgment; startups test your ability to ship.</li>
+        <li>Talk about your projects using a tradeoff narrative (decision, reasoning, result with numbers) rather than a technology list.</li>
+        <li>The seven core competencies — JavaScript, browser internals, frameworks, CSS, performance, system design, and communication — span every frontend loop.</li>
+        <li>Senior positioning is about systems thinking and tradeoff awareness, not knowing more API methods.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> We go deep on JavaScript — closures, <code>this</code>, the event loop, promises, and the browser internals that every senior frontend engineer should be able to explain on a whiteboard.</p>
+
+    <div class="chapter-nav">
+      <a href="../part-2/chapter-9.html"><span class="nav-label">← Previous</span><span class="nav-title">Algorithms by Domain</span></a>
+      <a href="chapter-11.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">JavaScript &amp; the Browser</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

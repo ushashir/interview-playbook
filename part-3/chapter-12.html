@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 12: Frameworks and Component Architecture — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html" class="active">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-3">Part 3 · Chapter 12</div>
+      <h1>Frameworks and Component Architecture</h1>
+      <p class="chapter-intro">The question "Do you know React?" is not what they're actually asking. They're asking: do you understand component thinking, state management, side effects, and why applications fall apart at scale? React is just the language of that conversation.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>The React component lifecycle through hooks — mount, update, cleanup</li>
+        <li>The three most common memory leaks in React and how to fix each one</li>
+        <li>A principled decision tree for state management: useState vs context vs Zustand vs Redux</li>
+        <li>How React.memo, useMemo, and useCallback actually work — and when NOT to use them</li>
+        <li>The underused composition pattern that eliminates most prop drilling</li>
+        <li>How NestJS backend architecture shapes the frontend API contract</li>
+        <li>How to discuss any framework in an interview by focusing on the underlying ideas</li>
+      </ul>
+    </div>
+
+    <!-- BIG IDEA ANALOGY -->
+    <div class="box analogy">
+      <h4>The LEGO Brick Analogy</h4>
+      <p>React components are LEGO bricks. Each brick does one specific thing. You compose them to build complex structures. The rules are simple: each brick should be self-contained, reusable, and only aware of its own job. A brick that needs to know about the internal workings of every other brick in the set stops being a brick and starts being a dependency mess. When bricks know too much about each other's jobs, the structure becomes brittle — changing one brick requires changing twenty others.</p>
+      <p>The whole discipline of component architecture is enforcing this rule at scale. Small, focused components. Explicit data flow. Clear ownership of state. When you answer interview questions about React, this LEGO mental model is the frame to speak from.</p>
+    </div>
+
+    <!-- ====== SECTION 1: Component Lifecycle ====== -->
+    <h2>1. Component Lifecycle (Hooks Era)</h2>
+
+    <div class="box analogy">
+      <h4>The Plant Life Cycle Analogy</h4>
+      <p>A plant has stages: a seed pushes through the soil (mount), the plant grows and responds to its environment — sun, water, seasons (update), and eventually it dies and returns to the earth (unmount/cleanup). React components live the same cycle. They appear in the DOM (mount), re-render in response to state or prop changes (update), and when removed from the DOM they should clean up after themselves — subscriptions, timers, listeners — just like a plant composting back into the soil.</p>
+    </div>
+
+    <pre><code>import { useEffect, useState } from 'react';
+
+function ChatRoom({ roomId }) {
+  const [messages, setMessages] = useState([]);
+
+  // 1. MOUNT: runs once when component appears in the DOM
+  useEffect(() => {
+    console.log('Component mounted');
+  }, []); // empty dependency array = run once
+
+  // 2. UPDATE: runs every time roomId changes
+  useEffect(() => {
+    console.log('roomId changed to:', roomId);
+  }, [roomId]); // dependency array controls when this re-runs
+
+  // 3. MOUNT + CLEANUP (unmount): the most important pattern
+  useEffect(() => {
+    const socket = connectToRoom(roomId); // setup
+
+    socket.on('message', (msg) => {
+      setMessages(prev => [...prev, msg]);
+    });
+
+    // Cleanup function — runs BEFORE the next effect AND on unmount
+    return () => {
+      socket.disconnect(); // teardown
+      console.log('Disconnected from room', roomId);
+    };
+  }, [roomId]); // Re-runs (disconnect old room, connect new room) when roomId changes
+
+  return (
+    <ul>
+      {messages.map((msg, i) => <li key={i}>{msg.text}</li>)}
+    </ul>
+  );
+}</code></pre>
+
+    <div class="box tip">
+      <h4>The setup/teardown rule</h4>
+      <p>Every <code>useEffect</code> that sets something up should tear it down in the cleanup function. Subscriptions, event listeners, WebSocket connections, intervals — if you start it in the effect body, end it in the return function. This is not optional. Missing cleanup is a bug; it just might not surface until the component is unmounted at an inopportune time.</p>
+    </div>
+
+    <!-- ====== SECTION 2: Memory Leaks ====== -->
+    <h2>2. Memory Leaks from Missing Cleanup</h2>
+
+    <p>Memory leaks in React components are almost always caused by the same three patterns. Knowing them makes you the person who spots them in code review before they reach production.</p>
+
+    <h3>Leak 1: Event Listener Added Without Removal</h3>
+
+    <pre><code>// BUG: event listener never removed
+function ResizeTracker() {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    // No cleanup! Every time this component mounts, another listener is added.
+    // If the component mounts/unmounts repeatedly, you accumulate listeners.
+  }, []);
+
+  return <div>Width: {width}px</div>;
+}
+
+// FIX: remove the listener in the cleanup function
+function ResizeTracker() {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // cleanup
+    };
+  }, []); // handleResize is stable — no need to include it
+
+  return <div>Width: {width}px</div>;
+}</code></pre>
+
+    <h3>Leak 2: setInterval Without clearInterval</h3>
+
+    <pre><code>// BUG: interval keeps running after component unmounts
+function Clock() {
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(new Date()); // After unmount: React warning + potential crash
+    }, 1000);
+    // No cleanup! The interval fires forever, trying to update unmounted state.
+  }, []);
+
+  return <div>{time.toLocaleTimeString()}</div>;
+}
+
+// FIX: clear the interval on cleanup
+function Clock() {
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(id); // cleanup stops the interval
+  }, []);
+
+  return <div>{time.toLocaleTimeString()}</div>;
+}</code></pre>
+
+    <h3>Leak 3: Async Operation Updating State After Unmount</h3>
+
+    <pre><code>// BUG: setState called after unmount (React warning in dev, silently ignored in prod)
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch(`/api/users/${userId}`)
+      .then(r => r.json())
+      .then(data => {
+        setUser(data); // What if the component unmounted before this resolved?
+      });
+  }, [userId]);
+
+  return user ? <div>{user.name}</div> : <div>Loading...</div>;
+}
+
+// FIX: use AbortController to cancel the request on cleanup
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch(`/api/users/${userId}`, { signal: controller.signal })
+      .then(r => r.json())
+      .then(data => setUser(data))
+      .catch(err => {
+        if (err.name === 'AbortError') return; // Intentional — ignore
+        console.error(err);
+      });
+
+    return () => controller.abort(); // cleanup cancels the in-flight request
+  }, [userId]);
+
+  return user ? <div>{user.name}</div> : <div>Loading...</div>;
+}</code></pre>
+
+    <!-- ====== SECTION 3: State Management ====== -->
+    <h2>3. State Management Patterns</h2>
+
+    <div class="box analogy">
+      <h4>The Office Communication Analogy</h4>
+      <p>State management is like choosing how people in an office share information. Some information only one person needs — keep it on their own desk (local state). Some information two people need — put it in a shared folder between them (lifted state). Information that everyone needs — put it on the company intranet (context). A system so complex it needs version history and audit trails — hire a dedicated information manager with a full filing system (Redux or Zustand).</p>
+    </div>
+
+    <h3>Decision Tree: Which State Solution?</h3>
+
+    <div class="diagram">
+      Is the state used by only one component?<br>
+      → YES: <strong>useState</strong> — keep it local<br><br>
+      Is the state shared between a few siblings?<br>
+      → YES: <strong>Lift state</strong> to the nearest common parent<br><br>
+      Is the state global/cross-cutting (auth, theme, locale, user)?<br>
+      → YES: <strong>Context</strong> — but only for low-frequency updates<br><br>
+      Does the state update frequently, have many writers, or need middleware?<br>
+      → YES: <strong>Zustand or Redux Toolkit</strong> — external store
+    </div>
+
+    <pre><code>// 1. Local state — isolated to one component
+function SearchBar() {
+  const [query, setQuery] = useState('');
+  return (
+    <input value={query} onChange={e => setQuery(e.target.value)} />
+  );
+}
+
+// 2. Lifted state — two siblings share a parent's state
+function Parent() {
+  const [selected, setSelected] = useState(null);
+  return (
+    <>
+      <ItemList onSelect={setSelected} />
+      <ItemDetail item={selected} />
+    </>
+  );
+}
+
+// 3. Context — good for stable, infrequently changing global data
+const ThemeContext = createContext('light');
+
+function App() {
+  const [theme, setTheme] = useState('light');
+  return (
+    <ThemeContext.Provider value={theme}>
+      <Layout />
+    </ThemeContext.Provider>
+  );
+}
+
+function Button() {
+  const theme = useContext(ThemeContext); // Any update to theme re-renders ALL consumers
+  return <button className={theme}>Click</button>;
+}
+
+// 4. Zustand — external store for complex global state
+import { create } from 'zustand';
+
+const useCartStore = create((set) => ({
+  items: [],
+  addItem: (item) => set(state => ({ items: [...state.items, item] })),
+  removeItem: (id) => set(state => ({ items: state.items.filter(i => i.id !== id) })),
+  total: 0,
+}));
+
+function CartButton() {
+  const { items, addItem } = useCartStore(); // Only re-renders when items changes
+  return <button onClick={() => addItem({ id: 1, name: 'Widget' })}>Add</button>;
+}</code></pre>
+
+    <div class="box warning">
+      <h4>Context is not a state management solution</h4>
+      <p>Context is a dependency injection tool. It lets you pass values through the tree without prop drilling. But it has a critical problem: every component that consumes a context re-renders whenever the context value changes. If you put frequently-updating state (like a cart item count that updates on every keypress) in Context, you'll trigger cascading re-renders across your entire app. Context is great for: authentication state, theme, locale, feature flags. It's bad for: form state, server data, anything that updates on every user action. For those, use an external store (Zustand, Redux) or a server state library (React Query, SWR).</p>
+    </div>
+
+    <!-- ====== SECTION 4: Performance ====== -->
+    <h2>4. Performance: memo, useMemo, useCallback</h2>
+
+    <div class="box analogy">
+      <h4>The Cached Calculation Analogy</h4>
+      <p>Imagine an accountant who recalculates the company's total revenue from scratch every time someone asks — even if no sales have happened since the last calculation. That's what React does by default: recalculate everything on every render. Memoization tells React: "If the inputs haven't changed, use the answer I already computed." But there's a cost to checking — the accountant has to compare the inputs, which takes time. For cheap calculations, the checking might cost more than just recalculating. Measure before you memoize.</p>
+    </div>
+
+    <pre><code>import { memo, useMemo, useCallback, useState } from 'react';
+
+// The problem: ExpensiveList re-renders every time Parent renders,
+// even when its props haven't changed
+
+function Parent() {
+  const [count, setCount] = useState(0);
+  const [items] = useState(['Apple', 'Banana', 'Cherry']);
+
+  const handleItemClick = (item) => {
+    console.log('Clicked:', item);
+  };
+
+  return (
+    <>
+      <button onClick={() => setCount(c => c + 1)}>Count: {count}</button>
+      {/* Every click re-renders ExpensiveList, even though items didn't change */}
+      <ExpensiveList items={items} onItemClick={handleItemClick} />
+    </>
+  );
+}
+
+// ------------------------------------------------
+// React.memo: skips re-render if props haven't changed (shallow comparison)
+const ExpensiveList = memo(function ExpensiveList({ items, onItemClick }) {
+  console.log('ExpensiveList rendered'); // Watch this in React DevTools Profiler
+  return (
+    <ul>
+      {items.map(item => (
+        <li key={item} onClick={() => onItemClick(item)}>{item}</li>
+      ))}
+    </ul>
+  );
+});
+
+// Problem with memo: handleItemClick is a new function on every Parent render
+// (new reference = memo thinks props changed = re-renders anyway)
+
+// Fix: useCallback memoizes the function reference
+function Parent() {
+  const [count, setCount] = useState(0);
+  const [items] = useState(['Apple', 'Banana', 'Cherry']);
+
+  // Stable function reference — only recreated if dependencies change
+  const handleItemClick = useCallback((item) => {
+    console.log('Clicked:', item);
+  }, []); // no dependencies — function never changes
+
+  return (
+    <>
+      <button onClick={() => setCount(c => c + 1)}>Count: {count}</button>
+      {/* Now memo works correctly — handleItemClick is the same reference */}
+      <ExpensiveList items={items} onItemClick={handleItemClick} />
+    </>
+  );
+}
+
+// ------------------------------------------------
+// useMemo: memoizes an expensive computed value
+function ProductList({ products, searchTerm }) {
+  // Without useMemo: filters on every render, even if products and searchTerm haven't changed
+  const filtered = useMemo(() => {
+    console.log('Filtering products...');
+    return products.filter(p =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [products, searchTerm]); // Only re-filters when these change
+
+  return <ul>{filtered.map(p => <li key={p.id}>{p.name}</li>)}</ul>;
+}</code></pre>
+
+    <div class="box warning">
+      <h4>The premature optimization trap</h4>
+      <p>The wrong time to use <code>memo</code>, <code>useMemo</code>, and <code>useCallback</code> is before you've measured. Every memoization has a cost: memory to store the previous value, time to compare the current inputs to the previous inputs, and cognitive overhead when reading the code. For components that render quickly, memoization often costs more than it saves. The right process: build it without optimization, measure with React DevTools Profiler, find the actual bottleneck, then apply the appropriate fix. "It feels slow" is not a measurement.</p>
+    </div>
+
+    <!-- ====== SECTION 5: Prop Drilling vs Context vs Composition ====== -->
+    <h2>5. Prop Drilling vs Context vs Composition</h2>
+
+    <pre><code>// PROBLEM: prop drilling — theme has to pass through 4 components that don't use it
+function App() {
+  const theme = 'dark';
+  return <Layout theme={theme} />;
+}
+function Layout({ theme }) {
+  return <Sidebar theme={theme} />;
+}
+function Sidebar({ theme }) {
+  return <Widget theme={theme} />;
+}
+function Widget({ theme }) {
+  return <div className={theme}>Widget content</div>; // Only this uses theme!
+}
+
+// ------------------------------------------------
+// SOLUTION 1: Context (good for truly global values like theme)
+const ThemeContext = createContext('light');
+
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Layout />    {/* No theme prop needed anywhere */}
+    </ThemeContext.Provider>
+  );
+}
+
+function Widget() {
+  const theme = useContext(ThemeContext); // Gets it directly
+  return <div className={theme}>Widget content</div>;
+}
+
+// ------------------------------------------------
+// SOLUTION 2: Component Composition (often the better answer — no context needed)
+// Instead of passing data down, pass components down
+
+function App() {
+  const theme = 'dark';
+  // We compose Widget here, where we have theme, and pass the element down
+  return <Layout sidebar={<Widget theme={theme} />} />;
+}
+
+function Layout({ sidebar }) {
+  return <div className="layout">{sidebar}</div>; // Just renders what it receives
+}
+
+function Widget({ theme }) {
+  return <div className={theme}>Widget content</div>;
+}
+
+// Composition with the children prop — even cleaner
+function Card({ children }) {
+  return <div className="card">{children}</div>;
+}
+
+function App() {
+  return (
+    <Card>
+      <h2>Title</h2>
+      <p>This Card doesn't need to know about the content structure at all.</p>
+    </Card>
+  );
+}</code></pre>
+
+    <p>Composition is the underused third option. When you see prop drilling, your first instinct shouldn't be "add Context." Ask instead: "Can I restructure the component tree so that the data is passed as JSX (a component) rather than as a primitive prop?" Often the answer is yes, and the result is simpler code with fewer abstractions.</p>
+
+    <!-- ====== SECTION 6: NestJS + Frontend Integration ====== -->
+    <h2>6. NestJS and the Frontend API Contract</h2>
+
+    <p>Frontend engineers who understand the backend they're consuming write better, more resilient UIs. When your backend is built with NestJS, you get a set of tools that make the frontend-backend contract explicit and type-safe.</p>
+
+    <h3>DTOs Define the Contract</h3>
+    <p>NestJS uses Data Transfer Objects (DTOs) to define the shape of request and response data. These are TypeScript classes decorated with validation rules. The frontend team should treat DTOs as the authoritative source of truth for what data looks like.</p>
+
+    <pre><code>// Backend: NestJS DTO
+// apps/user-service/src/dto/user.dto.ts
+export class UserResponseDto {
+  id: string;
+  name: string;
+  email: string;
+  role: 'admin' | 'member' | 'viewer';
+  createdAt: Date;
+}
+
+// Frontend: This shape is what the API returns — match it exactly
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: 'admin' | 'member' | 'viewer';
+  createdAt: string; // Note: JSON serializes Date as string
+}</code></pre>
+
+    <h3>OpenAPI Auto-Generation</h3>
+    <p>NestJS generates a Swagger/OpenAPI spec automatically from your DTOs and decorators. The frontend team should never be guessing type shapes from network responses — that's how type drift happens. The right workflow:</p>
+    <ol>
+      <li>Backend generates the OpenAPI spec (automatically in NestJS with <code>@nestjs/swagger</code>)</li>
+      <li>Frontend uses a code generator (like <code>openapi-typescript</code> or <code>orval</code>) to produce TypeScript types and API client code from the spec</li>
+      <li>When the API changes, regenerate the types — TypeScript will tell you everywhere the frontend breaks</li>
+    </ol>
+
+    <pre><code>// Generated by openapi-typescript from the NestJS Swagger spec
+// No more manually maintaining these types
+export interface paths {
+  '/users/{id}': {
+    get: {
+      parameters: { path: { id: string } };
+      responses: {
+        200: { content: { 'application/json': UserResponseDto } };
+        404: { content: { 'application/json': { message: string } } };
+      };
+    };
+  };
+}</code></pre>
+
+    <h3>Shared Types in a Monorepo</h3>
+    <p>The most powerful configuration is TypeScript on both sides in a monorepo (NestJS backend + React frontend in the same repo). A shared <code>packages/types</code> package holds DTOs that both the server and client import. When the server changes a type, the client immediately sees the TypeScript error — before the bug reaches production.</p>
+
+    <pre><code>// packages/types/src/user.ts — shared between backend and frontend
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: 'admin' | 'member' | 'viewer';
+}
+
+// apps/api (NestJS) imports from @myapp/types
+// apps/web (React) imports from @myapp/types
+// Change the type once → TypeScript errors in both apps immediately</code></pre>
+
+    <!-- ====== SECTION 7: Framework-Agnostic Framing ====== -->
+    <h2>7. Framework-Agnostic Interview Framing</h2>
+
+    <p>If an interviewer asks about Vue and you only know React, don't panic. Every modern UI framework is a different implementation of the same underlying model. Articulating that model shows senior thinking.</p>
+
+    <div class="box key-term">
+      <h4>The unified model</h4>
+      <p>All reactive UI frameworks express the same idea: <strong>UI = f(state)</strong>. Your UI is a pure function of your application state. When state changes, the framework re-runs that function (or an optimized approximation of it) to produce the new UI. React does this with a virtual DOM diff. Vue does it with a fine-grained reactivity system that tracks which state each component depends on. Svelte does it with a compile step that generates direct DOM mutations. Angular uses zone.js to detect changes. The mechanism differs; the model is the same.</p>
+    </div>
+
+    <p>In an interview, you can say: "I know React best, but I'm comfortable with the underlying reactive programming model. The patterns I use — explicit state ownership, unidirectional data flow, side effect isolation — are applicable in Vue, Angular, or Svelte. I'd expect a ramp-up period on the specific API, but the thinking is the same."</p>
+
+    <p>This answer signals that you understand your tools at the conceptual level, not just the syntactic one. That's senior thinking.</p>
+
+    <!-- ====== SENIOR vs JUNIOR ====== -->
+    <h2>Senior vs. Junior: Architecting a Large React Application</h2>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior answer</span>
+      "I'd use React with a Redux store and organize my components into folders. I'd have a components folder and a pages folder. For API calls I'd use fetch or axios."
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior answer</span>
+      <p>"I'd start before I write any code — by defining the domain. What are the core entities? What are the relationships between them? That domain model drives everything downstream.</p>
+      <p>For state, I'd separate concerns by type. Server state — data that lives on the server and is cached on the client — goes into React Query or SWR. That eliminates 80% of what people reach for Redux to solve: loading states, error states, cache invalidation, refetching. Global client state — UI things that aren't server data, like 'is the sidebar open', or 'which theme is selected' — goes into Zustand. Local component state stays in useState.</p>
+      <p>Component architecture follows feature folders, not file-type folders. Instead of <code>/components</code>, <code>/hooks</code>, <code>/utils</code> at the top level, I'd structure by domain: <code>/features/cart/</code>, <code>/features/auth/</code>, each containing the components, hooks, and types specific to that domain. This makes feature deletion trivial and prevents cross-feature coupling.</p>
+      <p>I enforce a boundary between presentational components (know how to render data, no API calls) and container components (connected to the store and API, pass data down). This makes the presentational components independently testable in Storybook.</p>
+      <p>Performance optimization is last. I set up the React Profiler in development and measure before I apply any memo. Bundle size is monitored from the start with a size budget in the CI pipeline — not addressed in a panic before launch.</p>
+      <p>And I'd negotiate the API contract with the backend team upfront. Bad API design creates bad frontends. If we're using NestJS on the backend, I want shared TypeScript types so the compiler tells us when the contract breaks, not our users."</p>
+    </div>
+
+    <!-- ====== PRACTICE QUESTIONS ====== -->
+    <h2>Practice Questions</h2>
+
+    <div class="exercises">
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p><strong>What is the difference between <code>useEffect(fn, [])</code> and <code>useEffect(fn)</code>?</strong></p>
+        <p><strong>Answer:</strong> <code>useEffect(fn, [])</code> runs the effect once after the component first mounts, and never again. <code>useEffect(fn)</code> (no dependency array) runs after every render — mount and every update. The empty array is not "no dependencies" — it is "this effect doesn't depend on anything that changes," so it never needs to re-run. The missing array means "re-run this on every render," which is rarely what you want and often causes infinite loops if the effect updates any state.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p><strong>Write a custom hook <code>useLocalStorage</code> that persists state to <code>localStorage</code> and stays in sync across renders.</strong></p>
+        <pre><code>import { useState, useEffect } from 'react';
+
+function useLocalStorage(key, initialValue) {
+  // Lazy initialization: read from localStorage once at mount
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      // If item exists, parse it; otherwise use the initialValue
+      return item !== null ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      // localStorage may be unavailable (private mode, SSR, etc.)
+      console.warn('useLocalStorage: failed to read', key, error);
+      return initialValue;
+    }
+  });
+
+  // Wrap the setter so it also persists to localStorage
+  const setValue = (value) => {
+    try {
+      // Allow value to be a function (same API as useState)
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.warn('useLocalStorage: failed to write', key, error);
+    }
+  };
+
+  return [storedValue, setValue];
+}
+
+// Usage:
+function Settings() {
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  return (
+    <button onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}>
+      Current theme: {theme}
+    </button>
+  );
+  // theme persists across page refreshes automatically
+}</code></pre>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p><strong>You have a React list rendering 10,000 items. It's laggy. Walk through your complete debugging and optimization process.</strong></p>
+        <p><strong>Step 1 — Measure, don't guess.</strong> Open React DevTools Profiler. Record a interaction. Find which components are rendering slowly and how often. Separately, check the Chrome Performance tab for long tasks and layout thrashing.</p>
+        <p><strong>Step 2 — Identify the root cause.</strong> Common culprits in this scenario:</p>
+        <ul>
+          <li>All 10,000 DOM nodes exist in the document simultaneously — this is expensive to paint and lay out even if they're off-screen.</li>
+          <li>A parent component is re-rendering frequently and each re-render triggers all 10,000 child renders.</li>
+          <li>An expensive computation runs on every render (a filter or sort without memoization).</li>
+          <li>Missing <code>key</code> props causing React to destroy and recreate DOM nodes instead of reusing them.</li>
+        </ul>
+        <p><strong>Step 3 — Apply targeted fixes:</strong></p>
+        <pre><code>// Fix 1: Virtualization (almost always the right fix for large lists)
+// Only render items that are visible in the viewport
+import { FixedSizeList } from 'react-window';
+
+function VirtualizedList({ items }) {
+  return (
+    <FixedSizeList
+      height={600}       // viewport height
+      itemCount={items.length}
+      itemSize={50}      // each row height in px
+      width="100%"
+    >
+      {({ index, style }) => (
+        // style must be applied — contains top/height for positioning
+        <div style={style}>
+          {items[index].name}
+        </div>
+      )}
+    </FixedSizeList>
+  );
+  // React only renders ~12-20 items at any time, regardless of total count
+}
+
+// Fix 2: Memoize the row component so it doesn't re-render when parent does
+const Row = memo(function Row({ item, style }) {
+  return <div style={style}>{item.name}</div>;
+});
+
+// Fix 3: Memoize expensive filtering/sorting
+const filteredItems = useMemo(
+  () => items.filter(item => item.active).sort((a, b) => a.name.localeCompare(b.name)),
+  [items]
+);
+
+// Fix 4: Stable keys — NEVER use array index as key for reorderable lists
+// Bad:  items.map((item, i) => <Row key={i} item={item} />)
+// Good: items.map(item => <Row key={item.id} item={item} />)</code></pre>
+        <p><strong>Step 4 — Verify the fix with the profiler.</strong> Re-record the interaction. Confirm the long tasks are gone. Ship only after the measurement confirms improvement.</p>
+        <p>The senior move: start with virtualization. For a list of 10,000 items, it's almost always the highest-leverage fix, because it reduces the DOM node count from 10,000 to ~20, regardless of how fast each individual component renders.</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Every <code>useEffect</code> that opens a connection, adds a listener, or starts a timer must return a cleanup function — missing cleanup is a memory leak waiting to surface at the worst moment.</li>
+        <li>Choose your state solution by the type of state: local → <code>useState</code>, lifted → parent state, global/stable → Context, global/frequent → Zustand or Redux, server data → React Query.</li>
+        <li>Context is a dependency injection tool, not a state management library — putting frequently-updating state in Context causes cascading re-renders.</li>
+        <li>Memoization (<code>memo</code>, <code>useMemo</code>, <code>useCallback</code>) has a cost — measure with React DevTools Profiler before applying it; premature memoization adds complexity without guaranteed benefit.</li>
+        <li>All reactive UI frameworks implement the same model (UI = f(state)); understanding the model lets you discuss any framework and position yourself above the level of API memorization.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> CSS — the part of the stack that frontend engineers either know deeply or fake confidently. We cover specificity, the cascade, flexbox, grid, and the layout questions that separate strong frontend candidates from ones who "know some CSS."</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-11.html"><span class="nav-label">← Previous</span><span class="nav-title">JavaScript &amp; the Browser</span></a>
+      <a href="chapter-13.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">CSS &amp; Layout</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

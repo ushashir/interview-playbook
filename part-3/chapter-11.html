@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 11: JavaScript and the Browser — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html" class="active">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-3">Part 3 · Chapter 11</div>
+      <h1>JavaScript and the Browser</h1>
+      <p class="chapter-intro">JavaScript has more ways to surprise you than any other mainstream language. The candidate who says "I know JavaScript well" is often the most dangerous person in the room — because they don't know what they don't know.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>Why <code>var</code>, <code>let</code>, and <code>const</code> behave differently — and the classic bugs each one creates</li>
+        <li>How <code>this</code> works — and why it changes depending on how a function is called</li>
+        <li>What closures actually are, why they're powerful, and why they trip up interviewers</li>
+        <li>How event delegation works and why it matters for performance</li>
+        <li>The prototype chain — enough to answer any inheritance question confidently</li>
+        <li>Promises, async/await, and when to reach for Promise.all vs Promise.allSettled</li>
+        <li>The event loop — call stack, microtask queue, macrotask queue, and exactly why 1, 4, 3, 2</li>
+        <li>TypeScript's <code>unknown</code> vs <code>any</code> — the type-safe difference that senior engineers know cold</li>
+      </ul>
+    </div>
+
+    <!-- ====== SECTION 1: var, let, const ====== -->
+    <h2>1. var, let, and const — Scoping and Hoisting</h2>
+
+    <div class="box analogy">
+      <h4>The Party Announcement Analogy</h4>
+      <p><code>var</code> is like shouting your name at a party — everyone in the whole building hears it, from the basement to the penthouse. <code>let</code> and <code>const</code> are like whispering to the person next to you — only the people in your immediate conversation group know your name. When you leave the room, outsiders have no idea you were ever there.</p>
+    </div>
+
+    <div class="box key-term">
+      <h4>Definitions</h4>
+      <ul>
+        <li><strong>var:</strong> Function-scoped (or global if declared outside a function). Hoisted to the top of its function and initialized to <code>undefined</code> immediately. This means you can use a <code>var</code> variable before the line that declares it — it just evaluates to <code>undefined</code>.</li>
+        <li><strong>let:</strong> Block-scoped (confined to the nearest <code>{}</code>). Hoisted but NOT initialized — accessing it before the declaration throws a <code>ReferenceError</code>. This period between the top of the block and the declaration is called the Temporal Dead Zone (TDZ).</li>
+        <li><strong>const:</strong> Block-scoped, must be initialized at declaration, cannot be reassigned. The object or array it points to can still be mutated.</li>
+      </ul>
+    </div>
+
+    <pre><code>// var hoisting gotcha
+console.log(name); // undefined — not a ReferenceError!
+var name = "Alice";
+console.log(name); // "Alice"
+
+// let temporal dead zone
+console.log(city); // ReferenceError: Cannot access 'city' before initialization
+let city = "Lagos";
+
+// const: the binding is immutable, not the object
+const user = { name: "Alice" };
+user.name = "Bob"; // Fine — we're mutating the object
+user = {};         // TypeError: Assignment to constant variable</code></pre>
+
+    <h3>The Classic var-in-a-Loop Bug</h3>
+    <p>This is one of the most commonly asked JavaScript interview questions. It looks simple and trips up even experienced candidates who haven't thought about it carefully.</p>
+
+    <pre><code>// BUG: var is function-scoped, so i is shared across all closures
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100);
+}
+// Output: 3, 3, 3  (not 0, 1, 2)
+// By the time the timeouts fire, the loop has finished and i === 3
+
+// FIX 1: Use let (block-scoped — each iteration gets its own i)
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100);
+}
+// Output: 0, 1, 2
+
+// FIX 2: Use an IIFE to capture i by value (pre-ES6 solution)
+for (var i = 0; i < 3; i++) {
+  ((capturedI) => {
+    setTimeout(() => console.log(capturedI), 100);
+  })(i);
+}
+// Output: 0, 1, 2</code></pre>
+
+    <p>Why does the first example output 3, 3, 3? Because <code>var i</code> is not block-scoped to each loop iteration — it's the <em>same</em> variable throughout. When the setTimeout callbacks finally run (after the loop finishes), they all look up the current value of <code>i</code>, which is 3. <code>let</code> creates a new binding per iteration, so each callback captures its own independent copy.</p>
+
+    <!-- ====== SECTION 2: this ====== -->
+    <h2>2. The <code>this</code> Keyword</h2>
+
+    <div class="box analogy">
+      <h4>The "This Building" Analogy</h4>
+      <p>"This building" means something different depending on where you're standing when you say it. If you're in London, "this building" is Big Ben. If you're in Lagos, "this building" is your office. JavaScript's <code>this</code> works the same way — it always refers to the execution context, the "where" in which the code is running at that moment. Move the code to a different context, and <code>this</code> points somewhere new.</p>
+    </div>
+
+    <pre><code>// 1. Regular function — this is determined by HOW it's called
+function greet() {
+  console.log(this.name);
+}
+
+const person = { name: "Alice", greet };
+person.greet();   // "Alice" — called on the object, so this = person
+greet();          // undefined (or window.name in browsers) — called standalone
+
+// 2. Arrow function — this is lexically bound (from surrounding scope)
+const counter = {
+  count: 0,
+  start() {
+    // Arrow function captures `this` from start()'s scope = the counter object
+    setInterval(() => {
+      this.count++;
+      console.log(this.count); // Works correctly!
+    }, 1000);
+  }
+};
+
+// 3. The common bug: losing `this` by passing a method as a callback
+class Timer {
+  constructor() {
+    this.seconds = 0;
+  }
+  tick() {
+    this.seconds++; // `this` here depends on how tick() is called
+  }
+}
+
+const t = new Timer();
+setInterval(t.tick, 1000); // BUG: `this` inside tick() will be undefined (strict mode)
+                            // or the global object — not the Timer instance
+
+// FIX 1: bind()
+setInterval(t.tick.bind(t), 1000);
+
+// FIX 2: arrow function wrapper
+setInterval(() => t.tick(), 1000);
+
+// FIX 3: class field arrow function (binds at instance creation time)
+class Timer2 {
+  seconds = 0;
+  tick = () => {        // arrow function as class field
+    this.seconds++;     // `this` is always the instance
+  }
+}</code></pre>
+
+    <div class="box tip">
+      <h4>The one-line rule for this</h4>
+      <p>In a regular function, <code>this</code> is determined at <em>call time</em>. In an arrow function, <code>this</code> is determined at <em>definition time</em>. That's the whole model.</p>
+    </div>
+
+    <!-- ====== SECTION 3: Closures ====== -->
+    <h2>3. Closures</h2>
+
+    <div class="box analogy">
+      <h4>The Lunchbox Analogy</h4>
+      <p>You packed a lunchbox before school. Even after you leave the house and the front door is locked — the house's scope is gone — the lunchbox still has your sandwich inside. You carry it with you all day. A closure is a function that packed its own lunchbox: it carries the variables from the scope where it was created, even after that outer scope has finished executing and its local variables would normally be garbage collected.</p>
+    </div>
+
+    <div class="box key-term">
+      <h4>Technical definition</h4>
+      <p>A closure is a function bundled together with references to its lexical environment — the variables in scope at the time the function was defined. The function "closes over" those variables, keeping them alive as long as the function itself is reachable.</p>
+    </div>
+
+    <pre><code>// Basic closure: the returned function remembers `count`
+function makeCounter() {
+  let count = 0; // This variable lives in the closure
+  return {
+    increment() { count++; },
+    decrement() { count--; },
+    value()     { return count; }
+  };
+}
+
+const counter = makeCounter();
+counter.increment();
+counter.increment();
+counter.increment();
+console.log(counter.value()); // 3
+
+// count is private — there's no way to set it directly from outside
+// This is the Module Pattern in its simplest form
+
+// ------------------------------------------------
+// Practical: memoization using a closure
+function memoize(fn) {
+  const cache = new Map(); // cache lives in the closure
+  return function(...args) {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      return cache.get(key); // cache hit
+    }
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  };
+}
+
+function slowSquare(n) {
+  // Simulate expensive computation
+  return n * n;
+}
+
+const fastSquare = memoize(slowSquare);
+fastSquare(10); // Computes: 100
+fastSquare(10); // Cache hit: 100 — no recomputation
+
+// ------------------------------------------------
+// Classic closure bug in loops (with var — see section 1)
+// The fix using let or IIFE was shown above</code></pre>
+
+    <p>Closures are the mechanism behind private state in JavaScript. Without <code>class private fields</code> or closures, there was historically no native way to create truly private data. The counter example above is the classic module pattern — <code>count</code> is inaccessible from outside because nothing outside has a reference to the lexical environment where it lives.</p>
+
+    <!-- ====== SECTION 4: Event Delegation ====== -->
+    <h2>4. Event Delegation</h2>
+
+    <div class="box analogy">
+      <h4>The Front Desk Analogy</h4>
+      <p>Instead of hiring a personal receptionist for every single office in a skyscraper, you hire one receptionist at the front desk. Every visitor goes through the front desk, which checks who they're visiting and routes them to the right floor. Event delegation works the same way — instead of attaching a listener to every child element, you attach one listener to a parent, and let the event bubble up to it. The parent checks <code>event.target</code> to figure out which child was actually clicked.</p>
+    </div>
+
+    <pre><code>// WITHOUT delegation: one listener per item (bad for large lists)
+document.querySelectorAll('.task-item').forEach(item => {
+  item.addEventListener('click', handleClick);
+});
+// Problem: if you add new items dynamically, they don't get the listener.
+// Problem: 1000 items = 1000 listeners = memory pressure.
+
+// WITH delegation: one listener on the parent
+const taskList = document.getElementById('task-list');
+
+taskList.addEventListener('click', function(event) {
+  // event.target: the element the user actually clicked
+  // event.currentTarget: the element with the listener (taskList)
+
+  const item = event.target.closest('.task-item');
+  if (!item) return; // Click was somewhere else in the parent — ignore
+
+  const taskId = item.dataset.taskId;
+  console.log('Clicked task:', taskId);
+});
+
+// Dynamically added items automatically work — no re-binding needed
+function addTask(id, text) {
+  const li = document.createElement('li');
+  li.className = 'task-item';
+  li.dataset.taskId = id;
+  li.textContent = text;
+  taskList.appendChild(li); // The delegation listener catches clicks on this too
+}</code></pre>
+
+    <p>Event delegation works because of event bubbling: when you click a <code>&lt;li&gt;</code>, the click event fires on the <code>&lt;li&gt;</code>, then bubbles up to the <code>&lt;ul&gt;</code>, then to <code>&lt;body&gt;</code>, then to <code>window</code>. The parent listener intercepts it at the <code>&lt;ul&gt;</code> level. <code>event.target</code> tells you where the event originated. <code>event.currentTarget</code> is always the element with the listener attached.</p>
+
+    <!-- ====== SECTION 5: Prototype Chain ====== -->
+    <h2>5. The Prototype Chain</h2>
+
+    <div class="box analogy">
+      <h4>The Family Inheritance Analogy</h4>
+      <p>If you ask a person "do you own a car?" and they say no, you don't give up — you check their parents. If their parents don't own one either, you check the grandparents. The search walks up the family tree until you either find it or run out of family. JavaScript's prototype chain works exactly this way: when you access a property on an object, JavaScript looks at that object first, then its prototype, then the prototype's prototype, all the way up to <code>null</code>.</p>
+    </div>
+
+    <pre><code>// Low-level: Object.create()
+const animal = {
+  breathe() { return "inhale, exhale"; }
+};
+
+const dog = Object.create(animal); // dog's prototype IS animal
+dog.bark = function() { return "woof"; };
+
+dog.bark();    // Found directly on dog
+dog.breathe(); // Not on dog — found on dog's prototype (animal)
+
+// How it works internally:
+// dog.__proto__ === animal         (true)
+// animal.__proto__ === Object.prototype (true)
+// Object.prototype.__proto__ === null  (end of chain)
+
+// ------------------------------------------------
+// class is syntactic sugar over the same prototype system
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  breathe() {
+    return `${this.name} inhales, exhales`;
+  }
+}
+
+class Dog extends Animal {
+  bark() {
+    return `${this.name} says woof`;
+  }
+}
+
+const rex = new Dog("Rex");
+rex.bark();    // Own method
+rex.breathe(); // Inherited via prototype chain from Animal.prototype
+
+// Verify:
+// Object.getPrototypeOf(rex) === Dog.prototype    (true)
+// Object.getPrototypeOf(Dog.prototype) === Animal.prototype (true)</code></pre>
+
+    <div class="box tip">
+      <h4>Interview-ready one-liner</h4>
+      <p>"JavaScript uses prototypal inheritance — every object has a hidden link (<code>[[Prototype]]</code>) to another object. Property lookup walks this chain upward until the property is found or we hit <code>null</code>. The <code>class</code> keyword doesn't change this model — it's syntactic sugar that sets up the same prototype links."</p>
+    </div>
+
+    <!-- ====== SECTION 6: Promises and async/await ====== -->
+    <h2>6. Promises and async/await</h2>
+
+    <div class="box analogy">
+      <h4>The Restaurant Order Analogy</h4>
+      <p>You walk into a restaurant and place your order. The waiter hands you a buzzer and walks away — that's the Promise being created (pending state). The kitchen is working on your food. Eventually, either your buzzer goes off and you get your meal (fulfilled), or the waiter comes back and tells you they're out of the dish (rejected). <code>async/await</code> is just a more readable syntax for waiting for the buzzer — you sit at the table and "await" your food, but the kitchen is still asynchronous underneath.</p>
+    </div>
+
+    <pre><code>// Promise states: pending → fulfilled OR rejected
+
+// Creating a promise manually
+const fetchUser = (id) => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (id > 0) {
+      resolve({ id, name: "Alice" }); // fulfilled
+    } else {
+      reject(new Error("Invalid user ID")); // rejected
+    }
+  }, 500);
+});
+
+// .then()/.catch() chaining
+fetchUser(1)
+  .then(user => {
+    console.log("Got user:", user.name);
+    return fetchUser(2); // chain another promise
+  })
+  .then(user2 => console.log("Also got:", user2.name))
+  .catch(err => console.error("Error:", err.message))
+  .finally(() => console.log("Done, either way"));
+
+// async/await — same logic, more readable
+async function loadUsers() {
+  try {
+    const user1 = await fetchUser(1);
+    console.log("Got user:", user1.name);
+    const user2 = await fetchUser(2);
+    console.log("Also got:", user2.name);
+  } catch (err) {
+    console.error("Error:", err.message);
+  } finally {
+    console.log("Done, either way");
+  }
+}
+
+// ------------------------------------------------
+// Promise combinators — know when to use each
+
+// Promise.all: all must succeed; fails fast if any reject
+// Use when results are independent but you need all of them
+const [users, posts] = await Promise.all([
+  fetchUsers(),
+  fetchPosts()
+]); // Both start simultaneously — takes max(time1, time2), not sum
+
+// Promise.race: resolves/rejects with the first one to settle
+// Use for timeout patterns
+const result = await Promise.race([
+  fetchData(),
+  new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 5000))
+]);
+
+// Promise.allSettled: waits for all, never fails-fast
+// Returns array of { status: 'fulfilled'|'rejected', value|reason }
+// Use when you want to know which succeeded and which failed
+const results = await Promise.allSettled([
+  fetchUser(1),  // might succeed
+  fetchUser(-1), // will reject
+  fetchUser(3)   // might succeed
+]);
+
+results.forEach(r => {
+  if (r.status === 'fulfilled') console.log("OK:", r.value);
+  else console.log("FAIL:", r.reason.message);
+});
+
+// ------------------------------------------------
+// Common mistake: not handling rejections
+async function badCode() {
+  const data = await fetchUser(1); // If this rejects and there's no try/catch...
+  // ...you get an UnhandledPromiseRejection — crashes Node.js in newer versions
+}
+
+// Always wrap await calls in try/catch or attach .catch() to the promise</code></pre>
+
+    <!-- ====== SECTION 7: Event Loop ====== -->
+    <h2>7. The Event Loop</h2>
+
+    <div class="box analogy">
+      <h4>The Restaurant Chef Analogy</h4>
+      <p>Picture a chef working alone in a kitchen. He can only cook one dish at a time — JavaScript is single-threaded. But he doesn't stand at the oven staring at a roast while it cooks. He starts the roast, sets a timer, and goes to chop vegetables. When the roast timer rings, he finishes what he's doing on the cutting board, then tends to the roast. The event loop is that chef's discipline: one task at a time, but never idle, checking queues between each task.</p>
+    </div>
+
+    <div class="box key-term">
+      <h4>The four components of the event loop</h4>
+      <ul>
+        <li><strong>Call Stack:</strong> Where synchronous code executes. One thing at a time. LIFO (last in, first out).</li>
+        <li><strong>Web APIs / Node.js APIs:</strong> Where async operations live while they wait (timers, network, I/O). Managed by the browser or Node.js, not JavaScript itself.</li>
+        <li><strong>Microtask Queue:</strong> Where Promise callbacks (<code>.then()</code>, <code>await</code>) wait. Drained completely before the next macrotask runs.</li>
+        <li><strong>Macrotask Queue (Callback Queue):</strong> Where setTimeout, setInterval, and I/O callbacks wait. One macrotask is run per event loop "tick."</li>
+      </ul>
+    </div>
+
+    <pre><code>// The classic interview question — predict the output:
+console.log(1);
+
+setTimeout(() => console.log(2), 0);
+
+Promise.resolve().then(() => console.log(3));
+
+console.log(4);
+
+// Output: 1, 4, 3, 2</code></pre>
+
+    <p>Let's trace exactly what happens, step by step:</p>
+    <ol>
+      <li><code>console.log(1)</code> — pushed to call stack, executes synchronously, prints <strong>1</strong>, popped.</li>
+      <li><code>setTimeout(() =&gt; console.log(2), 0)</code> — the browser's Timer API receives the callback. Even with 0ms delay, it goes to the macrotask queue after the minimum delay. Call stack continues.</li>
+      <li><code>Promise.resolve().then(() =&gt; console.log(3))</code> — the Promise is already resolved. The <code>.then()</code> callback is scheduled into the <strong>microtask queue</strong> immediately.</li>
+      <li><code>console.log(4)</code> — pushed to call stack, executes, prints <strong>4</strong>, popped.</li>
+      <li>Call stack is now empty. Before the event loop picks the next macrotask, it drains the <strong>microtask queue</strong> completely. The <code>() =&gt; console.log(3)</code> callback runs: prints <strong>3</strong>.</li>
+      <li>Microtask queue is now empty. The event loop picks the next macrotask: the setTimeout callback runs: prints <strong>2</strong>.</li>
+    </ol>
+
+    <p>The critical rule: <strong>microtasks always run before the next macrotask</strong>. This is why Promises (microtasks) always resolve before timeouts (macrotasks), even if the timeout has a delay of zero.</p>
+
+    <pre><code>// More complex example — can you predict this?
+console.log('start');
+
+setTimeout(() => console.log('timeout 1'), 0);
+
+Promise.resolve()
+  .then(() => {
+    console.log('promise 1');
+    return Promise.resolve();
+  })
+  .then(() => console.log('promise 2'));
+
+setTimeout(() => console.log('timeout 2'), 0);
+
+console.log('end');
+
+// Output:
+// start
+// end
+// promise 1
+// promise 2
+// timeout 1
+// timeout 2</code></pre>
+
+    <p>Note that "promise 2" still appears before both timeouts, even though it's chained off promise 1. Each <code>.then()</code> in a Promise chain schedules a new microtask, but all microtasks drain before any macrotask runs.</p>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior answer to "Explain the event loop"</span>
+      "JavaScript is single-threaded, so it uses a queue for async stuff. Callbacks go into the queue and run when the main thread is free."
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior answer to "Explain the event loop"</span>
+      "JavaScript has a single call stack — it can only do one thing at a time. Async operations are handled by the host environment (browser or Node.js) and their callbacks are placed into queues. There are two kinds of queues that matter: the microtask queue (Promises, queueMicrotask) and the macrotask queue (setTimeout, setInterval, I/O). After each synchronous task completes, the engine fully drains the microtask queue before picking the next macrotask. This is why Promise.resolve().then() fires before setTimeout with a zero delay — they're in different queues, and microtasks always go first. In practice, this means you need to be careful about long microtask chains blocking rendering, and you need to understand that 'setTimeout 0' doesn't mean 'immediate' — it means 'after current microtasks and at least one frame.'"
+    </div>
+
+    <!-- ====== SECTION 8: TypeScript unknown vs any ====== -->
+    <h2>8. TypeScript: unknown vs any</h2>
+
+    <div class="box analogy">
+      <h4>The Package Label Analogy</h4>
+      <p><code>any</code> is like labeling a package "stuff" — you can put anything inside and take anything out, and the postal service will never question you. Zero checking. <code>unknown</code> is like labeling a package "unknown contents" — you have to open it and inspect it before you're allowed to use what's inside. One approach is convenient but dangerous. The other is safe by design.</p>
+    </div>
+
+    <pre><code>// any: completely disables type checking
+function processAny(value: any) {
+  value.toUpperCase(); // TypeScript is silent — no error
+  value.nonExistentMethod(); // Also silent — TypeScript trusts you
+  return value * 2; // Still silent — may crash at runtime
+}
+
+// unknown: type-safe top type — you MUST narrow before using
+function processUnknown(value: unknown) {
+  value.toUpperCase(); // TypeScript ERROR: Object is of type 'unknown'
+
+  // You must prove to TypeScript what the type is before using it
+  if (typeof value === 'string') {
+    console.log(value.toUpperCase()); // OK — narrowed to string
+  }
+
+  if (value instanceof Error) {
+    console.log(value.message); // OK — narrowed to Error
+  }
+
+  if (typeof value === 'number') {
+    return value * 2; // OK — narrowed to number
+  }
+}
+
+// ------------------------------------------------
+// Real-world use case: JSON parsing
+function safeParseJSON(json: string): unknown {
+  return JSON.parse(json); // JSON.parse returns `any` — we upgrade to `unknown`
+}
+
+const data = safeParseJSON('{"name": "Alice", "age": 30}');
+
+// data.name — TypeScript ERROR: Object is of type 'unknown'
+
+// Fix: narrow with a type guard
+function isUser(value: unknown): value is { name: string; age: number } {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'name' in value &&
+    'age' in value
+  );
+}
+
+if (isUser(data)) {
+  console.log(data.name); // OK — TypeScript knows this is a user
+  console.log(data.age);
+}
+
+// ------------------------------------------------
+// When to use each:
+// - any: almost never in production code. Use when migrating a JS codebase to TS
+//         and you need to ship quickly. Always treat it as temporary.
+// - unknown: for values coming from external sources — API responses,
+//             JSON parsing, user input, third-party library returns.
+//             Forces you to handle all cases explicitly.</code></pre>
+
+    <div class="box warning">
+      <h4>The silent any problem</h4>
+      <p><code>any</code> is contagious. A function that returns <code>any</code> spreads <code>any</code> to everything it touches downstream, silently disabling type safety across a large surface area. A codebase that uses <code>any</code> liberally gets the syntax of TypeScript without the safety guarantees. Prefer <code>unknown</code> — it forces you to be honest about what you know.</p>
+    </div>
+
+    <!-- ====== PRACTICE QUESTIONS ====== -->
+    <h2>Practice Questions</h2>
+
+    <div class="exercises">
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p><strong>What is the output of the following code? Explain each line.</strong></p>
+        <pre><code>console.log(x);
+var x = 5;
+console.log(x);
+
+console.log(y);
+let y = 10;</code></pre>
+        <p><strong>Answer:</strong> Line 1 prints <code>undefined</code> — <code>var x</code> is hoisted and initialized to undefined. Line 3 prints <code>5</code>. Line 5 throws a <code>ReferenceError</code> — <code>let y</code> is in the temporal dead zone; accessing it before the declaration is an error.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p><strong>Implement a <code>debounce</code> function using closures. It should delay invoking a function until after a specified wait time has elapsed since the last call.</strong></p>
+        <pre><code>// Your implementation:
+function debounce(fn, delay) {
+  let timeoutId = null; // lives in the closure
+
+  return function(...args) {
+    // Cancel the previous pending call
+    if (timeoutId) clearTimeout(timeoutId);
+
+    // Schedule a new call
+    timeoutId = setTimeout(() => {
+      fn.apply(this, args); // preserve `this` context
+      timeoutId = null;
+    }, delay);
+  };
+}
+
+// Usage:
+const onSearch = debounce((query) => {
+  console.log("Searching for:", query);
+}, 300);
+
+// If called 5 times in 200ms, only the last call fires (after 300ms of silence)
+onSearch("j");
+onSearch("ja");
+onSearch("jav");
+onSearch("java");
+onSearch("javascript"); // This is the only one that actually fires</code></pre>
+        <p>The closure is key here: <code>timeoutId</code> persists between calls because it lives in the lexical environment of the returned function. Each call can clear and reset it.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p><strong>Predict the output of the following snippet and trace each step of the event loop.</strong></p>
+        <pre><code>async function main() {
+  console.log('A');
+
+  await Promise.resolve();
+  console.log('B');
+
+  setTimeout(() => console.log('C'), 0);
+
+  await new Promise(resolve => setTimeout(resolve, 0));
+  console.log('D');
+}
+
+console.log('1');
+main();
+console.log('2');</code></pre>
+        <p><strong>Output:</strong> <code>1, A, 2, B, C, D</code></p>
+        <p><strong>Trace:</strong></p>
+        <ol>
+          <li><code>console.log('1')</code> — synchronous, prints <strong>1</strong>.</li>
+          <li><code>main()</code> is called. <code>console.log('A')</code> runs synchronously — prints <strong>A</strong>.</li>
+          <li><code>await Promise.resolve()</code> — Promise is already resolved; the continuation (everything after await) is scheduled as a microtask. <code>main()</code> suspends and control returns to the caller.</li>
+          <li><code>console.log('2')</code> — synchronous, prints <strong>2</strong>. Call stack now empty.</li>
+          <li>Microtask queue drains: the continuation of <code>main()</code> resumes. <code>console.log('B')</code> — prints <strong>B</strong>.</li>
+          <li><code>setTimeout(() => console.log('C'), 0)</code> — C's callback goes to macrotask queue.</li>
+          <li><code>await new Promise(resolve => setTimeout(resolve, 0))</code> — the promise won't resolve until the setTimeout fires. <code>main()</code> suspends again.</li>
+          <li>Macrotask queue: C's setTimeout fires first (it was queued first). Prints <strong>C</strong>. The resolve() callback from step 7 also fires, resolving the awaited promise.</li>
+          <li>Promise resolves → continuation of main() queued as microtask → drains immediately → <code>console.log('D')</code> — prints <strong>D</strong>.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li><code>var</code> is function-scoped and hoisted (initialized to <code>undefined</code>); <code>let</code> and <code>const</code> are block-scoped and sit in a temporal dead zone before their declaration — always prefer <code>let</code>/<code>const</code>.</li>
+        <li><code>this</code> in regular functions is determined at call time; in arrow functions it is lexically bound at definition time — this distinction fixes a whole class of callback bugs.</li>
+        <li>A closure is a function plus its lexical environment; this enables private state, factory functions, and memoization, and is the mechanism behind the classic for-var-setTimeout bug.</li>
+        <li>The event loop drains the microtask queue completely after every synchronous task before picking the next macrotask — Promises always run before timeouts.</li>
+        <li>Prefer <code>unknown</code> over <code>any</code> in TypeScript; <code>unknown</code> forces type narrowing and keeps type safety intact across your codebase.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> We move from the language to the framework — React component lifecycle, state management patterns, performance optimization, and how to architect a large frontend application that doesn't fall apart in six months.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-10.html"><span class="nav-label">← Previous</span><span class="nav-title">Frontend Interview Fundamentals</span></a>
+      <a href="chapter-12.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Frameworks &amp; Component Architecture</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

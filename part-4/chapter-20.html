@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 20: Performance, Reliability, and Observability — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html" class="active">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 20</div>
+      <h1>Performance, Reliability, and Observability</h1>
+      <p class="chapter-intro">You can't fix what you can't see. The difference between a system that's being maintained and a system that's being operated is observability. Operators know what's happening before users report it.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>What P50/P95/P99 latency actually means and why P99 matters more than average</li>
+        <li>The vocabulary of reliability: SLI, SLO, SLA, and error budgets</li>
+        <li>The three pillars of observability — logs, metrics, and traces — with real NestJS code</li>
+        <li>How to handle graceful shutdown in a Kubernetes environment</li>
+        <li>Server-side rate limiting with a Redis sliding window implementation</li>
+        <li>The structured approach senior engineers use to debug a production outage</li>
+      </ul>
+    </div>
+
+    <!-- BIG IDEA ANALOGY -->
+    <div class="box analogy">
+      <h4>Analogy: Running a Hospital</h4>
+      <p>A hospital doesn't wait for patients to arrive to know how busy it is. The moment you walk into a major hospital, there are dashboards tracking beds occupied, ER wait times, ICU capacity, ventilators in use, and staff-to-patient ratios. When any metric crosses a threshold, alarms fire and staff take action — before the situation becomes a crisis.</p>
+      <p>A well-operated software system works exactly the same way. You define what healthy looks like (your SLOs). You measure constantly (your SLIs). You alert when thresholds are breached. And you have runbooks for exactly what to do when the alarm sounds — so you're not guessing at 2 AM when users are down.</p>
+      <p>Observability is your system's vital-signs monitor. Without it, you're not operating a system. You're just hoping.</p>
+    </div>
+
+    <h2>1. P50/P95/P99 Latency — The Vocabulary of Performance</h2>
+
+    <div class="box analogy">
+      <h4>Analogy: The Marathon</h4>
+      <p>Picture a marathon with 1,000 runners. The P50 (median) finisher is the person in 500th place — exactly half the field finished faster, half finished slower. The P95 finisher came in 950th — they finished faster than 950 runners but slower than 50. The P99 finisher came in 990th — faster than 990 people, slower than only 10.</p>
+      <p>Now map this to API requests. P50 latency is your typical experience. P99 is the slowest "regular" request — the one your most frustrated user just experienced. They called support. They tweeted. P99 is your problem child.</p>
+    </div>
+
+    <p>The critical insight is that <strong>average latency lies</strong>. Suppose you have 99 requests that complete in 10 ms and one request that takes 10,000 ms. The average is (99 × 10 + 10,000) / 100 = 109.9 ms — totally acceptable looking. But your P99 is 10,000 ms. One in every hundred users is waiting 10 seconds. That user is your loudest critic on Twitter.</p>
+
+    <p>Tail latency — reducing P99 and P99.9 — is one of the hardest engineering problems in distributed systems. Common culprits:</p>
+    <ul>
+      <li><strong>Lock contention:</strong> one slow database query blocks all concurrent requests sharing that connection</li>
+      <li><strong>Garbage collection pauses:</strong> JVM GC, Node.js GC, or Go GC stops the world briefly but often</li>
+      <li><strong>Network jitter:</strong> occasional dropped packets force TCP retransmits</li>
+      <li><strong>Cold-start effects:</strong> caches miss after a pod restarts, causing a burst of slow database reads</li>
+      <li><strong>Fan-out amplification:</strong> a single API call triggers 20 microservice calls; the slowest one determines your total response time</li>
+    </ul>
+
+    <div class="box key-term">
+      <h4>Key Term: Percentile Latency</h4>
+      <p>P<em>n</em> latency means: n% of requests completed faster than this duration. P99 = 200 ms means 99% of requests completed in under 200 ms, and 1% took longer. Always ask "at what percentile?" when someone mentions latency numbers. "Our average response time is 50 ms" is a much weaker claim than "our P99 is 120 ms."</p>
+    </div>
+
+    <p>Here is how you record latency in a NestJS application using a Prometheus histogram interceptor. The histogram automatically computes P50, P95, and P99 from the recorded observations:</p>
+
+    <pre><code>// latency.interceptor.ts
+import {
+  Injectable,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler,
+} from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Registry, Histogram } from 'prom-client';
+
+@Injectable()
+export class LatencyInterceptor implements NestInterceptor {
+  private readonly histogram: Histogram&lt;string&gt;;
+
+  constructor(registry: Registry) {
+    this.histogram = new Histogram({
+      name: 'http_request_duration_seconds',
+      help: 'HTTP request latency in seconds',
+      labelNames: ['method', 'route', 'status_code'],
+      // Buckets cover P50 through P99.9 for typical web APIs
+      buckets: [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10],
+      registers: [registry],
+    });
+  }
+
+  intercept(context: ExecutionContext, next: CallHandler): Observable&lt;any&gt; {
+    const req = context.switchToHttp().getRequest();
+    const end = this.histogram.startTimer({
+      method: req.method,
+      route: req.route?.path ?? req.url,
+    });
+
+    return next.handle().pipe(
+      tap({
+        next: () => {
+          const res = context.switchToHttp().getResponse();
+          end({ status_code: res.statusCode });
+        },
+        error: () => {
+          end({ status_code: 500 });
+        },
+      }),
+    );
+  }
+}
+
+// In Prometheus/Grafana, query percentiles like this:
+// P99: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))
+// P95: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+// P50: histogram_quantile(0.50, rate(http_request_duration_seconds_bucket[5m]))</code></pre>
+
+    <div class="box tip">
+      <h4>Interview tip: always specify the percentile</h4>
+      <p>When an interviewer asks "what's the latency of your system?" never answer with a bare number. Say: "Our P50 is around 20 ms, P95 is 80 ms, and our P99 is 350 ms. We have an SLO that keeps P99 under 500 ms." This immediately signals you understand how production systems are actually measured.</p>
+    </div>
+
+    <h2>2. SLI, SLO, and SLA — The Vocabulary of Reliability</h2>
+
+    <div class="box analogy">
+      <h4>Analogy: The Pizza Delivery Promise</h4>
+      <p>A pizza company measures whether deliveries arrive within 30 minutes. The SLI (Service Level Indicator) is the raw measurement: "Today, 94% of deliveries arrived within 30 minutes." The SLO (Service Level Objective) is the internal target the team commits to: "We aim for 95% of deliveries within 30 minutes." The SLA (Service Level Agreement) is the legal contract with the customer: "If fewer than 90% of deliveries arrive on time, you get a free pizza." The SLA is deliberately looser than the SLO — the gap between them is the buffer that prevents every minor SLO breach from triggering a refund.</p>
+    </div>
+
+    <p>These three terms appear in nearly every senior backend interview. Know them cold:</p>
+
+    <ul>
+      <li><strong>SLI (Service Level Indicator):</strong> A quantitative measurement of service behavior. Examples: request success rate, P99 latency, availability (uptime percentage), error rate. The SLI is what you actually measure.</li>
+      <li><strong>SLO (Service Level Objective):</strong> The target value for an SLI that your team commits to internally. Example: "99.9% of requests succeed" or "P99 latency is below 500 ms." The SLO lives in your runbooks and alerting rules.</li>
+      <li><strong>SLA (Service Level Agreement):</strong> A contractual commitment to customers, usually expressed as a consequence (credit, refund, contract termination) if the SLO is not met. SLAs are set 10–20% more lenient than your SLO to give you a safety buffer.</li>
+    </ul>
+
+    <p>The practical corollary of an SLO is the <strong>error budget</strong>. A 99.9% availability SLO means you're allowed 0.1% downtime. Over a 30-day month, that's 43.8 minutes of allowed downtime. Once you've used it, any further downtime is an SLO violation. Smart teams spend their error budget deliberately — planned maintenance, risky deployments, experiments. When the budget runs low, they freeze risky changes.</p>
+
+    <div class="box key-term">
+      <h4>Key Term: Error Budget</h4>
+      <p>Error budget = 1 − SLO. It's the amount of unreliability you're allowed before violating your SLO. If you have plenty of error budget, you can move fast and take risks. If you're near zero, you slow down, freeze risky releases, and prioritize reliability work. This is how reliability becomes a first-class engineering constraint rather than an afterthought.</p>
+    </div>
+
+    <h2>3. The Three Pillars of Observability</h2>
+
+    <p>Observability is the ability to understand the internal state of a system from its external outputs. The three pillars — logs, metrics, and traces — give you different angles on the same running system. Together they let you answer: what happened, how much, and where.</p>
+
+    <h3>Pillar 1: Logs — What Happened</h3>
+
+    <div class="box analogy">
+      <h4>Analogy: The Pilot's Flight Recorder</h4>
+      <p>A flight recorder captures every significant event during a flight: altitude changes, engine readings, cockpit voice. After an incident, investigators replay the recording to reconstruct exactly what happened and in what order. Logs are your system's flight recorder — timestamped, structured events that tell the story of what happened to specific requests.</p>
+    </div>
+
+    <p>The key word is <em>structured</em>. A plain-text log like <code>"Error processing request"</code> is nearly useless at scale. You can't query it, aggregate it, or alert on it reliably. A structured JSON log is a machine-readable event:</p>
+
+    <pre><code>// logger.config.ts — Winston structured logger for NestJS
+import { createLogger, format, transports } from 'winston';
+
+export const logger = createLogger({
+  format: format.combine(
+    format.timestamp(),
+    format.errors({ stack: true }),
+    format.json(),  // Output as structured JSON, not plain text
+  ),
+  defaultMeta: {
+    service: 'payment-service',
+    version: process.env.APP_VERSION,
+  },
+  transports: [
+    new transports.Console(),
+    // In production, also ship to a log aggregator (Datadog, Loki, etc.)
+  ],
+});
+
+// Usage — always include request context
+logger.info('Payment processed', {
+  requestId: req.headers['x-request-id'],
+  userId: req.user.id,
+  amount: payment.amount,
+  currency: payment.currency,
+  durationMs: Date.now() - startTime,
+});
+
+logger.error('Payment failed', {
+  requestId: req.headers['x-request-id'],
+  userId: req.user.id,
+  error: err.message,
+  stack: err.stack,
+  paymentMethod: req.body.method,
+});
+
+// The JSON output looks like:
+// {
+//   "level": "info",
+//   "message": "Payment processed",
+//   "service": "payment-service",
+//   "requestId": "abc-123",
+//   "userId": "user-456",
+//   "amount": 9900,
+//   "timestamp": "2026-05-18T10:32:11.043Z"
+// }
+</code></pre>
+
+    <p>Structured logs let you query across millions of events: "Show me all errors for userId=user-456 in the last hour," or "What's the P99 duration for payment processing today?" Log aggregators like Datadog, Grafana Loki, and AWS CloudWatch Logs Insights make this possible at scale.</p>
+
+    <h3>Pillar 2: Metrics — How Much, Over Time</h3>
+
+    <div class="box analogy">
+      <h4>Analogy: The Car Dashboard</h4>
+      <p>Your car's dashboard doesn't log every engine event. It summarizes current state: speed, RPM, fuel level, temperature. Metrics work the same way — they aggregate numerical measurements over time so you can see trends, spot anomalies, and set thresholds. You don't need every individual reading; you need the shape of what's happening.</p>
+    </div>
+
+    <p>There are three fundamental metric types:</p>
+    <ul>
+      <li><strong>Counter:</strong> monotonically increasing value. Total requests served, total errors, total bytes sent. Always goes up.</li>
+      <li><strong>Gauge:</strong> value that goes up and down. Current active connections, current queue depth, memory in use.</li>
+      <li><strong>Histogram:</strong> distribution of values across configurable buckets. Used for latency and request size. Lets you compute percentiles.</li>
+    </ul>
+
+    <pre><code>// metrics.service.ts — custom Prometheus metrics in NestJS
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Registry, Counter, Gauge, Histogram } from 'prom-client';
+
+@Injectable()
+export class MetricsService implements OnModuleInit {
+  private readonly registry = new Registry();
+  private requestCounter: Counter&lt;string&gt;;
+  private activeConnections: Gauge&lt;string&gt;;
+  private dbQueryDuration: Histogram&lt;string&gt;;
+
+  onModuleInit() {
+    this.requestCounter = new Counter({
+      name: 'http_requests_total',
+      help: 'Total HTTP requests received',
+      labelNames: ['method', 'route', 'status'],
+      registers: [this.registry],
+    });
+
+    this.activeConnections = new Gauge({
+      name: 'http_active_connections',
+      help: 'Number of currently active HTTP connections',
+      registers: [this.registry],
+    });
+
+    this.dbQueryDuration = new Histogram({
+      name: 'db_query_duration_seconds',
+      help: 'Database query execution time',
+      labelNames: ['operation', 'table'],
+      buckets: [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1, 5],
+      registers: [this.registry],
+    });
+  }
+
+  incrementRequest(method: string, route: string, status: number) {
+    this.requestCounter.inc({ method, route, status: String(status) });
+  }
+
+  trackConnection(delta: 1 | -1) {
+    if (delta === 1) this.activeConnections.inc();
+    else this.activeConnections.dec();
+  }
+
+  measureDbQuery(operation: string, table: string): () => void {
+    return this.dbQueryDuration.startTimer({ operation, table });
+  }
+
+  async getMetrics(): Promise&lt;string&gt; {
+    return this.registry.metrics();
+  }
+}
+
+// Expose on /metrics endpoint for Prometheus to scrape
+// In your controller:
+@Get('metrics')
+async metrics(@Res() res: Response) {
+  res.set('Content-Type', 'text/plain');
+  res.send(await this.metricsService.getMetrics());
+}</code></pre>
+
+    <h3>Pillar 3: Traces — Where in the System</h3>
+
+    <div class="box analogy">
+      <h4>Analogy: Package Tracking</h4>
+      <p>When you order online and a package is delayed, you open the tracking page. You see every checkpoint: "Left warehouse 10:00, arrived sorting facility 14:00, out for delivery 08:00 next day — delayed at customs." Each checkpoint is a span. The entire journey from order to doorstep is a trace. Distributed tracing works the same way for a request that passes through multiple services.</p>
+    </div>
+
+    <p>In a microservices architecture, a single user-facing request might touch an API gateway, an auth service, a user service, a product service, and a payment service. Logs and metrics tell you that something is slow — but they can't tell you <em>which service</em> on the call chain added the latency. Traces can.</p>
+
+    <p>OpenTelemetry is the industry standard for instrumentation. Here is how you propagate trace context between two NestJS services:</p>
+
+    <pre><code">// tracing.ts — initialize OpenTelemetry at app startup (before any imports)
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
+import { NestInstrumentation } from '@opentelemetry/instrumentation-nestjs-core';
+
+const sdk = new NodeSDK({
+  serviceName: 'order-service',
+  traceExporter: new OTLPTraceExporter({
+    url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT, // e.g. http://jaeger:4318/v1/traces
+  }),
+  instrumentations: [
+    new HttpInstrumentation(),     // auto-instruments outgoing HTTP calls
+    new NestInstrumentation(),     // auto-instruments NestJS request lifecycle
+  ],
+});
+
+sdk.start(); // must be before requiring @nestjs/core
+
+// When order-service calls payment-service via HTTP,
+// OpenTelemetry automatically injects trace context headers:
+//   traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
+// payment-service reads this header and continues the same trace.
+
+// Adding a custom span inside a service method:
+import { trace, SpanStatusCode } from '@opentelemetry/api';
+
+async processOrder(orderId: string): Promise&lt;Order&gt; {
+  const tracer = trace.getTracer('order-service');
+  return tracer.startActiveSpan('processOrder', async (span) => {
+    try {
+      span.setAttribute('order.id', orderId);
+      const result = await this.orderRepository.find(orderId);
+      span.setAttribute('order.items_count', result.items.length);
+      return result;
+    } catch (err) {
+      span.setStatus({ code: SpanStatusCode.ERROR, message: err.message });
+      throw err;
+    } finally {
+      span.end();
+    }
+  });
+}</code></pre>
+
+    <p>With traces flowing into Jaeger or Grafana Tempo, you get a flame graph showing exactly where time was spent across every service in a single request's journey. A 2-second response that felt mysterious in logs becomes instantly obvious: the payment service spent 1.8 seconds waiting for a database query that was missing an index.</p>
+
+    <div class="box tip">
+      <h4>How logs, metrics, and traces work together</h4>
+      <p>Metrics tell you something is wrong: error rate spiked at 14:32. Traces tell you where: the 14:32 spike started in the inventory service. Logs tell you what: "Connection refused to database replica-3" repeated 847 times between 14:32 and 14:45. You need all three. Any two is not enough.</p>
+    </div>
+
+    <h2>4. Graceful Shutdown in Kubernetes</h2>
+
+    <div class="box analogy">
+      <h4>Analogy: Closing a Restaurant at End of Service</h4>
+      <p>A good restaurant manager doesn't flip the "CLOSED" sign and immediately kick out customers who are mid-meal. They stop seating new customers. They let the kitchen finish the existing orders. They allow diners to finish eating. Then they close. Kubernetes does the same thing to your pod — it sends a polite signal to stop accepting new work, waits for in-flight requests to finish, then terminates the process.</p>
+    </div>
+
+    <p>When Kubernetes needs to terminate a pod — during a rolling deployment, a node drain, or a scale-down — it sends a <code>SIGTERM</code> signal to the process. Your app has <code>terminationGracePeriodSeconds</code> (default: 30 seconds) to finish its work. After that, Kubernetes sends <code>SIGKILL</code> and the process is forcibly ended, dropping any in-flight requests.</p>
+
+    <p>Without graceful shutdown, every rolling deployment causes a burst of 502 or 503 errors for users whose requests were in-flight when the old pod was killed. Here is a correct implementation:</p>
+
+    <pre><code>// main.ts — NestJS app with graceful shutdown
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  // Enable shutdown hooks — NestJS will call onModuleDestroy() lifecycle
+  // methods on all modules, giving them a chance to close connections cleanly.
+  app.enableShutdownHooks();
+
+  const server = await app.listen(3000);
+  console.log('Application started on port 3000');
+
+  // Handle SIGTERM (Kubernetes pod termination)
+  process.on('SIGTERM', async () => {
+    console.log('SIGTERM received — starting graceful shutdown');
+
+    // Step 1: stop the HTTP server from accepting new connections.
+    // Existing connections can finish their current request.
+    server.close(async () => {
+      console.log('HTTP server closed');
+
+      // Step 2: close the NestJS application (closes DB connections,
+      // message queue consumers, etc. via lifecycle hooks)
+      await app.close();
+
+      console.log('Application shut down cleanly');
+      process.exit(0);
+    });
+
+    // Safety net: if shutdown takes longer than 25 seconds, force exit.
+    // This should never happen if your in-flight requests are fast.
+    setTimeout(() => {
+      console.error('Graceful shutdown timed out — forcing exit');
+      process.exit(1);
+    }, 25_000);
+  });
+}
+
+bootstrap();</code></pre>
+
+    <pre><code># kubernetes/deployment.yaml — matching Kubernetes configuration
+spec:
+  terminationGracePeriodSeconds: 30   # Must be greater than your app's timeout
+  containers:
+    - name: api
+      image: my-service:latest
+      lifecycle:
+        preStop:
+          exec:
+            # Kubernetes removes the pod from the Service's endpoint list
+            # before sending SIGTERM. This sleep gives load balancers time
+            # to stop routing new traffic to this pod before it shuts down.
+            command: ["/bin/sh", "-c", "sleep 5"]
+      readinessProbe:
+        httpGet:
+          path: /health/ready
+          port: 3000
+        initialDelaySeconds: 5
+        periodSeconds: 10</code></pre>
+
+    <div class="box warning">
+      <h4>The preStop hook timing gap</h4>
+      <p>There is a race condition in Kubernetes: SIGTERM is sent at the same time the pod is removed from the Service endpoints — but load balancers may continue routing requests to the pod for a few hundred milliseconds while they catch up. The <code>preStop: sleep 5</code> hook closes this window by delaying SIGTERM slightly, giving time for traffic to drain before shutdown begins. Do not skip it in production.</p>
+    </div>
+
+    <h2>5. Rate Limiting for Reliability</h2>
+
+    <div class="box analogy">
+      <h4>Analogy: A Highway On-Ramp Meter</h4>
+      <p>During rush hour, highway on-ramps use metering lights — one car per green light — to prevent the highway from becoming a parking lot. The individual delay is small, but without it the entire system grinds to a halt. Rate limiting works the same way: a small delay or rejection for one client protects the entire system from being overwhelmed.</p>
+    </div>
+
+    <p>Rate limiting has two contexts. Client-side rate limiting is what your code does when calling an external API — you add exponential backoff and jitter so you don't hammer a service when it's struggling. Server-side rate limiting is what your API does to protect itself from overload or abuse.</p>
+
+    <p>The two main algorithms are <strong>fixed window</strong> (count requests in the current minute, reset at the start of the next minute — simple but allows burst at window boundary) and <strong>sliding window</strong> (count requests in the last N seconds at any moment — more accurate, no boundary burst). Here is a Redis sliding window rate limiter:</p>
+
+    <pre><code>// rate-limiter.ts — Redis sliding window implementation
+import { Redis } from 'ioredis';
+
+export class SlidingWindowRateLimiter {
+  constructor(
+    private readonly redis: Redis,
+    private readonly windowMs: number = 60_000,  // 1 minute window
+    private readonly maxRequests: number = 100,   // 100 requests per window
+  ) {}
+
+  /**
+   * Returns true if the request should be allowed, false if rate-limited.
+   * Uses a Redis sorted set where the score is the timestamp (ms).
+   */
+  async isAllowed(identifier: string): Promise&lt;boolean&gt; {
+    const now = Date.now();
+    const windowStart = now - this.windowMs;
+    const key = `rate_limit:${identifier}`;
+
+    // Atomic pipeline: remove old entries, count current, add new entry
+    const pipeline = this.redis.pipeline();
+
+    // Remove all entries older than the window
+    pipeline.zremrangebyscore(key, 0, windowStart);
+
+    // Count remaining entries (requests in current window)
+    pipeline.zcard(key);
+
+    // Add this request with current timestamp as score
+    pipeline.zadd(key, now, `${now}-${Math.random()}`);
+
+    // Set key expiry to clean up after window passes
+    pipeline.expire(key, Math.ceil(this.windowMs / 1000));
+
+    const results = await pipeline.exec();
+    const currentCount = results![1][1] as number;
+
+    // currentCount is BEFORE adding this request
+    return currentCount &lt; this.maxRequests;
+  }
+}
+
+// NestJS guard using the rate limiter
+@Injectable()
+export class RateLimitGuard implements CanActivate {
+  private readonly limiter: SlidingWindowRateLimiter;
+
+  constructor(private readonly redis: Redis) {
+    this.limiter = new SlidingWindowRateLimiter(redis, 60_000, 100);
+  }
+
+  async canActivate(context: ExecutionContext): Promise&lt;boolean&gt; {
+    const req = context.switchToHttp().getRequest();
+
+    // Use user ID if authenticated, fall back to IP
+    const identifier = req.user?.id ?? req.ip;
+    const allowed = await this.limiter.isAllowed(identifier);
+
+    if (!allowed) {
+      throw new HttpException(
+        { error: 'Too Many Requests', retryAfter: 60 },
+        HttpStatus.TOO_MANY_REQUESTS,
+      );
+    }
+
+    return true;
+  }
+}</code></pre>
+
+    <h2>6. How to Debug a Production Outage</h2>
+
+    <p>This is the question that separates engineers who have been on-call from those who have not. The wrong answer is "I'd look at the logs." The right answer is a structured process that prioritizes mitigation over root-cause analysis.</p>
+
+    <p>Here is the process senior engineers follow:</p>
+
+    <ol>
+      <li><strong>Check dashboards first.</strong> What is the error rate? Latency? Throughput? Is this a sudden spike or a gradual degradation? What time did it start? This tells you the shape of the problem before you look at any code.</li>
+      <li><strong>Check recent deployments.</strong> What deployed in the last 60 minutes? The majority of production outages are deploy-related. Check your CI/CD pipeline. If a deploy happened right before the incident, that is your prime suspect.</li>
+      <li><strong>Check infrastructure.</strong> Are pods healthy? Are nodes under memory or CPU pressure? Are databases accepting connections? Is disk full? Is a third-party dependency (payment processor, email provider, AWS service) having an incident?</li>
+      <li><strong>Check logs.</strong> Now that you know roughly when and where, filter logs to the affected service and time window. What new errors are appearing? What's different from 2 hours ago?</li>
+      <li><strong>Isolate the scope.</strong> Is it all users or only specific users, regions, or account types? Is it all endpoints or one endpoint? Does the error reproduce in staging? Narrowing the scope tells you whether this is data-specific, code-specific, or infrastructure-specific.</li>
+      <li><strong>Mitigate before you fix.</strong> If it's a bad deploy, roll it back — now. Don't spend 30 minutes root-causing while users are down. Roll back first, investigate second. If it's a load problem, scale up the pods. If it's a database issue, fail over to a replica. Your first job is to restore service. Understanding why comes second.</li>
+    </ol>
+
+    <div class="box warning">
+      <h4>The most expensive debugging mistake</h4>
+      <p>Jumping straight to code during an active incident. You start reading a function that looks suspicious. Forty minutes pass. Users are still down. The actual cause was a full disk on the database server. Always check infrastructure before code. It takes 5 minutes and eliminates 40% of outage causes.</p>
+    </div>
+
+    <h2>Senior vs. Junior: "How do you know if your system is healthy?"</h2>
+
+    <div class="junior">
+      <span class="answer-label junior-label">Junior answer</span>
+      <p>"I check if there are errors in the logs. If nothing is throwing exceptions, I assume the system is healthy."</p>
+    </div>
+
+    <div class="senior">
+      <span class="answer-label senior-label">Senior answer</span>
+      <p>"We define health in terms of SLOs. Our core SLIs are API error rate below 0.1% and P99 latency below 500 ms. We have Prometheus alerts that fire within 2 minutes of either metric drifting past 80% of the SLO threshold — that's an early warning before we've actually violated the SLO.</p>
+      <p>Beyond reactive metrics, I also watch leading indicators — things that predict problems before users feel them. Database connection pool saturation above 80% predicts a connection timeout storm. Queue depth growing monotonically predicts consumer lag turning into dropped messages. Pod restart counts increasing predicts an OOM issue that's about to get worse. I'd rather catch these at 9 AM on a Tuesday than at 2 AM on a Saturday."</p>
+    </div>
+
+    <div class="exercises">
+      <h4>Practice Questions</h4>
+
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p><strong>What is the difference between P50 and P99 latency? Why does P99 matter more for user experience than the average?</strong></p>
+        <p>Practice answer: P50 is the median — half of requests are faster, half are slower. P99 means 99% of requests completed faster than this value; 1% were slower. Average hides outliers: a handful of very slow requests raise the average only slightly but represent a real user experience problem. P99 captures those slow requests directly. In large-scale systems, 1% of users can be hundreds of thousands of people.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p><strong>Your team's SLO is 99.9% availability for the month. It's the 20th of the month and you've already used 30 minutes of downtime. How do you approach the remaining 10 days?</strong></p>
+        <p>Practice answer: Total allowed downtime for 30 days at 99.9% is ~43.8 minutes. With 30 minutes used by day 20, I have ~13.8 minutes left. I would freeze risky deployments, require extra review for any infrastructure changes, delay any planned maintenance to next month, and make the SLO status visible to the whole team. This is error budget management in practice — the budget is the forcing function for technical conservatism when it's running low.</p>
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p><strong>Users are reporting slow responses for the past 20 minutes. Dashboards show P99 latency jumped from 150 ms to 4,500 ms. Walk through your debugging process step by step.</strong></p>
+        <p>Practice answer: First, note the exact time the spike started (say, 14:32). Check if any deployment happened between 14:15 and 14:32 — if yes, that's the prime suspect. Check pod health: are pods restarting? Check database connection pool metrics: are connections saturated? Check external dependency dashboards. Then filter logs to 14:32 onward: what error messages are new? If it looks deploy-related, roll back immediately rather than waiting for root cause. After service is restored, use distributed traces to find which service contributed the most latency to slow requests, then drill into that service's logs for the specific error. Write a postmortem: what broke, how long it took to detect, how long to mitigate, and what changes prevent recurrence.</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Average latency hides suffering. Always measure and communicate latency in percentiles — P50, P95, P99. Tail latency (P99) is the experience of your most frustrated users.</li>
+        <li>SLI is what you measure, SLO is the target you set, SLA is the business contract. The error budget (1 − SLO) is how you decide when to move fast and when to be conservative.</li>
+        <li>The three pillars of observability are logs (what happened), metrics (how much over time), and traces (where in the system). You need all three; any two is insufficient for diagnosing complex distributed failures.</li>
+        <li>Graceful shutdown — stop accepting new requests, drain in-flight work, close connections, exit — prevents dropped requests during Kubernetes rolling deployments. The preStop sleep hook closes the load-balancer timing gap.</li>
+        <li>During a production outage, mitigate before you root-cause. Check dashboards, check recent deployments, check infrastructure — in that order. Roll back a bad deploy before spending an hour reading code.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> We move from keeping systems running to how they get built and shipped — CI/CD pipelines, Git branching strategies, Docker, Kubernetes deployments, and how to deploy without downtime.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-19.html"><span class="nav-label">← Previous</span><span class="nav-title">Microservices</span></a>
+      <a href="chapter-21.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">CI/CD &amp; DevOps</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

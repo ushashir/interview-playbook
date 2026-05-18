@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 4: How to Think About Algorithms — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-2">Part 2 · Chapter 4</div>
+      <h1>How to Think About Algorithms</h1>
+      <p class="chapter-intro">Most candidates treat algorithm problems like a quiz — either you know the answer or you don't. Senior engineers treat them like a detective investigation — you reason your way to the answer even if you've never seen this exact problem before.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>A repeatable 4-step framework for attacking any algorithm problem cold</li>
+        <li>Big O notation explained from first principles — no math degree required</li>
+        <li>Space complexity and the time/space tradeoff</li>
+        <li>The six most common algorithmic patterns and the clues that reveal them</li>
+        <li>Exactly how to talk through a problem aloud to impress your interviewer</li>
+      </ul>
+    </div>
+
+    <div class="box analogy">
+      <div class="box-title">💡 The Big Idea: Cooking a Meal</div>
+      <p>An algorithm is a recipe. Your data is the ingredients. The <em>efficiency</em> of the algorithm is how long it takes and how many pots you dirty. A bad recipe makes you use every pot in the kitchen for a meal that takes three hours. A good recipe uses one pan and you're done in twenty minutes. Same meal. Same ingredients. Wildly different process. When you study algorithms, you're not memorizing recipes — you're learning to look at a dish and instantly know the most efficient way to cook it.</p>
+    </div>
+
+    <h2>Why Most Candidates Get This Wrong</h2>
+    <p>Here's what most developers do when they hit an algorithm problem in an interview: they stare at it. They wait for inspiration. They try to remember if they've seen something similar on LeetCode. They start typing, hit a wall, erase it, start over. The silence stretches. The interviewer shifts in their chair.</p>
+    <p>This is the wrong mental model entirely. Algorithm interviews are not memory tests. They are problem-solving demonstrations. The interviewer already knows the answer — what they want to see is <em>how you think</em>. A candidate who talks through a 70% correct approach confidently and methodically will almost always outperform a candidate who silently produces a perfect solution from memory but can't explain it.</p>
+    <p>The fix is a framework. Not a rigid script, but a set of steps that keep you moving forward even when you're stuck. Let's build that framework now.</p>
+
+    <h2>The 4-Step Framework</h2>
+
+    <h3>Step 1: UNDERSTAND — Restate and Question</h3>
+    <p>Before you touch a keyboard or write a single line of pseudocode, do this: restate the problem back to the interviewer in your own words. Out loud. Every time.</p>
+    <p>This is not wasted time. This is the most valuable thirty seconds of the interview. It forces you to actually read the problem instead of pattern-matching to something you've seen before. It surfaces hidden assumptions. And it signals to the interviewer that you approach problems carefully.</p>
+    <p>After restating, ask clarifying questions. Good ones:</p>
+    <ul>
+      <li><strong>What's the input size?</strong> A solution that works for n=100 might be completely different from one that needs to work for n=10,000,000.</li>
+      <li><strong>What types are we dealing with?</strong> Integers only? Could there be floats? Strings? Negative numbers?</li>
+      <li><strong>Can the input be empty or null?</strong> How should we handle that?</li>
+      <li><strong>Are there duplicates?</strong> Many algorithms behave differently with duplicate values.</li>
+      <li><strong>Is the array sorted?</strong> A sorted array opens up completely different strategies.</li>
+      <li><strong>What should we return?</strong> The value, the index, the count?</li>
+    </ul>
+    <p>You don't need to ask all of these every time — read the room. But asking two or three targeted questions demonstrates engineering maturity. Juniors dive in. Seniors clarify.</p>
+
+    <h3>Step 2: EXAMPLE — Make It Concrete</h3>
+    <p>Pick a small example — not the one in the problem statement, your own — and walk through it manually. Write it out. Trace what the answer should be.</p>
+    <p>This does two things. First, it confirms you actually understand the problem (you'd be surprised how often manually tracing reveals a misunderstanding). Second, it gives you a test case you can use to verify your solution before you claim you're done.</p>
+    <p>Keep your example small enough to work through by hand in under a minute. If the problem is "find the two numbers in an array that sum to a target," your example shouldn't be a 20-element array. Use five elements. Make the answer obvious. Then use that example to guide your code.</p>
+
+    <h3>Step 3: BRUTE FORCE — Get Something Working</h3>
+    <p>State the naive solution first. Always. Even if you already know the optimized approach.</p>
+    <p>Why? Because it proves you can solve the problem at all. It establishes a baseline complexity you can then improve on. And it demonstrates that you don't jump to clever solutions without first confirming correctness.</p>
+    <p>Say it aloud: <em>"My first instinct is a brute force approach. I'd use nested loops to check every pair of numbers. That gives me O(n²) time. Let me code that up and then we can talk about improving it."</em></p>
+    <p>The brute force solution is almost always one of: nested loops, trying all permutations/combinations, or a recursive solution without any caching. Get it working. Then move on.</p>
+
+    <div class="box tip">
+      <div class="box-title">💡 Tip</div>
+      <p>Never apologize for the brute force. Stating it confidently and correctly is a sign of competence. The interviewer expects it. What they don't expect — and what will impress them — is when you then identify <em>why</em> it's slow and propose a specific, well-reasoned improvement.</p>
+    </div>
+
+    <h3>Step 4: OPTIMIZE — Identify the Bottleneck</h3>
+    <p>Look at your brute force and ask: what's doing the most work? Usually it's a loop inside another loop, or a repeated computation, or an inefficient lookup. That's your bottleneck.</p>
+    <p>Then ask: what information do I have that I'm not using? Is the data sorted? Are there only certain types of values? Does the problem have subproblems that repeat?</p>
+    <p>This is where pattern recognition comes in — which we'll cover shortly. The key move is connecting the characteristics of the problem to a known algorithmic strategy. "I see pairs — maybe a hash map." "The data is sorted — maybe binary search." "I need to explore all paths — maybe DFS."</p>
+
+    <h2>Big O Notation — From First Principles</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Looking for Your Keys</div>
+      <p>You've lost your keys. Strategy A: Check every room in the house one by one. That's O(n) — the time scales with the number of rooms. Strategy B: You remember you always put them on the hook by the door, so you check there first. That's O(1) — constant time regardless of house size. Strategy C: You check every room and every drawer in every room. That's O(n²) — for each room (n), you check every drawer (also n). Big O tells you which kind of strategy you're using. It doesn't tell you the exact time — it tells you how time <em>scales</em> as the input grows.</p>
+    </div>
+
+    <p>Big O notation describes the <em>growth rate</em> of an algorithm's resource usage relative to its input size. We care about the worst case and we drop constants — O(2n) and O(n) are both just "O(n)" because the shape of the growth curve is what matters, not the exact multiplier.</p>
+
+    <p>Here are the complexities you'll encounter most often, from fastest to slowest:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Complexity</th>
+          <th>Name</th>
+          <th>What it means</th>
+          <th>Real example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>O(1)</code></td>
+          <td>Constant</td>
+          <td>Same time no matter how big the input</td>
+          <td>Array index lookup, hash map get</td>
+        </tr>
+        <tr>
+          <td><code>O(log n)</code></td>
+          <td>Logarithmic</td>
+          <td>Halves the problem each step</td>
+          <td>Binary search, balanced BST operations</td>
+        </tr>
+        <tr>
+          <td><code>O(n)</code></td>
+          <td>Linear</td>
+          <td>One operation per element</td>
+          <td>Linear search, single array scan</td>
+        </tr>
+        <tr>
+          <td><code>O(n log n)</code></td>
+          <td>Linearithmic</td>
+          <td>Linear work per halving step</td>
+          <td>Merge sort, heap sort, most fast sorts</td>
+        </tr>
+        <tr>
+          <td><code>O(n²)</code></td>
+          <td>Quadratic</td>
+          <td>Nested loop over all pairs</td>
+          <td>Bubble sort, naive two-sum, comparing all pairs</td>
+        </tr>
+        <tr>
+          <td><code>O(2ⁿ)</code></td>
+          <td>Exponential</td>
+          <td>Doubles with each added element</td>
+          <td>Recursive Fibonacci (no memo), all subsets</td>
+        </tr>
+        <tr>
+          <td><code>O(n!)</code></td>
+          <td>Factorial</td>
+          <td>All permutations</td>
+          <td>Brute-force travelling salesman, all orderings</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: O(log n) — The Phone Book</div>
+      <p>Imagine you're looking for "Smith" in a phone book with 1,000 pages. You don't start at page 1 — you open to the middle (page 500), see you're in the "M" section, and flip to the three-quarter mark. You've eliminated half the book in one move. This is binary search. For 1,000 items it takes about 10 steps. For 1,000,000 items? About 20 steps. That's the magic of logarithmic growth.</p>
+    </div>
+
+    <div class="diagram">
+Growth Rate Comparison (input size n = 1,000)
+
+  O(1)        =          1 operation
+  O(log n)    =         10 operations
+  O(n)        =      1,000 operations
+  O(n log n)  =     10,000 operations
+  O(n²)       =  1,000,000 operations
+  O(2ⁿ)       = 2^1000 operations  ← universe has ~10^80 atoms
+    </div>
+
+    <h2>Space Complexity — The Other Half of Big O</h2>
+    <p>Every algorithm uses both time and memory. When we talk about Big O, we usually mean time complexity, but space complexity matters too — especially when working with constrained environments like embedded systems or when your interviewer asks "can you do it in constant space?"</p>
+    <p>Space complexity counts the extra memory your algorithm uses, not counting the input itself. An algorithm that creates a new array the same size as the input has O(n) space. An algorithm that uses only a few variables has O(1) space.</p>
+    <p>The most common tradeoff you'll make in interviews is <strong>trading space for time</strong>. The hash map in the Two Sum problem is a perfect example: instead of O(n²) time with O(1) space (nested loops), you use O(n) time with O(n) space (store values in a map). You're buying speed with memory. That's almost always the right call — memory is cheap, user time is not.</p>
+
+    <div class="box tip">
+      <div class="box-title">💡 Tip</div>
+      <p>When your interviewer asks "what's the complexity of your solution?" — answer <em>both</em>. "Time complexity is O(n), space complexity is O(n) because I'm using a hash map." This immediately signals that you think in terms of both dimensions. Most juniors only answer one.</p>
+    </div>
+
+    <h2>The Six Patterns That Unlock Most Problems</h2>
+    <p>Once you've been through enough algorithm problems, you start to notice that most of them fall into a handful of categories. Recognizing the category is 80% of the solution. Here are the six patterns that cover the vast majority of interview problems:</p>
+
+    <h3>1. Two Pointers</h3>
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy</div>
+      <p>Two people walking toward each other from opposite ends of a hallway. They meet in the middle far faster than one person walking the full length twice.</p>
+    </div>
+    <p><strong>When to reach for it:</strong> The array is sorted (or can be sorted). You're looking for pairs, triplets, or a subarray that meets some condition. You want O(n) instead of O(n²).</p>
+    <p><strong>Classic problems:</strong> Two Sum on sorted array, remove duplicates, container with most water, palindrome check.</p>
+<pre><code class="language-javascript">// Two pointers: find pair that sums to target in sorted array
+function twoSumSorted(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    const sum = arr[left] + arr[right];
+    if (sum === target) return [left, right];
+    if (sum < target) left++;   // need bigger sum, move left pointer right
+    else right--;               // need smaller sum, move right pointer left
+  }
+
+  return null; // no pair found
+}
+
+// Example: [1, 3, 5, 7, 9], target = 12
+// left=0(1), right=4(9): sum=10, too small → left++
+// left=1(3), right=4(9): sum=12, found! → [1, 4]
+console.log(twoSumSorted([1, 3, 5, 7, 9], 12)); // [1, 4]
+</code></pre>
+
+    <h3>2. Sliding Window</h3>
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy</div>
+      <p>A spotlight moving across a stage. Instead of re-lighting the entire stage each time, you just slide the beam — turning off one light at the back and turning on one at the front.</p>
+    </div>
+    <p><strong>When to reach for it:</strong> You're asked about a subarray or substring. Words like "contiguous," "consecutive," or "window" appear. You want to avoid recomputing the entire subarray from scratch.</p>
+    <p><strong>Classic problems:</strong> Maximum sum subarray of size k, longest substring without repeating characters, minimum window substring.</p>
+<pre><code class="language-javascript">// Sliding window: maximum sum of subarray of size k
+function maxSumSubarray(arr, k) {
+  if (arr.length < k) return null;
+
+  // Build the first window
+  let windowSum = arr.slice(0, k).reduce((a, b) => a + b, 0);
+  let maxSum = windowSum;
+
+  // Slide the window: add the next element, remove the first element
+  for (let i = k; i < arr.length; i++) {
+    windowSum += arr[i] - arr[i - k];
+    maxSum = Math.max(maxSum, windowSum);
+  }
+
+  return maxSum;
+}
+
+console.log(maxSumSubarray([2, 1, 5, 1, 3, 2], 3)); // 9  (5+1+3)
+</code></pre>
+
+    <h3>3. Hash Map (O(1) Lookup)</h3>
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy</div>
+      <p>A coat check at a restaurant. Instead of searching through every coat to find yours, they give you a numbered ticket and go directly to that hook. O(1) retrieval, no searching required.</p>
+    </div>
+    <p><strong>When to reach for it:</strong> You need to look up whether you've seen a value before. You need to count frequencies. You need to map one value to another. Anytime a nested loop feels necessary, ask if a hash map eliminates the inner loop.</p>
+    <p><strong>Classic problems:</strong> Two Sum (unsorted), anagram detection, group anagrams, first non-repeating character.</p>
+
+    <h3>4. Binary Search</h3>
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy</div>
+      <p>The guessing game where someone thinks of a number between 1 and 100 and tells you "higher" or "lower." Always guess the middle. You'll find any number in at most 7 guesses.</p>
+    </div>
+    <p><strong>When to reach for it:</strong> The data is sorted, or the problem has a monotonic property (answers go from false-false-false to true-true-true). You're searching for a specific value or a boundary. You see "find the minimum/maximum X such that condition Y holds."</p>
+    <p><strong>Classic problems:</strong> Search in rotated sorted array, find first/last position, minimum in rotated array, find peak element.</p>
+
+    <h3>5. BFS / DFS (Tree and Graph Traversal)</h3>
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy</div>
+      <p>Exploring a cave system. DFS (Depth-First Search) is like following one tunnel all the way to the end before backtracking. BFS (Breadth-First Search) is like spreading out from the entrance ring by ring, exploring all tunnels at one depth before going deeper. Use DFS when you need to go deep. Use BFS when you need the shortest path.</p>
+    </div>
+    <p><strong>When to reach for it:</strong> The problem involves a tree, graph, or grid. You need to visit all connected nodes. The problem asks for shortest path (BFS) or explores all possibilities (DFS/backtracking).</p>
+    <p><strong>Classic problems:</strong> Binary tree level order traversal, number of islands, word ladder, clone graph.</p>
+
+    <h3>6. Dynamic Programming</h3>
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy</div>
+      <p>Doing your taxes. You don't recalculate your income from scratch every time you need it — you write it down once and refer back to it. DP is about writing down answers to subproblems so you never compute the same thing twice.</p>
+    </div>
+    <p><strong>When to reach for it:</strong> The problem has overlapping subproblems. You're optimizing something (maximum, minimum, count). The problem can be broken into smaller versions of itself. Phrases like "how many ways," "maximum profit," "minimum cost" are strong signals.</p>
+    <p><strong>Classic problems:</strong> Fibonacci (with memoization), coin change, longest common subsequence, 0/1 knapsack.</p>
+
+    <h2>The "Aha" Moments — Pattern Unlocks</h2>
+    <p>Experienced interviewers look for these specific mental connections. When you verbalize them, you sound like a senior engineer. When you miss them, you look like someone who just memorizes solutions.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>You see this in the problem...</th>
+          <th>Think this pattern</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Duplicates, "have we seen this before?"</td><td>Hash Map / Set</td></tr>
+        <tr><td>Sorted array, "find X in sorted data"</td><td>Binary Search or Two Pointers</td></tr>
+        <tr><td>Tree structure, path finding, connected nodes</td><td>DFS (recursion) or BFS (queue)</td></tr>
+        <tr><td>"Find all combinations / subsets / permutations"</td><td>Backtracking or DP</td></tr>
+        <tr><td>Subarray, substring, "contiguous window"</td><td>Sliding Window</td></tr>
+        <tr><td>"Minimum / maximum over all possibilities"</td><td>Dynamic Programming</td></tr>
+        <tr><td>Stream of data, "top K elements"</td><td>Heap (Priority Queue)</td></tr>
+        <tr><td>Intervals, scheduling, overlaps</td><td>Sort + Greedy or Sweep Line</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How to Talk Through a Problem Aloud</h2>
+    <p>This is the skill most people practice least, and it's the one that matters most in a live interview. Here is a worked script you can adapt:</p>
+
+    <p><strong>Problem:</strong> Given an unsorted array of integers and a target sum, return the indices of the two numbers that add up to the target.</p>
+
+    <p><em>"OK, so I need to find two numbers in this array whose sum equals the target, and return their indices — not the values themselves. A few questions: can I assume there's exactly one valid answer? Can the same element be used twice? Can the values be negative?"</em></p>
+    <p><em>[Interviewer answers: one answer, no reuse, yes negatives possible]</em></p>
+    <p><em>"Great. Let me trace a quick example. If my array is [2, 7, 11, 15] and target is 9, the answer is [0, 1] because 2 + 7 = 9."</em></p>
+    <p><em>"My first instinct is brute force: two nested loops, check every pair. That's O(n²) time, O(1) space. Gets the job done but scales terribly."</em></p>
+    <p><em>"The bottleneck is the inner loop — I'm scanning the rest of the array each time just to find the complement. But what if I stored elements as I go? For each element x, I need to know if (target - x) exists somewhere in the array. That's a lookup problem. Hash map."</em></p>
+    <p><em>"So I walk through the array once. For each element, I check if its complement is already in the map. If yes, I found my pair. If not, I put this element in the map and continue. O(n) time, O(n) space. Let me code that up."</em></p>
+
+    <p>That monologue takes maybe 90 seconds. It demonstrates understanding, example construction, brute force awareness, bottleneck identification, and pattern recognition — all before writing a single line of code. That's what senior engineering looks like.</p>
+
+    <h2>Senior vs. Junior: The Real Difference</h2>
+
+    <div class="junior">
+      <div class="answer-label">Junior Answer</div>
+      <p>Stares at the problem. Starts coding immediately without asking questions. Writes nested loops. Goes silent when stuck. Produces a working O(n²) solution and calls it done. If pressed on complexity, says "I think it's O(n)?" with rising intonation.</p>
+    </div>
+
+    <div class="senior">
+      <div class="answer-label">Senior Answer</div>
+      <p>Restates the problem. Asks two targeted clarifying questions. Writes a five-element example on the whiteboard. Says "brute force is O(n²), here's why." Identifies the bottleneck. Proposes the optimization with reasoning. Codes the optimized solution. Says "time is O(n), space is O(n), and here's the edge case I want to make sure we handle." Runs their own example against the code to verify.</p>
+    </div>
+
+    <div class="box warning">
+      <div class="box-title">⚠️ Warning</div>
+      <p>Silence is your enemy. Interviewers cannot evaluate thinking they cannot hear. If you're stuck, say so and say <em>why</em>: "I know I need something faster than O(n²) here, but I'm trying to figure out what information I can precompute to avoid the inner loop." That's useful signal. Staring at the screen for two minutes is not.</p>
+    </div>
+
+    <div class="exercises">
+      <h3>Practice Questions</h3>
+      <div class="exercise">
+        <p><span class="badge beginner">Beginner</span> Given the array <code>[3, 1, 4, 1, 5, 9, 2, 6]</code> and target <code>10</code>, walk through the 4-step framework out loud without writing any code. What questions would you ask? What example would you use? What's the brute force? What's the optimized approach?</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge intermediate">Intermediate</span> Identify which pattern applies to each problem: (a) "Find the longest substring with no repeating characters." (b) "Given a sorted array rotated at an unknown pivot, find a target value." (c) "Find the number of islands in a grid of 0s and 1s." Explain your reasoning for each.</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge advanced">Advanced</span> Full worked solution: <strong>Maximum Product Subarray.</strong> Given an integer array, find the contiguous subarray that has the largest product. Example: <code>[2, 3, -2, 4]</code> → <code>6</code> (subarray [2,3]). Brute force: O(n²) — check all subarrays. Optimized insight: negative × negative = positive, so track both the running max AND running min at each position. At each step: <code>maxProd = max(num, maxProd * num, minProd * num)</code> and similarly for minProd. O(n) time, O(1) space.
+        <pre><code class="language-javascript">function maxProduct(nums) {
+  let maxProd = nums[0];
+  let minProd = nums[0];
+  let result = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    const num = nums[i];
+    // Multiplying by a negative swaps max and min
+    const tempMax = Math.max(num, maxProd * num, minProd * num);
+    minProd = Math.min(num, maxProd * num, minProd * num);
+    maxProd = tempMax;
+    result = Math.max(result, maxProd);
+  }
+
+  return result;
+}
+
+console.log(maxProduct([2, 3, -2, 4]));    // 6
+console.log(maxProduct([-2, 0, -1]));      // 0
+console.log(maxProduct([-2, 3, -4]));      // 24
+</code></pre>
+        </p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Use the 4-step framework: Understand → Example → Brute Force → Optimize. Do this every time, out loud.</li>
+        <li>Big O measures growth rate, not exact speed. Drop constants. The shape of the curve is what matters.</li>
+        <li>Always state both time and space complexity. Trading space for time is usually the right call.</li>
+        <li>Six patterns cover most interview problems: Two Pointers, Sliding Window, Hash Map, Binary Search, BFS/DFS, and Dynamic Programming.</li>
+        <li>The interviewer is evaluating your process, not just your answer. Thinking aloud is not optional — it's the performance.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Now that you know how to think about algorithms, you need the right tools. Chapter 5 covers the eight core data structures — what they are, when to use them, and how to implement them in JavaScript.</p>
+    <div class="chapter-nav">
+      <a href="../part-1/chapter-3.html"><span class="nav-label">← Previous</span><span class="nav-title">Ch 3: Agile &amp; Code Culture</span></a>
+      <a href="chapter-5.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Ch 5: Core Data Structures</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

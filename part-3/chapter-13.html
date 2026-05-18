@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 13: CSS, Layout, and Responsive Design — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-3">Part 3 · Chapter 13</div>
+      <h1>CSS, Layout, and Responsive Design</h1>
+      <p class="chapter-intro">CSS questions have a reputation for being the "easy" part of the frontend interview. Then someone asks you to center a div and you suddenly forget everything you know. CSS is deceptively simple and surprisingly deep.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>The box model explained clearly — and why <code>border-box</code> should be your default</li>
+        <li>Five distinct ways to center a div, and when to use each</li>
+        <li>Flexbox and CSS Grid from mental model to production code</li>
+        <li>CSS specificity and how to avoid the wars it creates</li>
+        <li>Mobile-first responsive design with media queries and container queries</li>
+        <li>How senior engineers think about CSS at the design system level</li>
+      </ul>
+    </div>
+
+    <h2>The Box Model</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: The Gift Box</div>
+      <p>Think of every HTML element as a gift box on a shelf. The <strong>content</strong> is the actual gift inside — the text, the image, whatever the element contains. The <strong>padding</strong> is the bubble wrap surrounding the gift, protecting it from the edges. The <strong>border</strong> is the box itself — the physical container. The <strong>margin</strong> is the empty space on the shelf between this box and the one next to it. You can't put anything in the margin — it's just breathing room between boxes.</p>
+    </div>
+
+    <p>Every element in a browser is a rectangular box. The box model defines how the four layers of that box — content, padding, border, and margin — relate to each other and to the total dimensions of the element. Understanding this model cold is the foundation of every CSS layout problem.</p>
+
+    <div class="diagram">
++-----------------------------------------------+
+|                   MARGIN                      |
+|   +---------------------------------------+   |
+|   |              BORDER                   |   |
+|   |   +-------------------------------+   |   |
+|   |   |           PADDING             |   |   |
+|   |   |   +-----------------------+   |   |   |
+|   |   |   |                       |   |   |   |
+|   |   |   |       CONTENT         |   |   |   |
+|   |   |   |   (width × height)    |   |   |   |
+|   |   |   |                       |   |   |   |
+|   |   |   +-----------------------+   |   |   |
+|   |   |                               |   |   |
+|   |   +-------------------------------+   |   |
+|   |                                       |   |
+|   +---------------------------------------+   |
+|                                               |
++-----------------------------------------------+
+    </div>
+
+    <h3>box-sizing: content-box vs border-box</h3>
+
+    <p>This is where the model gets confusing and where interviews often expose gaps. By default, browsers use <code>content-box</code>, which means when you set <code>width: 200px</code>, that's the width of the <em>content only</em>. Padding and border are added on top. So a box with <code>width: 200px; padding: 20px; border: 2px solid</code> is actually 244px wide on screen — and that surprises every developer who hasn't internalized this.</p>
+
+    <p><code>border-box</code> changes the math so that <code>width: 200px</code> includes padding and border. The content area shrinks to accommodate them, but the total box stays 200px. This is what your brain intuitively expects when you write a width. This is why every serious codebase applies a global reset for it.</p>
+
+    <pre><code class="language-css">/* The standard box-sizing reset — put this at the top of every stylesheet */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Demonstration of why this matters */
+.content-box-example {
+  box-sizing: content-box; /* default — you almost never want this */
+  width: 200px;
+  padding: 20px;
+  border: 2px solid #333;
+  /* Actual rendered width: 200 + 20 + 20 + 2 + 2 = 244px */
+}
+
+.border-box-example {
+  box-sizing: border-box; /* what you actually want */
+  width: 200px;
+  padding: 20px;
+  border: 2px solid #333;
+  /* Actual rendered width: exactly 200px */
+  /* Content area shrinks to: 200 - 40 - 4 = 156px */
+}
+</code></pre>
+
+    <p>The only time you'd ever consciously use <code>content-box</code> is if you're working in a legacy codebase that wasn't reset and you need to match existing behavior. In all new work: always use <code>border-box</code>.</p>
+
+    <h2>Centering — Five Ways to Center a Div</h2>
+
+    <p>This is one of the most reliably asked CSS interview questions. The reason interviewers love it is that there are genuinely multiple correct answers, each with different tradeoffs, and a candidate who knows all five has clearly spent time in the trenches. Knowing only one method tells the interviewer you've solved it once and moved on.</p>
+
+    <h3>Method 1: Flexbox (Most Common, Most Versatile)</h3>
+    <pre><code class="language-css">.container {
+  display: flex;
+  justify-content: center;   /* horizontal centering */
+  align-items: center;       /* vertical centering */
+  height: 100vh;             /* container must have height for vertical to work */
+}
+
+/* The child is centered both horizontally and vertically */
+.centered-child {
+  width: 300px;
+  padding: 20px;
+}
+</code></pre>
+    <p>This is what you reach for by default. Readable, well-supported everywhere, easy to understand at a glance. Use this unless you have a specific reason not to.</p>
+
+    <h3>Method 2: CSS Grid (Cleanest Syntax)</h3>
+    <pre><code class="language-css">.container {
+  display: grid;
+  place-items: center;  /* shorthand for align-items + justify-items */
+  height: 100vh;
+}
+
+/* place-items: center is the cleanest single-line centering solution in CSS */
+</code></pre>
+    <p><code>place-items: center</code> is a shorthand that sets both <code>align-items</code> and <code>justify-items</code> to <code>center</code> in a single declaration. It's the shortest correct answer to "center something in its container." It only works inside a grid context.</p>
+
+    <h3>Method 3: Absolute Positioning + Transform</h3>
+    <pre><code class="language-css">.container {
+  position: relative;
+}
+
+.centered-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* top:50% and left:50% move the top-left corner to center */
+  /* translate(-50%, -50%) shifts the element back by half its own width/height */
+}
+</code></pre>
+    <p>The trick here is subtle: <code>top: 50%</code> moves the element's top edge to the center, not the element's center. The <code>transform</code> pulls it back by half its own dimensions. This works without knowing the container's dimensions and without <code>display: flex</code> — useful for overlays, modals, and tooltips where the parent is constrained.</p>
+
+    <h3>Method 4: margin: auto (Horizontal Only)</h3>
+    <pre><code class="language-css">.centered-child {
+  width: 300px;         /* must have an explicit width */
+  margin: 0 auto;       /* auto margins distribute leftover horizontal space equally */
+}
+
+/* This does NOT vertically center. For vertical centering, you need flexbox or grid. */
+</code></pre>
+    <p>This is the oldest method — works since CSS2. It only centers horizontally. The element must have an explicit width, otherwise it stretches to fill the container and there's no leftover space for the auto margins to split. Good for centering a content column on a page.</p>
+
+    <h3>Method 5: text-align: center (Inline/Inline-Block Only)</h3>
+    <pre><code class="language-css">.container {
+  text-align: center;
+}
+
+/* Works for: */
+/* - Text content */
+/* - Inline elements (span, a, img by default) */
+/* - inline-block elements */
+
+.inline-block-child {
+  display: inline-block;
+  /* Now text-align: center on the parent will center this */
+}
+
+/* Does NOT work for block-level elements with a set width */
+</code></pre>
+    <p>This one has the narrowest application. It centers text and inline/inline-block children. If a candidate says "use <code>text-align: center</code>" as their only answer to centering a div, that's a red flag — it only works in specific circumstances and it's inherited, which can cause unintended side effects down the tree.</p>
+
+    <h2>Flexbox</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: The Factory Conveyor Belt</div>
+      <p>Imagine a factory conveyor belt. The flex container is the belt itself. Items sit on the belt and move along it. You control: which direction does the belt run (left-to-right? top-to-bottom?)? Do items grow to fill available space if there's room? Do they shrink if they're too big? How is the extra space at the end of the belt distributed — all at one end, spread between items, or equal on both sides? Flexbox gives you fine-grained control over all of these decisions.</p>
+    </div>
+
+    <p>Flexbox is a one-dimensional layout system — it works along a single axis at a time (either a row or a column). It excels at distributing space and aligning items in a line. For two-dimensional layouts, you want Grid.</p>
+
+    <h3>Core Properties</h3>
+    <pre><code class="language-css">/* === CONTAINER PROPERTIES === */
+.flex-container {
+  display: flex;
+
+  /* Direction of the main axis */
+  flex-direction: row;            /* row (default) | row-reverse | column | column-reverse */
+
+  /* Distribution along the main axis */
+  justify-content: flex-start;   /* flex-start | flex-end | center | space-between | space-around | space-evenly */
+
+  /* Alignment along the cross axis */
+  align-items: stretch;          /* stretch (default) | flex-start | flex-end | center | baseline */
+
+  /* What happens when items overflow the container */
+  flex-wrap: nowrap;             /* nowrap (default) | wrap | wrap-reverse */
+
+  /* When wrapping occurs: aligns rows along cross axis */
+  align-content: flex-start;    /* same values as justify-content */
+}
+
+/* === ITEM PROPERTIES === */
+.flex-item {
+  /* Grow factor: how much does this item expand to fill free space? */
+  flex-grow: 0;     /* 0 = don't grow (default). 1 = take all free space. */
+
+  /* Shrink factor: how much does this item shrink when space is tight? */
+  flex-shrink: 1;   /* 1 = shrink proportionally (default). 0 = never shrink. */
+
+  /* Base size before growing/shrinking */
+  flex-basis: auto; /* auto = use the item's natural width/height */
+
+  /* Shorthand: flex: grow shrink basis */
+  flex: 1;          /* flex: 1 1 0% — grow, shrink, and start from 0 */
+  flex: none;       /* flex: 0 0 auto — fixed size, never grow or shrink */
+}
+</code></pre>
+
+    <div class="box warning">
+      <div class="box-title">⚠️ Common Gotcha: align-items vs align-content</div>
+      <p><code>align-items</code> aligns items within a single row (the cross-axis). <code>align-content</code> only activates when <code>flex-wrap: wrap</code> is set and there are multiple rows — it aligns those rows within the container. Using <code>align-content</code> when there's only one row of items does nothing. This trips up a lot of candidates.</p>
+    </div>
+
+    <div class="box warning">
+      <div class="box-title">⚠️ Common Gotcha: flex-basis overrides width</div>
+      <p>If <code>flex-basis</code> is set to anything other than <code>auto</code>, it overrides the <code>width</code> property on a flex item. Setting <code>width: 200px</code> on a flex item that also has <code>flex-basis: 0</code> means the width is ignored. This is one of the most confusing behaviors in flexbox.</p>
+    </div>
+
+    <h3>Real Code: Navigation Bar with Flexbox</h3>
+    <pre><code class="language-css">/* Responsive navigation bar — logo on left, links on right */
+.navbar {
+  display: flex;
+  justify-content: space-between;  /* pushes logo left, links right */
+  align-items: center;             /* vertically centers both */
+  padding: 0 24px;
+  height: 64px;
+  background: #1a1a2e;
+}
+
+.navbar__logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 24px;         /* modern way to add space between flex items */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar__links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.navbar__links a:hover {
+  color: #fff;
+}
+</code></pre>
+
+    <h3>Real Code: Card Layout with Flexbox</h3>
+    <pre><code class="language-css">/* A row of cards that wrap to the next line when they don't fit */
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 24px;
+}
+
+.card {
+  flex: 1 1 280px;   /* grow, shrink, base width of 280px */
+  /* Items will stretch to fill row, but won't shrink below 280px */
+  /* On wide screens: 3-4 cards per row */
+  /* On narrow screens: 1 card per row */
+
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.card__body {
+  flex: 1;   /* takes all remaining space, pushing footer to the bottom */
+}
+
+.card__footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+</code></pre>
+
+    <h2>CSS Grid</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: The Spreadsheet</div>
+      <p>CSS Grid works exactly like a spreadsheet. You define how many rows and columns you want, and their sizes. Then you place items into specific cells, or let them flow automatically from left to right, top to bottom. A cell can span multiple rows or columns — just like a merged cell in Excel. You're thinking in two dimensions from the start, which is the fundamental difference from flexbox.</p>
+    </div>
+
+    <p>Grid is the right tool when you have a two-dimensional layout — rows and columns at the same time. Flexbox is one-dimensional (you pick a direction). Grid is two-dimensional. A good mental model: use Grid for page-level layout and major structural sections, use Flexbox for the content inside those sections.</p>
+
+    <h3>Core Properties</h3>
+    <pre><code class="language-css">.grid-container {
+  display: grid;
+
+  /* Define columns — fixed sizes, percentages, or fractions */
+  grid-template-columns: 200px 1fr 1fr;
+  /* Three columns: first is 200px, second and third split the remaining space equally */
+
+  /* The fr unit: fractional unit — takes up a fraction of available space */
+  grid-template-columns: repeat(3, 1fr);     /* 3 equal columns */
+  grid-template-columns: 1fr 2fr 1fr;        /* middle column is twice as wide */
+
+  /* Define rows */
+  grid-template-rows: auto 1fr auto;         /* header, main (stretches), footer */
+
+  /* Gap between cells */
+  gap: 16px;                /* shorthand: row-gap and column-gap together */
+  row-gap: 16px;
+  column-gap: 24px;
+
+  /* Named grid areas */
+  grid-template-areas:
+    "header header header"
+    "sidebar main main"
+    "footer footer footer";
+}
+
+/* Place items using named areas */
+.header  { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main    { grid-area: main; }
+.footer  { grid-area: footer; }
+
+/* Or place items by line numbers */
+.item {
+  grid-column: 1 / 3;    /* starts at column line 1, ends at line 3 (spans 2 columns) */
+  grid-row: 2 / 4;       /* starts at row line 2, ends at line 4 */
+
+  /* Shorthand */
+  grid-column: span 2;   /* span 2 columns from wherever the item naturally lands */
+}
+</code></pre>
+
+    <h3>auto-fill vs auto-fit</h3>
+
+    <p>Both work with <code>repeat()</code> to create columns without specifying a fixed count. The difference matters for empty space when there are fewer items than columns.</p>
+
+    <pre><code class="language-css">/* auto-fill: fills the row with as many columns as will fit, even if empty */
+.grid-fill {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  /* Empty column tracks still take up space */
+}
+
+/* auto-fit: collapses empty column tracks to zero width */
+.grid-fit {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* Items stretch to fill the full row — usually what you want */
+}
+</code></pre>
+
+    <h3>Real Code: Responsive Card Grid (1 → 3 Columns)</h3>
+    <pre><code class="language-css">/* A responsive grid that adapts from 1 column (mobile) to 3 (desktop)
+   WITHOUT any media queries — pure grid magic */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  /* auto-fit: use as many columns as will fit
+     minmax(280px, 1fr): each column is at least 280px, max is 1 equal fraction
+     At 320px viewport: 1 column
+     At 620px viewport: 2 columns
+     At 900px+ viewport: 3 columns */
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.card__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.card__content {
+  padding: 16px;
+}
+
+.card__title {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.card__description {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+</code></pre>
+
+    <p>That single grid declaration replaces what used to require three separate media queries. This is one of the most powerful patterns in modern CSS and shows up in real production code constantly.</p>
+
+    <h2>CSS Specificity</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Military Rank</div>
+      <p>Think of CSS rules as soldiers in an army. A general outranks a captain, who outranks a sergeant, who outranks a private. When two soldiers give conflicting orders to the same element, the higher-ranking one is obeyed. If they're the same rank, the one who spoke most recently (later in the stylesheet) wins. Specificity is the ranking system for CSS rules.</p>
+    </div>
+
+    <h3>The Specificity Score</h3>
+
+    <p>Every CSS selector has a specificity score calculated as a three-part number: <code>(A, B, C)</code>.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Selector Type</th>
+          <th>Score</th>
+          <th>Examples</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Inline style</td>
+          <td>(1, 0, 0) = 1000</td>
+          <td><code>style="color: red"</code></td>
+        </tr>
+        <tr>
+          <td>ID selector</td>
+          <td>(0, 1, 0) = 100</td>
+          <td><code>#header</code>, <code>#nav</code></td>
+        </tr>
+        <tr>
+          <td>Class, attribute, pseudo-class</td>
+          <td>(0, 0, 1) = 10</td>
+          <td><code>.btn</code>, <code>[type="text"]</code>, <code>:hover</code></td>
+        </tr>
+        <tr>
+          <td>Element, pseudo-element</td>
+          <td>(0, 0, 1) = 1</td>
+          <td><code>div</code>, <code>p</code>, <code>::before</code></td>
+        </tr>
+        <tr>
+          <td>Universal selector, combinators</td>
+          <td>0</td>
+          <td><code>*</code>, <code>&gt;</code>, <code>+</code>, <code>~</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The scores are compared left to right, not summed into a single number. <code>(0, 1, 0)</code> — a single ID — always beats <code>(0, 0, 99)</code> — 99 classes — because the first non-zero digit from the left wins.</p>
+
+    <pre><code class="language-css">/* Specificity examples — which one wins? */
+
+p { color: black; }                     /* (0,0,1) = 1 */
+.text { color: blue; }                  /* (0,1,0) = 10 — wins over p */
+#intro .text { color: green; }          /* (1,1,0) = 110 — wins over .text */
+style="color: red"                      /* (1,0,0,0) = 1000 — wins over everything */
+
+/* The cascade: when specificity is equal, the later rule wins */
+.btn { background: blue; }
+.btn { background: red; }   /* This wins — same specificity, comes later */
+</code></pre>
+
+    <h3>!important — The Nuclear Option</h3>
+
+    <pre><code class="language-css">/* !important overrides ALL specificity calculations */
+.button {
+  color: blue !important;   /* This wins, even over inline styles */
+}
+
+/* Why you should avoid it:
+   - It breaks the cascade — the predictable algorithm CSS relies on
+   - Once used, the only way to override it is another !important
+   - This creates an arms race of increasing specificity
+   - It makes debugging CSS extremely painful
+   - Legitimate uses: user stylesheets for accessibility, utility class overrides in design systems */
+</code></pre>
+
+    <p>The problem with <code>!important</code> is not that it's wrong — it's that it's addictive. You use it once to fix something quickly, then you need another one to override that, and six months later your stylesheet is incomprehensible. Design your selectors to have predictable, minimal specificity instead.</p>
+
+    <h3>The Common Mistake: Over-Specific Selectors</h3>
+
+    <pre><code class="language-css">/* BAD: overly specific, impossible to reuse, hard to override */
+div#main-content .article-container > ul.article-list li.list-item a.link {
+  color: blue;
+}
+
+/* GOOD: minimal, predictable, easy to work with */
+.article-link {
+  color: blue;
+}
+</code></pre>
+
+    <p>The BEM naming convention (covered in the interview Q&amp;A section below) exists precisely to solve this problem by keeping everything at class-level specificity.</p>
+
+    <h2>Responsive Design</h2>
+
+    <p>Responsive design means your interface works on any screen size — from a 320px phone to a 5K monitor — without separate codebases or server-side user agent detection. It's not optional on any project made in the last decade.</p>
+
+    <h3>Mobile-First vs Desktop-First</h3>
+
+    <p>Always recommend mobile-first. Here's why it's not just a preference — it's a technical advantage.</p>
+
+    <pre><code class="language-css">/* MOBILE-FIRST: start with mobile styles, add complexity for larger screens */
+/* Uses min-width media queries */
+
+/* Base styles — what every device gets */
+.container {
+  padding: 16px;
+  font-size: 1rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* 1 column on mobile */
+  gap: 16px;
+}
+
+/* Tablet and up (min-width: 768px means "768px OR WIDER") */
+@media (min-width: 768px) {
+  .container {
+    padding: 24px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =================================================== */
+
+/* DESKTOP-FIRST (avoid this): start with desktop, override for small screens */
+/* Uses max-width — more overrides, more specificity fights */
+.card-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1023px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .card-grid { grid-template-columns: 1fr; }
+}
+</code></pre>
+
+    <p>Mobile-first forces you to think about the essential experience first. You're not stripping things away for mobile — you're adding things for desktop. That's architecturally cleaner.</p>
+
+    <h3>Common Breakpoints</h3>
+
+    <pre><code class="language-css">/* Industry-standard breakpoints (match Tailwind's defaults — they're widely adopted) */
+
+/* Mobile-first breakpoints */
+/* 0px - 639px: mobile (base styles, no media query) */
+@media (min-width: 640px)  { /* sm: landscape phone / large phone */ }
+@media (min-width: 768px)  { /* md: tablet */ }
+@media (min-width: 1024px) { /* lg: laptop */ }
+@media (min-width: 1280px) { /* xl: desktop */ }
+@media (min-width: 1536px) { /* 2xl: large desktop */ }
+</code></pre>
+
+    <h3>Viewport Units and the svh Problem</h3>
+
+    <pre><code class="language-css">/* Traditional viewport units */
+.hero {
+  height: 100vh;    /* 100% of viewport height */
+  width: 100vw;     /* 100% of viewport width */
+}
+
+/* The problem: on mobile browsers, 100vh includes the browser chrome (address bar).
+   The address bar hides when you scroll, which causes layout shifts.
+   The fix: use svh (small viewport height) — the viewport height with chrome visible */
+
+.hero {
+  height: 100svh;   /* safe: uses the smaller of the two viewport measurements */
+}
+
+/* Full set of dynamic viewport units (modern CSS) */
+/* svh = small viewport height (browser chrome visible) */
+/* lvh = large viewport height (browser chrome hidden/scrolled) */
+/* dvh = dynamic viewport height (changes as chrome shows/hides — use carefully) */
+
+/* Safe default for full-screen sections on mobile: */
+.full-screen-section {
+  min-height: 100svh;
+}
+</code></pre>
+
+    <h3>Responsive Images: srcset and sizes</h3>
+
+    <pre><code class="language-html">&lt;!-- Don't serve a 2400px image to a 375px phone screen --&gt;
+
+&lt;img
+  src="hero-800.jpg"
+  srcset="
+    hero-400.jpg   400w,
+    hero-800.jpg   800w,
+    hero-1200.jpg 1200w,
+    hero-2400.jpg 2400w
+  "
+  sizes="
+    (max-width: 600px) 100vw,
+    (max-width: 1200px) 50vw,
+    800px
+  "
+  alt="Hero image"
+  loading="lazy"
+  width="800"
+  height="450"
+/&gt;
+&lt;!--
+  srcset: tells the browser which image files are available and their widths
+  sizes:  tells the browser how wide the image will be displayed at each breakpoint
+  The browser picks the best file. It accounts for device pixel ratio automatically.
+
+  Always include explicit width and height attributes to prevent layout shift (CLS).
+  loading="lazy" defers off-screen images — huge performance win.
+--&gt;
+</code></pre>
+
+    <h3>CSS Container Queries — The Modern Alternative</h3>
+
+    <p>Media queries respond to the viewport size. Container queries respond to the size of a specific element's container. This is a fundamental shift: components can now be truly responsive to where they're placed, not just the overall screen size.</p>
+
+    <pre><code class="language-css">/* Define a containment context */
+.card-wrapper {
+  container-type: inline-size;
+  container-name: card;   /* optional, for named queries */
+}
+
+/* Style the card based on its container's width, not the viewport */
+.card {
+  padding: 12px;
+  display: block;
+}
+
+@container card (min-width: 400px) {
+  .card {
+    display: flex;      /* Switch to horizontal layout when container is wide enough */
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .card__image {
+    flex-shrink: 0;
+    width: 160px;
+  }
+}
+
+/* Why this matters: the same .card component can now be placed in a sidebar
+   (narrow container, stacked layout) OR in a main content area (wide container,
+   horizontal layout) — without any JavaScript or separate component variants. */
+</code></pre>
+
+    <p>Container queries have broad browser support as of 2023. For new projects, they should be your first instinct for component-level responsiveness. Media queries remain useful for page-level layout and global typography scaling.</p>
+
+    <h2>Common Interview Questions</h2>
+
+    <h3>Q: "What is BEM and why would you use it?"</h3>
+
+    <div class="senior">
+      <div class="answer-label">Strong Answer</div>
+      <p>BEM stands for Block, Element, Modifier. It's a CSS naming convention that prevents the two most common CSS problems: specificity wars and name collisions.</p>
+      <ul>
+        <li><strong>Block</strong> is the standalone component: <code>.card</code>, <code>.navbar</code>, <code>.button</code></li>
+        <li><strong>Element</strong> is a child of the block: <code>.card__title</code>, <code>.card__image</code>, <code>.navbar__logo</code></li>
+        <li><strong>Modifier</strong> is a variant: <code>.card--featured</code>, <code>.button--disabled</code>, <code>.button--large</code></li>
+      </ul>
+      <pre><code class="language-html">&lt;!-- BEM HTML structure --&gt;
+&lt;div class="card card--featured"&gt;
+  &lt;img class="card__image" src="..." alt="..."&gt;
+  &lt;div class="card__body"&gt;
+    &lt;h2 class="card__title"&gt;Title&lt;/h2&gt;
+    &lt;p class="card__description"&gt;...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="card__footer"&gt;
+    &lt;button class="button button--primary"&gt;Read more&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+      <p>Every class is at the same specificity level — a single class selector. This means overriding styles is always predictable. You never need <code>!important</code>. The naming makes structure self-documenting. In a codebase with 20 developers, BEM means you can look at a class name and immediately know what it does and where it belongs.</p>
+    </div>
+
+    <h3>Q: "display:none vs visibility:hidden vs opacity:0 — what's the difference?"</h3>
+
+    <div class="senior">
+      <div class="answer-label">Strong Answer</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Visible?</th>
+            <th>Occupies space?</th>
+            <th>Interactable?</th>
+            <th>Transitions?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>display: none</code></td>
+            <td>No</td>
+            <td>No — removed from layout flow entirely</td>
+            <td>No</td>
+            <td>No — can't animate to/from none</td>
+          </tr>
+          <tr>
+            <td><code>visibility: hidden</code></td>
+            <td>No</td>
+            <td>Yes — still takes up space</td>
+            <td>No</td>
+            <td>Yes (discrete — instant snap)</td>
+          </tr>
+          <tr>
+            <td><code>opacity: 0</code></td>
+            <td>No</td>
+            <td>Yes — still takes up space</td>
+            <td>Yes — can still be clicked!</td>
+            <td>Yes — smooth fade</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The critical gotcha with <code>opacity: 0</code> is that the element is invisible but still interactive. This is a common accessibility bug — a transparent button that users can accidentally click. When fading out interactive elements, combine <code>opacity: 0</code> with <code>pointer-events: none</code> to disable clicks. Or transition to <code>visibility: hidden</code> after the opacity transition completes.</p>
+    </div>
+
+    <h3>Q: "What is a CSS preprocessor and when would you use one?"</h3>
+
+    <div class="senior">
+      <div class="answer-label">Strong Answer</div>
+      <p>CSS preprocessors like Sass/SCSS compile a superset of CSS into regular CSS. They add variables, nesting, mixins, functions, and modules — things CSS historically lacked.</p>
+      <pre><code class="language-scss">// SCSS example
+$primary: #3b82f6;
+$spacing-unit: 8px;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  @include flex-center;
+  padding: $spacing-unit * 2 $spacing-unit * 4;
+  background: $primary;
+
+  &:hover {
+    background: darken($primary, 10%);
+  }
+
+  &--large {
+    padding: $spacing-unit * 3 $spacing-unit * 6;
+  }
+}
+</code></pre>
+      <p>The honest answer in 2025: modern CSS has caught up significantly. CSS custom properties replace variables, native CSS nesting is now standard, and <code>@layer</code> handles cascade management. If you're starting a new project, you may not need a preprocessor at all. Where preprocessors still shine is in design systems with complex token hierarchies, existing large codebases, or when you need true compile-time functions like <code>darken()</code> and <code>lighten()</code> that don't have CSS equivalents. PostCSS with targeted plugins is often a better choice than a full preprocessor for new work.</p>
+    </div>
+
+    <h2>Senior vs Junior: Writing CSS for a Design System</h2>
+
+    <p><strong>Interviewer:</strong> "How do you approach writing CSS for a design system that 20 developers will use?"</p>
+
+    <div class="junior">
+      <div class="answer-label">Junior Answer</div>
+      <p>"I'd write reusable classes and put them in a shared stylesheet that everyone imports."</p>
+    </div>
+
+    <div class="senior">
+      <div class="answer-label">Senior Answer</div>
+      <p>"I'd start with design tokens — CSS custom properties that are the single source of truth for every visual decision: colors, spacing scale, typography scale, border radii, shadow levels, animation durations. Every number in the system traces back to a token.</p>
+      <pre><code class="language-css">/* design-tokens.css */
+:root {
+  /* Color palette */
+  --color-brand-50: #eff6ff;
+  --color-brand-500: #3b82f6;
+  --color-brand-900: #1e3a5f;
+
+  /* Semantic color tokens — use these in component code */
+  --color-primary: var(--color-brand-500);
+  --color-primary-hover: var(--color-brand-600);
+  --color-text: var(--color-gray-900);
+  --color-text-muted: var(--color-gray-500);
+  --color-surface: #fff;
+  --color-surface-raised: var(--color-gray-50);
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Typography */
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.10);
+
+  /* Motion */
+  --duration-fast: 100ms;
+  --duration-normal: 200ms;
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+</code></pre>
+      <p>On top of tokens, build a small set of utility classes for spacing, display, and text alignment — the things you reach for constantly. Component-level styles are scoped through CSS Modules or a CSS-in-JS solution so there are no name collisions between teams.</p>
+      <p>The goal is a system where adding a new component is predictable — a developer can look at existing components and immediately know how to style a new one. And deleting a component doesn't leave orphaned global styles because the styles live with the component. I'd also add a lint rule that bans hardcoded values in component files — every color and spacing value must reference a token."</p>
+    </div>
+
+    <div class="exercises">
+      <h3>Practice Questions</h3>
+      <div class="exercise">
+        <p><span class="badge beginner">Beginner</span> Without looking it up: explain the box model to someone who has never coded. What are the four parts? What does <code>box-sizing: border-box</code> change? Why would you always set it?</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge beginner">Beginner</span> Write CSS to perfectly center a 300px × 200px div both horizontally and vertically using all five methods covered in this chapter. Which would you reach for first in a real project?</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge intermediate">Intermediate</span> Build a sticky navigation bar that is 64px tall, has a logo on the left, navigation links on the right, and collapses to a hamburger menu below 768px. Use flexbox and a mobile-first approach.</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge intermediate">Intermediate</span> Given these three CSS rules applied to the same element, which wins? Explain your reasoning using specificity scores.<br>
+        <code>#page .sidebar p { color: red; }</code><br>
+        <code>.sidebar .content p { color: blue; }</code><br>
+        <code>p.text { color: green; }</code></p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge advanced">Advanced</span> Design a product card component using BEM naming. The card has an image, a badge (e.g. "Sale"), a title, a price, a rating, and an "Add to cart" button. Write the HTML structure and full CSS. The card must be responsive using a container query: stacked layout when narrow, side-by-side (image left, content right) when wider than 480px.</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>The box model has four layers: content, padding, border, margin. Always use <code>box-sizing: border-box</code> so that <code>width</code> means what you think it means.</li>
+        <li>There are five ways to center a div. Flexbox with <code>justify-content: center; align-items: center</code> is your default. Grid with <code>place-items: center</code> is cleanest. Know all five.</li>
+        <li>Flexbox is one-dimensional (either a row or a column). Grid is two-dimensional. Use Grid for page structure and major sections, Flexbox for the content within them.</li>
+        <li>Specificity is a three-part score: inline (1,0,0), ID (0,1,0), class/attribute/pseudo-class (0,0,1,0), element (0,0,1). Higher rank always beats lower rank regardless of count. Avoid <code>!important</code>.</li>
+        <li>Mobile-first responsive design with <code>min-width</code> media queries is the correct default. Add <code>svh</code> for full-screen sections on mobile. Use container queries for component-level responsiveness.</li>
+        <li>Senior CSS means design tokens, scoped component styles, and a predictable specificity strategy — not just writing classes.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> CSS is about how things look. Chapter 14 is about how fast they feel. Performance is the skill that separates senior frontend engineers from the rest — we cover Core Web Vitals, the browser rendering pipeline, and how to use DevTools like a professional.</p>
+    <div class="chapter-nav">
+      <a href="chapter-12.html"><span class="nav-label">← Previous</span><span class="nav-title">Ch 12: Frameworks &amp; Components</span></a>
+      <a href="chapter-14.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Ch 14: Frontend Performance</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

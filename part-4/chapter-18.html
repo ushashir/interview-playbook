@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 18: Databases — Design, Indexing, Optimization — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html" class="active">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 18</div>
+      <h1>Databases — Design, Indexing, Optimization</h1>
+      <p class="chapter-intro">More production incidents are caused by database problems than by any other single category. Missing indexes, N+1 queries, and poor schema design are the silent killers of backend performance. The interview knows this. That's why database questions are everywhere.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>The SQL vs NoSQL decision framework — when each is actually the right choice</li>
+        <li>Database indexes in depth: B-Tree, hash, composite, covering, and when indexes hurt</li>
+        <li>The N+1 problem — how to identify it, fix it in TypeORM and Prisma, and handle it in GraphQL</li>
+        <li>ACID properties with real-world consequences and transaction code</li>
+        <li>Database normalization — and when to intentionally break the rules</li>
+        <li>Redis caching patterns: cache-aside, write-through, TTL strategy, and cache invalidation</li>
+        <li>Query optimization: EXPLAIN ANALYZE, avoiding bad patterns, connection pooling</li>
+        <li>How a senior engineer investigates a query that went from 20ms to 4 seconds</li>
+      </ul>
+    </div>
+
+    <!-- BIG IDEA ANALOGY -->
+    <div class="box analogy">
+      <h4>The Book Index Analogy</h4>
+      <p>Think of the index at the back of a textbook. Without it, finding every reference to "Redis" means reading every single page from cover to cover. With it, you jump straight to page 212, 347, and 408. A database index does exactly this — it builds a separate shortcut structure so the database doesn't have to scan every row in a table to find the ones that match your WHERE clause.</p>
+      <p>The index costs something: the book has to be heavier (more storage), and whenever you add a new page that mentions Redis, someone has to update the index too (slower writes). That's the exact tradeoff. Indexes make reads faster at the cost of writes and storage. The question is never "should I add an index?" — it's "does the read benefit justify the write cost for this specific column?"</p>
+    </div>
+
+    <h2>1. SQL vs NoSQL — The Real Decision Framework</h2>
+
+    <div class="box analogy">
+      <h4>The Filing Cabinet vs the Corkboard</h4>
+      <p>SQL is a filing cabinet with strict folder labels — every document belongs to an exactly defined category, and you cannot put a spreadsheet in the "letters" folder. The structure is rigid, but you can find any document instantly by following the labels, and you can cross-reference documents across folders easily.</p>
+      <p>NoSQL is a giant corkboard where you can pin anything anywhere. A pin can hold a photo, a to-do list, a business card, or a receipt. Flexible, fast to add things to, great if you always access things the same way. Chaotic if you need to find "all business cards from London" — because there's no structure to help you.</p>
+    </div>
+
+    <h3>SQL (PostgreSQL, MySQL, SQLite)</h3>
+    <p>SQL databases shine when your data has meaningful relationships between entities, when you need ACID transactions, and when your query patterns are varied and not fully known in advance.</p>
+    <ul>
+      <li><strong>Use when:</strong> data relationships are complex (users → organizations → projects → tasks → comments), ACID compliance is required (financial records, bookings, inventory), the schema is relatively stable, or you need flexible ad hoc queries.</li>
+      <li><strong>Strengths:</strong> JOINs across tables, multi-table transactions, strong typing and constraints, a rich and mature query language, decades of tooling and expertise.</li>
+      <li><strong>Weaknesses:</strong> Schema migrations require care and can be painful at scale. Horizontal scaling (sharding across multiple machines) is more complex than with some NoSQL options. Very large tables (billions of rows) require careful partitioning strategy.</li>
+    </ul>
+
+    <h3>NoSQL Databases — Three Different Animals</h3>
+    <p>NoSQL is not one thing. The term covers at least four fundamentally different storage models, each optimized for different access patterns.</p>
+    <p><strong>Document stores (MongoDB, CouchDB):</strong> store data as JSON documents. No fixed schema — each document can have different fields. Excellent for content-heavy applications where the document shape varies. Poor for complex relationships that would require many joins. Use for: product catalogs, blog posts, user-generated content where schema changes frequently.</p>
+    <p><strong>Key-value stores (Redis, DynamoDB in simple mode):</strong> the simplest possible model. A key maps to a value. Extremely fast lookups, horizontally scalable by design. No query flexibility — you can only look up by key. Use for: caching, sessions, rate limiting counters, real-time leaderboards, feature flags.</p>
+    <p><strong>Column-family stores (Cassandra, HBase):</strong> optimized for write-heavy workloads at massive scale. Data is partitioned by a partition key and clustered by a sort key. Excellent for time-series data (metrics, events, logs) where you always query a range within a partition. Terrible for joins or arbitrary queries.</p>
+    <p><strong>Graph databases (Neo4j):</strong> data is stored as nodes and edges. Excellent for highly connected data — social graphs, recommendation engines, fraud detection. Use when the relationships between entities are as important as the entities themselves.</p>
+
+    <div class="box tip">
+      <h4>The interview-ready SQL vs NoSQL answer</h4>
+      <p>"I'd choose SQL when I need ACID transactions, complex relationships with joins, or flexible query patterns. I'd choose NoSQL when the access patterns are well-defined and fixed, the data structure is likely to change frequently, or I need to scale writes horizontally from day one. For most applications I've built, PostgreSQL was the right default — it's remarkably capable, it supports JSON columns for flexible data, and it handles far more scale than most products ever need."</p>
+    </div>
+
+    <h2>2. Database Indexes — Deep Dive</h2>
+    <p>Indexes are the most high-leverage tool in query optimization. Understanding them well — not just knowing they exist, but knowing how each type works and when each helps or hurts — is a clear differentiator in backend interviews.</p>
+
+    <h3>B-Tree Index: The Default</h3>
+    <p>When you run <code>CREATE INDEX</code> without specifying a type, you get a B-Tree index. It works exactly like the book index analogy: a balanced tree structure where lookups, range queries, and ordering operations are all O(log n). It handles equality (<code>WHERE email = 'x'</code>), range queries (<code>WHERE created_at BETWEEN ... AND ...</code>), and ordering (<code>ORDER BY name</code>) efficiently.</p>
+
+    <h3>Hash Index</h3>
+    <p>A hash index maps each value to a hash bucket. Lookups are O(1) for exact equality — faster than B-Tree for this specific case. But hash indexes cannot handle range queries or ordering at all. In PostgreSQL, hash indexes are rarely used because B-Tree is fast enough for equality and also handles ranges.</p>
+
+    <h3>Composite Index and the Leftmost Prefix Rule</h3>
+    <p>A composite index indexes multiple columns together: <code>CREATE INDEX idx_user_status ON users(user_id, status)</code>. This index can efficiently answer queries that filter on <code>user_id</code> alone, or on <code>user_id AND status</code>. It cannot efficiently answer queries on <code>status</code> alone — because <code>status</code> is the second column, and without the first column the index cannot be entered from the correct position.</p>
+    <p>This is the leftmost prefix rule: a composite index on <code>(col1, col2, col3)</code> can be used for queries filtering on <code>col1</code>, <code>col1 + col2</code>, or <code>col1 + col2 + col3</code>. Not for queries on <code>col2</code> alone or <code>col3</code> alone.</p>
+
+    <h3>Covering Index</h3>
+    <p>A covering index includes all columns that a query needs — so the database engine never has to touch the actual table at all. It answers the entire query from the index structure alone. This is a significant performance win for high-frequency queries.</p>
+
+    <pre><code>-- Without a covering index: must fetch rows from the table after finding them in the index
+SELECT name, email FROM users WHERE status = 'active';
+
+-- With a covering index: all needed columns are in the index
+CREATE INDEX idx_users_status_cover ON users(status) INCLUDE (name, email);
+-- Or as a standard composite index in older PostgreSQL:
+CREATE INDEX idx_users_status_name_email ON users(status, name, email);</code></pre>
+
+    <h3>When Indexes Hurt</h3>
+    <p>Every index must be maintained on every INSERT, UPDATE, and DELETE. A table with 8 indexes on it costs 8 index updates for every write. On write-heavy tables, over-indexing is a real performance problem. Rules of thumb: index columns that appear in WHERE, JOIN, and ORDER BY clauses. Do not index columns with very low cardinality (e.g., a boolean column with 50% true and 50% false — the index is nearly useless). Do not index every column "just in case."</p>
+
+    <h3>Reading EXPLAIN ANALYZE</h3>
+    <pre><code>-- Add an index and use EXPLAIN ANALYZE to verify it's being used
+CREATE INDEX idx_users_email ON users(email);
+
+EXPLAIN ANALYZE SELECT id, name FROM users WHERE email = 'alice@example.com';
+
+-- Output breakdown:
+-- "Index Scan using idx_users_email on users"  ← good: using the index
+-- "  Index Cond: (email = 'alice@example.com')"
+-- "Planning Time: 0.3 ms"
+-- "Execution Time: 0.1 ms"
+
+-- Contrast with a slow query on an unindexed column:
+EXPLAIN ANALYZE SELECT id, name FROM users WHERE lower(email) = 'alice@example.com';
+-- "Seq Scan on users"  ← bad: full table scan, index not used
+-- "  Filter: (lower(email) = 'alice@example.com')"
+-- Note: functions in WHERE clauses prevent index use!
+
+-- Fix: create a functional index
+CREATE INDEX idx_users_email_lower ON users(lower(email));</code></pre>
+
+    <div class="box key-term">
+      <h4>Key concept: Seq Scan vs Index Scan</h4>
+      <p>In EXPLAIN output, "Seq Scan" means the database is reading every row in the table. "Index Scan" means it's using an index to jump directly to matching rows. For large tables, Seq Scan on a filtered query is almost always a performance problem. For small tables (under ~1,000 rows), the query planner may choose Seq Scan intentionally — it's faster than the index overhead for tiny datasets.</p>
+    </div>
+
+    <h2>3. The N+1 Problem</h2>
+    <p>The N+1 problem is the single most common database performance bug in ORM-based applications. It appears in almost every backend interview at some level. You must be able to identify it, explain why it happens, and fix it.</p>
+
+    <div class="box analogy">
+      <h4>The Phone Call Analogy</h4>
+      <p>You're managing a sports team of 11 players and you need each player's hometown for a team program. The N+1 approach: you call player 1 and ask. You call player 2 and ask. You call player 3 and ask. Eleven separate phone calls. The smart approach: send one group message asking everyone at once. One message, eleven replies. In database terms, that's the difference between N+1 queries and 1 query with a JOIN.</p>
+    </div>
+
+    <h3>The Bug: N+1 with TypeORM</h3>
+    <pre><code>// The N+1 bug: 1 query to get posts + N queries to get each author
+async getPostsWithAuthors() {
+  const posts = await postRepo.find(); // Query 1: SELECT * FROM posts (returns 50 posts)
+
+  for (const post of posts) {
+    // This fires a separate query for EACH post:
+    // Query 2: SELECT * FROM users WHERE id = 1
+    // Query 3: SELECT * FROM users WHERE id = 2
+    // ... 50 queries total for 50 posts
+    const author = await userRepo.findOne({ where: { id: post.userId } });
+    post.authorName = author?.name;
+  }
+
+  return posts; // Total: 51 database queries for 50 posts
+}</code></pre>
+
+    <h3>The Fix: Eager Loading / JOIN</h3>
+    <pre><code>// Fix 1: TypeORM relations — fetches with a single JOIN
+async getPostsWithAuthors() {
+  return postRepo.find({
+    relations: ['author'],  // TypeORM generates: SELECT posts.*, users.* FROM posts LEFT JOIN users ON ...
+  });
+  // Total: 1 database query regardless of how many posts there are
+}
+
+// Fix 2: QueryBuilder — for more control over the JOIN
+async getPostsWithAuthors() {
+  return postRepo
+    .createQueryBuilder('post')
+    .leftJoinAndSelect('post.author', 'author')
+    .select(['post.id', 'post.title', 'post.createdAt', 'author.id', 'author.name'])
+    .getMany();
+}
+
+// Fix 3: Prisma equivalent
+async getPostsWithAuthors() {
+  return prisma.post.findMany({
+    include: { author: { select: { id: true, name: true } } },
+    // Generates a single query with JOIN
+  });
+}</code></pre>
+
+    <h3>The DataLoader Pattern for GraphQL</h3>
+    <p>In GraphQL, the N+1 problem moves to the server. Each resolver is called independently, so resolving the <code>author</code> field on 50 posts triggers 50 separate database queries. The solution is DataLoader: it batches all lookups within a single tick of the event loop into a single query.</p>
+    <pre><code>import DataLoader from 'dataloader';
+
+// Create a DataLoader that batch-loads users by ID
+const userLoader = new DataLoader(async (userIds: readonly string[]) => {
+  // All user IDs from the current batch arrive here at once
+  const users = await userRepo.findBy({ id: In([...userIds]) });
+  // DataLoader requires the result in the same order as the input IDs
+  const userMap = new Map(users.map(u => [u.id, u]));
+  return userIds.map(id => userMap.get(id) ?? null);
+});
+
+// In the resolver:
+const resolvers = {
+  Post: {
+    author: (post, _, { loaders }) =>
+      loaders.userLoader.load(post.authorId),
+    // 50 posts → 50 calls to .load() → DataLoader batches into 1 DB query
+  },
+};</code></pre>
+
+    <h2>4. ACID Properties</h2>
+
+    <div class="box analogy">
+      <h4>The Bank Transfer Analogy</h4>
+      <p>You're transferring $500 from your savings account to your checking account. ACID guarantees four things: Atomicity means the debit and credit either both happen or neither does — the bank cannot debit your savings account, crash, and forget to credit your checking account. Consistency means the database stays valid — no account can go negative in ways that violate the schema rules. Isolation means another bank transfer happening simultaneously doesn't see your in-progress transfer in a partially completed state. Durability means once the bank says "transfer complete," it survives a power cut — it's on disk, not just in memory.</p>
+    </div>
+
+    <h3>Atomicity</h3>
+    <p>All operations in a transaction succeed together, or the entire transaction is rolled back. The classic violation: half a bank transfer committed, half not. With atomicity, this cannot happen — the database treats the transfer as a single atomic unit.</p>
+
+    <h3>Consistency</h3>
+    <p>The database moves from one valid state to another valid state. Constraints (NOT NULL, FOREIGN KEY, CHECK) are enforced. If any constraint would be violated, the transaction fails and nothing changes.</p>
+
+    <h3>Isolation</h3>
+    <p>Concurrent transactions do not interfere with each other. The degree of isolation is configurable (READ COMMITTED, REPEATABLE READ, SERIALIZABLE). Higher isolation = fewer anomalies but more lock contention and lower throughput. Most applications use READ COMMITTED as a reasonable default.</p>
+
+    <h3>Durability</h3>
+    <p>Once a transaction is committed, it is permanent — even if the database server crashes immediately afterward. Achieved through write-ahead logging (WAL): the commit is recorded in a durable log before the data pages are modified.</p>
+
+    <pre><code>-- Transaction example: bank transfer
+BEGIN;
+
+UPDATE accounts SET balance = balance - 500 WHERE id = 'savings-account-id';
+UPDATE accounts SET balance = balance + 500 WHERE id = 'checking-account-id';
+
+-- Both updates succeeded — commit makes them permanent
+COMMIT;
+
+-- If anything went wrong:
+ROLLBACK; -- Reverts both updates as if they never happened
+
+-- TypeORM equivalent
+await dataSource.transaction(async (manager) => {
+  await manager.decrement(Account, { id: savingsId }, 'balance', 500);
+  await manager.increment(Account, { id: checkingId }, 'balance', 500);
+  // If either throws, the transaction is automatically rolled back
+});</code></pre>
+
+    <h2>5. Database Normalization</h2>
+    <p>Normalization is a set of rules for organizing data to reduce redundancy and improve integrity. The three most commonly discussed normal forms in interviews are 1NF, 2NF, and 3NF.</p>
+
+    <ul>
+      <li><strong>1NF (First Normal Form):</strong> No repeating groups. Each column contains atomic (indivisible) values. No arrays or comma-separated lists in a single cell. Each row is unique.</li>
+      <li><strong>2NF (Second Normal Form):</strong> Already in 1NF, plus no partial dependencies. Every non-key column must depend on the entire primary key, not just part of it. Relevant when the primary key is composite.</li>
+      <li><strong>3NF (Third Normal Form):</strong> Already in 2NF, plus no transitive dependencies. Non-key columns must depend on the key and only the key, not on other non-key columns.</li>
+    </ul>
+
+    <div class="box key-term">
+      <h4>Normalize for write integrity, denormalize for read performance</h4>
+      <p>Normalization prevents anomalies on writes — updates, inserts, and deletes. Denormalization (intentionally introducing redundancy) can eliminate expensive JOINs on reads. A common pattern: normalize the authoritative data model, then maintain a denormalized read model (a view, a materialized view, or a separate read-optimized table) for high-frequency queries. This is the essence of CQRS at the database level.</p>
+    </div>
+
+    <h2>6. Redis Caching</h2>
+
+    <div class="box analogy">
+      <h4>The Sticky Note Analogy</h4>
+      <p>You need to look up the office Wi-Fi password frequently throughout the day. The slow way: open the company intranet, navigate to IT resources, find the network configuration page, copy the password. The fast way: write it on a sticky note on your monitor. The sticky note is Redis. Instead of looking up the same information in a massive filing cabinet every time, you wrote it somewhere instantly accessible. The sticky note has one limitation: if the IT department changes the password, your sticky note is wrong until someone updates it. That's the cache invalidation problem.</p>
+    </div>
+
+    <h3>Cache-Aside Pattern</h3>
+    <p>The most common caching strategy. The application code manages the cache explicitly: check cache first, if it's a miss then fetch from the database and write to the cache, then return the result.</p>
+
+    <pre><code>// Cache-aside with Redis in a NestJS service
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Redis } from 'ioredis';
+import { InjectRedis } from '@nestjs-modules/ioredis';
+import { User } from './entities/user.entity';
+
+@Injectable()
+export class UsersService {
+  constructor(
+    @InjectRepository(User) private readonly userRepo: Repository&lt;User&gt;,
+    @InjectRedis() private readonly redis: Redis,
+  ) {}
+
+  async findById(id: number): Promise&lt;User | null&gt; {
+    const cacheKey = `user:${id}:profile`;  // Namespaced key with separators
+
+    // 1. Check cache first
+    const cached = await this.redis.get(cacheKey);
+    if (cached) {
+      return JSON.parse(cached);  // Cache hit: return without touching the database
+    }
+
+    // 2. Cache miss: fetch from database
+    const user = await this.userRepo.findOne({ where: { id } });
+
+    if (user) {
+      // 3. Write to cache with TTL (1 hour = 3600 seconds)
+      // ALWAYS set a TTL — keys without TTL are memory leaks
+      await this.redis.setex(cacheKey, 3600, JSON.stringify(user));
+    }
+
+    return user;
+  }
+
+  async update(id: number, dto: UpdateUserDto): Promise&lt;User&gt; {
+    const user = await this.userRepo.save({ id, ...dto });
+
+    // Invalidate the cache immediately after updating
+    // Event-based invalidation: don't wait for TTL to expire
+    await this.redis.del(`user:${id}:profile`);
+
+    return user;
+  }
+}</code></pre>
+
+    <h3>Cache Invalidation: The Hardest Problem</h3>
+    <p>Phil Karlton famously said there are only two hard problems in computer science: cache invalidation and naming things. He wasn't joking. Three strategies, each with real tradeoffs:</p>
+    <ol>
+      <li><strong>TTL-based (lazy expiry):</strong> Set a TTL and let cache entries expire naturally. Simple to implement, eventually consistent. Risk: stale reads for up to TTL duration. Best for: data that changes infrequently and where brief staleness is acceptable (user profiles, product details).</li>
+      <li><strong>Event-based invalidation:</strong> Delete or update the cache key immediately when the underlying data changes. Consistent, but requires every code path that modifies data to also invalidate the cache. Risk: cache stampede — when a popular key expires, many requests simultaneously miss the cache and all hit the database. Mitigate with a mutex or probabilistic early expiration.</li>
+      <li><strong>Write-through:</strong> Update the cache and the database together in the same operation. Reads are always from cache. Writes are slightly slower. Risk: cache and database can get out of sync if the write to one fails and the other succeeds. Use a transaction or a two-phase approach.</li>
+    </ol>
+
+    <div class="box tip">
+      <h4>Redis key naming convention</h4>
+      <p>Use colons as separators and make keys hierarchical: <code>user:1234:profile</code>, <code>post:5678:comments:page:1</code>, <code>rate:ip:192.168.1.1:minute:2024010112</code>. This makes keys scannable and understandable in a Redis GUI, and lets you use pattern-based deletion (<code>DEL user:1234:*</code>) when needed.</p>
+    </div>
+
+    <h2>7. Query Optimization in Practice</h2>
+    <p>Theory is useful. But in a debugging scenario — which is where many interview questions land — you need a systematic process, not just vocabulary.</p>
+
+    <h3>Common Anti-Patterns to Know</h3>
+    <pre><code>-- Anti-pattern 1: SELECT * (fetches all columns, ignores covering indexes)
+SELECT * FROM users WHERE id = 123;
+-- Fix: specify only the columns you need
+SELECT id, name, email FROM users WHERE id = 123;
+
+-- Anti-pattern 2: Functions in WHERE clause (prevents index use)
+SELECT * FROM users WHERE LOWER(email) = 'alice@example.com';
+-- Fix: use a functional index or store the normalized value
+CREATE INDEX idx_users_email_lower ON users(LOWER(email));
+
+-- Anti-pattern 3: Leading wildcard in LIKE (prevents index use)
+SELECT * FROM posts WHERE title LIKE '%database%';
+-- Fix: use full-text search for this use case
+-- PostgreSQL: CREATE INDEX idx_posts_title_fts ON posts USING gin(to_tsvector('english', title));
+
+-- Anti-pattern 4: Implicit type coercion (may prevent index use)
+-- If user_id is INTEGER but you pass a string:
+SELECT * FROM users WHERE id = '123'; -- may or may not use index depending on DB
+-- Fix: always use matching types in queries</code></pre>
+
+    <h3>Connection Pooling</h3>
+    <p>Opening a new database connection for every incoming HTTP request is catastrophic for performance. Database connections are expensive — they involve TCP handshakes, authentication, and buffer allocation. A connection pool maintains a set of reusable connections and hands them out to requests as needed.</p>
+    <pre><code>// TypeORM connection pool configuration
+const dataSource = new DataSource({
+  type: 'postgres',
+  url: process.env.DATABASE_URL,
+  extra: {
+    max: 20,          // Maximum connections in the pool
+    min: 5,           // Minimum idle connections to keep warm
+    acquire: 30000,   // Max ms to wait for a connection before error
+    idle: 10000,      // Connection idle time before it's released
+  },
+});
+// Rule of thumb: max pool size = (number of CPU cores * 2) + number of disk spindles
+// For a cloud database, start with 10-20 and tune based on metrics</code></pre>
+
+    <h3>Batch Operations</h3>
+    <pre><code>// Slow: N individual INSERT statements
+for (const user of users) {
+  await userRepo.save(user); // N round trips to the database
+}
+
+// Fast: single batch INSERT
+await userRepo.save(users); // TypeORM batches into one INSERT with multiple value rows
+// Equivalent SQL: INSERT INTO users (name, email) VALUES ($1,$2), ($3,$4), ($5,$6)...</code></pre>
+
+    <h2>8. Senior vs Junior: "A Query That Used to Take 20ms Is Now Taking 4 Seconds"</h2>
+
+    <div class="junior">
+      <p><strong>Junior answer:</strong> "I'd look at the code and see if there's something I can optimize. Maybe add an index? I'd try a few things and see if it gets faster."</p>
+      <p>This answer describes wishful thinking, not investigation. There is no systematic process. There is no hypothesis. "Try a few things" is the opposite of how senior engineers debug.</p>
+    </div>
+
+    <div class="senior">
+      <p><strong>Senior answer:</strong> "First, I'd verify the problem is real and reproducible: is this happening for all users or just some? Is it a specific time of day? That rules out a data skew issue.</p>
+      <p>Second, I'd check if it's a data volume issue. Did the table grow significantly? A query that was fast on 10,000 rows may be doing a full table scan on 10 million rows. I'd check table sizes and recent growth.</p>
+      <p>Third, I'd run EXPLAIN ANALYZE on the exact query. I'm looking for: is it doing a Seq Scan on a large table (missing or unused index)? Is the join order wrong? Is the estimated row count wildly off the actual row count (stale statistics — I'd run ANALYZE to fix that)?</p>
+      <p>If the index exists but isn't being used, I'd check why: is there a function in the WHERE clause that bypasses the index? Is the column being cast to a different type? Is the query using a leading wildcard LIKE?</p>
+      <p>I'd also check for lock contention: are other queries holding locks that this query is waiting for? PostgreSQL's pg_stat_activity and pg_locks can show this.</p>
+      <p>Finally, connection pool exhaustion: is the query waiting for a connection to become available? If the pool is full, queries queue up and the latency grows even if the query itself is fast.</p>
+      <p>Once I know the root cause, I fix specifically: add a covering index, update statistics, fix the join, increase the pool, add a cache layer. Not 'try things.'"</p>
+    </div>
+
+    <h2>Practice Questions</h2>
+    <div class="exercises">
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p>What is the difference between a primary key index and a secondary index? Why does every table need a primary key?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p>Explain ACID in your own words using a real-world scenario that is not a bank transfer.</p>
+      </div>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>You have a query: <code>SELECT * FROM orders WHERE customer_id = 123 AND status = 'pending' ORDER BY created_at DESC</code>. Design the optimal index for this query and explain your reasoning using the leftmost prefix rule.</p>
+      </div>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>Write the N+1 bug and its fix using Prisma for a scenario where you're fetching a list of blog posts and each post's author's name and avatar.</p>
+      </div>
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p>Design the Redis caching strategy for a user profile endpoint that receives 50,000 requests per second. Cover: key naming, TTL choice, invalidation strategy, and how you'd handle a cache stampede when a very popular profile's cache key expires.</p>
+      </div>
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p>"We're migrating from MongoDB to PostgreSQL because our data has grown complex. What are the main things you'd check or change during the migration?" Name at least five specific concerns.</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h3>Chapter Summary</h3>
+      <ul>
+        <li>SQL is for complex relationships, ACID requirements, and flexible queries. NoSQL is for specific well-defined access patterns, flexible schemas, or write-heavy workloads at scale. PostgreSQL handles more than most products ever need.</li>
+        <li>B-Tree indexes are the default and handle equality and range queries. Composite indexes follow the leftmost prefix rule. Covering indexes eliminate table lookups entirely. Indexes hurt write performance — only index what you actually query on.</li>
+        <li>The N+1 problem: fetching N records and then making N more queries for related data. Fix with eager loading (TypeORM relations, Prisma include) or DataLoader (GraphQL). This appears in virtually every backend interview.</li>
+        <li>ACID: Atomicity (all or nothing), Consistency (valid states only), Isolation (concurrent transactions don't interfere), Durability (committed = permanent). Know a real-world consequence of violating each property.</li>
+        <li>Normalize for write integrity. Denormalize for read performance. These are not contradictory — use both intentionally.</li>
+        <li>Cache-aside is the most common Redis pattern: check cache, miss → DB → write to cache with TTL. Always set TTLs. Use namespaced keys. Cache invalidation options: TTL-based, event-based, write-through — each has tradeoffs.</li>
+        <li>Query optimization process: check data volume, run EXPLAIN ANALYZE, look for Seq Scan, check for function-in-WHERE anti-patterns, check lock contention, check connection pool exhaustion. Fix the root cause, don't guess.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Chapter 19 covers microservices and distributed systems — the honest tradeoff between monoliths and microservices, inter-service communication, CQRS, the Saga pattern, circuit breakers, and CAP theorem. Essential for senior backend roles.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-17.html"><span class="nav-label">← Previous</span><span class="nav-title">API Design &amp; Architecture</span></a>
+      <a href="chapter-19.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Microservices</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6: Beginner Algorithms — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-2">Part 2 · Chapter 6</div>
+      <h1>Beginner Algorithms</h1>
+      <p class="chapter-intro">These are the problems that seem too simple to study. They are not. Fumbling a FizzBuzz on camera is one of the most demoralizing experiences in tech. Let's make sure that never happens to you.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>Seven foundational algorithms — fully implemented, explained, and complexity-analyzed</li>
+        <li>The brute force first, then the optimized solution — every time</li>
+        <li>The common mistakes candidates make on "simple" problems</li>
+        <li>Why Fibonacci is secretly an introduction to dynamic programming</li>
+        <li>How to present beginner solutions with senior-level polish</li>
+      </ul>
+    </div>
+
+    <div class="box analogy">
+      <div class="box-title">💡 The Big Idea: Scrambled Eggs</div>
+      <p>Before Gordon Ramsay earned his Michelin stars, he mastered scrambled eggs. Not because scrambled eggs are impressive, but because they teach the fundamentals — heat control, timing, the feel of the pan. Every harder dish is built on those basics. Beginner algorithms are your scrambled eggs. FizzBuzz teaches conditionals and modulo. Fibonacci teaches recursion and why naive recursion is dangerous. Two Sum teaches the hash map pattern you'll use in dozens of harder problems. Skip these and you'll have gaps in your foundation. Master these and everything else builds naturally.</p>
+    </div>
+
+    <div class="box warning">
+      <div class="box-title">⚠️ Warning</div>
+      <p>Don't let the word "beginner" make you complacent. These problems are used as filters — a hiring manager screening for basic competence — not because they're trivial but because they're universally known. A 3-year developer who stumbles on a palindrome check raises a serious question about how much they've actually internalized vs. relied on Stack Overflow. Know these cold.</p>
+    </div>
+
+    <hr>
+
+    <h2>1. FizzBuzz</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Sorting Mail by Rules</div>
+      <p>You're sorting mail into bins. The rules are: if the envelope is both red and square, bin 1. If it's only red, bin 2. If it's only square, bin 3. Otherwise, bin 4. The trick is that the "both" condition must be checked first — otherwise you'll sort combined items incorrectly. FizzBuzz has the same shape: the divisible-by-15 case must come before the individual checks.</p>
+    </div>
+
+    <p>Print numbers 1 through n. For multiples of 3, print "Fizz". For multiples of 5, print "Buzz". For multiples of both, print "FizzBuzz".</p>
+
+    <p><strong>Common mistake:</strong> Checking the individual conditions first. If you check <code>n % 3 === 0</code> before <code>n % 15 === 0</code>, you'll print "Fizz" for 15 and never reach the "FizzBuzz" branch.</p>
+
+<pre><code class="language-javascript">// Standard solution — O(n) time, O(1) space
+function fizzBuzz(n) {
+  for (let i = 1; i <= n; i++) {
+    if (i % 15 === 0) console.log('FizzBuzz'); // Must come first!
+    else if (i % 3 === 0) console.log('Fizz');
+    else if (i % 5 === 0) console.log('Buzz');
+    else console.log(i);
+  }
+}
+
+// Elegant variant: build the string, avoid repeating the modulo checks
+function fizzBuzzClean(n) {
+  for (let i = 1; i <= n; i++) {
+    let output = '';
+    if (i % 3 === 0) output += 'Fizz';
+    if (i % 5 === 0) output += 'Buzz';
+    console.log(output || i);
+  }
+}
+
+// One-liner for the follow-up "can you do it without if/else?"
+// Uses short-circuit evaluation and string concatenation
+const fizzBuzzOneLiner = n =>
+  Array.from({ length: n }, (_, i) => i + 1)
+    .map(i => (i % 3 ? '' : 'Fizz') + (i % 5 ? '' : 'Buzz') || String(i));
+
+console.log(fizzBuzzOneLiner(15));
+// ['1','2','Fizz','4','Buzz','Fizz','7','8','Fizz','Buzz','11','Fizz','13','14','FizzBuzz']
+</code></pre>
+
+    <div class="junior">
+      <div class="answer-label">Junior Answer</div>
+      <p>Writes the three conditions in the wrong order, prints "Fizz" for 15 instead of "FizzBuzz". When asked to extend for a new rule (e.g., multiples of 7 → "Bazz"), manually adds a new condition and hopes for the best.</p>
+    </div>
+
+    <div class="senior">
+      <div class="answer-label">Senior Answer</div>
+      <p>Writes the clean string-building version. When asked to extend for multiples of 7, adds <code>if (i % 7 === 0) output += 'Bazz'</code> — no reordering required, scales to any number of rules. Notes that the "combined condition" variant avoids the ordering problem entirely, making it more maintainable.</p>
+    </div>
+
+    <p><strong>Complexity:</strong> O(n) time, O(1) space. There's no optimization possible here — you have to visit every number.</p>
+
+    <hr>
+
+    <h2>2. Two Sum</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Finding a Dance Partner</div>
+      <p>You need two people whose heights add up to exactly 10 feet. Brute force: pair every person with every other person and measure. Optimized: as each person enters the room, announce "I need someone who is X feet tall" and check if that person is already there. You only need to look at each person once.</p>
+    </div>
+
+    <p>Given an array of integers <code>nums</code> and a target integer, return the indices of the two numbers that add up to the target. Assume exactly one solution exists and no element is used twice.</p>
+
+<pre><code class="language-javascript">// ─── Brute Force: O(n²) time, O(1) space ─────────────────────────────────────
+// Check every possible pair
+function twoSumBrute(nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) {
+        return [i, j];
+      }
+    }
+  }
+  return null;
+}
+
+// Why it's slow: for each element (n iterations), we scan the rest of the array
+// (up to n iterations). n * n = n².
+
+// ─── Optimized: O(n) time, O(n) space ────────────────────────────────────────
+// The bottleneck in the brute force is the inner loop — finding the complement.
+// Replace it with a hash map lookup.
+function twoSum(nums, target) {
+  const seen = new Map(); // maps value → index
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+
+    if (seen.has(complement)) {
+      return [seen.get(complement), i];
+    }
+
+    seen.set(nums[i], i);
+  }
+
+  return null;
+}
+
+// Trace through [2, 7, 11, 15], target = 9:
+// i=0: complement = 7, seen = {}  → not found → seen = {2: 0}
+// i=1: complement = 2, seen = {2: 0} → FOUND → return [0, 1]
+
+console.log(twoSum([2, 7, 11, 15], 9));  // [0, 1]
+console.log(twoSum([3, 2, 4], 6));       // [1, 2]
+console.log(twoSum([3, 3], 6));          // [0, 1]
+</code></pre>
+
+    <p><strong>Common mistake:</strong> Using an object instead of a Map and not handling the case where a value is used twice. With <code>nums = [3, 3]</code> and <code>target = 6</code>, you need to make sure you're returning different indices, not the same index twice. The hash map approach handles this naturally because you check the map before inserting.</p>
+
+    <p><strong>The key insight to verbalize:</strong> "The inner loop in the brute force is just asking 'does the complement exist?' — that's a lookup, and lookups are what hash maps are built for."</p>
+
+    <hr>
+
+    <h2>3. Reverse a String</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Reading a Book Backwards</div>
+      <p>The obvious approach: make a photocopy of every page, then stack them in reverse order. That takes O(n) space for all the copies. The in-place approach: go to the middle of the book, swap page 1 with page n, page 2 with page n-1, and so on. Same result, no photocopier needed.</p>
+    </div>
+
+<pre><code class="language-javascript">// ─── Naive: using built-in methods ────────────────────────────────────────────
+// O(n) time, O(n) space — creates intermediate array
+function reverseStringNaive(s) {
+  return s.split('').reverse().join('');
+}
+
+// ─── In-place with two pointers ───────────────────────────────────────────────
+// O(n) time, O(n) space for the char array (strings are immutable in JS)
+// In languages with mutable strings (C++, Java char[]), this is truly O(1) space
+function reverseString(s) {
+  const chars = s.split(''); // JavaScript strings are immutable, must use array
+  let left = 0;
+  let right = chars.length - 1;
+
+  while (left < right) {
+    // Swap characters at left and right pointers
+    [chars[left], chars[right]] = [chars[right], chars[left]];
+    left++;
+    right--;
+  }
+
+  return chars.join('');
+}
+
+console.log(reverseString('hello'));    // 'olleh'
+console.log(reverseString('racecar')); // 'racecar' (palindrome)
+console.log(reverseString(''));         // '' (edge case: empty string)
+console.log(reverseString('a'));        // 'a' (edge case: single char)
+</code></pre>
+
+    <p><strong>Common mistake:</strong> Forgetting the edge cases — empty string, single character, even vs. odd length. The two-pointer approach handles all of them naturally because <code>left &lt; right</code> exits immediately when they meet or cross.</p>
+
+    <p><strong>What the interviewer is really testing:</strong> Do you know about string immutability? Do you reach for the two-pointer technique, which is a pattern you'll reuse in palindrome checks, sorted array problems, and more?</p>
+
+    <hr>
+
+    <h2>4. Check Palindrome</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Checking if a Word Reads the Same in a Mirror</div>
+      <p>Naive approach: write the word down, hold it up to a mirror, compare the reflection to the original. Optimized: just compare the first letter to the last, the second to the second-to-last, and stop as soon as you hit the middle. You don't need the reflection at all.</p>
+    </div>
+
+<pre><code class="language-javascript">// ─── Naive: reverse and compare ───────────────────────────────────────────────
+// O(n) time, O(n) space
+function isPalindromeNaive(s) {
+  const cleaned = s.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return cleaned === cleaned.split('').reverse().join('');
+}
+
+// ─── Optimized: two pointers ──────────────────────────────────────────────────
+// O(n) time, O(1) space — no intermediate string needed
+function isPalindrome(s) {
+  // Normalize: lowercase, alphanumeric only (common follow-up requirement)
+  const cleaned = s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+  let left = 0;
+  let right = cleaned.length - 1;
+
+  while (left < right) {
+    if (cleaned[left] !== cleaned[right]) return false;
+    left++;
+    right--;
+  }
+
+  return true;
+}
+
+console.log(isPalindrome('racecar'));          // true
+console.log(isPalindrome('A man a plan a canal Panama')); // true
+console.log(isPalindrome('hello'));            // false
+console.log(isPalindrome(''));                 // true (empty string is a palindrome)
+
+// Follow-up: Valid Palindrome II — can you remove at most one character?
+function validPalindromeII(s) {
+  function isPalin(str, l, r) {
+    while (l < r) {
+      if (str[l] !== str[r]) return false;
+      l++; r--;
+    }
+    return true;
+  }
+
+  let left = 0, right = s.length - 1;
+  while (left < right) {
+    if (s[left] !== s[right]) {
+      // Try skipping either the left or the right character
+      return isPalin(s, left + 1, right) || isPalin(s, left, right - 1);
+    }
+    left++; right--;
+  }
+  return true;
+}
+</code></pre>
+
+    <p><strong>Common mistake:</strong> Forgetting to normalize the string. "A man, a plan, a canal: Panama" is a palindrome if you strip spaces, punctuation, and case — but not if you compare the raw string character-by-character. Always ask the interviewer: "Should I consider only alphanumeric characters?"</p>
+
+    <hr>
+
+    <h2>5. Find Max / Min in an Array</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Finding the Tallest Person in a Room</div>
+      <p>Walk through the room once. Keep a mental note of the tallest person you've seen so far. When you find someone taller, update your note. At the end of the room, your note has the answer. You only needed one pass.</p>
+    </div>
+
+<pre><code class="language-javascript">// ─── One pass: O(n) time, O(1) space ─────────────────────────────────────────
+function findMax(arr) {
+  if (arr.length === 0) throw new Error('Array is empty');
+
+  let max = arr[0]; // initialize with the first element, not -Infinity (unless negatives possible)
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > max) max = arr[i];
+  }
+  return max;
+}
+
+function findMin(arr) {
+  if (arr.length === 0) throw new Error('Array is empty');
+  let min = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < min) min = arr[i];
+  }
+  return min;
+}
+
+// ─── Built-in shortcut ────────────────────────────────────────────────────────
+// Fine for small arrays. Risky for very large arrays (stack overflow with spread)
+const arr = [3, 1, 4, 1, 5, 9, 2, 6];
+console.log(Math.max(...arr));    // 9 — uses spread, causes stack overflow if arr is huge
+console.log(Math.min(...arr));    // 1
+
+// Safe for large arrays:
+console.log(arr.reduce((max, val) => Math.max(max, val), -Infinity)); // 9
+console.log(findMax([3, 1, 4, 1, 5, 9, 2, 6])); // 9
+
+// Find both max and min in a single pass — O(n) time, only n-1 comparisons
+function findMaxMin(arr) {
+  if (arr.length === 0) throw new Error('Array is empty');
+  let max = arr[0], min = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > max) max = arr[i];
+    else if (arr[i] < min) min = arr[i];
+  }
+  return { max, min };
+}
+
+console.log(findMaxMin([3, 1, 4, 1, 5, 9, 2, 6])); // { max: 9, min: 1 }
+</code></pre>
+
+    <p><strong>Common mistake:</strong> Initializing max to 0 instead of <code>arr[0]</code>. If all values are negative, you'll return 0, which is wrong. Always initialize to the first element of the array.</p>
+
+    <p><strong>When NOT to write a loop:</strong> When your array is small and you're in application code (not an algorithm interview), <code>Math.max(...arr)</code> is fine and more readable. In interviews, always mention both options and their tradeoffs.</p>
+
+    <hr>
+
+    <h2>6. Count Character Frequency</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Taking Inventory</div>
+      <p>You have a pile of mixed Lego bricks. You want to know how many of each color you have. You go through the pile once, tallying each color in a notebook. At the end you have a complete count without ever sorting the pile. That notebook is your hash map.</p>
+    </div>
+
+<pre><code class="language-javascript">// ─── Character frequency with a hash map ──────────────────────────────────────
+// O(n) time, O(k) space where k = number of unique characters
+function charFrequency(str) {
+  const freq = new Map();
+  for (const ch of str) {
+    freq.set(ch, (freq.get(ch) ?? 0) + 1);
+  }
+  return freq;
+}
+
+console.log(charFrequency('hello'));
+// Map { 'h' => 1, 'e' => 1, 'l' => 2, 'o' => 1 }
+
+// ─── Application: Anagram Detection ──────────────────────────────────────────
+// Two strings are anagrams if they have the same characters with the same frequencies.
+function isAnagram(s, t) {
+  if (s.length !== t.length) return false;
+
+  const freq = new Map();
+
+  // Count characters in s
+  for (const ch of s) freq.set(ch, (freq.get(ch) ?? 0) + 1);
+
+  // Subtract characters in t
+  for (const ch of t) {
+    if (!freq.has(ch)) return false;
+    freq.set(ch, freq.get(ch) - 1);
+    if (freq.get(ch) === 0) freq.delete(ch);
+  }
+
+  // If all counts canceled out, the map should be empty
+  return freq.size === 0;
+}
+
+console.log(isAnagram('anagram', 'nagaram')); // true
+console.log(isAnagram('rat', 'car'));         // false
+console.log(isAnagram('listen', 'silent'));   // true
+
+// ─── Application: Group Anagrams ──────────────────────────────────────────────
+// Given an array of words, group the anagrams together.
+function groupAnagrams(words) {
+  const groups = new Map();
+
+  for (const word of words) {
+    // The sorted word is the canonical key for a group of anagrams
+    const key = word.split('').sort().join('');
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(word);
+  }
+
+  return [...groups.values()];
+}
+
+console.log(groupAnagrams(['eat', 'tea', 'tan', 'ate', 'nat', 'bat']));
+// [['eat','tea','ate'], ['tan','nat'], ['bat']]
+</code></pre>
+
+    <p><strong>Common mistake:</strong> Using <code>freq[ch]++</code> on a plain object without initializing to 0. <code>undefined++</code> gives NaN. Always initialize: <code>freq[ch] = (freq[ch] || 0) + 1</code> or use the Map version with <code>?? 0</code>.</p>
+
+    <p><strong>Senior insight:</strong> The sorted-string key trick for group anagrams is worth memorizing. Any time you need a canonical representation of a set of characters, sort them. It turns a complex equality problem into a simple string comparison.</p>
+
+    <hr>
+
+    <h2>7. Fibonacci</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Recomputing Your Commute Time Every Day from Scratch</div>
+      <p>Imagine you calculate your commute time by re-adding every road segment, every signal, every turn — from scratch — every single morning. That's naive recursive Fibonacci. But if you wrote down yesterday's total on a sticky note and just adjusted for any new changes, you'd be done in seconds. Memoization is the sticky note. Dynamic programming is the discipline of always using the sticky note.</p>
+    </div>
+
+    <p>Fibonacci is the gateway drug to dynamic programming. It looks trivial, but it perfectly demonstrates why naive recursion is dangerous, what memoization does, and how iterative solutions can be more efficient than recursive ones.</p>
+
+<pre><code class="language-javascript">// ─── Recursive (Naive): O(2ⁿ) time, O(n) space (call stack) ──────────────────
+// Why exponential? Each call branches into two more calls.
+// fib(5) calls fib(4) and fib(3).
+// fib(4) calls fib(3) and fib(2).
+// fib(3) is computed TWICE. fib(2) is computed THREE times.
+// The total calls form a binary tree of depth n → 2^n nodes.
+function fibRecursive(n) {
+  if (n <= 1) return n;
+  return fibRecursive(n - 1) + fibRecursive(n - 2);
+}
+
+// fibRecursive(40) takes seconds. fibRecursive(50) would take minutes.
+
+// ─── Memoized Recursion: O(n) time, O(n) space ────────────────────────────────
+// Cache results so each subproblem is solved exactly once.
+function fibMemo(n, memo = new Map()) {
+  if (n <= 1) return n;
+  if (memo.has(n)) return memo.get(n); // already computed? return immediately
+
+  const result = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+  memo.set(n, result);
+  return result;
+}
+
+// ─── Iterative (Bottom-Up DP): O(n) time, O(1) space ─────────────────────────
+// Build from the bottom up. No call stack. No memoization overhead.
+// This is the most efficient approach in production.
+function fibIterative(n) {
+  if (n <= 1) return n;
+
+  let prev2 = 0; // fib(0)
+  let prev1 = 1; // fib(1)
+
+  for (let i = 2; i <= n; i++) {
+    const current = prev1 + prev2;
+    prev2 = prev1;
+    prev1 = current;
+  }
+
+  return prev1;
+}
+
+// Test all three
+console.log(fibRecursive(10));  // 55 (works, but slow for large n)
+console.log(fibMemo(50));       // 12586269025 (fast)
+console.log(fibIterative(50));  // 12586269025 (fast and constant space)
+
+// Complexity comparison:
+// fibRecursive: Time O(2^n), Space O(n) — the call stack grows to depth n
+// fibMemo:      Time O(n),   Space O(n) — n entries in the memo map
+// fibIterative: Time O(n),   Space O(1) — only two variables, no memo needed
+</code></pre>
+
+    <div class="box tip">
+      <div class="box-title">💡 Tip</div>
+      <p>When an interviewer asks for Fibonacci, start with the naive recursive solution and <em>immediately</em> call out that it's exponential and why. Then show the memoized version. Then show the iterative. This three-step progression demonstrates that you understand the problem at multiple levels — not just that you know the optimized answer.</p>
+    </div>
+
+    <div class="junior">
+      <div class="answer-label">Junior Answer</div>
+      <p>Writes the recursive solution. When asked "what's the time complexity?" says "O(n) because there are n recursive calls." Does not know about the branching — misses that each call spawns two more.</p>
+    </div>
+
+    <div class="senior">
+      <div class="answer-label">Senior Answer</div>
+      <p>"The naive recursive solution is O(2^n) because the call tree branches at every node. I can draw that out if useful. Memoization brings it to O(n) by caching subresults. The iterative approach achieves O(n) time with O(1) space — no call stack, just two rolling variables. In production I'd use the iterative version. For a DP explanation, I'd start with the memoized version since it maps directly to the recursive intuition."</p>
+    </div>
+
+    <hr>
+
+    <h2>Putting It Together: The Complexity Profile</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Algorithm</th>
+          <th>Approach</th>
+          <th>Time</th>
+          <th>Space</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>FizzBuzz</td><td>Single loop</td><td>O(n)</td><td>O(1)</td></tr>
+        <tr><td>Two Sum</td><td>Brute force (nested loops)</td><td>O(n²)</td><td>O(1)</td></tr>
+        <tr><td>Two Sum</td><td>Hash map</td><td>O(n)</td><td>O(n)</td></tr>
+        <tr><td>Reverse String</td><td>Built-in / extra array</td><td>O(n)</td><td>O(n)</td></tr>
+        <tr><td>Reverse String</td><td>Two pointers</td><td>O(n)</td><td>O(1)*</td></tr>
+        <tr><td>Palindrome</td><td>Reverse &amp; compare</td><td>O(n)</td><td>O(n)</td></tr>
+        <tr><td>Palindrome</td><td>Two pointers</td><td>O(n)</td><td>O(1)*</td></tr>
+        <tr><td>Find Max/Min</td><td>Single pass</td><td>O(n)</td><td>O(1)</td></tr>
+        <tr><td>Char Frequency</td><td>Hash map</td><td>O(n)</td><td>O(k)</td></tr>
+        <tr><td>Fibonacci</td><td>Naive recursion</td><td>O(2ⁿ)</td><td>O(n)</td></tr>
+        <tr><td>Fibonacci</td><td>Memoized</td><td>O(n)</td><td>O(n)</td></tr>
+        <tr><td>Fibonacci</td><td>Iterative DP</td><td>O(n)</td><td>O(1)</td></tr>
+      </tbody>
+    </table>
+    <p><small>* O(1) space for the two-pointer algorithm itself; in JavaScript, the initial <code>split('')</code> for string reversal still uses O(n) due to string immutability.</small></p>
+
+    <div class="exercises">
+      <h3>Practice Questions</h3>
+      <div class="exercise">
+        <p><span class="badge beginner">Beginner</span> Write FizzBuzz without using any <code>if</code> or <code>else</code> keywords. There are multiple approaches — the string-concatenation method shown above is one. Can you think of another using a lookup array or object?</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge intermediate">Intermediate</span> Given a string, find the <strong>first non-repeating character</strong> and return its index. If none exists, return -1. Example: <code>"leetcode"</code> → <code>0</code> (the 'l' appears only once). Example: <code>"aabb"</code> → <code>-1</code>. Approach: two passes — first pass builds a frequency map, second pass finds the first character with frequency 1. Time O(n), space O(1) since there are at most 26 lowercase letters.</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge advanced">Advanced</span> Full worked solution: <strong>Longest Subarray with Equal Number of 0s and 1s.</strong> Given a binary array (only 0s and 1s), find the maximum length of a contiguous subarray with equal numbers of 0s and 1s. Example: <code>[0, 1, 0]</code> → 2. Example: <code>[0, 1, 0, 1, 1, 0, 0]</code> → 6.
+
+        <p><strong>The insight:</strong> Convert 0s to -1s. Now "equal 0s and 1s" becomes "subarray sum equals 0." This is a classic prefix sum + hash map problem.</p>
+
+        <p><strong>Key observation:</strong> If the prefix sum at index i equals the prefix sum at index j (where i &lt; j), then the subarray from i+1 to j has sum 0 — meaning equal 0s and 1s. Track the <em>first time</em> each prefix sum appears, then maximize the distance when you see it again.</p>
+
+        <pre><code class="language-javascript">function findMaxLength(nums) {
+  // Step 1: convert 0s to -1s so the problem becomes "subarray sum = 0"
+  // Step 2: use prefix sum + hash map to find longest zero-sum subarray
+
+  const map = new Map();
+  map.set(0, -1); // prefix sum of 0 exists before the array starts (index -1)
+
+  let prefixSum = 0;
+  let maxLen = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    prefixSum += nums[i] === 0 ? -1 : 1; // treat 0 as -1
+
+    if (map.has(prefixSum)) {
+      // Same prefix sum seen before → subarray between has sum 0
+      maxLen = Math.max(maxLen, i - map.get(prefixSum));
+    } else {
+      // First time seeing this prefix sum — record the index
+      // (we want the earliest occurrence to maximize length)
+      map.set(prefixSum, i);
+    }
+  }
+
+  return maxLen;
+}
+
+// Trace through [0, 1, 0, 1, 1, 0, 0]:
+// i=0: num=0→-1, sum=-1, map={0:-1,-1:0}
+// i=1: num=1,    sum=0,  seen at -1 → len = 1-(-1) = 2, maxLen=2
+// i=2: num=0→-1, sum=-1, seen at 0  → len = 2-0 = 2, maxLen=2
+// i=3: num=1,    sum=0,  seen at -1 → len = 3-(-1) = 4, maxLen=4
+// i=4: num=1,    sum=1,  map={..., 1:4}
+// i=5: num=0→-1, sum=0,  seen at -1 → len = 5-(-1) = 6, maxLen=6
+// i=6: num=0→-1, sum=-1, seen at 0  → len = 6-0 = 6, maxLen=6
+
+console.log(findMaxLength([0, 1, 0]));              // 2
+console.log(findMaxLength([0, 1, 0, 1, 1, 0, 0])); // 6
+console.log(findMaxLength([0, 0, 0, 1, 1, 1]));    // 6
+</code></pre>
+        <p><strong>Complexity:</strong> O(n) time — one pass. O(n) space — hash map stores at most n+1 entries. The brute force would be O(n²) — check all subarrays. The key technique — prefix sum + hash map — is a pattern worth memorizing. It appears in dozens of subarray problems.</p>
+        </p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Beginner algorithms are calibration problems — get them wrong and the interview is effectively over before it starts. Know these cold.</li>
+        <li>Always show brute force first, then optimize. The jump from O(n²) to O(n) via hash map is the most common optimization pattern in beginner-level problems.</li>
+        <li>Fibonacci is not a trivia question — it's an introduction to memoization and bottom-up DP thinking. The three-version progression (recursive → memoized → iterative) demonstrates mastery of the concept.</li>
+        <li>Character frequency via hash map is the foundation of anagram detection, group anagrams, and many string problems — it's one of the most reusable patterns in the beginner toolkit.</li>
+        <li>The prefix sum + hash map pattern unlocks a whole class of subarray problems that would otherwise require O(n²) brute force. Recognizing when to apply it is a significant skill jump.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> You've mastered the foundations. Chapter 7 steps up to intermediate algorithms — sliding window in depth, binary search variants, and the two-pointer patterns that start to feel like real interview challenges.</p>
+    <div class="chapter-nav">
+      <a href="chapter-5.html"><span class="nav-label">← Previous</span><span class="nav-title">Ch 5: Core Data Structures</span></a>
+      <a href="chapter-7.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Ch 7: Intermediate Algorithms</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

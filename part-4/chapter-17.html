@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 17: API Design and Architecture — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html" class="active">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 17</div>
+      <h1>API Design and Architecture</h1>
+      <p class="chapter-intro">An API is a contract. Break it and you break your users. Design it poorly and you break your team. Design it well and it becomes the foundation everything else is built on.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>REST best practices that separate senior API design from junior — resource naming, status codes, pagination, versioning</li>
+        <li>What idempotency means, why it matters, and how to implement it with a Redis deduplication pattern</li>
+        <li>When to choose REST vs GraphQL vs gRPC — with honest tradeoffs for each</li>
+        <li>API security basics: auth, input validation, rate limiting, CORS</li>
+        <li>A complete NestJS resource with guards, DTOs, validation, and proper error responses</li>
+        <li>How a senior engineer approaches "design a REST API for a social media platform"</li>
+      </ul>
+    </div>
+
+    <!-- BIG IDEA ANALOGY -->
+    <div class="box analogy">
+      <h4>The Restaurant Menu Analogy</h4>
+      <p>A restaurant menu is an API. The menu defines what you can order (endpoints), what information you need to provide (request body and parameters), and what you'll get back (the response). A good menu is clear, complete, and predictable — you know exactly what "fish and chips" means before it arrives. A bad menu is ambiguous: "chef's special" with no description of what's in it, what size it comes in, or how long it takes.</p>
+      <p>You design the menu before the kitchen is built, not after. The kitchen (your service implementation) can change. New ovens can be installed, suppliers can switch, recipes can improve. But if you change what "fish and chips" means — if it suddenly comes as a soup — you break every customer who ordered it based on the old description. That's a breaking API change.</p>
+      <p>The most important insight: the menu exists for the customer, not the kitchen. Design your API for the consumer of it, not for the convenience of the implementation.</p>
+    </div>
+
+    <h2>1. REST Best Practices</h2>
+    <p>REST is not a standard. It is a set of architectural constraints that, when followed, produce APIs that are predictable, cacheable, and easy to consume. Most "REST APIs" in the wild violate several of these constraints. Knowing the correct patterns — and being able to explain why they matter — is the mark of a senior backend engineer.</p>
+
+    <h3>Resource Naming: Nouns, Not Verbs</h3>
+    <p>The most common REST mistake is using verbs in endpoint paths. REST resources represent things (nouns), not actions (verbs). The HTTP method is the verb.</p>
+    <ul>
+      <li>Wrong: <code>GET /getUsers</code>, <code>POST /createUser</code>, <code>DELETE /deleteUser/123</code></li>
+      <li>Right: <code>GET /users</code>, <code>POST /users</code>, <code>DELETE /users/123</code></li>
+    </ul>
+    <p>Use plural nouns: <code>/users</code> not <code>/user</code>. This makes the collection vs. single resource distinction consistent: <code>GET /users</code> (collection) vs. <code>GET /users/123</code> (single resource). Nested resources model relationships: <code>GET /users/123/posts</code> (all posts by user 123).</p>
+
+    <h3>HTTP Methods: Use Them Correctly</h3>
+    <div class="diagram">
+      GET &nbsp;·&nbsp; Read, safe, idempotent. Never modifies state.<br>
+      POST &nbsp;·&nbsp; Create. Not idempotent. Returns 201 Created.<br>
+      PUT &nbsp;·&nbsp; Full replacement. Idempotent. Returns 200 or 204.<br>
+      PATCH &nbsp;·&nbsp; Partial update. Returns 200 or 204.<br>
+      DELETE &nbsp;·&nbsp; Remove. Idempotent. Returns 204 No Content.
+    </div>
+
+    <h3>Status Codes: The Full Picture</h3>
+    <p>Using the right status code is how your API communicates its intent. Returning 200 for everything — including errors — is one of the most common API design sins. Interviewers notice when candidates know the full status code vocabulary.</p>
+
+    <div class="diagram">
+      200 OK &nbsp;·&nbsp; Request succeeded, body contains the result<br>
+      201 Created &nbsp;·&nbsp; Resource was successfully created<br>
+      204 No Content &nbsp;·&nbsp; Success, no body (DELETE, some PUTs)<br>
+      400 Bad Request &nbsp;·&nbsp; Client sent invalid input<br>
+      401 Unauthorized &nbsp;·&nbsp; Not authenticated (no valid token)<br>
+      403 Forbidden &nbsp;·&nbsp; Authenticated but not authorized for this resource<br>
+      404 Not Found &nbsp;·&nbsp; Resource does not exist<br>
+      409 Conflict &nbsp;·&nbsp; State conflict (duplicate email, version mismatch)<br>
+      422 Unprocessable Entity &nbsp;·&nbsp; Semantically invalid input (validation failed)<br>
+      429 Too Many Requests &nbsp;·&nbsp; Rate limit exceeded<br>
+      500 Internal Server Error &nbsp;·&nbsp; Unhandled server error — never expose stack traces
+    </div>
+
+    <div class="box tip">
+      <h4>401 vs 403: a critical distinction</h4>
+      <p>401 means "I don't know who you are" — the request lacks valid credentials. 403 means "I know who you are, but you're not allowed here." If a user is logged in but tries to access another user's private data, that's 403, not 401. Many APIs return the wrong code here, and interviewers will catch it.</p>
+    </div>
+
+    <h3>Pagination</h3>
+    <p>Returning 50,000 records in a single API response is not an API — it's a data dump. Every collection endpoint needs pagination from day one. There are two main strategies, and choosing the wrong one for your use case is a real interview trap.</p>
+    <p><strong>Offset-based pagination</strong> is simple and familiar: <code>?page=2&amp;limit=20</code>. The server calculates <code>OFFSET 20 LIMIT 20</code>. Easy to implement, easy to jump to any page. The problem: if new records are inserted while a user is paginating, records shift — users can see duplicates or miss records. Also, large offsets are slow at the database level (the database must count through all skipped rows).</p>
+    <p><strong>Cursor-based pagination</strong> uses an opaque cursor representing the last item seen: <code>?cursor=eyJpZCI6MTIzfQ&amp;limit=20</code>. The server decodes the cursor, queries from that position, and returns the next cursor. Stable under inserts, efficient at any depth. More complex to implement, and you cannot jump to an arbitrary page.</p>
+
+    <pre><code>// Offset-based pagination (simple, use for static or admin data)
+// GET /users?page=2&amp;limit=20
+async getUsers(page: number, limit: number) {
+  const offset = (page - 1) * limit;
+  const [users, total] = await this.userRepo.findAndCount({
+    skip: offset,
+    take: limit,
+    order: { createdAt: 'DESC' },
+  });
+  return {
+    data: users,
+    meta: {
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+}
+
+// Cursor-based pagination (use for real-time data, social feeds, large datasets)
+// GET /posts?cursor=eyJpZCI6MTIzfQ&amp;limit=20
+async getPosts(cursor: string | undefined, limit: number) {
+  const decodedCursor = cursor
+    ? JSON.parse(Buffer.from(cursor, 'base64').toString('utf8'))
+    : null;
+
+  const where = decodedCursor
+    ? { id: LessThan(decodedCursor.id) }
+    : {};
+
+  const posts = await this.postRepo.find({
+    where,
+    take: limit + 1, // fetch one extra to know if there's a next page
+    order: { id: 'DESC' },
+  });
+
+  const hasNextPage = posts.length > limit;
+  const items = hasNextPage ? posts.slice(0, limit) : posts;
+  const nextCursor = hasNextPage
+    ? Buffer.from(JSON.stringify({ id: items[items.length - 1].id })).toString('base64')
+    : null;
+
+  return { data: items, nextCursor };
+}</code></pre>
+
+    <h3>Versioning</h3>
+    <p>APIs change. The question is not whether you'll need to break compatibility — it's how gracefully you handle it when you do. Two main strategies:</p>
+    <ul>
+      <li><strong>URL versioning</strong> (<code>/v1/users</code>, <code>/v2/users</code>): explicit, visible, easy to route in a reverse proxy. The downside is that clients must update their base URL for every major version, and you may end up maintaining multiple route handlers long-term.</li>
+      <li><strong>Header versioning</strong> (<code>Accept-Version: 2</code> or <code>API-Version: 2</code>): cleaner URLs, version negotiation at the application level. Harder to discover from the URL alone, harder to test in a browser.</li>
+    </ul>
+    <p>The honest answer for interviews: URL versioning is more common in practice because it is easier to cache, easier to route, and easier for clients to adopt. Use it unless you have a specific reason not to. And add versioning before you need it — retrofitting it is painful.</p>
+
+    <h3>Filtering and Sorting</h3>
+    <p>Use query parameters for filtering and sorting. Be consistent with the format you choose and document it:</p>
+    <pre><code>// GET /users?status=active&amp;role=admin&amp;sort=createdAt:desc&amp;limit=20
+// GET /posts?authorId=123&amp;publishedAfter=2024-01-01&amp;sort=views:desc</code></pre>
+
+    <h3>Complete NestJS Example: The /users Resource</h3>
+
+    <pre><code>// create-user.dto.ts
+import { IsString, IsEmail, IsNotEmpty, MinLength, IsOptional } from 'class-validator';
+
+export class CreateUserDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @MinLength(8)
+  password: string;
+
+  @IsOptional()
+  @IsString()
+  role?: string;
+}
+
+// users.controller.ts
+import {
+  Controller, Get, Post, Patch, Delete,
+  Body, Param, Query, HttpCode, HttpStatus,
+  UseGuards, ParseIntPipe, DefaultValuePipe,
+} from '@nestjs/common';
+import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+
+@Controller('v1/users')
+@UseGuards(JwtAuthGuard)
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
+
+  @Get()
+  findAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(20), ParseIntPipe) limit: number,
+    @Query('status') status?: string,
+    @Query('sort') sort?: string,
+  ) {
+    return this.usersService.findAll({ page, limit, status, sort });
+  }
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.findOneOrThrow(id);
+  }
+
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return this.usersService.update(id, updateUserDto);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.remove(id);
+  }
+}
+
+// main.ts — enable global validation
+import { ValidationPipe } from '@nestjs/common';
+app.useGlobalPipes(new ValidationPipe({
+  whitelist: true,        // strip unknown properties
+  forbidNonWhitelisted: true, // throw on unknown properties
+  transform: true,        // auto-transform primitives (string → number)
+}));</code></pre>
+
+    <h2>2. Idempotency</h2>
+
+    <div class="box analogy">
+      <h4>The Elevator Button Analogy</h4>
+      <p>If you press the elevator button once, it lights up. If you press it five more times out of impatience, you still end up on the same floor. The button is idempotent — multiple identical presses produce the same outcome as a single press. An idempotent API endpoint works the same way: calling it multiple times with the same input produces the same result as calling it once.</p>
+    </div>
+
+    <p>Why this matters in practice: networks are unreliable. Clients timeout and retry. A mobile app might retry a payment request three times if the first response never arrives. If your payment endpoint is not idempotent, the customer gets charged three times. This is not a theoretical problem — it is a real production incident waiting to happen.</p>
+    <p>GET, PUT, and DELETE are naturally idempotent. Calling <code>GET /users/123</code> twice returns the same result. Calling <code>DELETE /users/123</code> twice results in the same state (user doesn't exist). POST is not naturally idempotent — posting twice creates two records.</p>
+    <p>The solution for making POST idempotent: <strong>idempotency keys</strong>. The client generates a unique key (UUID) per logical request and sends it in a header. The server deduplicates based on the key.</p>
+
+    <pre><code>// Idempotent payment endpoint with Redis deduplication (Node.js/TypeScript)
+import { createClient } from 'redis';
+
+const redis = createClient({ url: process.env.REDIS_URL });
+await redis.connect();
+
+async function processPayment(
+  idempotencyKey: string,
+  payload: { userId: string; amount: number; currency: string }
+) {
+  const cacheKey = `idempotency:payment:${idempotencyKey}`;
+
+  // 1. Check if we've already processed this request
+  const cached = await redis.get(cacheKey);
+  if (cached) {
+    console.log('Returning cached result for idempotency key:', idempotencyKey);
+    return JSON.parse(cached);
+  }
+
+  // 2. Process the payment (this is where your actual payment logic lives)
+  const result = await chargeCard(payload);
+
+  // 3. Cache the result with a 24-hour TTL
+  // TTL should be longer than your client's maximum retry window
+  await redis.setEx(cacheKey, 86400, JSON.stringify(result));
+
+  return result;
+}
+
+// In your NestJS controller:
+@Post('payments')
+@HttpCode(HttpStatus.CREATED)
+async createPayment(
+  @Headers('Idempotency-Key') idempotencyKey: string,
+  @Body() paymentDto: CreatePaymentDto,
+) {
+  if (!idempotencyKey) {
+    throw new BadRequestException('Idempotency-Key header is required');
+  }
+  return this.paymentsService.processPayment(idempotencyKey, paymentDto);
+}</code></pre>
+
+    <div class="box tip">
+      <h4>When to require idempotency keys</h4>
+      <p>Require them on any endpoint that creates financial records, sends emails or notifications, or triggers side effects that are painful to undo. Optional on other POST endpoints. Document clearly which endpoints support them — the Stripe API is a good real-world reference for this pattern.</p>
+    </div>
+
+    <h2>3. REST vs GraphQL vs gRPC</h2>
+
+    <div class="box analogy">
+      <h4>The Restaurant Ordering Analogy</h4>
+      <p>REST is a restaurant with a fixed menu. You choose from what's available — chicken or fish, soup or salad. The kitchen decides what each dish contains and how it's plated. Simple, familiar, but you might get things you didn't want (over-fetching) or have to place multiple orders to get everything you need (under-fetching).</p>
+      <p>GraphQL is a restaurant where you describe exactly what you want from scratch: "I'll have the chicken, but no sauce, with a side of the seasonal vegetables, but only the name and color of each vegetable, not the full description." You get exactly what you asked for — nothing more, nothing less.</p>
+      <p>gRPC is placing a phone order using a very specific script. Both parties have agreed in advance on exactly how the call goes. It's faster and more efficient than a full conversation, but you need to have prepared the script beforehand, and it doesn't work well at a restaurant counter where walk-in customers are served.</p>
+    </div>
+
+    <h3>REST</h3>
+    <p><strong>Pros:</strong> Simple, widely understood, cacheable at the HTTP level, tooling everywhere (Postman, Swagger, curl). Every engineer knows how to use it.</p>
+    <p><strong>Cons:</strong> Over-fetching (GET /users returns 30 fields when you only need the name and avatar). Under-fetching (you need a user's posts and each post's comment count, which requires N+1 API calls).</p>
+    <p><strong>Use when:</strong> public API, simple CRUD resources, teams working across different tech stacks, caching is important, and your client needs are relatively uniform.</p>
+
+    <h3>GraphQL</h3>
+    <p><strong>Pros:</strong> Client requests exactly what it needs in a single query. Single endpoint, self-documenting schema, excellent for teams doing rapid product iteration. Great for mobile clients with limited bandwidth.</p>
+    <p><strong>Cons:</strong> Caching is much harder (each query is effectively unique). The N+1 problem doesn't disappear — it moves from the client to the server. Complex queries can hammer the database with joins the client doesn't realize it's triggering. Requires a DataLoader (batching) layer to stay performant.</p>
+    <p><strong>Use when:</strong> multiple clients (web and mobile) with different data needs, client teams move fast and change their data requirements frequently, or you're building a developer platform where external consumers define their own queries.</p>
+
+    <pre><code>// Simple GraphQL schema and resolver (Node.js with Apollo)
+import { ApolloServer, gql } from 'apollo-server';
+
+const typeDefs = gql`
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+    posts: [Post!]!
+  }
+
+  type Post {
+    id: ID!
+    title: String!
+    body: String!
+    author: User!
+    commentCount: Int!
+  }
+
+  type Query {
+    user(id: ID!): User
+    users(limit: Int, after: String): [User!]!
+  }
+`;
+
+const resolvers = {
+  Query: {
+    user: async (_, { id }, { dataSources }) =>
+      dataSources.userAPI.getUserById(id),
+    users: async (_, { limit = 20, after }, { dataSources }) =>
+      dataSources.userAPI.getUsers({ limit, after }),
+  },
+  User: {
+    // DataLoader prevents N+1: batches all post lookups into a single query
+    posts: async (user, _, { loaders }) =>
+      loaders.postsByUser.load(user.id),
+  },
+  Post: {
+    commentCount: async (post, _, { loaders }) =>
+      loaders.commentCount.load(post.id),
+  },
+};</code></pre>
+
+    <h3>gRPC</h3>
+    <p><strong>Pros:</strong> Binary serialization via Protocol Buffers is roughly 5-10x faster and smaller than JSON. Strongly typed with auto-generated client code in many languages. Built-in streaming support (unary, server-streaming, client-streaming, bidirectional).</p>
+    <p><strong>Cons:</strong> Not human-readable — debugging requires tooling. Browser support requires a proxy (grpc-web). Steeper learning curve. Requires both sides to understand the protobuf schema.</p>
+    <p><strong>Use when:</strong> internal microservice communication where latency and throughput are critical, real-time streaming between services, or when you need strongly typed contracts enforced at the transport layer rather than the application layer.</p>
+
+    <div class="diagram">
+      <strong>Choosing Your API Style</strong><br><br>
+      Public API with broad consumers → REST<br>
+      Multiple clients with different data shapes → GraphQL<br>
+      Internal microservice communication → gRPC<br>
+      When in doubt → REST. It's the default for good reasons.
+    </div>
+
+    <h2>4. API Security Basics</h2>
+    <p>Security is not a feature you add at the end. It is a design constraint you apply from the start. Four areas every backend interview expects you to know.</p>
+
+    <h3>Authentication and Authorization</h3>
+    <p>Every protected endpoint must authenticate the caller. The standard modern pattern: JWT (JSON Web Token) in the <code>Authorization: Bearer {token}</code> header. The server validates the signature and expiry without a database lookup. Refresh tokens extend sessions without requiring re-login.</p>
+    <p>Do not confuse authentication (who are you?) with authorization (what are you allowed to do?). Both must be enforced server-side. Hiding a button in the UI is not authorization.</p>
+
+    <h3>Input Validation</h3>
+    <p>Never trust the client. Validate every field of every request body, every query parameter, every path parameter. In NestJS, use class-validator decorators in DTOs with the global ValidationPipe. In Express, use Zod or Joi. Validation failures return 400 Bad Request or 422 Unprocessable Entity with a clear error message about what was wrong and why.</p>
+
+    <h3>Rate Limiting</h3>
+    <p>Rate limiting prevents abuse, protects downstream dependencies, and helps maintain availability under load. Apply it at multiple levels: per user (authenticated users get a quota), per IP (unauthenticated requests), and per endpoint (expensive operations get tighter limits). NestJS has <code>@nestjs/throttler</code>. At scale, enforce rate limits in the API gateway (nginx, Kong, AWS API Gateway) so it runs before your application code.</p>
+
+    <h3>CORS and API Key Management</h3>
+    <p>CORS (Cross-Origin Resource Sharing) controls which browser origins can call your API. Configure it explicitly — do not use the wildcard (<code>*</code>) in production unless your API is genuinely public and you understand the implications. For API keys issued to external developers: store them hashed (not plaintext), allow rotation without disruption, log usage per key for audit purposes, and implement expiry.</p>
+
+    <h2>5. NestJS Pattern Deep Dive</h2>
+    <p>A complete example of a protected NestJS endpoint with a JWT guard, a DTO with validation, and consistent error handling.</p>
+
+    <pre><code>// jwt-auth.guard.ts
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+
+@Injectable()
+export class JwtAuthGuard extends AuthGuard('jwt') {
+  handleRequest(err: any, user: any) {
+    if (err || !user) {
+      throw new UnauthorizedException('Invalid or missing token');
+    }
+    return user;
+  }
+}
+
+// update-user.dto.ts — partial validation
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateUserDto } from './create-user.dto';
+export class UpdateUserDto extends PartialType(CreateUserDto) {}
+
+// users.service.ts — with proper error handling
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+
+@Injectable()
+export class UsersService {
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepo: Repository&lt;User&gt;,
+  ) {}
+
+  async findOneOrThrow(id: number): Promise&lt;User&gt; {
+    const user = await this.userRepo.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+    return user;
+  }
+
+  async create(dto: CreateUserDto): Promise&lt;User&gt; {
+    const existing = await this.userRepo.findOne({ where: { email: dto.email } });
+    if (existing) {
+      throw new ConflictException('A user with this email already exists');
+    }
+    const user = this.userRepo.create(dto);
+    return this.userRepo.save(user);
+  }
+
+  async update(id: number, dto: UpdateUserDto): Promise&lt;User&gt; {
+    const user = await this.findOneOrThrow(id);
+    Object.assign(user, dto);
+    return this.userRepo.save(user);
+  }
+
+  async remove(id: number): Promise&lt;void&gt; {
+    const user = await this.findOneOrThrow(id);
+    await this.userRepo.remove(user);
+  }
+}</code></pre>
+
+    <h2>6. Senior vs Junior: "Design a REST API for a Social Media Platform"</h2>
+
+    <div class="junior">
+      <p><strong>Junior answer:</strong> "I'd create endpoints like <code>POST /users</code> to create a user, <code>GET /posts</code> to get posts, <code>POST /posts</code> to create a post, <code>POST /comments</code> to add a comment..."</p>
+      <p>This answer describes a list of endpoints without thinking about pagination, versioning, error handling, authentication, or the scale implications of a social media platform. It's technically not wrong — but it's a collection of CRUD operations, not an API design.</p>
+    </div>
+
+    <div class="senior">
+      <p><strong>Senior answer begins with clarifying questions:</strong> "Before I start designing, a few questions: what's the expected scale — hundreds of users or millions? What clients do we need to support — web, mobile, both? Are there third-party integrations that will consume this API? Do we need backward compatibility guarantees?"</p>
+      <p><em>After gathering requirements:</em> "Given millions of users, web and mobile clients, and a public API for third parties, I'd design this as a versioned REST API at <code>/v1/</code>. The core resources are: <code>/users</code>, <code>/posts</code>, <code>/comments</code>, <code>/follows</code>, <code>/likes</code>. All collections use cursor-based pagination because the feed is real-time — offset-based pagination would produce duplicates when new posts arrive. Posts use soft deletes (a <code>deletedAt</code> column) rather than hard deletes so we can maintain references in comments and likes. Authentication via JWT with short expiry (15 minutes) and refresh tokens. Rate limiting per user: 100 read requests/minute, 10 write requests/minute. For the social feed specifically — <code>GET /users/:id/feed</code> — I'd want to discuss whether we compute the feed on read (fan-out-on-read) or pre-compute it on write (fan-out-on-write), because that choice has major implications for the API response time at scale."</p>
+      <p>Notice: the senior answer proactively addresses pagination strategy, soft deletes, auth model, rate limits, and a scale-sensitive architectural choice — all without being asked.</p>
+    </div>
+
+    <h2>Practice Questions</h2>
+    <div class="exercises">
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p>What HTTP status codes would you return for: (a) successful resource creation, (b) a user not found, (c) a user trying to access someone else's private data, (d) a validation error in the request body?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <p>What is the difference between PUT and PATCH? Give an example where using PUT when you meant PATCH could cause data loss.</p>
+      </div>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>Design the pagination strategy for a chat application's message history endpoint (<code>GET /conversations/:id/messages</code>). Should you use offset-based or cursor-based pagination? Why? What fields would you include in the response?</p>
+      </div>
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <p>Implement an idempotency key check in plain JavaScript (no framework): a function that accepts a key and an async operation, returns the cached result if the key has been seen before, and executes and caches the operation if not.</p>
+      </div>
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <p>"Design a REST API for an e-commerce order management system." Start by listing your clarifying questions, then design the resources, describe your pagination and versioning strategy, and identify the two or three decisions where the wrong choice would cause the most pain at scale.</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h3>Chapter Summary</h3>
+      <ul>
+        <li>REST resources are nouns, HTTP methods are verbs. Use plurals, nest resources to express relationships, and use the correct HTTP method for each operation.</li>
+        <li>Know your status codes cold: 200, 201, 204, 400, 401, 403, 404, 409, 422, 429, 500. Know the difference between 401 and 403 specifically.</li>
+        <li>Pagination: offset-based for static data, cursor-based for real-time data or large datasets. Always include metadata in the response.</li>
+        <li>Idempotency keys make POST endpoints safe to retry. Required for payment endpoints and any operation with expensive-to-undo side effects. Implement with Redis and a 24-hour TTL.</li>
+        <li>REST is the default. GraphQL is for multiple clients with different data needs. gRPC is for high-performance internal microservice communication.</li>
+        <li>API security: authenticate with JWT, validate all input server-side, rate limit per user and per IP, configure CORS explicitly.</li>
+        <li>Senior API design starts with clarifying questions, not with a list of endpoints. It considers pagination, versioning, auth, scale, and failure modes before writing a single route.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Chapter 18 dives deep into databases — the area responsible for more production incidents than any other single category. Indexes, the N+1 problem, ACID transactions, Redis caching, and how to investigate a slow query in production.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-16.html"><span class="nav-label">← Previous</span><span class="nav-title">Backend Fundamentals</span></a>
+      <a href="chapter-18.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Databases</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

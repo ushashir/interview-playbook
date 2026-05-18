@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 15: Frontend System Design — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-3">Part 3 · Chapter 15</div>
+      <h1>Frontend System Design</h1>
+      <p class="chapter-intro">Frontend system design is the rarest skill and the one that separates $90k engineers from $200k engineers. Most developers never get asked it. The ones who can answer it confidently get the offers.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>A repeatable 8-step framework for any frontend system design question</li>
+        <li>Three full case studies: design system, analytics dashboard, infinite scroll feed</li>
+        <li>Micro-frontend architecture — when it's right and why it's usually wrong</li>
+        <li>Real-time strategies: polling, WebSockets, and Server-Sent Events with a decision framework</li>
+        <li>How to answer the hardest frontend design question: a collaborative text editor</li>
+      </ul>
+    </div>
+
+    <div class="box analogy">
+      <div class="box-title">💡 The Big Idea: Designing a Shopping Mall vs Designing a Shop</div>
+      <p>A single shop is one component — you think about the layout inside, the products, the counter. A shopping mall is the architecture. You think about how the shops relate to each other, how customers navigate from one to the next, where the utilities run (power, water, ventilation), how deliveries happen without disrupting shoppers, how a new tenant moves in without shutting down the whole building. Frontend system design is thinking at the mall level. Individual components are shops. The architecture is the mall. Both matter, but they are completely different disciplines — and the mall-level thinking is rarer and more valuable.</p>
+    </div>
+
+    <h2>The Framework: How to Approach a Frontend System Design Question</h2>
+
+    <p>Most candidates treat frontend system design like a coding question with more steps. It's not. It's a conversation about tradeoffs, constraints, and deliberate architectural choices. The goal is not to produce the "right" answer — it's to demonstrate that you think systematically and can justify your decisions.</p>
+
+    <p>Use this eight-step framework. You won't use every step every time, but having the structure prevents you from getting lost in implementation details too early.</p>
+
+    <h3>Step 1: Clarify Scope</h3>
+
+    <p>Never start designing without knowing the constraints. Ask:</p>
+    <ul>
+      <li><strong>Who are the users?</strong> Internal employees? Millions of consumers? Developers using an API?</li>
+      <li><strong>What scale?</strong> 100 concurrent users or 10 million? Scale changes everything.</li>
+      <li><strong>What devices and browsers?</strong> Mobile-first? IE11 support? PWA requirements?</li>
+      <li><strong>What's the team context?</strong> One team or twenty? This drives component isolation decisions.</li>
+      <li><strong>What exists already?</strong> Greenfield or integrating into a legacy system?</li>
+    </ul>
+
+    <h3>Step 2: Define User Interactions</h3>
+
+    <p>Before touching architecture, describe what users actually do. Write user stories in plain English. These interactions drive everything downstream — state requirements, network calls, rendering choices, real-time needs.</p>
+
+    <h3>Step 3: Design the Data Model</h3>
+
+    <p>What data does the frontend need? Sketch the shape of the data — not database schemas, but the JSON structures your components will consume. This reveals normalization opportunities and catches N+1 fetch problems early.</p>
+
+    <pre><code class="language-typescript">// Example: data model for a product listing page
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  currency: string;
+  images: { url: string; alt: string }[];
+  rating: { average: number; count: number };
+  inStock: boolean;
+  variants: ProductVariant[];
+}
+
+interface ProductVariant {
+  id: string;
+  attributes: Record&lt;string, string&gt;;  // { color: 'red', size: 'M' }
+  price: number;
+  inStock: boolean;
+}
+
+interface ProductListPage {
+  products: Product[];
+  pagination: { page: number; totalPages: number; totalItems: number };
+  filters: AppliedFilter[];
+  sort: SortOption;
+}
+</code></pre>
+
+    <h3>Step 4: Component Architecture</h3>
+
+    <p>Break the system into components. Start at the page level, decompose into sections, sections into components. Identify which components are shared across the system and which are feature-specific. Draw this on the whiteboard — literally.</p>
+
+    <div class="diagram">
+ProductListPage
+  ├── PageHeader
+  │     ├── Logo
+  │     └── NavBar
+  ├── FilterSidebar
+  │     ├── SearchInput
+  │     ├── CategoryFilter
+  │     ├── PriceRangeFilter
+  │     └── RatingFilter
+  ├── ProductGrid
+  │     └── ProductCard (×N)
+  │           ├── ProductImage
+  │           ├── ProductTitle
+  │           ├── PriceDisplay
+  │           ├── RatingBadge
+  │           └── AddToCartButton
+  └── Pagination
+    </div>
+
+    <h3>Step 5: State Management</h3>
+
+    <p>Where does each piece of state live? Ask these questions for every piece of data:</p>
+    <ul>
+      <li>Is it <strong>server state</strong> (fetched from an API)? Use React Query, SWR, or Apollo.</li>
+      <li>Is it <strong>global UI state</strong> (shared between unrelated components)? Use Zustand or Redux.</li>
+      <li>Is it <strong>local component state</strong> (used only in one component)? Use <code>useState</code>.</li>
+      <li>Should it be in the <strong>URL</strong> (so it survives reload and sharing)? Use the router's query params.</li>
+    </ul>
+
+    <pre><code class="language-typescript">// State ownership example for the product listing page
+// URL state (survives reload, shareable)
+// ?page=2&category=shoes&sort=price-asc&q=running
+
+// Server state (React Query handles caching, refetching, loading states)
+const { data, isLoading, error } = useQuery({
+  queryKey: ['products', { page, category, sort, q }],
+  queryFn: () => fetchProducts({ page, category, sort, q }),
+  staleTime: 5 * 60 * 1000,     // consider data fresh for 5 minutes
+  placeholderData: keepPreviousData, // show previous results while new ones load
+});
+
+// Local state — only this component cares about hover state
+const [isHovered, setIsHovered] = useState(false);
+
+// Global UI state — cart badge count shown in header
+// This lives in Zustand because Header and AddToCartButton are far apart in the tree
+const cartCount = useCartStore(state => state.totalItems);
+</code></pre>
+
+    <h3>Step 6: Network Layer</h3>
+
+    <p>How does the frontend communicate with the backend?</p>
+    <ul>
+      <li><strong>REST vs GraphQL:</strong> GraphQL shines when different views need different subsets of the same data (prevents over-fetching). REST is simpler for straightforward CRUD. Neither is universally correct.</li>
+      <li><strong>Error handling:</strong> Retry strategy, exponential backoff, circuit breakers at the client.</li>
+      <li><strong>Optimistic updates:</strong> Update the UI immediately, roll back on failure. Creates perceived responsiveness.</li>
+      <li><strong>Real-time:</strong> WebSockets, SSE, or polling? (Covered in depth in the Real-Time section below.)</li>
+    </ul>
+
+    <h3>Step 7: Performance and Optimization</h3>
+
+    <p>Refer back to Chapter 14. In a design interview, the relevant questions are:</p>
+    <ul>
+      <li>What's the initial load strategy? Server-side rendering? Static generation? Client-side?</li>
+      <li>What gets code-split? (Routes, heavy libraries, below-fold sections)</li>
+      <li>What gets cached client-side and for how long?</li>
+      <li>Does any list need virtualization?</li>
+      <li>What are the LCP and INP critical paths?</li>
+    </ul>
+
+    <h3>Step 8: Accessibility and Error States</h3>
+
+    <p>A design that doesn't account for failure modes and accessibility is not production-ready. Always address:</p>
+    <ul>
+      <li>Loading states (skeleton screens, not spinners — more on this in Case Study 3)</li>
+      <li>Error states (what does the user see if the API call fails?)</li>
+      <li>Empty states (what does the user see with no data?)</li>
+      <li>Keyboard navigation and ARIA attributes for screen readers</li>
+      <li>Focus management for dynamic content changes</li>
+    </ul>
+
+    <h2>Case Study 1: Design a Component Library (Design System)</h2>
+
+    <p><strong>Prompt:</strong> "Design a component library that will be used by 20 frontend developers across 5 product teams."</p>
+
+    <h3>Step 1: Scope Clarification</h3>
+    <p>Before drawing a single box, ask: What framework? (React, Vue, both?) What's the design source of truth — does a design team maintain Figma? Is there a theming requirement (light/dark, white-label)? What's the publishing strategy — npm package, monorepo, CDN? What's the adoption path — greenfield only or migrating legacy code?</p>
+
+    <h3>Core Components to Design First</h3>
+
+    <p>Don't try to design 200 components. Start with the atoms — the smallest composable units — and build up.</p>
+
+    <div class="diagram">
+Primitive components (atoms):
+  Button, Input, Textarea, Select, Checkbox, Radio,
+  Toggle, Badge, Avatar, Icon, Spinner, Tooltip, Tag
+
+Composite components (molecules):
+  Modal, Toast/Snackbar, Dropdown, DatePicker,
+  Table, Form, Accordion, Tabs, Card
+
+Layout components:
+  Stack, Grid, Container, Divider, Spacer
+    </div>
+
+    <h3>Design Tokens — The Source of Truth</h3>
+
+    <pre><code class="language-json">// tokens.json — the single source of truth for all visual decisions
+// This file generates CSS custom properties, JS constants, and design tool variables
+{
+  "color": {
+    "brand": {
+      "50":  { "value": "#eff6ff" },
+      "500": { "value": "#3b82f6" },
+      "900": { "value": "#1e3a5f" }
+    },
+    "semantic": {
+      "primary":        { "value": "{color.brand.500}" },
+      "primary-hover":  { "value": "{color.brand.600}" },
+      "danger":         { "value": "{color.red.500}" },
+      "success":        { "value": "{color.green.500}" }
+    }
+  },
+  "space": {
+    "1": { "value": "4px" },
+    "2": { "value": "8px" },
+    "4": { "value": "16px" },
+    "6": { "value": "24px" },
+    "8": { "value": "32px" }
+  },
+  "font-size": {
+    "sm":   { "value": "0.875rem" },
+    "base": { "value": "1rem" },
+    "lg":   { "value": "1.125rem" },
+    "xl":   { "value": "1.25rem" },
+    "2xl":  { "value": "1.5rem" }
+  },
+  "radius": {
+    "sm": { "value": "4px" },
+    "md": { "value": "8px" },
+    "lg": { "value": "12px" },
+    "full": { "value": "9999px" }
+  }
+}
+</code></pre>
+
+    <p>Tools like Style Dictionary or Tokens Studio convert this JSON into CSS custom properties, TypeScript constants, and Figma variables — keeping code and design in sync automatically.</p>
+
+    <h3>Theming Support</h3>
+
+    <pre><code class="language-css">/* Light theme (default) */
+:root {
+  --color-bg-surface: #ffffff;
+  --color-bg-raised: #f8fafc;
+  --color-text-primary: #1e293b;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-primary: var(--color-brand-500);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --color-bg-surface: #0f172a;
+  --color-bg-raised: #1e293b;
+  --color-text-primary: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-border: #334155;
+  --color-primary: var(--color-brand-400);
+}
+
+/* Switching theme: just set data-theme attribute on <html> */
+/* document.documentElement.setAttribute('data-theme', 'dark') */
+</code></pre>
+
+    <h3>Accessibility Requirements for Every Component</h3>
+
+    <pre><code class="language-tsx">// Every interactive component must handle:
+// 1. Keyboard navigation
+// 2. ARIA roles and attributes
+// 3. Focus management
+// 4. Visible focus indicator
+
+interface ButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  loading?: boolean;
+  variant?: 'primary' | 'secondary' | 'danger';
+  // aria attributes for special cases
+  ariaLabel?: string;       // when button has no text (icon button)
+  ariaDescribedBy?: string; // when label needs extra context
+}
+
+function Button({ children, onClick, disabled, loading, ariaLabel }: ButtonProps) {
+  return (
+    &lt;button
+      onClick={onClick}
+      disabled={disabled || loading}
+      aria-label={ariaLabel}
+      aria-busy={loading}      // screen readers announce "busy" state
+      aria-disabled={disabled} // different from disabled — still focusable
+    &gt;
+      {loading ? &lt;Spinner size="sm" /&gt; : children}
+    &lt;/button&gt;
+  );
+}
+
+// Modal: focus must be trapped inside while open
+// Escape key must close it
+// Focus must return to the trigger element when closed
+// Role="dialog", aria-modal="true", aria-labelledby pointing to the modal title
+</code></pre>
+
+    <h3>Documentation and Publishing</h3>
+
+    <p>A component library without good documentation is barely better than no library at all. Storybook is the industry standard for documenting component libraries.</p>
+
+    <pre><code class="language-tsx">// Button.stories.tsx — Storybook story file
+import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from './Button';
+
+const meta: Meta&lt;typeof Button&gt; = {
+  title: 'Components/Button',
+  component: Button,
+  // Controls let you interact with props in the Storybook UI
+  argTypes: {
+    variant: { control: 'select', options: ['primary', 'secondary', 'danger'] },
+  },
+};
+export default meta;
+
+type Story = StoryObj&lt;typeof Button&gt;;
+
+export const Primary: Story = {
+  args: { children: 'Click me', variant: 'primary' },
+};
+
+export const Loading: Story = {
+  args: { children: 'Saving...', loading: true },
+};
+
+export const AllVariants: Story = {
+  render: () => (
+    &lt;div style={{ display: 'flex', gap: 8 }}&gt;
+      &lt;Button variant="primary"&gt;Primary&lt;/Button&gt;
+      &lt;Button variant="secondary"&gt;Secondary&lt;/Button&gt;
+      &lt;Button variant="danger"&gt;Danger&lt;/Button&gt;
+    &lt;/div&gt;
+  ),
+};
+</code></pre>
+
+    <h3>Naive vs Production-Grade Design</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Concern</th>
+          <th>Naive approach</th>
+          <th>Production-grade approach</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Styling</td>
+          <td>Global CSS file with class names</td>
+          <td>CSS Modules or CSS-in-JS with design tokens; zero global styles</td>
+        </tr>
+        <tr>
+          <td>Versioning</td>
+          <td>Update code directly in the shared folder</td>
+          <td>npm package with semantic versioning; changelog; migration guides</td>
+        </tr>
+        <tr>
+          <td>Testing</td>
+          <td>Manual click-through</td>
+          <td>Unit tests + visual regression tests (Chromatic/Percy) + accessibility tests (axe-core)</td>
+        </tr>
+        <tr>
+          <td>Theming</td>
+          <td>Hardcoded color values in components</td>
+          <td>All visual values via CSS custom properties from tokens; swap themes by changing one attribute</td>
+        </tr>
+        <tr>
+          <td>Bundle size</td>
+          <td>Import the whole library</td>
+          <td>Tree-shakeable exports; each component importable individually</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Case Study 2: Analytics Dashboard with Real-Time Data</h2>
+
+    <p><strong>Prompt:</strong> "Design an analytics dashboard with 10 widgets showing real-time metrics. Users can apply date range filters."</p>
+
+    <h3>Requirements Breakdown</h3>
+    <ul>
+      <li>10 widgets: line charts, bar charts, KPI numbers, data tables</li>
+      <li>Real-time updates (numbers change as events come in)</li>
+      <li>Date range filter affects all widgets simultaneously</li>
+      <li>Each widget can independently fail or load</li>
+    </ul>
+
+    <h3>Data Flow Architecture</h3>
+
+    <pre><code class="language-typescript">// State model: each widget is independent
+interface DashboardState {
+  dateRange: { start: Date; end: Date };
+  widgets: Record&lt;string, WidgetState&gt;;
+}
+
+interface WidgetState {
+  id: string;
+  type: 'line-chart' | 'bar-chart' | 'kpi' | 'table';
+  status: 'loading' | 'success' | 'error' | 'stale';
+  data: unknown;
+  lastUpdated: number;
+  error?: string;
+}
+
+// Each widget subscribes to its own data slice
+// When dateRange changes, all widget queries are invalidated and refetched
+// Real-time updates patch only the affected widget's data — no full refetch
+
+// React Query handles this cleanly:
+function useWidgetData(widgetId: string, dateRange: DateRange) {
+  return useQuery({
+    queryKey: ['widget', widgetId, dateRange],
+    queryFn: () => fetchWidgetData(widgetId, dateRange),
+    refetchOnWindowFocus: true,
+    staleTime: 30_000,
+  });
+}
+</code></pre>
+
+    <h3>Real-Time Strategy: WebSockets vs SSE vs Polling</h3>
+
+    <p>For a metrics dashboard, Server-Sent Events (SSE) is the best fit. The server pushes updates to the client; the client never pushes to the server. WebSockets are bidirectional and are overkill for read-only dashboards.</p>
+
+    <pre><code class="language-typescript">// SSE connection for real-time metric updates
+function useLiveMetrics(widgetIds: string[]) {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const url = `/api/metrics/stream?widgets=${widgetIds.join(',')}`;
+    const eventSource = new EventSource(url, { withCredentials: true });
+
+    eventSource.addEventListener('metric-update', (event) => {
+      const update = JSON.parse(event.data);
+
+      // Patch the specific widget's cached data without a full refetch
+      queryClient.setQueryData(
+        ['widget', update.widgetId, currentDateRange],
+        (oldData: WidgetData) => mergeMetricUpdate(oldData, update)
+      );
+    });
+
+    eventSource.addEventListener('error', () => {
+      // SSE auto-reconnects on error — this is one of its advantages
+      console.warn('SSE connection interrupted, reconnecting...');
+    });
+
+    return () => eventSource.close(); // cleanup on unmount
+  }, [widgetIds.join(',')]);
+}
+</code></pre>
+
+    <h3>Rendering Performance: Virtualized Tables</h3>
+
+    <pre><code class="language-tsx">// If a widget has a table with 10,000 rows, you cannot render all of them
+// Use react-virtual or @tanstack/virtual for windowed rendering
+
+import { useVirtualizer } from '@tanstack/react-virtual';
+
+function DataTable({ rows }: { rows: MetricRow[] }) {
+  const parentRef = useRef&lt;HTMLDivElement&gt;(null);
+
+  const rowVirtualizer = useVirtualizer({
+    count: rows.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 40,     // estimated row height in px
+    overscan: 5,                // render 5 extra rows above/below viewport
+  });
+
+  return (
+    &lt;div ref={parentRef} style={{ height: '400px', overflow: 'auto' }}&gt;
+      {/* Total height — creates the correct scrollbar */}
+      &lt;div style={{ height: rowVirtualizer.getTotalSize() }}&gt;
+        {rowVirtualizer.getVirtualItems().map(virtualRow =&gt; (
+          &lt;div
+            key={virtualRow.index}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: virtualRow.size,
+              transform: `translateY(${virtualRow.start}px)`,
+            }}
+          &gt;
+            &lt;TableRow data={rows[virtualRow.index]} /&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+// The DOM contains only ~15 row elements regardless of dataset size
+</code></pre>
+
+    <h3>Every Widget Needs Independent States</h3>
+
+    <pre><code class="language-tsx">// A widget that handles all states properly
+function Widget({ widgetId }: { widgetId: string }) {
+  const { data, status, error, isStale } = useWidgetData(widgetId, dateRange);
+
+  if (status === 'pending') return &lt;WidgetSkeleton /&gt;;
+  if (status === 'error')   return &lt;WidgetError message={error.message} onRetry={refetch} /&gt;;
+
+  return (
+    &lt;div className="widget"&gt;
+      {isStale &amp;&amp; &lt;StaleIndicator /&gt;}  {/* subtle indicator that data is being refreshed */}
+      &lt;WidgetContent data={data} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+// The dashboard renders all widgets regardless of individual states
+// If one widget fails, the others still work
+function Dashboard() {
+  return (
+    &lt;div className="dashboard-grid"&gt;
+      {widgetIds.map(id =&gt; &lt;Widget key={id} widgetId={id} /&gt;)}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+    <h2>Case Study 3: Infinite Scroll Feed</h2>
+
+    <p><strong>Prompt:</strong> "Design an infinite scroll feed for a social platform with 1 million+ items."</p>
+
+    <h3>The Core Problem</h3>
+
+    <p>You cannot render 1 million DOM nodes. You cannot fetch 1 million items. You cannot hold 1 million items in memory. You need to render only what's visible, fetch only what's nearby, and discard what's far away.</p>
+
+    <h3>Intersection Observer for Fetch Triggering</h3>
+
+    <pre><code class="language-typescript">// Detect when the user is near the bottom — trigger the next page fetch
+function useInfiniteScroll(onLoadMore: () => void, threshold = 0.8) {
+  const sentinelRef = useRef&lt;HTMLDivElement&gt;(null);
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          onLoadMore();
+        }
+      },
+      {
+        // rootMargin: start fetching when the sentinel is 200px from viewport bottom
+        // This pre-fetches before the user hits the end, making scroll seamless
+        rootMargin: '0px 0px 200px 0px',
+        threshold: 0,
+      }
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [onLoadMore]);
+
+  return sentinelRef;
+}
+
+// React Query's useInfiniteQuery handles the pagination
+function useFeed() {
+  return useInfiniteQuery({
+    queryKey: ['feed'],
+    queryFn: ({ pageParam }) =&gt; fetchFeedPage(pageParam),
+    initialPageParam: null,
+    getNextPageParam: (lastPage) =&gt; lastPage.nextCursor,
+    // cursor-based pagination: more reliable than page numbers for live data
+    // (page numbers break when items are inserted at the top)
+  });
+}
+
+// Putting it together
+function Feed() {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useFeed();
+  const sentinelRef = useInfiniteScroll(fetchNextPage);
+
+  const allItems = data?.pages.flatMap(page =&gt; page.items) ?? [];
+
+  return (
+    &lt;VirtualizedList items={allItems}&gt;
+      {/* Sentinel element at the bottom — triggers fetch when visible */}
+      &lt;div ref={sentinelRef} style={{ height: 1 }} /&gt;
+      {isFetchingNextPage &amp;&amp; &lt;FeedSkeleton /&gt;}
+      {!hasNextPage &amp;&amp; &lt;EndOfFeed /&gt;}
+    &lt;/VirtualizedList&gt;
+  );
+}
+</code></pre>
+
+    <h3>Virtualization for the Feed</h3>
+
+    <pre><code class="language-typescript">// Problem: after scrolling through 500 items, you have 500 DOM nodes
+// Each DOM node costs memory and slows down rendering
+// Solution: only render items in or near the viewport
+
+// @tanstack/virtual handles variable-height items (important for social feeds
+// where posts can be any height: text-only, image, video, etc.)
+import { useWindowVirtualizer } from '@tanstack/react-virtual';
+
+function VirtualizedFeed({ items }: { items: FeedItem[] }) {
+  const virtualizer = useWindowVirtualizer({
+    count: items.length,
+    estimateSize: () => 300,    // rough estimate for initial render
+    overscan: 3,                // render 3 items beyond viewport
+    // measureElement: built-in measurement corrects estimates after render
+  });
+
+  return (
+    &lt;div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}&gt;
+      {virtualizer.getVirtualItems().map(virtualItem =&gt; (
+        &lt;div
+          key={items[virtualItem.index].id}
+          data-index={virtualItem.index}
+          ref={virtualizer.measureElement}  // auto-measure actual height
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            transform: `translateY(${virtualItem.start}px)`,
+          }}
+        &gt;
+          &lt;FeedPost item={items[virtualItem.index]} /&gt;
+        &lt;/div&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+    <h3>URL-Based Pagination State</h3>
+
+    <pre><code class="language-typescript">// The problem: if a user shares a link at scroll position 47, the recipient should
+// land in roughly the same place — not at the top of the feed
+
+// Solution: encode pagination cursor in the URL
+// ?cursor=eyJpZCI6IjEyMzQ1NiIsInRzIjoiMjAyNS0wNS0xNSJ9
+
+// On page load, if a cursor is in the URL, start fetching from that cursor
+// This works for shareable links and browser back/forward navigation
+
+const [searchParams, setSearchParams] = useSearchParams();
+const initialCursor = searchParams.get('cursor');
+
+// Update the URL as the user scrolls deeper (throttled to avoid URL spam)
+const updateCursor = useMemo(
+  () =&gt; throttle((cursor: string) =&gt; {
+    setSearchParams({ cursor }, { replace: true }); // replace: true avoids polluting history
+  }, 2000),
+  [setSearchParams]
+);
+</code></pre>
+
+    <h3>Skeleton Loaders vs Spinners</h3>
+
+    <p>Always use skeleton loaders for content-heavy feeds. Spinners say "wait, I'm not ready." Skeletons say "here's where the content will go — it's loading right now." Skeletons reduce perceived load time because the user's brain has already started parsing the layout before the data arrives.</p>
+
+    <pre><code class="language-css">/* Skeleton loader with a shimmer animation */
+.skeleton {
+  background: #e2e8f0;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.4) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s infinite;
+  transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* Usage */
+.skeleton-post {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  padding: 16px;
+}
+.skeleton-avatar  { width: 40px; height: 40px; border-radius: 50%; }
+.skeleton-line-1  { height: 16px; width: 60%; }
+.skeleton-line-2  { height: 14px; width: 90%; margin-top: 8px; }
+.skeleton-image   { height: 200px; width: 100%; margin-top: 12px; border-radius: 8px; }
+</code></pre>
+
+    <h2>Micro-Frontend Architecture</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: A Shopping Mall Where Each Store Is Independently Owned</div>
+      <p>In a regular mall, one company owns everything and makes all decisions. In a micro-frontend architecture, each store (feature) is owned by an independent team, built with potentially different technologies, deployed on its own schedule, and only shares the physical building (the shell app). A customer walks the same mall, but each store has its own staff, its own inventory system, its own design. The stores cooperate on basics — shared entrance, shared parking — but operate independently.</p>
+    </div>
+
+    <h3>What It Is</h3>
+
+    <p>Micro-frontends extend the microservices philosophy to the frontend. Multiple independent frontend applications are composed into a single user interface. Each "micro-frontend" is owned by a different team, may use different frameworks or versions, is deployed independently, and has its own CI/CD pipeline.</p>
+
+    <h3>Implementation Approaches</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Approach</th>
+          <th>How it works</th>
+          <th>Best for</th>
+          <th>Tradeoffs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Module Federation</td>
+          <td>Webpack 5 shares modules at runtime between separately deployed builds</td>
+          <td>React/Vue apps that need to share components across teams</td>
+          <td>Webpack coupling, version negotiation complexity</td>
+        </tr>
+        <tr>
+          <td>iframes</td>
+          <td>Each micro-frontend lives in an iframe</td>
+          <td>Maximum isolation — third-party widgets, legacy apps</td>
+          <td>Poor UX (scroll, focus, URL sync), accessibility nightmares</td>
+        </tr>
+        <tr>
+          <td>Web Components</td>
+          <td>Custom HTML elements work across any framework</td>
+          <td>Framework-agnostic shared components</td>
+          <td>Limited ecosystem, SSR complexity</td>
+        </tr>
+        <tr>
+          <td>Build-time integration</td>
+          <td>Each team publishes an npm package; shell app imports them</td>
+          <td>Design systems, shared component libraries</td>
+          <td>Requires coordination to release updates; not truly independent</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>The Hard Problems</h3>
+
+    <pre><code class="language-javascript">// Problem 1: Shared state between micro-frontends
+// Each app has its own state store — how do they share user auth, theme, cart?
+// Solution: Custom events on the window (simple, framework-agnostic)
+
+// App A fires an event when the user logs in
+window.dispatchEvent(new CustomEvent('user:login', {
+  detail: { userId: '123', token: 'abc' }
+}));
+
+// App B listens for it
+window.addEventListener('user:login', (event) => {
+  authStore.setUser(event.detail);
+});
+
+// This is loose coupling — apps don't import each other, just agree on event shapes
+
+// Problem 2: Routing conflicts
+// Each micro-frontend has its own router — they need to not step on each other
+// Solution: each app "owns" a URL prefix
+// /catalog/* → Catalog team's app
+// /checkout/* → Checkout team's app
+// /account/* → Account team's app
+// Shell app routes to the right micro-frontend based on the path prefix
+
+// Problem 3: Bundle duplication
+// If both apps ship React, users download React twice
+// Solution with Module Federation:
+// Shell app exposes React as a shared singleton
+// Micro-frontends declare React as a shared dependency
+// Webpack negotiates: only one copy of React is loaded at runtime
+</code></pre>
+
+    <h3>When to Use It — Be Honest</h3>
+
+    <div class="box warning">
+      <div class="box-title">⚠️ Honest Tradeoff Assessment</div>
+      <p>Micro-frontends add significant complexity: build tooling, deployment coordination, shared state protocols, routing negotiation, and bundle management. In most organizations, this is not the right choice. The scenario where it genuinely helps: large enterprise with 10+ teams who would otherwise create coordination bottlenecks on a monolithic frontend. For most companies with 1-5 frontend teams, a well-structured monorepo with clear ownership boundaries solves the same problem with a fraction of the operational overhead. When an interviewer asks about micro-frontends, showing that you understand the tradeoffs — including knowing when not to use them — is more impressive than just describing how to implement them.</p>
+    </div>
+
+    <h2>Real-Time Strategies</h2>
+
+    <h3>The Three Options</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Polling</th>
+          <th>WebSockets</th>
+          <th>Server-Sent Events (SSE)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Direction</strong></td>
+          <td>Client → Server (repeated)</td>
+          <td>Bidirectional</td>
+          <td>Server → Client only</td>
+        </tr>
+        <tr>
+          <td><strong>Connection</strong></td>
+          <td>New HTTP request each time</td>
+          <td>Persistent TCP connection</td>
+          <td>Persistent HTTP connection</td>
+        </tr>
+        <tr>
+          <td><strong>Protocol</strong></td>
+          <td>HTTP</td>
+          <td>ws:// / wss://</td>
+          <td>HTTP (text/event-stream)</td>
+        </tr>
+        <tr>
+          <td><strong>Auto-reconnect</strong></td>
+          <td>N/A</td>
+          <td>Manual</td>
+          <td>Built-in</td>
+        </tr>
+        <tr>
+          <td><strong>Firewall issues</strong></td>
+          <td>None</td>
+          <td>Sometimes</td>
+          <td>Rare (it's HTTP)</td>
+        </tr>
+        <tr>
+          <td><strong>Complexity</strong></td>
+          <td>Low</td>
+          <td>High</td>
+          <td>Medium</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <pre><code class="language-typescript">// Decision tree: which real-time strategy to use?
+
+function chooseRealTimeStrategy(requirements: {
+  clientToServer: boolean;   // does the client need to SEND real-time data?
+  highFrequency: boolean;    // updates more than once per second?
+  manyUsers: boolean;        // thousands of concurrent connections?
+}): 'polling' | 'sse' | 'websocket' {
+
+  // WebSockets: when you need to send data from client to server in real-time
+  if (requirements.clientToServer) {
+    return 'websocket';
+    // Use cases: chat, collaborative editing, multiplayer games, drawing apps
+  }
+
+  // SSE: server pushes to client, no client-to-server needed
+  // Great for: notification feeds, live metrics, price tickers, activity streams
+  if (!requirements.clientToServer) {
+    return 'sse';
+    // SSE is underused — it's simpler than WebSockets for most real-time needs
+  }
+
+  // Polling: when you can't or don't want persistent connections
+  // Use cases: simple dashboards, low-frequency updates, edge cases where
+  // persistent connections are restricted by the environment
+  return 'polling';
+}
+
+// Examples:
+// Chat application: WebSocket (bidirectional — you send and receive messages)
+// Notification bell: SSE (server pushes notifications, client just receives)
+// Live sports scores: SSE (read-only, high frequency from server)
+// Collaborative text editor: WebSocket (both sides send changes)
+// Dashboard refreshing every 30s: polling (simple, low frequency, acceptable UX)
+</code></pre>
+
+    <h2>Senior vs Junior: Design a Collaborative Text Editor</h2>
+
+    <p><strong>Interviewer:</strong> "Design a real-time collaborative text editor — like Google Docs — where multiple users can type simultaneously."</p>
+
+    <div class="junior">
+      <div class="answer-label">Junior Answer</div>
+      <p>"I'd use WebSockets to sync the changes between users. When someone types, I'd send the change to the server, and the server would broadcast it to all other connected clients."</p>
+      <p>This is technically a start, but it misses the entire hard problem. What happens when two users type at exactly the same time? User A deletes character 5. User B, who hasn't received that delete yet, inserts a character at position 5. Now their operations conflict. The junior answer has no resolution strategy for this.</p>
+    </div>
+
+    <div class="senior">
+      <div class="answer-label">Senior Answer</div>
+      <p>"Collaborative editing is a conflict resolution problem, not just a networking problem. The naive WebSocket approach breaks immediately when two users edit the same location simultaneously — you get race conditions and corrupted documents. The state of the art has two solutions, and they're conceptually different.</p>
+      <p><strong>Operational Transforms (OT)</strong> is what Google Docs uses. The idea: when two operations are applied to the same document state, transform them relative to each other so they can be applied in any order and still produce the same result. For example: if I delete character 5 and you insert at position 5, after my delete your insert position must shift to 4. A central server coordinates the transformation. The math is complex — implementing OT from scratch is a research-level problem.</p>
+      <p><strong>CRDTs (Conflict-free Replicated Data Types)</strong> are what Figma uses. A CRDT is a data structure with a merge operation that is commutative, associative, and idempotent — meaning any two replicas can merge in any order and always reach the same state, without a central coordinator. For text, the common implementation is a sequence CRDT like RGA or LSEQ. Yjs is the production-grade CRDT library for JavaScript.</p>
+      <p>For a new implementation, I'd use Yjs. It handles all the conflict resolution. My WebSocket server becomes a relay — it broadcasts Yjs update messages between clients without understanding their content. Here's the architecture:</p>
+
+      <pre><code class="language-typescript">// Client-side: Yjs + y-websocket
+import * as Y from 'yjs';
+import { WebsocketProvider } from 'y-websocket';
+import { QuillBinding } from 'y-quill'; // or y-prosemirror, y-codemirror
+
+// Each document is a Y.Doc — a CRDT
+const ydoc = new Y.Doc();
+
+// Connect to the relay server
+const provider = new WebsocketProvider(
+  'wss://your-relay-server.com',
+  'document-id-abc123',  // room name = document ID
+  ydoc,
+  { connect: true }
+);
+
+// Y.Text is a CRDT-backed text type
+const ytext = ydoc.getText('content');
+
+// Bind to your editor
+const binding = new QuillBinding(ytext, quillEditor, provider.awareness);
+
+// Awareness: user cursor positions, names, colors
+// This is the "who is editing where" overlay
+provider.awareness.setLocalState({
+  name: currentUser.name,
+  color: currentUser.color,
+  cursor: null,
+});
+
+// provider.awareness.getStates() returns a Map of all connected users' states
+</code></pre>
+
+      <p>The secondary challenge is persistence. The CRDT state grows over time as operations accumulate. You need to periodically create a snapshot of the document state and store it in a database, so new clients don't have to replay the entire history from day one. I'd take a snapshot every N operations or every M minutes, stored in object storage (S3), and keep a reference to the latest snapshot in the database. New clients load the snapshot and only replay operations that came after it."</p>
+    </div>
+
+    <div class="exercises">
+      <h3>Practice Questions</h3>
+      <div class="exercise">
+        <p><span class="badge beginner">Beginner</span> Walk through the eight-step frontend system design framework for this prompt: "Design the frontend for a simple blog platform where users can create, edit, and read posts." You don't need to produce full code — produce a structured outline with decisions and justifications at each step.</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge intermediate">Intermediate</span> Design the state management architecture for an e-commerce checkout flow with four steps: Cart → Shipping → Payment → Confirmation. Which state goes in the URL, which in React Query, which in Zustand? What happens if the user refreshes on step 3? Handle that.</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge intermediate">Intermediate</span> You're building a notification system for a SaaS app. Users should see a real-time badge count on a bell icon that updates without refreshing. When they click the bell, they see a dropdown of recent notifications. Design the data model, the real-time connection strategy, and the state management for the client. Justify every choice.</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge advanced">Advanced</span> Design the frontend architecture for a design tool like Figma — not the collaborative editing (that's covered), but the canvas itself: rendering thousands of vector shapes at 60fps, selection and transformation handles, zoom and pan, and an object hierarchy panel. Consider: should you use SVG, Canvas, or WebGL? How do you handle selection of overlapping objects? How do you virtualize an infinite canvas?</p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Use the eight-step framework: Clarify scope → User interactions → Data model → Component architecture → State management → Network layer → Performance → Accessibility/errors. Don't skip steps 1 and 8 — they're where junior engineers get caught.</li>
+        <li>A design system is built from design tokens up. Tokens are the single source of truth. CSS custom properties for theming. Storybook for documentation. Tree-shakeable npm package for distribution.</li>
+        <li>Analytics dashboards: each widget is independent and handles its own loading/error states. SSE for read-only real-time data. Virtualize large tables with <code>@tanstack/virtual</code>.</li>
+        <li>Infinite scroll: Intersection Observer to trigger fetches, cursor-based pagination for live data, virtualization for the list, skeleton loaders for loading states, and URL-encoded cursor for shareability.</li>
+        <li>Micro-frontends are usually the wrong choice. Know when they're right (large orgs, team autonomy, independent deployment) and be honest about the complexity cost.</li>
+        <li>Real-time: WebSockets for bidirectional (chat, collaborative editing), SSE for server-to-client only (notifications, dashboards), polling as a fallback for low-frequency updates.</li>
+        <li>Collaborative editing requires conflict resolution — OT (Google Docs) or CRDTs (Figma, Yjs). A WebSocket server alone does not solve the problem.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Part 3 is complete — you've covered the full frontend interview spectrum from fundamentals to system design. Part 4 moves to the backend: databases, API design, microservices, and the language-specific deep dives that senior backend roles demand.</p>
+    <div class="chapter-nav">
+      <a href="chapter-14.html"><span class="nav-label">← Previous</span><span class="nav-title">Ch 14: Frontend Performance</span></a>
+      <a href="../part-4/chapter-16.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Ch 16: Backend Fundamentals</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 5: Core Data Structures — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-2">Part 2 · Chapter 5</div>
+      <h1>Core Data Structures</h1>
+      <p class="chapter-intro">Data structures are the vocabulary of programming. You can write code without knowing them — the same way you can have a conversation without knowing grammar. But when it matters, you'll stumble.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>The eight data structures that appear in the vast majority of interviews</li>
+        <li>The analogy, implementation, and complexity profile for each one</li>
+        <li>When to reach for which structure — and how to justify the choice</li>
+        <li>Full JavaScript implementations of linked list reversal and balanced brackets</li>
+        <li>How to answer "what data structure would you use for X?" like a senior engineer</li>
+      </ul>
+    </div>
+
+    <div class="box analogy">
+      <div class="box-title">💡 The Big Idea: Tools for Different Jobs</div>
+      <p>A carpenter doesn't use a screwdriver to hammer a nail. Every data structure was invented to solve a specific class of problem efficiently. An array is fast at random access but slow at insertions. A hash map is fast at lookups but uses more memory. A stack enforces a specific order of operations. Knowing <em>when</em> to reach for which tool — and being able to explain why — is the interview skill. Anyone can look up what a linked list is. Fewer people can tell you when a linked list is the right call and when it isn't.</p>
+    </div>
+
+    <h2>A Note on JavaScript</h2>
+    <p>JavaScript doesn't have built-in implementations of every data structure. It has arrays and objects. No linked lists. No stacks or queues as first-class types. No heaps. This is actually good for interviews — you often get to implement them yourself, which shows you understand the underlying mechanics, not just the API. We'll use JavaScript throughout, showing both the native approximations and from-scratch implementations where it matters.</p>
+
+    <hr>
+
+    <h2>1. Array</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Numbered Parking Spaces</div>
+      <p>Each parking space has a number (index). You can drive directly to space 47 without checking any of the others — O(1) random access. But if the lot is full and you want to add a space in the middle of a row, every car after that spot has to shuffle down one space — O(n) insertion at an arbitrary position.</p>
+    </div>
+
+    <p>Arrays store elements in contiguous memory, which is why index-based access is instantaneous. The CPU can compute the exact memory address of element[47] with one multiplication. The tradeoff is that structural changes — inserting or deleting in the middle — require shifting everything after that position.</p>
+
+    <p><strong>Key operations:</strong></p>
+    <ul>
+      <li>Access by index: O(1)</li>
+      <li>Search (unsorted): O(n)</li>
+      <li>Insert/delete at end: O(1) amortized</li>
+      <li>Insert/delete at middle: O(n)</li>
+    </ul>
+
+<pre><code class="language-javascript">// JavaScript arrays are dynamic — they resize automatically
+const arr = [10, 20, 30, 40, 50];
+
+console.log(arr[2]);          // 30 — O(1) access
+arr.push(60);                 // O(1) amortized — add to end
+arr.pop();                    // O(1) — remove from end
+arr.splice(2, 0, 99);        // O(n) — insert at index 2, shifts everything right
+// arr is now [10, 20, 99, 30, 40, 50]
+
+// For typed data with fixed size, TypedArrays are more memory-efficient
+const typed = new Int32Array(1000); // 4 bytes per element, no boxing overhead
+</code></pre>
+
+    <p><strong>Interview use:</strong> The default choice for ordered data where you know the index. If you're iterating in order or need random access, start here. Only switch to something else when you need fast insertions/deletions in the middle or a different access pattern.</p>
+
+    <hr>
+
+    <h2>2. Linked List</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Chain of Paperclips</div>
+      <p>Each paperclip knows only the next clip in the chain. To get to clip 47, you start at clip 1 and count forward — O(n) access. But snapping a new clip anywhere in the chain is trivial: unhook two clips, add the new one in between. If you already have a reference to that position, insertion is O(1).</p>
+    </div>
+
+    <p>Linked lists sacrifice random access to gain O(1) insertion and deletion at any known position. Each node stores a value and a pointer to the next node. There's no contiguous memory — nodes can be scattered anywhere in the heap, connected only by references.</p>
+
+    <p><strong>Key operations:</strong></p>
+    <ul>
+      <li>Access by index: O(n) — must traverse from head</li>
+      <li>Search: O(n)</li>
+      <li>Insert/delete at known position: O(1)</li>
+      <li>Insert/delete at head: O(1)</li>
+    </ul>
+
+<pre><code class="language-javascript">// Implementing a singly linked list node
+class ListNode {
+  constructor(val, next = null) {
+    this.val = val;
+    this.next = next;
+  }
+}
+
+// Build a list: 1 → 2 → 3 → 4 → 5
+function buildList(values) {
+  const dummy = new ListNode(0);
+  let curr = dummy;
+  for (const v of values) {
+    curr.next = new ListNode(v);
+    curr = curr.next;
+  }
+  return dummy.next;
+}
+
+// Classic interview problem: Reverse a Linked List
+// Brute force approach: collect values into array, rebuild in reverse — O(n) time, O(n) space
+function reverseListBrute(head) {
+  const values = [];
+  let curr = head;
+  while (curr) {
+    values.push(curr.val);
+    curr = curr.next;
+  }
+  // Rebuild
+  const dummy = new ListNode(0);
+  let ptr = dummy;
+  for (let i = values.length - 1; i >= 0; i--) {
+    ptr.next = new ListNode(values[i]);
+    ptr = ptr.next;
+  }
+  return dummy.next;
+}
+
+// Optimized: in-place reversal using three pointers — O(n) time, O(1) space
+function reverseList(head) {
+  let prev = null;
+  let curr = head;
+
+  while (curr !== null) {
+    const nextNode = curr.next; // save next before we overwrite it
+    curr.next = prev;           // reverse the pointer
+    prev = curr;                // advance prev
+    curr = nextNode;            // advance curr
+  }
+
+  return prev; // prev is now the new head
+}
+
+// Helper to print list
+function printList(head) {
+  const vals = [];
+  while (head) { vals.push(head.val); head = head.next; }
+  return vals.join(' → ');
+}
+
+const list = buildList([1, 2, 3, 4, 5]);
+console.log(printList(list));               // 1 → 2 → 3 → 4 → 5
+console.log(printList(reverseList(list)));  // 5 → 4 → 3 → 2 → 1
+</code></pre>
+
+    <div class="box tip">
+      <div class="box-title">💡 Tip</div>
+      <p>The in-place reversal pattern — three pointers (prev, curr, next) — is one of the most frequently tested linked list techniques. Draw it out before coding. The state at each step should be: prev is the last reversed node, curr is the one being reversed, nextNode is saved before the pointer is overwritten.</p>
+    </div>
+
+    <p><strong>Interview use:</strong> Implementing LRU cache (doubly linked list + hash map), problems that require O(1) insertion at a known position, problems where you can't use extra array space.</p>
+
+    <hr>
+
+    <h2>3. Stack</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Stack of Plates</div>
+      <p>LIFO — Last In, First Out. You add plates to the top, and you can only take from the top. The plate you put down most recently is the first one you pick up. This isn't a limitation — it's a design feature. Stacks are the right structure when you need to process things in reverse order of arrival.</p>
+    </div>
+
+    <p>Stacks enforce a specific processing order: the most recently added item is always processed first. This makes them perfect for any problem where you need to "undo" or "go back" — call stacks, undo history, browser navigation, syntax validation.</p>
+
+    <p><strong>Key operations:</strong></p>
+    <ul>
+      <li>Push (add to top): O(1)</li>
+      <li>Pop (remove from top): O(1)</li>
+      <li>Peek (view top without removing): O(1)</li>
+    </ul>
+
+<pre><code class="language-javascript">// JavaScript arrays are perfect stacks: push() adds to end, pop() removes from end
+class Stack {
+  constructor() { this._data = []; }
+  push(val) { this._data.push(val); }
+  pop() { return this._data.pop(); }
+  peek() { return this._data[this._data.length - 1]; }
+  isEmpty() { return this._data.length === 0; }
+  size() { return this._data.length; }
+}
+
+// Classic interview problem: Balanced Parentheses / Brackets
+// Given a string of brackets, return true if every opener has a matching closer.
+function isBalanced(s) {
+  const stack = new Stack();
+  const map = { ')': '(', ']': '[', '}': '{' };
+
+  for (const ch of s) {
+    if ('([{'.includes(ch)) {
+      // Opening bracket — push it
+      stack.push(ch);
+    } else if (')]}'.includes(ch)) {
+      // Closing bracket — top of stack must be matching opener
+      if (stack.isEmpty() || stack.peek() !== map[ch]) {
+        return false;
+      }
+      stack.pop();
+    }
+  }
+
+  // Stack must be empty — every opener was closed
+  return stack.isEmpty();
+}
+
+console.log(isBalanced('({[]})'));   // true
+console.log(isBalanced('({[})'));    // false — ] closes [ but ) still open
+console.log(isBalanced('{[}]'));     // false — wrong nesting order
+console.log(isBalanced(''));         // true — empty is valid
+</code></pre>
+
+    <p><strong>Interview use:</strong> Balanced brackets, evaluating expressions, implementing undo, converting recursive DFS to iterative, monotonic stack problems (next greater element).</p>
+
+    <hr>
+
+    <h2>4. Queue</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Coffee Shop Line</div>
+      <p>FIFO — First In, First Out. The first person in line gets served first. The queue is fair: arrival order determines processing order. This is exactly what you want for task processing, BFS traversal, and any situation where fairness or ordering by arrival matters.</p>
+    </div>
+
+    <p>Queues are the natural structure for BFS (breadth-first search), where you process nodes level by level. They're also the right model for rate limiting, message queues, and any producer-consumer pattern.</p>
+
+    <p><strong>Key operations:</strong></p>
+    <ul>
+      <li>Enqueue (add to back): O(1)</li>
+      <li>Dequeue (remove from front): O(1) with proper implementation</li>
+      <li>Peek (view front): O(1)</li>
+    </ul>
+
+<pre><code class="language-javascript">// Naive: array push/shift. shift() is O(n) because it re-indexes the array.
+// For small inputs this is fine. For performance-sensitive code, use a linked list.
+class Queue {
+  constructor() { this._data = []; }
+  enqueue(val) { this._data.push(val); }             // O(1)
+  dequeue() { return this._data.shift(); }           // O(n) — acceptable for interviews
+  peek() { return this._data[0]; }                   // O(1)
+  isEmpty() { return this._data.length === 0; }
+}
+
+// True O(1) queue using a linked list (for the follow-up question)
+class LinkedQueue {
+  constructor() { this.head = null; this.tail = null; this._size = 0; }
+
+  enqueue(val) {
+    const node = { val, next: null };
+    if (this.tail) this.tail.next = node;
+    else this.head = node;
+    this.tail = node;
+    this._size++;
+  }
+
+  dequeue() {
+    if (!this.head) return undefined;
+    const val = this.head.val;
+    this.head = this.head.next;
+    if (!this.head) this.tail = null;
+    this._size--;
+    return val;
+  }
+
+  peek() { return this.head?.val; }
+  isEmpty() { return this._size === 0; }
+}
+
+// BFS level-order tree traversal using a queue
+function levelOrder(root) {
+  if (!root) return [];
+  const result = [];
+  const queue = new Queue();
+  queue.enqueue(root);
+
+  while (!queue.isEmpty()) {
+    const levelSize = queue._data.length; // snapshot current level count
+    const level = [];
+
+    for (let i = 0; i < levelSize; i++) {
+      const node = queue.dequeue();
+      level.push(node.val);
+      if (node.left) queue.enqueue(node.left);
+      if (node.right) queue.enqueue(node.right);
+    }
+
+    result.push(level);
+  }
+
+  return result;
+}
+</code></pre>
+
+    <p><strong>Interview use:</strong> BFS on trees and graphs, "level by level" traversal, shortest path in unweighted graphs, simulating real-world queues (tasks, events).</p>
+
+    <hr>
+
+    <h2>5. Hash Table / Map</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Labeled Drawers in a Filing Cabinet</div>
+      <p>You write a label (the key) and put something in the matching drawer (the value). To find "Smith", you don't check every drawer — you go directly to the "S" drawer. The hash function is the labeling system: it converts your key into a drawer number. O(1) average access. Occasionally two keys map to the same drawer (a collision), which is handled internally. You don't need to worry about that in interviews — just know it happens and that well-implemented hash maps stay O(1) average.</p>
+    </div>
+
+    <p>The hash map is the most powerful tool in your interview kit. It trades space for time, converting O(n) search operations into O(1) lookups. If you're doing a nested loop to find something, there is almost certainly a hash map solution that eliminates the inner loop.</p>
+
+    <p><strong>Key operations (all O(1) average):</strong></p>
+    <ul>
+      <li>Insert: O(1)</li>
+      <li>Delete: O(1)</li>
+      <li>Lookup: O(1)</li>
+      <li>Space: O(n)</li>
+    </ul>
+
+<pre><code class="language-javascript">// JavaScript has three hash-based structures:
+// 1. Map — any key type, preserves insertion order
+const map = new Map();
+map.set('alice', 42);
+map.set('bob', 7);
+console.log(map.get('alice'));  // 42
+console.log(map.has('charlie')); // false
+map.delete('bob');
+
+// 2. Set — unique values only, O(1) membership check
+const set = new Set([1, 2, 3, 2, 1]);
+console.log([...set]); // [1, 2, 3] — deduplication is automatic
+console.log(set.has(2)); // true — O(1)
+
+// 3. Plain object {} — fine for string/symbol keys
+const freq = {};
+
+// Classic: Two Sum using a hash map — O(n) time, O(n) space
+function twoSum(nums, target) {
+  const seen = new Map(); // value → index
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+
+    if (seen.has(complement)) {
+      return [seen.get(complement), i];
+    }
+
+    seen.set(nums[i], i);
+  }
+
+  return null;
+}
+
+console.log(twoSum([2, 7, 11, 15], 9));  // [0, 1]
+console.log(twoSum([3, 2, 4], 6));       // [1, 2]
+
+// Classic: Word frequency count
+function wordFrequency(text) {
+  const freq = new Map();
+  for (const word of text.toLowerCase().split(/\s+/)) {
+    freq.set(word, (freq.get(word) ?? 0) + 1);
+  }
+  return freq;
+}
+</code></pre>
+
+    <p><strong>Interview use:</strong> Two Sum, anagram detection, first non-repeating character, group anagrams, caching/memoization, any problem where you need O(1) "have I seen this before?" checks.</p>
+
+    <hr>
+
+    <h2>6. Tree (Binary Search Tree)</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: A Sorted Family Tree</div>
+      <p>Imagine a family tree where every family has a rule: everyone on the left side has a smaller surname alphabetically, everyone on the right has a larger one. To find "Smith", you start at the root. "Smith" is bigger than "Jones"? Go right. "Smith" is smaller than "Wilson"? Go left. You've narrowed the search in half with each step. That's a Binary Search Tree.</p>
+    </div>
+
+    <p>Trees are the foundation of dozens of algorithms and data structures — heaps, tries, segment trees, and many database indexes are all variations on tree structures. The binary search tree is the entry point.</p>
+
+    <p><strong>Key operations (balanced BST):</strong></p>
+    <ul>
+      <li>Search: O(log n)</li>
+      <li>Insert: O(log n)</li>
+      <li>Delete: O(log n)</li>
+      <li>Inorder traversal (gives sorted output): O(n)</li>
+      <li>Worst case (degenerate/unbalanced): O(n) for all operations</li>
+    </ul>
+
+<pre><code class="language-javascript">class TreeNode {
+  constructor(val, left = null, right = null) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+// Insert into a BST
+function insert(root, val) {
+  if (!root) return new TreeNode(val);
+  if (val < root.val) root.left = insert(root.left, val);
+  else if (val > root.val) root.right = insert(root.right, val);
+  return root; // val === root.val: duplicate, ignore
+}
+
+// Inorder traversal: left → root → right → produces sorted output
+function inorder(root, result = []) {
+  if (!root) return result;
+  inorder(root.left, result);
+  result.push(root.val);
+  inorder(root.right, result);
+  return result;
+}
+
+// Find the height of a binary tree (common interview problem)
+function height(root) {
+  if (!root) return 0;
+  return 1 + Math.max(height(root.left), height(root.right));
+}
+
+// Build and test
+let root = null;
+for (const v of [5, 3, 7, 1, 4, 6, 8]) {
+  root = insert(root, v);
+}
+console.log(inorder(root));  // [1, 3, 4, 5, 6, 7, 8] — sorted!
+console.log(height(root));   // 3
+</code></pre>
+
+    <div class="box tip">
+      <div class="box-title">💡 Tip</div>
+      <p>Almost every binary tree interview problem can be solved with the same recursive skeleton: handle the null base case, recurse left, recurse right, combine results. Once you internalize this pattern, tree problems become significantly less intimidating.</p>
+    </div>
+
+    <p><strong>Interview use:</strong> BST validation, lowest common ancestor, inorder/preorder/postorder traversal, find the k-th smallest element, serialize and deserialize a binary tree.</p>
+
+    <hr>
+
+    <h2>7. Graph</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: City Road Map</div>
+      <p>Nodes are cities. Edges are roads. Roads can be one-way (directed graph — like a freeway on-ramp) or two-way (undirected graph — like a side street). Some roads have distance or cost (weighted graph — like a toll road). Everything from social networks (who follows whom) to package dependency trees to route planning is a graph problem under the hood.</p>
+    </div>
+
+    <p>Graphs are the most general data structure. Every tree is a graph (an acyclic, connected graph). When a problem involves relationships between things — followers, cities, tasks with dependencies — you're looking at a graph.</p>
+
+    <p><strong>Key operations:</strong></p>
+    <ul>
+      <li>BFS/DFS traversal: O(V + E) where V = vertices, E = edges</li>
+      <li>Check if path exists: O(V + E)</li>
+      <li>Shortest path (unweighted): O(V + E) via BFS</li>
+    </ul>
+
+<pre><code class="language-javascript">// Adjacency list representation — the standard for sparse graphs
+// edges: [[0,1],[0,2],[1,3],[2,3]] means: 0→1, 0→2, 1→3, 2→3
+function buildAdjList(n, edges, directed = false) {
+  const graph = Array.from({ length: n }, () => []);
+  for (const [u, v] of edges) {
+    graph[u].push(v);
+    if (!directed) graph[v].push(u);
+  }
+  return graph;
+}
+
+// DFS — recursive
+function dfs(graph, node, visited = new Set()) {
+  if (visited.has(node)) return;
+  visited.add(node);
+  console.log('Visiting:', node);
+  for (const neighbor of graph[node]) {
+    dfs(graph, neighbor, visited);
+  }
+}
+
+// BFS — iterative with queue
+function bfs(graph, start) {
+  const visited = new Set([start]);
+  const queue = [start];
+
+  while (queue.length > 0) {
+    const node = queue.shift();
+    console.log('Visiting:', node);
+
+    for (const neighbor of graph[node]) {
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        queue.push(neighbor);
+      }
+    }
+  }
+}
+
+// Classic: Number of connected components
+function countComponents(n, edges) {
+  const graph = buildAdjList(n, edges);
+  const visited = new Set();
+  let components = 0;
+
+  for (let i = 0; i < n; i++) {
+    if (!visited.has(i)) {
+      dfs(graph, i, visited);
+      components++;
+    }
+  }
+
+  return components;
+}
+
+const g = buildAdjList(5, [[0,1],[0,2],[3,4]]);
+console.log(countComponents(5, [[0,1],[0,2],[3,4]])); // 2
+</code></pre>
+
+    <p><strong>Interview use:</strong> Number of islands (grid = implicit graph), course schedule (cycle detection), word ladder, clone graph, social network connectivity, Dijkstra's shortest path.</p>
+
+    <hr>
+
+    <h2>8. Heap (Priority Queue)</h2>
+
+    <div class="box analogy">
+      <div class="box-title">💡 Analogy: Priority Inbox</div>
+      <p>In a priority inbox, the most urgent email always floats to the top — regardless of when it arrived. You don't care about the order of everything else, just that the most important item is always instantly accessible. A heap gives you exactly this: O(1) access to the max (or min) element, with O(log n) insertion and extraction.</p>
+    </div>
+
+    <p>JavaScript has no built-in heap, which means in interviews you'll either implement a binary heap from scratch (impressive but time-consuming) or use a sorted array as a stand-in for small inputs. Many interviewers allow you to say "I'd use a priority queue here, and assume it has O(log n) insert and O(log n) extract-min."</p>
+
+    <p><strong>Key operations:</strong></p>
+    <ul>
+      <li>Peek max/min: O(1)</li>
+      <li>Insert: O(log n)</li>
+      <li>Extract max/min: O(log n)</li>
+      <li>Build heap from array: O(n)</li>
+    </ul>
+
+<pre><code class="language-javascript">// Min-heap implementation — the root is always the smallest element
+class MinHeap {
+  constructor() { this._heap = []; }
+
+  _parent(i) { return Math.floor((i - 1) / 2); }
+  _left(i) { return 2 * i + 1; }
+  _right(i) { return 2 * i + 2; }
+  _swap(i, j) { [this._heap[i], this._heap[j]] = [this._heap[j], this._heap[i]]; }
+
+  push(val) {
+    this._heap.push(val);
+    this._bubbleUp(this._heap.length - 1);
+  }
+
+  pop() {
+    const min = this._heap[0];
+    const last = this._heap.pop();
+    if (this._heap.length > 0) {
+      this._heap[0] = last;
+      this._sinkDown(0);
+    }
+    return min;
+  }
+
+  peek() { return this._heap[0]; }
+  size() { return this._heap.length; }
+
+  _bubbleUp(i) {
+    while (i > 0 && this._heap[i] < this._heap[this._parent(i)]) {
+      this._swap(i, this._parent(i));
+      i = this._parent(i);
+    }
+  }
+
+  _sinkDown(i) {
+    const n = this._heap.length;
+    while (true) {
+      let smallest = i;
+      const l = this._left(i), r = this._right(i);
+      if (l < n && this._heap[l] < this._heap[smallest]) smallest = l;
+      if (r < n && this._heap[r] < this._heap[smallest]) smallest = r;
+      if (smallest === i) break;
+      this._swap(i, smallest);
+      i = smallest;
+    }
+  }
+}
+
+// Classic: Find K largest elements in an array
+// Strategy: maintain a min-heap of size K.
+// If current element > heap's minimum, swap it in.
+// Result: the K largest elements remain in the heap.
+function kLargest(nums, k) {
+  const heap = new MinHeap();
+
+  for (const num of nums) {
+    heap.push(num);
+    if (heap.size() > k) heap.pop(); // remove the smallest, keep the k largest
+  }
+
+  return heap._heap; // these are the k largest (unsorted)
+}
+
+console.log(kLargest([3, 1, 5, 12, 2, 11], 3)); // [5, 11, 12] or similar
+</code></pre>
+
+    <p><strong>Interview use:</strong> "Find the K largest/smallest elements," Dijkstra's algorithm, merge K sorted lists, median maintenance with two heaps, task scheduling.</p>
+
+    <hr>
+
+    <h2>Complexity Comparison Table</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Data Structure</th>
+          <th>Access</th>
+          <th>Search</th>
+          <th>Insert</th>
+          <th>Delete</th>
+          <th>Best for...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Array</td>
+          <td>O(1)</td>
+          <td>O(n)</td>
+          <td>O(n)</td>
+          <td>O(n)</td>
+          <td>Index-based access, iteration</td>
+        </tr>
+        <tr>
+          <td>Linked List</td>
+          <td>O(n)</td>
+          <td>O(n)</td>
+          <td>O(1)*</td>
+          <td>O(1)*</td>
+          <td>Frequent middle insertions</td>
+        </tr>
+        <tr>
+          <td>Stack</td>
+          <td>O(n)</td>
+          <td>O(n)</td>
+          <td>O(1)</td>
+          <td>O(1)</td>
+          <td>LIFO ordering, undo, DFS</td>
+        </tr>
+        <tr>
+          <td>Queue</td>
+          <td>O(n)</td>
+          <td>O(n)</td>
+          <td>O(1)</td>
+          <td>O(1)</td>
+          <td>FIFO ordering, BFS</td>
+        </tr>
+        <tr>
+          <td>Hash Map</td>
+          <td>O(1) avg</td>
+          <td>O(1) avg</td>
+          <td>O(1) avg</td>
+          <td>O(1) avg</td>
+          <td>Fast lookup by key</td>
+        </tr>
+        <tr>
+          <td>BST (balanced)</td>
+          <td>O(log n)</td>
+          <td>O(log n)</td>
+          <td>O(log n)</td>
+          <td>O(log n)</td>
+          <td>Sorted data, range queries</td>
+        </tr>
+        <tr>
+          <td>Graph</td>
+          <td>—</td>
+          <td>O(V+E)</td>
+          <td>O(1)</td>
+          <td>O(V+E)</td>
+          <td>Relationships, connectivity</td>
+        </tr>
+        <tr>
+          <td>Heap</td>
+          <td>O(1) top</td>
+          <td>O(n)</td>
+          <td>O(log n)</td>
+          <td>O(log n)</td>
+          <td>Priority access, top-K</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><small>* O(1) insert/delete for linked list assumes you already have a reference to that position.</small></p>
+
+    <h2>Senior vs. Junior: The Browser Back Button</h2>
+
+    <p>Here's a question that sounds deceptively simple but reveals everything about how a candidate thinks about data structures.</p>
+
+    <p><strong>Question:</strong> "What data structure would you use to implement a browser's back button?"</p>
+
+    <div class="junior">
+      <div class="answer-label">Junior Answer</div>
+      <p>"An array? You could store the URLs in an array and track a current index..." They trail off, unsure if this is right. It's not wrong, but it's unfocused.</p>
+    </div>
+
+    <div class="senior">
+      <div class="answer-label">Senior Answer</div>
+      <p>"A stack is the natural fit. The back button is last-in, first-out by nature — you always go back to wherever you were most recently. When you navigate to a page, push the URL onto the stack. When you hit back, pop the stack. If you also need a forward button, you'd maintain a second stack for forward history — when you hit back, push to the forward stack; when you hit forward, push back to the back stack. If you navigate to a new URL while there's forward history, you clear the forward stack. You could also model this as a doubly linked list with a current pointer, which maps more naturally to the cursor metaphor, but two stacks is simpler to implement correctly."</p>
+    </div>
+
+    <p>Notice what the senior answer does: picks a clear answer, explains the reasoning, handles the follow-up (forward button) proactively, mentions an alternative with tradeoffs. That's structured thinking under pressure — and it's a learned skill.</p>
+
+    <div class="exercises">
+      <h3>Practice Questions</h3>
+      <div class="exercise">
+        <p><span class="badge beginner">Beginner</span> For each scenario, name the best data structure and explain why in one sentence: (a) storing a list of recently used documents (most recent first); (b) checking in O(1) whether a username is taken; (c) representing a city transit map to find the shortest route between stations.</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge intermediate">Intermediate</span> Implement a function <code>isAnagram(s, t)</code> that returns true if <code>t</code> is an anagram of <code>s</code>. Use a hash map. Then answer: what's the time complexity if you sorted both strings and compared instead? Which approach is better and why?</p>
+      </div>
+      <div class="exercise">
+        <p><span class="badge advanced">Advanced</span> Full worked solution: <strong>LRU Cache.</strong> Design a data structure that supports O(1) get and O(1) put, evicting the least recently used entry when capacity is reached. Solution: combine a <code>Map</code> (for O(1) key lookup) with a doubly linked list (to track access order in O(1) move-to-front). JavaScript's <code>Map</code> preserves insertion order, so you can use it alone: on access or update, delete the key and re-insert it (it moves to the end). Evict by deleting the first key (least recently used).
+        <pre><code class="language-javascript">class LRUCache {
+  constructor(capacity) {
+    this.capacity = capacity;
+    this.cache = new Map(); // preserves insertion order
+  }
+
+  get(key) {
+    if (!this.cache.has(key)) return -1;
+    // Move to end (most recently used)
+    const val = this.cache.get(key);
+    this.cache.delete(key);
+    this.cache.set(key, val);
+    return val;
+  }
+
+  put(key, value) {
+    if (this.cache.has(key)) {
+      this.cache.delete(key); // remove old position
+    } else if (this.cache.size >= this.capacity) {
+      // Evict least recently used: first key in the Map
+      this.cache.delete(this.cache.keys().next().value);
+    }
+    this.cache.set(key, value); // insert at end (most recently used)
+  }
+}
+
+const lru = new LRUCache(3);
+lru.put(1, 'a'); lru.put(2, 'b'); lru.put(3, 'c');
+lru.get(1);       // access key 1 → moves to end, eviction order: 2, 3, 1
+lru.put(4, 'd'); // evicts key 2 (least recently used)
+console.log(lru.get(2)); // -1 (evicted)
+console.log(lru.get(1)); // 'a' (still present)
+</code></pre>
+        </p>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h4>Chapter Summary</h4>
+      <ul>
+        <li>Arrays give O(1) index access but O(n) middle insertions — the default for ordered data unless you need something specific.</li>
+        <li>Linked lists trade random access (O(n)) for O(1) insertion at known positions — useful for LRU cache and undo histories.</li>
+        <li>Stacks (LIFO) and queues (FIFO) are specializations that enforce a processing order — stack for DFS/undo, queue for BFS/tasks.</li>
+        <li>Hash maps convert O(n) search into O(1) lookup at the cost of O(n) space — the most powerful interview tool in your kit.</li>
+        <li>Trees, graphs, and heaps model hierarchical, relational, and priority-based problems respectively — know the BFS/DFS traversal pattern and you can handle most of them.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> You have the data structures. Now let's apply them to the algorithm problems that actually show up in interviews — starting with the "beginner" problems that trip up experienced developers more often than you'd think.</p>
+    <div class="chapter-nav">
+      <a href="chapter-4.html"><span class="nav-label">← Previous</span><span class="nav-title">Ch 4: How to Think About Algorithms</span></a>
+      <a href="chapter-6.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Ch 6: Beginner Algorithms</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

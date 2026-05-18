@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 7: Intermediate Algorithms — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-2">Part 2 · Chapter 7</div>
+      <h1>Intermediate Algorithms</h1>
+      <p class="chapter-intro">The algorithms in this chapter separate the candidates who passed LeetCode Easy from the ones who are ready for a real offer. These are the problems where pattern recognition starts to matter more than memory.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>Binary Search — the off-by-one-safe template and its key variations</li>
+        <li>Merge Sort and Quick Sort — full implementations, tradeoffs, and when each wins</li>
+        <li>BFS and DFS — graph and tree traversals with real runnable code</li>
+        <li>Sliding Window — fixed and variable width, and the pattern-recognition trigger</li>
+        <li>Two Pointers — three classic problems solved cleanly</li>
+        <li>How a senior engineer explains each approach versus how a junior does it</li>
+      </ul>
+    </div>
+
+    <div class="box analogy">
+      <strong>The Martial Arts Analogy</strong><br>
+      A beginner in martial arts learns individual moves: a jab, a kick, a block. Each is isolated, drilled until mechanical. An intermediate student learns combinations — sweep into punch into block, executed as a single flowing pattern. They no longer think move-by-move; they recognize the shape of the opponent's attack and the combo appears. Intermediate algorithms are combinations. You don't reach for a random technique — you read the problem, recognize the pattern, and the right combo surfaces. That recognition is what this chapter builds.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>1. Binary Search</h2>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Guessing a Number 1–100</strong><br>
+      Someone picks a number between 1 and 100. You say 50. They say "too high." You say 25. They say "too low." You say 37. Each guess cuts the remaining possibilities in half. After at most 7 guesses you've found any number in 1–100. Binary search is this intuition expressed as code — applicable to any sorted structure.
+    </div>
+
+    <p>Binary search has a reputation for being simple yet surprisingly easy to get wrong in an interview. The off-by-one errors in the loop condition and the mid-point calculation have tripped up experienced engineers. Here is the version that doesn't have those bugs.</p>
+
+    <h3>The Off-By-One-Safe Template</h3>
+
+    <pre><code>// Standard binary search — finds exact target in sorted array
+// Returns index of target, or -1 if not found
+function binarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;   // inclusive right boundary
+
+  while (left <= right) {        // <= not < — handles single-element arrays
+    // Avoids integer overflow vs Math.floor((left + right) / 2)
+    const mid = left + Math.floor((right - left) / 2);
+
+    if (arr[mid] === target) {
+      return mid;
+    } else if (arr[mid] < target) {
+      left = mid + 1;            // target is in right half
+    } else {
+      right = mid - 1;           // target is in left half
+    }
+  }
+
+  return -1;  // not found
+}
+
+// Test
+const sorted = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91];
+console.log(binarySearch(sorted, 23));  // 5
+console.log(binarySearch(sorted, 10));  // -1</code></pre>
+
+    <p><strong>Complexity:</strong> O(log n) time, O(1) space.</p>
+
+    <p>The two rules to commit to memory: (1) use <code>left + Math.floor((right - left) / 2)</code> instead of <code>(left + right) / 2</code> to avoid integer overflow in languages with fixed-width integers — it's a good habit even in JavaScript. (2) The loop condition is <code>left &lt;= right</code> because when <code>left === right</code> there is still one element to inspect.</p>
+
+    <h3>Variation 1: Find the First Occurrence</h3>
+    <p>When duplicates exist and you need the index of the leftmost matching element:</p>
+
+    <pre><code>function findFirst(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+  let result = -1;
+
+  while (left <= right) {
+    const mid = left + Math.floor((right - left) / 2);
+
+    if (arr[mid] === target) {
+      result = mid;       // record this position
+      right = mid - 1;   // but keep looking left for an earlier occurrence
+    } else if (arr[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+
+  return result;
+}
+
+const dupes = [1, 2, 2, 2, 3, 4, 5];
+console.log(findFirst(dupes, 2));  // 1 (first index of 2)</code></pre>
+
+    <h3>Variation 2: Find the Insertion Point</h3>
+    <p>Find where a value would be inserted to keep the array sorted — equivalent to Python's <code>bisect_left</code>:</p>
+
+    <pre><code>function insertionPoint(arr, target) {
+  let left = 0;
+  let right = arr.length;  // right can be arr.length (insert at end)
+
+  while (left < right) {   // strictly less-than here
+    const mid = left + Math.floor((right - left) / 2);
+
+    if (arr[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid;
+    }
+  }
+
+  return left;  // insertion index
+}
+
+const arr = [1, 3, 5, 7, 9];
+console.log(insertionPoint(arr, 6));  // 3 — insert between index 2 and 3
+console.log(insertionPoint(arr, 5));  // 2 — exact match, leftmost position</code></pre>
+
+    <h3>Variation 3: Search in a Rotated Sorted Array</h3>
+    <p>This is a classic interview twist. The sorted array has been "rotated" — e.g., <code>[4,5,6,7,0,1,2]</code> was originally <code>[0,1,2,4,5,6,7]</code>. You can still do O(log n) by determining which half is sorted on each iteration.</p>
+
+    <pre><code>function searchRotated(nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+
+  while (left <= right) {
+    const mid = left + Math.floor((right - left) / 2);
+
+    if (nums[mid] === target) return mid;
+
+    // Determine which half is sorted
+    if (nums[left] <= nums[mid]) {
+      // Left half is sorted
+      if (nums[left] <= target && target < nums[mid]) {
+        right = mid - 1;  // target is in the sorted left half
+      } else {
+        left = mid + 1;   // target must be in right half
+      }
+    } else {
+      // Right half is sorted
+      if (nums[mid] < target && target <= nums[right]) {
+        left = mid + 1;   // target is in the sorted right half
+      } else {
+        right = mid - 1;  // target must be in left half
+      }
+    }
+  }
+
+  return -1;
+}
+
+console.log(searchRotated([4, 5, 6, 7, 0, 1, 2], 0));  // 4
+console.log(searchRotated([4, 5, 6, 7, 0, 1, 2], 3));  // -1</code></pre>
+
+    <div class="box tip">
+      <strong>Interview Context</strong><br>
+      When you see a sorted array in a problem and need to find something, your first thought should be binary search. When the word "rotated" appears, think: "one of the halves is still sorted — figure out which one and use that." State this reasoning out loud before touching the keyboard.
+    </div>
+
+    <div class="junior">
+      <span class="answer-label">Junior answer</span>
+      "I'll loop through the array and check each element." — This works but is O(n). Misses the point entirely when the data is sorted.
+    </div>
+    <div class="senior">
+      <span class="answer-label">Senior answer</span>
+      "The array is sorted, so binary search applies — O(log n). The rotation variant is a standard pattern: at each step one half must be monotonically sorted. I check which half and determine whether the target falls in that range, then discard the other half."
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>2. Merge Sort</h2>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Sorting a Hand of Cards by Splitting</strong><br>
+      Imagine you have a messy hand of cards. Split the hand in two. Give half to a friend. Each of you recursively splits and sorts your smaller pile. Now you merge: both of you hold your sorted halves face-up, and you take turns picking whichever card is smallest. The merge step is mechanical and fast. Merge sort works the same way — split until you hit single cards (trivially sorted), then merge back up.
+    </div>
+
+    <p>Merge sort is the canonical divide-and-conquer sorting algorithm. It's guaranteed O(n log n) in all cases — unlike Quick Sort, it has no worst-case degradation. It's also stable: equal elements preserve their original order, which matters when sorting objects by one field without disturbing another.</p>
+
+    <pre><code>function mergeSort(arr) {
+  // Base case: arrays of 0 or 1 element are already sorted
+  if (arr.length <= 1) return arr;
+
+  const mid = Math.floor(arr.length / 2);
+  const left  = mergeSort(arr.slice(0, mid));   // sort left half
+  const right = mergeSort(arr.slice(mid));       // sort right half
+
+  return merge(left, right);
+}
+
+function merge(left, right) {
+  const result = [];
+  let i = 0;
+  let j = 0;
+
+  // Pick the smaller of the two front elements each time
+  while (i < left.length && j < right.length) {
+    if (left[i] <= right[j]) {   // <= preserves stability
+      result.push(left[i++]);
+    } else {
+      result.push(right[j++]);
+    }
+  }
+
+  // Append any remaining elements
+  while (i < left.length)  result.push(left[i++]);
+  while (j < right.length) result.push(right[j++]);
+
+  return result;
+}
+
+// Test
+const unsorted = [38, 27, 43, 3, 9, 82, 10];
+console.log(mergeSort(unsorted));  // [3, 9, 10, 27, 38, 43, 82]</code></pre>
+
+    <p><strong>Complexity:</strong> O(n log n) time in all cases. O(n) space — the merge step requires auxiliary arrays. The recursion call stack adds O(log n) depth.</p>
+
+    <p><strong>Why it's stable:</strong> In the <code>merge</code> function, the condition <code>left[i] &lt;= right[j]</code> means that when two elements are equal, the one from the left subarray is picked first — preserving original order.</p>
+
+    <!-- ============================================================ -->
+    <h2>3. Quick Sort</h2>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Picking a Pivot at a Party</strong><br>
+      Imagine lining up partygoers by height. Pick one person as the "pivot." Everyone shorter stands to the left, everyone taller to the right. Now repeat the process for each group. The pivot is already in its final position. Each round of "everyone shorter left, taller right" costs one pass through the group. With a lucky pivot choice, the group halves each time — O(n log n). With a terrible pivot (always the min or max), one side is always empty — O(n²).
+    </div>
+
+    <pre><code>function quickSort(arr, low = 0, high = arr.length - 1) {
+  if (low < high) {
+    const pivotIdx = partition(arr, low, high);
+    quickSort(arr, low, pivotIdx - 1);   // sort left of pivot
+    quickSort(arr, pivotIdx + 1, high);  // sort right of pivot
+  }
+  return arr;
+}
+
+// Lomuto partition scheme — simple and interview-friendly
+function partition(arr, low, high) {
+  const pivot = arr[high];  // choose last element as pivot
+  let i = low - 1;          // index of smaller element
+
+  for (let j = low; j < high; j++) {
+    if (arr[j] <= pivot) {
+      i++;
+      [arr[i], arr[j]] = [arr[j], arr[i]];  // swap
+    }
+  }
+
+  // Place pivot in correct position
+  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+  return i + 1;
+}
+
+// Test
+const arr = [10, 7, 8, 9, 1, 5];
+console.log(quickSort(arr));  // [1, 5, 7, 8, 9, 10]</code></pre>
+
+    <p><strong>Complexity:</strong> Average O(n log n), Worst case O(n²) — which happens when the pivot is always the smallest or largest element (a sorted or reverse-sorted array with a naive pivot choice). In practice, randomized pivot selection makes O(n²) essentially impossible. Quick Sort has better cache performance than Merge Sort in practice because it sorts in-place.</p>
+
+    <h3>Merge Sort vs Quick Sort</h3>
+    <div class="diagram">
+      <table>
+        <thead>
+          <tr><th>Property</th><th>Merge Sort</th><th>Quick Sort</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Average time</td><td>O(n log n)</td><td>O(n log n)</td></tr>
+          <tr><td>Worst time</td><td>O(n log n)</td><td>O(n²)</td></tr>
+          <tr><td>Space</td><td>O(n)</td><td>O(log n) call stack</td></tr>
+          <tr><td>Stable</td><td>Yes</td><td>No (Lomuto)</td></tr>
+          <tr><td>In-place</td><td>No</td><td>Yes</td></tr>
+          <tr><td>Cache friendly</td><td>Less</td><td>More</td></tr>
+          <tr><td>Best for</td><td>Linked lists, stability needed</td><td>Arrays, raw speed</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>4. Breadth-First Search (BFS)</h2>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Ripples in a Pond</strong><br>
+      Drop a pebble in water. The first ring of ripples spreads outward from the center — that's level 1. A moment later, those ripples produce the next ring — level 2. BFS explores a graph or tree in exactly this pattern: all nodes at distance 1 before any at distance 2. The data structure that enforces this "process the oldest thing first" behavior is a queue.
+    </div>
+
+    <h3>BFS on a Graph (Adjacency List)</h3>
+
+    <pre><code>// Find shortest path between two nodes in an unweighted graph
+function bfs(graph, start, target) {
+  const queue = [start];
+  const visited = new Set([start]);
+  const parent = new Map();  // to reconstruct path
+
+  while (queue.length > 0) {
+    const node = queue.shift();  // dequeue from front
+
+    if (node === target) {
+      // Reconstruct path
+      const path = [];
+      let cur = target;
+      while (cur !== undefined) {
+        path.unshift(cur);
+        cur = parent.get(cur);
+      }
+      return path;
+    }
+
+    for (const neighbor of (graph[node] || [])) {
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        parent.set(neighbor, node);
+        queue.push(neighbor);
+      }
+    }
+  }
+
+  return null;  // no path found
+}
+
+// Graph as adjacency list
+const graph = {
+  A: ['B', 'C'],
+  B: ['A', 'D', 'E'],
+  C: ['A', 'F'],
+  D: ['B'],
+  E: ['B', 'F'],
+  F: ['C', 'E']
+};
+
+console.log(bfs(graph, 'A', 'F'));  // ['A', 'C', 'F']</code></pre>
+
+    <h3>BFS on a Binary Tree (Level-Order Traversal)</h3>
+
+    <pre><code>function levelOrder(root) {
+  if (!root) return [];
+
+  const result = [];
+  const queue = [root];
+
+  while (queue.length > 0) {
+    const levelSize = queue.length;   // snapshot: how many nodes at this level
+    const currentLevel = [];
+
+    for (let i = 0; i < levelSize; i++) {
+      const node = queue.shift();
+      currentLevel.push(node.val);
+      if (node.left)  queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+
+    result.push(currentLevel);
+  }
+
+  return result;
+}
+
+// For a tree: [3, 9, 20, null, null, 15, 7]
+// Returns: [[3], [9, 20], [15, 7]]</code></pre>
+
+    <p><strong>Key insight:</strong> BFS is the right tool when the problem asks for the shortest path in an unweighted graph, or when you need to process nodes level by level. The queue is what makes it BFS — swap it for a stack and you get DFS.</p>
+
+    <!-- ============================================================ -->
+    <h2>5. Depth-First Search (DFS)</h2>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Navigating a Maze</strong><br>
+      You enter a maze and always take the first available turn — going as deep as possible down one path before trying another. When you hit a dead end, you backtrack to the last junction and try the next available turn. This is DFS: go deep, backtrack when stuck, explore fully before moving to siblings.
+    </div>
+
+    <h3>Recursive DFS on a Binary Tree (All Three Orders)</h3>
+
+    <pre><code>// Pre-order: root → left → right  (used for copying a tree)
+function preOrder(node, result = []) {
+  if (!node) return result;
+  result.push(node.val);      // process root first
+  preOrder(node.left, result);
+  preOrder(node.right, result);
+  return result;
+}
+
+// In-order: left → root → right  (gives sorted output for a BST)
+function inOrder(node, result = []) {
+  if (!node) return result;
+  inOrder(node.left, result);
+  result.push(node.val);      // process root in the middle
+  inOrder(node.right, result);
+  return result;
+}
+
+// Post-order: left → right → root  (used for deleting a tree)
+function postOrder(node, result = []) {
+  if (!node) return result;
+  postOrder(node.left, result);
+  postOrder(node.right, result);
+  result.push(node.val);      // process root last
+  return result;
+}</code></pre>
+
+    <h3>Iterative DFS on a Graph</h3>
+
+    <pre><code>// Iterative DFS using an explicit stack
+function dfsIterative(graph, start) {
+  const stack = [start];
+  const visited = new Set();
+  const order = [];
+
+  while (stack.length > 0) {
+    const node = stack.pop();  // pop from top
+
+    if (visited.has(node)) continue;
+    visited.add(node);
+    order.push(node);
+
+    // Push neighbors in reverse so we process them in original order
+    for (const neighbor of [...(graph[node] || [])].reverse()) {
+      if (!visited.has(neighbor)) {
+        stack.push(neighbor);
+      }
+    }
+  }
+
+  return order;
+}
+
+// Recursive DFS — cleaner but risks stack overflow on deep graphs
+function dfsRecursive(graph, node, visited = new Set(), order = []) {
+  if (visited.has(node)) return order;
+  visited.add(node);
+  order.push(node);
+
+  for (const neighbor of (graph[node] || [])) {
+    dfsRecursive(graph, neighbor, visited, order);
+  }
+
+  return order;
+}
+
+console.log(dfsIterative(graph, 'A'));     // ['A', 'B', 'D', 'E', 'F', 'C']
+console.log(dfsRecursive(graph, 'A'));     // same</code></pre>
+
+    <div class="box tip">
+      <strong>BFS vs DFS Decision Rule</strong><br>
+      Shortest path in unweighted graph? Use BFS. Level-by-level processing? Use BFS. Detecting a cycle, checking connectivity, topological sort, generating permutations/subsets? Use DFS. When in doubt, state both options and explain the tradeoff.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>6. Sliding Window</h2>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: A Train Window</strong><br>
+      You're on a train looking out a fixed-size window. As the train moves forward, new scenery enters on the right and old scenery disappears on the left. The window itself stays the same size. Sliding window algorithms work the same way — they maintain a subset of the array (the "window") and slide it forward, adding one element on the right and removing one on the left, instead of recomputing the whole window each time.
+    </div>
+
+    <h3>Fixed Window: Maximum Sum of K Consecutive Elements</h3>
+
+    <pre><code>// Brute force: O(n * k)
+function maxSumBrute(arr, k) {
+  let maxSum = -Infinity;
+  for (let i = 0; i <= arr.length - k; i++) {
+    let sum = 0;
+    for (let j = i; j < i + k; j++) {
+      sum += arr[j];
+    }
+    maxSum = Math.max(maxSum, sum);
+  }
+  return maxSum;
+}
+
+// Sliding window: O(n)
+function maxSumWindow(arr, k) {
+  if (arr.length < k) return null;
+
+  // Build the first window
+  let windowSum = 0;
+  for (let i = 0; i < k; i++) windowSum += arr[i];
+
+  let maxSum = windowSum;
+
+  // Slide: add right element, remove left element
+  for (let i = k; i < arr.length; i++) {
+    windowSum += arr[i] - arr[i - k];  // O(1) update
+    maxSum = Math.max(maxSum, windowSum);
+  }
+
+  return maxSum;
+}
+
+const nums = [2, 1, 5, 1, 3, 2];
+console.log(maxSumWindow(nums, 3));  // 9 (5 + 1 + 3)</code></pre>
+
+    <h3>Variable Window: Longest Substring Without Repeating Characters</h3>
+
+    <pre><code>// The window expands on the right; shrinks from the left when a repeat is found
+function lengthOfLongestSubstring(s) {
+  const charIndex = new Map();  // char → last seen index
+  let maxLen = 0;
+  let left = 0;
+
+  for (let right = 0; right < s.length; right++) {
+    const char = s[right];
+
+    // If char was seen inside the current window, move left pointer past its last occurrence
+    if (charIndex.has(char) && charIndex.get(char) >= left) {
+      left = charIndex.get(char) + 1;
+    }
+
+    charIndex.set(char, right);
+    maxLen = Math.max(maxLen, right - left + 1);
+  }
+
+  return maxLen;
+}
+
+console.log(lengthOfLongestSubstring("abcabcbb"));  // 3 ("abc")
+console.log(lengthOfLongestSubstring("pwwkew"));    // 3 ("wke")
+console.log(lengthOfLongestSubstring("bbbbb"));     // 1 ("b")</code></pre>
+
+    <p><strong>Complexity:</strong> Both sliding window solutions are O(n) time, O(k) or O(alphabet size) space.</p>
+
+    <div class="box tip">
+      <strong>Pattern Recognition Trigger</strong><br>
+      If a problem mentions any of: "subarray," "substring," "consecutive elements," combined with "maximum," "minimum," "length," or "sum" — your first instinct should be sliding window. Fixed window when K is given. Variable window when you're finding the longest/shortest window satisfying a condition.
+    </div>
+
+    <div class="junior">
+      <span class="answer-label">Junior answer — "Longest substring without repeating characters"</span>
+      "I'd use two nested loops — for each starting character, I expand outward until I find a duplicate." O(n²) time. Gets the right answer but won't pass at volume.
+    </div>
+    <div class="senior">
+      <span class="answer-label">Senior answer</span>
+      "Classic variable sliding window. I'll maintain a left and right pointer and a map of character to last-seen index. As I advance right, if the character is already inside the current window, I jump left past its previous occurrence. The window always contains unique characters, and I track the maximum width seen. O(n) time, O(1) space if we bound the character set."
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>7. Two Pointers</h2>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Two Bookmarks Moving Toward Each Other</strong><br>
+      Imagine a book where you need to find two pages that together meet some condition. You place one bookmark at page 1 and one at the last page. You read both pages. Based on what you find, you move one bookmark inward. You continue until the bookmarks meet. The key insight: because the pages have a meaningful order (sorted), you can always determine which bookmark to move — no guessing needed.
+    </div>
+
+    <h3>Classic 1: Pair Sum in a Sorted Array</h3>
+
+    <pre><code>function twoSum(sortedArr, target) {
+  let left = 0;
+  let right = sortedArr.length - 1;
+
+  while (left < right) {
+    const sum = sortedArr[left] + sortedArr[right];
+
+    if (sum === target) {
+      return [left, right];
+    } else if (sum < target) {
+      left++;   // need a larger sum, advance left
+    } else {
+      right--;  // need a smaller sum, retreat right
+    }
+  }
+
+  return null;  // no pair found
+}
+
+console.log(twoSum([1, 2, 3, 4, 6], 6));  // [1, 3] (2 + 4)</code></pre>
+
+    <h3>Classic 2: Container With Most Water</h3>
+
+    <pre><code>// Given heights of vertical lines, find two lines that together with x-axis
+// form a container holding the most water
+function maxWater(height) {
+  let left = 0;
+  let right = height.length - 1;
+  let maxArea = 0;
+
+  while (left < right) {
+    const width = right - left;
+    const h = Math.min(height[left], height[right]);
+    maxArea = Math.max(maxArea, width * h);
+
+    // Move the shorter wall — moving the taller one can only decrease or maintain area
+    if (height[left] < height[right]) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+
+  return maxArea;
+}
+
+console.log(maxWater([1, 8, 6, 2, 5, 4, 8, 3, 7]));  // 49</code></pre>
+
+    <h3>Classic 3: Move Zeros to the End</h3>
+
+    <pre><code>// Maintain relative order of non-zero elements
+// In-place, O(n) time, O(1) space
+function moveZeroes(nums) {
+  let insertPos = 0;  // next position to place a non-zero element
+
+  // First pass: move all non-zero elements forward
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== 0) {
+      nums[insertPos++] = nums[i];
+    }
+  }
+
+  // Second pass: fill remaining positions with zeros
+  while (insertPos < nums.length) {
+    nums[insertPos++] = 0;
+  }
+
+  return nums;
+}
+
+console.log(moveZeroes([0, 1, 0, 3, 12]));  // [1, 3, 12, 0, 0]</code></pre>
+
+    <p><strong>Complexity (all three):</strong> O(n) time, O(1) space. Two pointers is almost always a signal for O(n) time with O(1) space — trading multiple passes for a single coordinated scan.</p>
+
+    <!-- ============================================================ -->
+    <h2>Exercises</h2>
+    <!-- ============================================================ -->
+
+    <div class="exercises">
+
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <strong>Binary Search Warmup</strong><br>
+        Given <code>arr = [1, 3, 5, 7, 9, 11, 13, 15]</code>, implement binary search without looking at the template above. Return the index if found, -1 otherwise. Test with targets 7 (found) and 4 (not found).
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <strong>Sliding Window — Max Average Subarray</strong><br>
+        Given an array of integers and a number k, find the contiguous subarray of length k with the maximum average. Return the average as a float. Input: <code>[1, 12, -5, -6, 50, 3]</code>, k=4. Expected output: <code>12.75</code>.
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <strong>Three-Sum (Full Worked Solution)</strong><br>
+        Given an array, find all unique triplets that sum to zero. No duplicate triplets in the output.<br><br>
+        <strong>Approach:</strong> Sort the array. Fix one element with an outer loop. For each fixed element, use two pointers on the remaining subarray. Skip duplicates to avoid repeated triplets.
+
+        <pre><code>function threeSum(nums) {
+  nums.sort((a, b) => a - b);  // sort first: O(n log n)
+  const result = [];
+
+  for (let i = 0; i < nums.length - 2; i++) {
+    // Skip duplicate values for the fixed element
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
+
+    let left  = i + 1;
+    let right = nums.length - 1;
+    const target = -nums[i];  // we need left + right = -nums[i]
+
+    while (left < right) {
+      const sum = nums[left] + nums[right];
+
+      if (sum === target) {
+        result.push([nums[i], nums[left], nums[right]]);
+        // Skip duplicates on both sides
+        while (left < right && nums[left]  === nums[left  + 1]) left++;
+        while (left < right && nums[right] === nums[right - 1]) right--;
+        left++;
+        right--;
+      } else if (sum < target) {
+        left++;
+      } else {
+        right--;
+      }
+    }
+  }
+
+  return result;
+}
+
+console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+// [[-1, -1, 2], [-1, 0, 1]]</code></pre>
+        <strong>Complexity:</strong> O(n log n) for sort + O(n²) for the two-pointer scan = O(n²) overall. O(1) extra space ignoring output.
+      </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <div class="summary">
+      <h3>Chapter 7 Summary</h3>
+      <ul>
+        <li><strong>Binary Search:</strong> O(log n). Use the <code>left + floor((right-left)/2)</code> template. The rotated array variant checks which half is sorted on each iteration.</li>
+        <li><strong>Merge Sort:</strong> Always O(n log n), stable, needs O(n) extra space. Best for linked lists and when stability is required.</li>
+        <li><strong>Quick Sort:</strong> O(n log n) average, O(n²) worst case. In-place, cache-friendly, faster in practice. Degrade-proofed with random pivot.</li>
+        <li><strong>BFS vs DFS:</strong> BFS for shortest path and level-order; DFS for cycle detection, connectivity, and generation problems. Queue drives BFS; stack (or recursion) drives DFS.</li>
+        <li><strong>Sliding Window:</strong> Converts O(n²) subarray problems to O(n). Fixed window when K is given; variable window when searching for optimal length.</li>
+        <li><strong>Two Pointers:</strong> Works on sorted data or arrays with structural symmetry. Always O(n) time, O(1) space. Recognize it when you see "pair," "triplet," "container," or "move elements."</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> The algorithms that decide offers — Dynamic Programming, backtracking, Dijkstra, and the real micro1 interview problems that trip up senior candidates who didn't prepare.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-6.html"><span class="nav-label">← Previous</span><span class="nav-title">Beginner Algorithms</span></a>
+      <a href="chapter-8.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Advanced Algorithms</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

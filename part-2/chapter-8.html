@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 8: Advanced Algorithms — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-2">Part 2 · Chapter 8</div>
+      <h1>Advanced Algorithms</h1>
+      <p class="chapter-intro">These are the problems that end careers at the offer stage. You've made it through three rounds, the team likes you, and then you sit down for the algorithm round. Here's everything you need to not fold.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>Dynamic Programming — memoization vs tabulation, identifying subproblems, two real worked examples</li>
+        <li>Coin Change and Longest Common Subsequence — full DP solutions from first principles</li>
+        <li>Basket Distribution and Queue Rearrangement — real micro1 interview problems with full solutions</li>
+        <li>Backtracking — the universal template and three classic applications</li>
+        <li>Dijkstra's shortest path and Topological Sort — enough to implement from scratch</li>
+        <li>Exactly how a senior engineer frames DP problems versus how a junior does</li>
+      </ul>
+    </div>
+
+    <div class="box analogy">
+      <strong>The Chess vs Checkers Analogy</strong><br>
+      Checkers is about making good individual moves. Each turn you look at what's available and pick the best option right now. Chess is different. An amateur chess player looks at the board and reacts. A grandmaster sees five moves ahead — they see the shape of the game, not just the current position. Advanced algorithms require the same shift. You need to see the full structure of the solution — what the subproblems are, how they compose, what invariant the greedy maintains — before you write a single line of code. That's what separates senior answers from junior answers on these problems.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Section 1: Dynamic Programming</h2>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Climbing Stairs</strong><br>
+      You can climb a staircase 1 or 2 steps at a time. How many distinct ways are there to reach step 10? To get to step 10, you came from either step 9 or step 8. So the answer is <em>ways(9) + ways(8)</em>. To get to step 9, you came from step 8 or step 7. So <em>ways(9) = ways(8) + ways(7)</em>. And so on. Each subproblem depends on smaller subproblems, and the same small subproblems appear over and over. DP says: solve each subproblem once, store the result, and look it up whenever you need it again. This turns an exponential problem into a linear one.
+    </div>
+
+    <h3>Core DP Concepts</h3>
+
+    <p>Before touching any specific problem, you need to identify two things:</p>
+    <ol>
+      <li><strong>What is my subproblem?</strong> Define it precisely. "dp[i] = the minimum number of coins needed to make amount i." Be specific. Vague subproblem definitions lead to incorrect recurrences.</li>
+      <li><strong>How do subproblem solutions combine?</strong> Write the recurrence relation. For coin change: <code>dp[i] = 1 + min(dp[i - coin] for each coin)</code>.</li>
+    </ol>
+
+    <p>Then choose your implementation strategy:</p>
+
+    <div class="diagram">
+      <table>
+        <thead>
+          <tr><th>Strategy</th><th>Direction</th><th>How it works</th><th>When to prefer</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Memoization</strong> (top-down)</td>
+            <td>Recursive, with cache</td>
+            <td>Solve the original problem; cache results to avoid recomputation</td>
+            <td>When the recursion structure is natural and not all subproblems are needed</td>
+          </tr>
+          <tr>
+            <td><strong>Tabulation</strong> (bottom-up)</td>
+            <td>Iterative, build up from base cases</td>
+            <td>Fill a table starting from the simplest subproblems toward the answer</td>
+            <td>When you need all subproblems; avoids recursion overhead and stack overflow risk</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DP Example 1: Coin Change -->
+    <h3>Worked Example 1: Coin Change</h3>
+    <p><strong>Problem:</strong> Given coin denominations <code>[1, 5, 10, 25]</code> and an amount (say, 36), find the minimum number of coins needed to make that amount. You have unlimited coins of each denomination.</p>
+
+    <p><strong>Why greedy fails first:</strong> For standard US coins, greedy (always pick the largest coin that fits) works: 25 + 10 + 1 = 3 coins for 36. But consider coins <code>[1, 3, 4]</code> and amount 6. Greedy: 4 + 1 + 1 = 3 coins. Optimal: 3 + 3 = 2 coins. Greedy can fail when coin values aren't nicely structured. DP works in all cases.</p>
+
+    <pre><code>// Brute force (exponential) — for illustration only
+function coinChangeBrute(coins, amount) {
+  if (amount === 0) return 0;
+  if (amount < 0)  return Infinity;
+
+  let minCoins = Infinity;
+  for (const coin of coins) {
+    const sub = coinChangeBrute(coins, amount - coin);
+    if (sub !== Infinity) {
+      minCoins = Math.min(minCoins, sub + 1);
+    }
+  }
+  return minCoins;
+}
+
+// DP — bottom-up tabulation: O(amount × coins.length) time, O(amount) space
+function coinChange(coins, amount) {
+  // dp[i] = minimum coins needed to make amount i
+  // Initialize with Infinity (meaning "impossible") except dp[0] = 0
+  const dp = new Array(amount + 1).fill(Infinity);
+  dp[0] = 0;  // base case: 0 coins needed to make amount 0
+
+  // Build up from amount 1 to amount
+  for (let i = 1; i <= amount; i++) {
+    for (const coin of coins) {
+      if (coin <= i && dp[i - coin] !== Infinity) {
+        // We can use this coin — is it better than what we have?
+        dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+      }
+    }
+  }
+
+  return dp[amount] === Infinity ? -1 : dp[amount];
+}
+
+console.log(coinChange([1, 5, 10, 25], 36));  // 3 (25 + 10 + 1)
+console.log(coinChange([1, 3, 4], 6));         // 2 (3 + 3)
+console.log(coinChange([2], 3));               // -1 (impossible)</code></pre>
+
+    <p><strong>Visualizing the DP table for <code>[1,5,10,25]</code> and amount 11:</strong></p>
+    <div class="diagram">
+      <table>
+        <thead>
+          <tr><th>Amount</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>dp[i]</td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>1</td><td>2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>dp[11] = 2: one 10-cent coin + one 1-cent coin.</p>
+
+    <!-- DP Example 2: LCS -->
+    <h3>Worked Example 2: Longest Common Subsequence (LCS)</h3>
+    <p><strong>Problem:</strong> Given two strings, find the length of their longest common subsequence. A subsequence doesn't need to be contiguous — "ACE" is a subsequence of "ABCDE".</p>
+
+    <pre><code>// LCS: O(m × n) time and space
+function lcs(s1, s2) {
+  const m = s1.length;
+  const n = s2.length;
+
+  // dp[i][j] = LCS of s1[0..i-1] and s2[0..j-1]
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  // Base case: empty string has LCS 0 with anything (already initialized)
+
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (s1[i - 1] === s2[j - 1]) {
+        // Characters match — extend the LCS from the diagonal
+        dp[i][j] = dp[i - 1][j - 1] + 1;
+      } else {
+        // No match — take the best of skipping one character from either string
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+
+  return dp[m][n];
+}
+
+console.log(lcs("ABCBDAB", "BDCAB"));  // 4 (BCAB or BDAB)</code></pre>
+
+    <p><strong>DP table visualization for "ABCD" and "ACBD":</strong></p>
+    <div class="diagram">
+      <table>
+        <thead>
+          <tr><th></th><th></th><th>A</th><th>C</th><th>B</th><th>D</th></tr>
+        </thead>
+        <tbody>
+          <tr><td></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>A</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>B</td><td>0</td><td>1</td><td>1</td><td>2</td><td>2</td></tr>
+          <tr><td>C</td><td>0</td><td>1</td><td>2</td><td>2</td><td>2</td></tr>
+          <tr><td>D</td><td>0</td><td>1</td><td>2</td><td>2</td><td>3</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>LCS length is 3 — the sequence "ACD" or "ABD".</p>
+
+    <div class="junior">
+      <span class="answer-label">Junior answer to any DP problem</span>
+      "I'd use recursion." — Starts writing an exponential solution, runs into time limit, gets flustered. Never names the subproblem. Never states the recurrence.
+    </div>
+    <div class="senior">
+      <span class="answer-label">Senior answer</span>
+      "I recognize overlapping subproblems — this is dynamic programming. Let me define the subproblem precisely: dp[i] means [exact meaning]. The recurrence is dp[i] = f(dp[i-1], dp[i-2]). Base cases are dp[0] = X, dp[1] = Y. I'll iterate bottom-up. Time is O(n), space is O(n) — reducible to O(1) with rolling variables if we only need the last two values."
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Section 2: Real micro1 Interview Problems</h2>
+    <!-- ============================================================ -->
+
+    <p>The following two problems appear in real technical screening rounds. They're not trick questions — they reward clear thinking about greedy strategies and invariants. The candidate who talks through their reasoning out loud and names the approach before coding gets the offer.</p>
+
+    <!-- Problem 1: Basket Distribution -->
+    <h3>Problem 1: Basket Distribution</h3>
+
+    <div class="box warning">
+      <strong>What the interviewer is testing:</strong> Can you see that "distribute as evenly as possible" is a sorting + greedy problem? Can you handle the edge case where items don't divide evenly? Can you analyze time complexity?
+    </div>
+
+    <p><strong>Problem statement:</strong> A warehouse has N items sorted by weight (ascending). Distribute them into K baskets as evenly as possible. If N doesn't divide evenly by K, the first <code>N % K</code> baskets get one extra item. Minimize the difference in total weight between the heaviest basket and the lightest basket.</p>
+
+    <p><strong>Greedy insight:</strong> To minimize the weight difference between baskets, pair heavy items with light items. Sort items by weight descending, then assign item 0 to basket 0, item 1 to basket 1, ..., item K-1 to basket K-1, item K to basket K-1, item K+1 to basket K-2, and so on — a snake pattern that balances weight.</p>
+
+    <pre><code>// Basket Distribution
+// items: array of weights (will be sorted)
+// k: number of baskets
+// Returns: minimum difference between heaviest and lightest basket total
+function basketDistribution(items, k) {
+  if (k >= items.length) {
+    // Every item gets its own basket — difference is max - min item weight
+    return Math.max(...items) - Math.min(...items);
+  }
+
+  // Sort items descending — heaviest first
+  items.sort((a, b) => b - a);
+
+  // Initialize basket totals
+  const baskets = new Array(k).fill(0);
+
+  // Determine sizes: first (n % k) baskets get one extra
+  const n = items.length;
+  const extra = n % k;
+  const baseSize = Math.floor(n / k);
+
+  // Assign items using snake pattern to balance weights
+  // Assign in groups: first pass left-to-right, then right-to-left
+  let itemIdx = 0;
+  let direction = 1;
+  let basketIdx = 0;
+
+  for (let group = 0; group < (baseSize + (extra > 0 ? 1 : 0)); group++) {
+    const groupCount = (group === 0 && extra > 0)
+      ? extra          // first "extra" baskets get one more item in this pass
+      : k;
+
+    if (direction === 1) {
+      for (let b = 0; b < groupCount && itemIdx < n; b++) {
+        baskets[b] += items[itemIdx++];
+      }
+    } else {
+      for (let b = groupCount - 1; b >= 0 && itemIdx < n; b--) {
+        baskets[b] += items[itemIdx++];
+      }
+    }
+    direction *= -1;
+  }
+
+  // Simpler, clearer approach: assign sequentially, then snake
+  // Reset and use the clean snake assignment
+  baskets.fill(0);
+  itemIdx = 0;
+
+  // Assign items to baskets in a snake (zigzag) pattern
+  // Pass 0: basket 0, 1, 2, ..., k-1
+  // Pass 1: basket k-1, k-2, ..., 0
+  let pass = 0;
+  while (itemIdx < n) {
+    if (pass % 2 === 0) {
+      for (let b = 0; b < k && itemIdx < n; b++) {
+        baskets[b] += items[itemIdx++];
+      }
+    } else {
+      for (let b = k - 1; b >= 0 && itemIdx < n; b--) {
+        baskets[b] += items[itemIdx++];
+      }
+    }
+    pass++;
+  }
+
+  const maxWeight = Math.max(...baskets);
+  const minWeight = Math.min(...baskets);
+  return maxWeight - minWeight;
+}
+
+// Test
+const items  = [10, 5, 8, 3, 7, 2, 9, 1, 6, 4];
+const k      = 3;
+console.log(basketDistribution([...items], k));
+// Items sorted desc: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+// Basket 0: 10 + 7 + 4 + 1 = 22
+// Basket 1:  9 + 6 + 3     = 18 (only 3 items in final pass)
+// Basket 2:  8 + 5 + 2     = 15
+// Diff: 22 - 15 = 7</code></pre>
+
+    <p><strong>Complexity:</strong> O(n log n) for sorting, O(n) for assignment = O(n log n) overall. O(k) space for basket totals.</p>
+
+    <div class="box tip">
+      <strong>How to narrate this in an interview</strong><br>
+      "The key constraint is 'minimize the weight difference.' Brute force would try all arrangements — factorial time, not viable. The greedy insight: if I sort items by weight and assign them in a snake pattern — heaviest to basket 0, second heaviest to basket 1, ..., then snake back — I'm always pairing heavy items with light items across rounds. This is the same logic used in sports draft systems. Let me verify on a small example before coding..."
+    </div>
+
+    <!-- Problem 2: Queue Rearrangement -->
+    <h3>Problem 2: Queue Rearrangement</h3>
+
+    <div class="box warning">
+      <strong>What the interviewer is testing:</strong> Can you identify the greedy invariant? Can you prove the greedy works? Can you perform array insertion cleanly?
+    </div>
+
+    <p><strong>Problem statement:</strong> You have a queue of N people. Each person has two attributes: <code>h[i]</code> (height) and <code>k[i]</code> (number of people with height greater than or equal to <code>h[i]</code> who stand in front of this person in the final queue). Given a shuffled list, reconstruct the correct queue order.</p>
+
+    <p><strong>Example:</strong> Input: <code>[[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]]</code>. Output: <code>[[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]</code>.</p>
+
+    <p><strong>The Greedy Insight — and why it works:</strong></p>
+    <p>Sort by height descending. For equal heights, sort by k ascending. Then insert each person at index <code>k[i]</code>.</p>
+    <p>Why does this work? After sorting height descending, when we process person P, everyone already inserted is taller or equal. Inserting P at index <code>k[i]</code> means exactly <code>k[i]</code> people are in front of P — and since all future insertions are shorter, they cannot affect P's count of taller-or-equal people in front. The invariant holds: once placed, a person's position satisfies their k constraint forever.</p>
+
+    <pre><code>// Queue Rearrangement
+// people: array of [height, k] pairs
+// Returns: reconstructed queue
+function reconstructQueue(people) {
+  // Step 1: Sort — tall people first; among equal heights, smaller k first
+  people.sort((a, b) => {
+    if (b[0] !== a[0]) return b[0] - a[0];  // descending height
+    return a[1] - b[1];                       // ascending k
+  });
+
+  // After sorting our example:
+  // [[7,0],[7,1],[6,1],[5,0],[5,2],[4,4]]
+
+  // Step 2: Insert each person at index k[i]
+  // Since everyone already inserted is taller or equal,
+  // inserting at k[i] places exactly k[i] "qualifying" people before this person
+  const result = [];
+
+  for (const person of people) {
+    const k = person[1];
+    // splice(index, 0, element) inserts without removing
+    result.splice(k, 0, person);
+  }
+
+  return result;
+}
+
+// Test
+const people = [[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]];
+console.log(reconstructQueue(people));
+// [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]
+
+// Step-by-step trace after sorting [[7,0],[7,1],[6,1],[5,0],[5,2],[4,4]]:
+// Insert [7,0] at 0: [[7,0]]
+// Insert [7,1] at 1: [[7,0],[7,1]]
+// Insert [6,1] at 1: [[7,0],[6,1],[7,1]]
+// Insert [5,0] at 0: [[5,0],[7,0],[6,1],[7,1]]
+// Insert [5,2] at 2: [[5,0],[7,0],[5,2],[6,1],[7,1]]
+// Insert [4,4] at 4: [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]</code></pre>
+
+    <p><strong>Complexity:</strong> O(n log n) for sort + O(n²) for insertions (each <code>splice</code> at position k shifts n-k elements). Total: O(n²). For large n, a Binary Indexed Tree or order-statistic tree can reduce to O(n log n) — mention this if the interviewer pushes on optimization.</p>
+
+    <div class="box tip">
+      <strong>Proving the greedy — say this out loud</strong><br>
+      "The invariant is: when I insert person P, all people already in the result array have height &gt;= P's height. So the number of people in front of P in the result is exactly equal to the number of 'qualifying' people in front — which is what k[i] means. All future people I insert are shorter, so they don't count for P's k value. Once placed, P's position is final and correct."
+    </div>
+
+    <!-- ============================================================ -->
+    <h2>Section 3: Backtracking</h2>
+    <!-- ============================================================ -->
+
+    <div class="box analogy">
+      <strong>Analogy: Navigating a Maze Without a Legend</strong><br>
+      You're in a maze with no map. At every junction you try the first available path — you go as far as it takes you. If you reach a dead end, you backtrack to the last junction and try the next path. You systematically explore every possibility, pruning paths the moment they're clearly invalid. Backtracking is this — disciplined exhaustive search with early termination.
+    </div>
+
+    <h3>The Universal Backtracking Template</h3>
+
+    <pre><code>// Every backtracking problem fits this skeleton
+function backtrack(state, choices, results) {
+  // Base case: we've reached a complete solution
+  if (isSolution(state)) {
+    results.push(clone(state));  // always clone — state will be mutated
+    return;
+  }
+
+  for (const choice of choices) {
+    if (isValid(state, choice)) {
+      makeChoice(state, choice);           // mutate state
+      backtrack(state, remainingChoices(choices, choice), results);
+      undoChoice(state, choice);           // unmutate — restore for next branch
+    }
+  }
+}</code></pre>
+
+    <p>The make/unmute pattern is critical. You must restore state after each recursive call so the next branch starts from a clean slate.</p>
+
+    <h3>Application 1: Permutations of an Array</h3>
+
+    <pre><code>function permutations(nums) {
+  const results = [];
+
+  function backtrack(current, remaining) {
+    if (remaining.length === 0) {
+      results.push([...current]);  // clone
+      return;
+    }
+
+    for (let i = 0; i < remaining.length; i++) {
+      current.push(remaining[i]);                                 // make choice
+      backtrack(current, [...remaining.slice(0, i), ...remaining.slice(i + 1)]);
+      current.pop();                                              // undo choice
+    }
+  }
+
+  backtrack([], nums);
+  return results;
+}
+
+console.log(permutations([1, 2, 3]));
+// [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]</code></pre>
+
+    <h3>Application 2: Subsets (Power Set)</h3>
+
+    <pre><code>function subsets(nums) {
+  const results = [];
+
+  function backtrack(start, current) {
+    results.push([...current]);  // every state is a valid subset (including empty)
+
+    for (let i = start; i < nums.length; i++) {
+      current.push(nums[i]);        // include nums[i]
+      backtrack(i + 1, current);   // recurse on remaining elements
+      current.pop();                // exclude nums[i] — backtrack
+    }
+  }
+
+  backtrack(0, []);
+  return results;
+}
+
+console.log(subsets([1, 2, 3]));
+// [[], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]]</code></pre>
+
+    <h3>Application 3: N-Queens (Conceptual)</h3>
+    <p>Place N queens on an N×N chessboard so no two attack each other. You don't need to memorize every detail, but understand the structure: for each row, try placing a queen in each column. Check if the position is safe (no other queen in same column, same diagonal). If safe, place and recurse to the next row. If no safe column exists in the current row, backtrack.</p>
+    <p>The key pruning: track occupied columns and both diagonals with sets. Checking validity is O(1) per candidate. Total time: O(n!) in the worst case — unavoidable since that's how many permutations exist.</p>
+
+    <!-- ============================================================ -->
+    <h2>Section 4: Graph Algorithms</h2>
+    <!-- ============================================================ -->
+
+    <h3>Dijkstra's Shortest Path</h3>
+
+    <div class="box analogy">
+      <strong>Analogy: Driving from City to City</strong><br>
+      You're trying to drive from city A to city E. Roads have different distances (weights). Dijkstra's algorithm always expands the city you can reach most cheaply next. You keep a running "cheapest known distance" to every city. When you reach a city via a new route, you update its distance if the new route is cheaper. You never re-process a city once it's been expanded — because if you've already found the cheapest path to it, you can't do better.
+    </div>
+
+    <pre><code>// Dijkstra's algorithm — finds shortest path from source to all nodes
+// graph: { node: [[neighbor, weight], ...] }
+function dijkstra(graph, source) {
+  const dist = {};    // shortest known distance from source to each node
+  const visited = new Set();
+
+  // Initialize all distances to Infinity
+  for (const node of Object.keys(graph)) {
+    dist[node] = Infinity;
+  }
+  dist[source] = 0;
+
+  // Simple array-based priority queue — for production use a proper min-heap
+  // In an interview, mention that a proper heap gives O((V+E) log V)
+  function getMinUnvisited() {
+    let minDist = Infinity;
+    let minNode = null;
+    for (const [node, d] of Object.entries(dist)) {
+      if (!visited.has(node) && d < minDist) {
+        minDist = d;
+        minNode = node;
+      }
+    }
+    return minNode;
+  }
+
+  while (true) {
+    const u = getMinUnvisited();
+    if (u === null || dist[u] === Infinity) break;
+
+    visited.add(u);
+
+    for (const [neighbor, weight] of (graph[u] || [])) {
+      if (!visited.has(neighbor)) {
+        const newDist = dist[u] + weight;
+        if (newDist < dist[neighbor]) {
+          dist[neighbor] = newDist;
+        }
+      }
+    }
+  }
+
+  return dist;
+}
+
+// Test graph: A → B (4), A → C (2), B → D (3), C → B (1), C → D (5)
+const weightedGraph = {
+  A: [['B', 4], ['C', 2]],
+  B: [['D', 3]],
+  C: [['B', 1], ['D', 5]],
+  D: []
+};
+
+console.log(dijkstra(weightedGraph, 'A'));
+// { A: 0, B: 3, C: 2, D: 6 }
+// A→C (2) → B (2+1=3) → D (3+3=6)</code></pre>
+
+    <p><strong>Complexity:</strong> O(V²) with array-based priority queue (shown above). O((V + E) log V) with a proper binary min-heap. Mention the heap version in an interview even if you implement the array version for clarity.</p>
+
+    <div class="box warning">
+      <strong>Important constraint:</strong> Dijkstra requires non-negative edge weights. If edges can be negative, use Bellman-Ford instead (O(VE)).
+    </div>
+
+    <h3>Topological Sort (Kahn's Algorithm)</h3>
+
+    <div class="box analogy">
+      <strong>Analogy: npm install</strong><br>
+      Package A depends on B and C. B depends on D. Before installing A, you must install B and C. Before installing B, you must install D. Topological sort gives you a valid installation order — a linear sequence where every package appears after all its dependencies.
+    </div>
+
+    <pre><code>// Topological Sort using Kahn's Algorithm (BFS-based)
+// Only works on a DAG (Directed Acyclic Graph)
+// Returns nodes in topological order, or empty array if cycle detected
+function topologicalSort(graph) {
+  const inDegree = {};    // number of incoming edges for each node
+
+  // Initialize in-degrees
+  for (const node of Object.keys(graph)) {
+    if (!(node in inDegree)) inDegree[node] = 0;
+    for (const neighbor of graph[node]) {
+      inDegree[neighbor] = (inDegree[neighbor] || 0) + 1;
+    }
+  }
+
+  // Start with all nodes that have no dependencies (in-degree 0)
+  const queue = Object.keys(inDegree).filter(n => inDegree[n] === 0);
+  const result = [];
+
+  while (queue.length > 0) {
+    const node = queue.shift();  // process in FIFO order
+    result.push(node);
+
+    // "Remove" this node from the graph — decrement neighbors' in-degrees
+    for (const neighbor of (graph[node] || [])) {
+      inDegree[neighbor]--;
+      if (inDegree[neighbor] === 0) {
+        queue.push(neighbor);   // neighbor now has no more dependencies
+      }
+    }
+  }
+
+  // If result doesn't include all nodes, there's a cycle
+  if (result.length !== Object.keys(graph).length) {
+    return [];  // cycle detected — no valid topological order
+  }
+
+  return result;
+}
+
+// Dependency graph: D → B → A, C → A
+const depGraph = {
+  D: ['B'],
+  B: ['A'],
+  C: ['A'],
+  A: []
+};
+
+console.log(topologicalSort(depGraph));  // ['D', 'C', 'B', 'A'] or ['C', 'D', 'B', 'A']</code></pre>
+
+    <p><strong>Complexity:</strong> O(V + E). Every node and edge is processed exactly once.</p>
+
+    <!-- ============================================================ -->
+    <h2>Exercises</h2>
+    <!-- ============================================================ -->
+
+    <div class="exercises">
+
+      <div class="exercise">
+        <span class="badge beginner">Beginner</span>
+        <strong>Fibonacci with Memoization</strong><br>
+        Implement Fibonacci three ways: (1) naive recursion, (2) top-down with memoization, (3) bottom-up tabulation. Measure the difference when computing fib(40). State the time complexity of each approach.
+        <pre><code>// Naive: O(2^n) — exponential
+function fibNaive(n) {
+  if (n <= 1) return n;
+  return fibNaive(n - 1) + fibNaive(n - 2);
+}
+
+// Memoized (top-down): O(n) time, O(n) space
+function fibMemo(n, memo = {}) {
+  if (n in memo) return memo[n];
+  if (n <= 1) return n;
+  memo[n] = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+  return memo[n];
+}
+
+// Tabulation (bottom-up): O(n) time, O(1) space
+function fibTab(n) {
+  if (n <= 1) return n;
+  let prev2 = 0, prev1 = 1;
+  for (let i = 2; i <= n; i++) {
+    const cur = prev1 + prev2;
+    prev2 = prev1;
+    prev1 = cur;
+  }
+  return prev1;
+}
+
+console.log(fibTab(40));  // 102334155</code></pre>
+      </div>
+
+      <div class="exercise">
+        <span class="badge intermediate">Intermediate</span>
+        <strong>Coin Change Variants</strong><br>
+        Extend the coin change solution to also return the actual coins used (not just the count). Hint: track a <code>parent</code> array where <code>parent[i]</code> is the coin used to reach amount <code>i</code>. Reconstruct the path by walking back from <code>dp[amount]</code>.
+      </div>
+
+      <div class="exercise">
+        <span class="badge advanced">Advanced</span>
+        <strong>Full Worked Solution: Queue Rearrangement (micro1)</strong><br>
+        Given <code>[[6,0],[5,0],[4,0],[3,2],[2,2],[1,4]]</code>, reconstruct the queue.
+
+        <pre><code>function reconstructQueue(people) {
+  // Sort: tallest first; ties broken by smaller k first
+  people.sort((a, b) => b[0] - a[0] || a[1] - b[1]);
+
+  // After sort: [[6,0],[5,0],[4,0],[3,2],[2,2],[1,4]]
+  // (already sorted in this case)
+
+  const result = [];
+  for (const person of people) {
+    result.splice(person[1], 0, person);
+  }
+  return result;
+}
+
+const input = [[6,0],[5,0],[4,0],[3,2],[2,2],[1,4]];
+const output = reconstructQueue(input);
+console.log(JSON.stringify(output));
+// [[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]
+
+// Verification:
+// [4,0]: 0 people height >= 4 in front ✓ (nobody is in front)
+// [5,0]: 0 people height >= 5 in front ✓ (only [4,0] is shorter)
+// [2,2]: 2 people height >= 2 in front ✓ ([4,0] and [5,0])
+// [3,2]: 2 people height >= 3 in front ✓ ([4,0] and [5,0])
+// [1,4]: 4 people height >= 1 in front ✓ (all four before it)
+// [6,0]: 0 people height >= 6 in front ✓ (nobody is 6+ before it)
+
+// Time: O(n log n) sort + O(n^2) splices = O(n^2)
+// Space: O(n)</code></pre>
+
+        <strong>Key talking points in the interview:</strong>
+        <ul>
+          <li>State the greedy invariant before coding: "After sorting tall-first, every person I've already inserted qualifies for counting toward k. Inserting at index k is therefore exact."</li>
+          <li>Mention the O(n²) splice cost and how it could be reduced with an order-statistic tree.</li>
+          <li>Walk through two or three insert steps on paper to prove the invariant holds.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <div class="summary">
+      <h3>Chapter 8 Summary</h3>
+      <ul>
+        <li><strong>Dynamic Programming:</strong> Define the subproblem precisely. Write the recurrence. Handle base cases. Tabulation (bottom-up) is usually cleaner than memoization in interviews. Always state the time and space complexity, and whether space can be reduced.</li>
+        <li><strong>Greedy problems (Basket Distribution, Queue Rearrangement):</strong> The key is to identify and state the invariant — why the greedy choice never needs to be revisited. Sort first, then simulate. Prove your greedy before coding it.</li>
+        <li><strong>Backtracking:</strong> Make a choice, recurse, undo the choice. Always clone before adding to results. Prune early when constraints are clearly violated.</li>
+        <li><strong>Dijkstra:</strong> Expand the cheapest unvisited node. Requires non-negative weights. O(V²) naive, O((V+E) log V) with a proper heap.</li>
+        <li><strong>Topological Sort:</strong> Kahn's algorithm is BFS from nodes with zero in-degree. If not all nodes end up in the result, a cycle exists.</li>
+      </ul>
+    </div>
+
+    <hr>
+    <p><strong>Next up:</strong> Algorithms don't live in a vacuum — a rate limiter, an LRU cache, debounce, and consistent hashing are all algorithms in disguise. Chapter 9 puts everything in context.</p>
+
+    <div class="chapter-nav">
+      <a href="chapter-7.html"><span class="nav-label">← Previous</span><span class="nav-title">Intermediate Algorithms</span></a>
+      <a href="chapter-9.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Algorithms by Domain</span></a>
+    </div>
+  </main></div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script><script src="../nav.js"></script>
+</body>
+</html>

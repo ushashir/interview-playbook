@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3: Agile, Teams, and Code Culture — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper">
+    <main class="content">
+      <div class="chapter-header">
+        <div class="chapter-tag part-1">Part 1 · Chapter 3</div>
+        <h1>Agile, Teams, and Code Culture</h1>
+        <p class="chapter-intro">Every company says they "do Agile". What they usually mean is: "we have standups and something called sprints." Learning to decode what a team actually does — versus what they claim to do — is a senior engineer superpower.</p>
+      </div>
+
+      <div class="learn-box">
+        <h4>What you'll learn</h4>
+        <ul>
+          <li>The core principles of Agile that actually matter — not just the ceremonies</li>
+          <li>Scrum vs Kanban: what you need to know to answer interview questions confidently</li>
+          <li>How to talk about story points, velocity, and technical debt like a senior engineer</li>
+          <li>What a great code review culture looks like — and how to participate in it well</li>
+          <li>The questions interviewers ask to probe your team and process experience</li>
+        </ul>
+      </div>
+
+      <h2>Why Process Matters to Senior Engineers</h2>
+
+      <p>Early in your career, you probably thought process was something management imposed on developers to slow them down. Standups are just status updates. Retrospectives are just complaining with a whiteboard. Sprint planning is just guessing how long things will take, but with sticky notes.</p>
+
+      <p>That's a junior perspective, and it's understandable. When your entire world is the code in front of you, the surrounding process feels like overhead. But as you grow into senior roles, you start to see things differently. You see how bad process causes good engineers to quit. You see how miscommunication between teams leads to completely wasted sprints. You see how technical debt, left untracked, turns a three-week feature into a three-month nightmare. And you start to understand that good process is the thing that lets a team of humans — who all have different contexts, different priorities, and different amounts of information — produce software together without constant friction.</p>
+
+      <p>In an interview for a senior role, you'll almost always be asked about your experience with Agile, your preferences around process, and how you contribute to team health beyond writing code. Getting these questions right is part of signalling seniority. Getting them wrong signals that you're still thinking like an individual contributor who just wants to be left alone to code.</p>
+
+      <h2>The Jazz Band Analogy</h2>
+
+      <div class="box analogy">
+        <div class="box-title">💡 Analogy</div>
+        <p>Imagine two kinds of musical ensemble. A symphony orchestra plays from a written score — every note is determined in advance, every musician has a fixed part, the conductor controls the timing and interpretation, and the whole thing is rehearsed until it's perfect. Change anything mid-performance and you've broken the system. That's waterfall development: plan everything upfront, execute in sequence, deliver at the end.</p>
+        <p>A jazz band works completely differently. The band agrees on a structure — the chord changes, the key, roughly how long the song lasts — and then each musician improvises within that structure, listening to each other in real time and adapting. The bassist responds to what the drummer does. The pianist responds to the soloist. Nobody knows exactly what the song will sound like until it's being played. That's Agile: agree on a lightweight structure, then respond to what you discover as you build.</p>
+        <p>Both produce extraordinary music. The right one depends on the gig. A symphony is perfect for a score that's been refined over centuries and performed a thousand times. Jazz is perfect for a new venue with a new audience and an unknown setlist. Most software products are more like jazz than symphony.</p>
+      </div>
+
+      <h2>Agile Core Principles (What Actually Matters)</h2>
+
+      <p>The Agile Manifesto — written in 2001 by seventeen developers who were tired of bloated, bureaucratic software processes — boils down to four values and twelve principles. You don't need to memorise all of them. But you do need to understand what they mean in practice, because interviewers can tell immediately whether you're reciting a definition or actually living by these ideas.</p>
+
+      <p>The four values are:</p>
+
+      <ul>
+        <li><strong>Individuals and interactions</strong> over processes and tools</li>
+        <li><strong>Working software</strong> over comprehensive documentation</li>
+        <li><strong>Customer collaboration</strong> over contract negotiation</li>
+        <li><strong>Responding to change</strong> over following a plan</li>
+      </ul>
+
+      <p>Notice the framing: it's not "processes are bad" or "documentation is worthless." The Manifesto is explicit that both sides have value — it's about what you prioritise when they conflict. When your team spends three weeks writing a spec that nobody reads, you've prioritised documentation over working software. When your process requires three levels of approval before any change, you've prioritised process over individuals and interactions.</p>
+
+      <p>In practice, the principle that matters most in day-to-day engineering is <em>responding to change</em>. Requirements change. Markets shift. Users behave differently than expected. Agile teams treat this as normal and build the ability to respond into their process. Non-Agile teams treat this as a problem and try to prevent it through more upfront planning — which usually fails anyway, but takes longer to fail.</p>
+
+      <h2>Scrum vs Kanban</h2>
+
+      <div class="box key-term">
+        <div class="box-title">📚 Key Terms</div>
+        <p><strong>Scrum</strong>: An Agile framework that organises work into fixed-length iterations called sprints (usually two weeks). Work is planned at the start of each sprint and committed to. Progress is measured by velocity — the number of story points completed per sprint. <strong>Kanban</strong>: An Agile approach (originally from Toyota's manufacturing process) that focuses on continuous flow rather than fixed iterations. Work is pulled rather than pushed. Progress is measured by cycle time — how long it takes an item to move from "started" to "done". <strong>Story points</strong>: A relative unit for estimating the complexity and effort of a work item. Not a time estimate — a complexity estimate.</p>
+      </div>
+
+      <p>Here's the honest difference between Scrum and Kanban in terms of when to use each:</p>
+
+      <p><strong>Scrum</strong> works well when your team's work comes in defined chunks that can be planned two weeks out. Product teams building features on a roadmap, with a dedicated product manager and regular stakeholder reviews, tend to benefit from Scrum's rhythm. The sprint commitment creates a forcing function for prioritisation: you can't just add things to a sprint indefinitely because the capacity is fixed.</p>
+
+      <p><strong>Kanban</strong> works well when work arrives continuously and unpredictably — operations teams, support engineering, DevOps, or any team that deals with an interrupt-driven workload. You can't sprint-plan an on-call rotation. Kanban's continuous flow model is a better fit.</p>
+
+      <p>In interviews, you'll often be asked "what process does your current team use?" and then "what do you think of it?" The answer should show nuance. Don't claim your current process is perfect. Don't trash it either. Describe what works about it, what you'd improve, and what you've done to make it better. That demonstrates both experience and maturity.</p>
+
+      <h2>The Five Ceremonies</h2>
+
+      <p>Most candidates can name the Scrum ceremonies but can't describe why they matter or what good looks like versus bad. Here's the breakdown you need.</p>
+
+      <h3>Sprint Planning</h3>
+      <p>The team pulls work from the product backlog into the sprint backlog for the upcoming sprint. Good sprint planning: the team understands the business context for each item ("why are we building this?"), estimates are collaborative rather than assigned, and the sprint goal is clear — a single sentence that describes what the sprint is trying to achieve as a unit, not just a list of tickets. Bad sprint planning: the PM shows up with a pre-built list, the team just agrees to it without discussion, and nobody has a shared sense of what done means at the sprint level.</p>
+
+      <h3>Daily Standup</h3>
+      <p>A brief (15 minutes or less) synchronisation meeting where the team shares: what they did yesterday, what they're doing today, and any blockers. The failure mode everyone knows about: it turns into a status report to the manager rather than a team coordination tool. The standup is for the team, not for management. Its purpose is to surface blockers early and enable the team to self-organise around them. If your standup routinely runs 30 minutes, it's broken.</p>
+
+      <h3>Sprint Review</h3>
+      <p>At the end of the sprint, the team demonstrates working software to stakeholders. Not a presentation deck — working software. This is where the Agile principle of "working software over documentation" is most visible. Good sprint reviews include real feedback from stakeholders that influences the next sprint. Bad sprint reviews are one-directional demos where nobody asks questions and nothing changes as a result.</p>
+
+      <h3>Sprint Retrospective</h3>
+      <p>The team reflects on how the sprint went — not what was built, but how the team worked. What went well? What could be improved? What one thing will we commit to changing next sprint? The retrospective is the team's self-improvement mechanism. If your team's retrospectives produce no changes, they're a waste of time. The best retros I've seen produce one or two concrete, measurable experiments that get reviewed at the next retro.</p>
+
+      <h3>Backlog Refinement</h3>
+      <p>Also called grooming. The team reviews upcoming work items to ensure they're well-understood, properly sized, and ready to be sprint-planned. Good refinement means that by the time sprint planning happens, the top of the backlog is full of items everyone understands, with clear acceptance criteria. Bad refinement (or no refinement) means sprint planning becomes a design session, which blows your timebox and demoralises the team.</p>
+
+      <h2>Story Points and Velocity</h2>
+
+      <p>This is where candidates often get tripped up — either by misunderstanding what story points measure, or by not being able to explain why they matter.</p>
+
+      <p>Story points are a relative measure of complexity, risk, and effort — not a time estimate. A 3-point story isn't "three days of work." It's "roughly twice as complex as a 1-point story." The Fibonacci sequence (1, 2, 3, 5, 8, 13) is commonly used because the gaps between numbers force honest reckoning about complexity differences. You can't estimate a 4 and a 5 as equivalent — there's no 4.</p>
+
+      <p>Velocity is the average number of story points a team completes per sprint over several sprints. It's used for planning — "if we typically complete 30 points per sprint, and there are 90 points of work in the roadmap, we can estimate about three sprints." Velocity is a team metric, not an individual metric. Using it to compare individual engineers' output is a fundamental misuse of the concept and a red flag about engineering culture at any company that does it.</p>
+
+      <div class="box warning">
+        <div class="box-title">⚠️ Warning</div>
+        <p>If an interviewer tells you that their team uses story points to measure individual developer performance, that's not just poor process — it's a signal about the engineering culture. Story points measure team throughput against relative complexity estimates. Using them to track individual output incentivises point inflation and competitive estimation rather than honest collaboration. File this under "questions to ask before accepting an offer."</p>
+      </div>
+
+      <h2>Technical Debt: How to Talk About It Like a Senior</h2>
+
+      <p>Every senior engineer has a strong opinion about technical debt. What distinguishes senior engineers from junior ones isn't the opinion — it's the vocabulary and the framework they use to discuss it.</p>
+
+      <div class="box analogy">
+        <div class="box-title">💡 Analogy</div>
+        <p>Technical debt is exactly like financial debt. Some debt is strategic — you take out a mortgage to buy a house you couldn't otherwise afford, and you pay it back over time as the asset appreciates. That's acceptable debt. Some debt is reckless — you put everyday expenses on high-interest credit cards and never pay the balance, until the interest payments overwhelm your income. That's technical debt accrued without intent or tracking. Both kinds of debt have carrying costs (interest payments = engineering time spent working around the debt). The difference is whether you made the decision consciously and have a plan to repay it.</p>
+      </div>
+
+      <div class="junior">
+        <div class="answer-label">Junior Answer</div>
+        <p>"Yeah, we had a lot of tech debt. Our codebase was pretty messy and things were hard to change. We kept talking about cleaning it up but never really had the time."</p>
+      </div>
+
+      <p>This is almost universally true and completely useless as an answer. "A lot of tech debt" tells the interviewer nothing. It doesn't demonstrate that you understand what debt actually is, how it accumulates, or how to manage it. It signals passive suffering rather than active ownership.</p>
+
+      <div class="senior">
+        <div class="answer-label">Senior Answer</div>
+        <p>"We had a tech debt register — a living document that categorised our known debt by domain and by impact: what would happen if we left it unaddressed, and what was the estimated cost to fix it. We allocated about 20% of each sprint to debt reduction, which we negotiated with the PM by tying it to business outcomes rather than code quality arguments. For example, one of our biggest items was a monolithic service that made our deploy process painful — every deploy took 45 minutes and required a manual verification step. We made the business case around engineering velocity: fix this, and we can ship twice as fast. After we decomposed that service over two sprints, our deploy time dropped to eight minutes and we moved to continuous deployment. The PM became a tech debt ally after that because they could see the outcome. Technical debt conversations are really just business tradeoff conversations wearing engineering clothes."</p>
+      </div>
+
+      <p>The last line of that senior answer is the key insight. Technical debt is not an engineering problem. It's a business tradeoff problem. Engineers who frame it as an engineering problem lose the conversation. Engineers who frame it as a business tradeoff — "here's what it's costing us, here's what we could do with that cost if we fixed it" — win the conversation and get the capacity to fix things.</p>
+
+      <h2>Code Review Culture</h2>
+
+      <p>Code review is one of the most important — and most poorly executed — practices in software engineering. At its best, it's a collaborative process that catches bugs before production, shares knowledge across the team, and raises the overall quality of the codebase. At its worst, it's a gatekeeping ritual that slows down shipping, demoralises contributors, and generates more heat than light.</p>
+
+      <h3>What a great code review checks</h3>
+
+      <p>Great code reviewers focus on substance, not style. Here's the hierarchy of things worth reviewing, roughly in order of importance:</p>
+
+      <p><strong>Correctness</strong>: Does this code actually do what it claims to do? Are there edge cases that aren't handled? What happens with null inputs, empty collections, or concurrent access? This is the most important thing to check and the one most worth pushing back on.</p>
+
+      <p><strong>Security</strong>: Does this code introduce any security vulnerabilities? SQL injection through unparameterised queries. Unsanitised user input. Hardcoded credentials. Incorrect permissions on new endpoints. These are non-negotiable blockers.</p>
+
+      <p><strong>Performance</strong>: Does this code have any obvious performance problems at the scale we operate at? N+1 queries. Synchronous operations that could be async. Unbounded loops over large collections. You don't need to optimise prematurely, but obvious performance problems should be flagged.</p>
+
+      <p><strong>Readability</strong>: Can a reasonable engineer read this code and understand what it does without extensive explanation? Is the intent clear? Are the abstractions appropriate? Is the complexity justified by the problem being solved?</p>
+
+      <p><strong>Test coverage</strong>: Are the tests actually testing the right things? Are edge cases covered? Is the test setup reasonable, or is it so complex it'll break with any refactoring?</p>
+
+      <div class="box tip">
+        <div class="box-title">💡 Tip</div>
+        <p>Variable naming, indentation style, and formatting are the job of your linter and formatter, not your code reviewer. If your team is spending review cycles on whether a variable should be called <code>userList</code> or <code>users</code>, you need a shared style guide enforced by automated tooling. Use Prettier, ESLint, Black, Checkstyle — whatever fits your language. Automate style so humans can focus on substance.</p>
+      </div>
+
+      <h3>How to give feedback without being a jerk</h3>
+
+      <p>This is a skill that's genuinely underrated, and it separates engineers who make teams better from engineers who are technically excellent but interpersonally corrosive. The basic principle: make it about the code, not about the person. Make it about the future, not about a verdict on the past.</p>
+
+      <p><strong>"Have you considered using a database transaction here to prevent partial writes?"</strong> — This opens a conversation. It signals respect for the author's judgment. It gives them a chance to explain if they've already considered and rejected the idea.</p>
+
+      <p><strong>"This is wrong. You need a database transaction."</strong> — This closes a conversation. It's a verdict, not a discussion. Even if you're right, the way you've said it will put the author on the defensive, and they'll spend emotional energy on the interpersonal dynamic rather than thinking clearly about the technical question.</p>
+
+      <p>The word "why" is your friend: "Why did you choose to handle this case synchronously?" forces a genuine technical discussion. The author either has a good reason (in which case you learn something) or they realise they don't (in which case they'll fix it). Either way, the relationship stays collaborative.</p>
+
+      <p>Distinguish between blockers and suggestions. A comment like "this will cause a race condition in production under concurrent load — needs to be fixed before merge" is a blocker. A comment like "I personally would have used a map here instead of a filter + find, but it's a style preference" should be clearly marked as optional. Using "Nit:" at the start of non-blocking comments is a common convention that helps authors prioritise.</p>
+
+      <h3>How to receive feedback without being defensive</h3>
+
+      <p>This is just as important as giving good feedback, and it's harder than it sounds. Your code is not you. Feedback on your PR is feedback on a specific implementation at a specific moment in time — it's not a verdict on your intelligence or your value as an engineer.</p>
+
+      <p>When you get a review comment that stings, pause before responding. Ask yourself: is this technically correct? If yes, thank the reviewer and make the change. If you're not sure, ask a clarifying question rather than defending your original approach. If you genuinely disagree, say so clearly and explain why — but be open to being wrong. The worst outcome is not updating your code because of a review comment. The worst outcome is creating a culture where nobody gives honest feedback because they've learned it'll trigger defensiveness.</p>
+
+      <h2>Common Interview Questions About Process</h2>
+
+      <p>Here are the process and culture questions you're most likely to face, with notes on what a strong answer looks like.</p>
+
+      <h3>"Walk me through your team's development process."</h3>
+
+      <p>Tell a story, not a list. Don't say "we do Scrum with two-week sprints, and we have daily standups." Instead, describe what it actually looks and feels like to work on your team. What does a typical sprint look like from your perspective as an engineer? How does work get refined before it hits planning? What happens when something goes wrong mid-sprint? A story gives the interviewer something real to engage with; a list of ceremony names gives them nothing.</p>
+
+      <h3>"What makes a good pull request?"</h3>
+
+      <div class="junior">
+        <div class="answer-label">Junior Answer</div>
+        <p>"A good PR is well-tested and has a clear description of what it does."</p>
+      </div>
+
+      <div class="senior">
+        <div class="answer-label">Senior Answer</div>
+        <p>"A good PR is small, focused, and testable — ideally addressing one concern rather than bundling multiple changes together. The title should describe the intent, not the implementation: 'Add retry logic to payment processor' is more useful than 'Update PaymentService.java'. The description should explain the why — what problem is this solving, what alternatives were considered, and anything a reviewer needs to know about context or tradeoffs. Tests should cover the happy path and at least the obvious failure modes. And the PR should be self-reviewable: if I can't understand what I changed by reading the diff myself, I haven't written a good PR description."</p>
+      </div>
+
+      <h3>"How do you approach technical debt?"</h3>
+
+      <p>You've already seen the framework above — connect technical debt to business outcomes, describe how you've quantified and prioritised it, and frame debt reduction as an investment in velocity rather than a vanity exercise in code cleanliness. The phrase "tech debt register" will make most interviewers sit up straighter — it signals that you've moved from passive debt accretion to active debt management.</p>
+
+      <h3>"What's your ideal team setup?"</h3>
+
+      <div class="junior">
+        <div class="answer-label">Junior Answer</div>
+        <p>"I like working on a team where people are collaborative and there's good communication. I want to be able to learn from senior engineers and grow."</p>
+      </div>
+
+      <p>This is fine but completely generic. It doesn't reveal anything specific about how you work or what you value, and it'll be forgotten immediately.</p>
+
+      <div class="senior">
+        <div class="answer-label">Senior Answer</div>
+        <p>"I do my best work on teams that have clear ownership — where every service or domain has a named owner who is accountable for its health, not just a loosely shared responsibility. I like a code review culture that's substantive but not adversarial: pull requests should be reviewed within a day, not left for a week. I value retrospectives that actually produce change — if you're having the same conversation in every retro, the process isn't working. And I want product and engineering to be genuinely collaborative rather than PM throwing requirements over a wall. The best product outcomes I've seen came from engineers who understood the business context and PMs who understood technical constraints. I can work in imperfect environments — most are — but those are the things I try to build toward."</p>
+      </div>
+
+      <p>This answer reveals specific values, describes what you've seen work in practice, shows that you've thought deeply about team dynamics, and ends with a mature acknowledgement that you can function in imperfect environments. It also gives the interviewer three or four threads to pull on in follow-up questions.</p>
+
+      <div class="exercises">
+        <h3>Practice Questions</h3>
+
+        <div class="exercise">
+          <p><span class="badge beginner">Beginner</span> Write a two-paragraph description of your current or most recent team's development process. In the first paragraph, describe what the team claims to do (the official process). In the second paragraph, describe what the team actually does in practice. The gap between those two paragraphs is the most interesting thing you can talk about in an interview. Most teams have a gap. Senior engineers can name it.</p>
+        </div>
+
+        <div class="exercise">
+          <p><span class="badge intermediate">Intermediate</span> Think about the last time you gave code review feedback that you weren't entirely satisfied with — either it was too harsh, or too vague, or it got ignored. Rewrite that comment using the principles from this chapter: make it about the code not the person, distinguish between blocker and suggestion, use "have you considered" framing, and include the business or technical reason the change matters. Then reflect: what would you have said in person versus in writing?</p>
+        </div>
+
+        <div class="exercise">
+          <p><span class="badge advanced">Advanced</span> Your team has accumulated significant technical debt in your authentication service. The codebase is five years old, uses deprecated libraries, and is so tightly coupled to the rest of the monolith that adding any new auth feature takes weeks. The PM is focused on new feature delivery. Make the business case for investing three sprints in refactoring the auth service. You must tie every argument to a business metric or risk — no "it'll be easier to maintain" without a specific consequence. What's the cost of not fixing it? What's the measurable improvement if you do? Draft a one-page proposal (about 300 words) that you could present to a non-technical stakeholder.</p>
+        </div>
+      </div>
+
+      <div class="summary">
+        <h4>Chapter Summary</h4>
+        <ul>
+          <li>Agile's core value is responding to change — the ceremonies (standups, planning, retros) exist to enable that, not as ends in themselves; if they're not producing change, they're broken.</li>
+          <li>Scrum works best for planned, roadmap-driven product teams; Kanban works best for continuous, interrupt-driven workloads — knowing the difference signals genuine process literacy.</li>
+          <li>Technical debt is a business tradeoff, not an engineering complaint: quantify the carrying cost, tie the fix to a business outcome, and you'll get the capacity to address it.</li>
+          <li>Great code reviews check correctness, security, performance, readability, and test coverage — in that order; style preferences belong in a linter, not a review comment.</li>
+          <li>Senior engineers build team culture, not just software: they give honest feedback without being adversarial, receive feedback without being defensive, and frame process improvements in terms of outcomes rather than preferences.</li>
+        </ul>
+      </div>
+
+      <hr>
+      <p><strong>Next up:</strong> We move from the human side of interviews to the technical deep end — Chapter 4 teaches you how to think about algorithms the way interviewers expect senior engineers to think about them.</p>
+
+      <div class="chapter-nav">
+        <a href="chapter-2.html"><span class="nav-label">← Previous</span><span class="nav-title">Non-Technical Questions That Are Actually Technical</span></a>
+        <a href="../part-2/chapter-4.html" class="next"><span class="nav-label">Next →</span><span class="nav-title">Thinking About Algorithms</span></a>
+      </div>
+    </main>
+  </div>
+</div>
+<button class="menu-btn" aria-label="Open menu">☰</button>
+<script src="../auth.js"></script>
+<script src="../nav.js"></script>
+</body>
+</html>

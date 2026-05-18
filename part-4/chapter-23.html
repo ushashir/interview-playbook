@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 23: Node.js Deep Dive — How to Pass Your Software Developer Interview</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html">
+        <div class="book-title">How to Pass Your Software Developer Interview</div>
+        <div class="book-subtitle">A Senior Engineer's Playbook</div>
+      </a>
+    </div>
+    <nav>
+      <div class="nav-part">
+        <a href="../index.html">📖 Table of Contents</a>
+        <a href="../introduction.html">Introduction</a>
+        <a href="../about-author.html">About the Author</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 1 — The Human Side</div>
+        <a href="../part-1/chapter-1.html">Ch 1 · Tell Me About Yourself</a>
+        <a href="../part-1/chapter-2.html">Ch 2 · Non-Technical Questions</a>
+        <a href="../part-1/chapter-3.html">Ch 3 · Agile &amp; Code Culture</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 2 — Algorithms &amp; Data Structures</div>
+        <a href="../part-2/chapter-4.html">Ch 4 · Thinking About Algorithms</a>
+        <a href="../part-2/chapter-5.html">Ch 5 · Core Data Structures</a>
+        <a href="../part-2/chapter-6.html">Ch 6 · Beginner Algorithms</a>
+        <a href="../part-2/chapter-7.html">Ch 7 · Intermediate Algorithms</a>
+        <a href="../part-2/chapter-8.html">Ch 8 · Advanced Algorithms</a>
+        <a href="../part-2/chapter-9.html">Ch 9 · Algorithms by Domain</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 3 — Frontend Interviews</div>
+        <a href="../part-3/chapter-10.html">Ch 10 · Frontend Fundamentals</a>
+        <a href="../part-3/chapter-11.html">Ch 11 · JavaScript &amp; the Browser</a>
+        <a href="../part-3/chapter-12.html">Ch 12 · Frameworks &amp; Components</a>
+        <a href="../part-3/chapter-13.html">Ch 13 · CSS &amp; Layout</a>
+        <a href="../part-3/chapter-14.html">Ch 14 · Frontend Performance</a>
+        <a href="../part-3/chapter-15.html">Ch 15 · Frontend System Design</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 4 — Backend Interviews</div>
+        <a href="../part-4/chapter-16.html">Ch 16 · Backend Fundamentals</a>
+        <a href="../part-4/chapter-17.html">Ch 17 · API Design &amp; Architecture</a>
+        <a href="../part-4/chapter-18.html">Ch 18 · Databases</a>
+        <a href="../part-4/chapter-19.html">Ch 19 · Microservices</a>
+        <a href="../part-4/chapter-20.html">Ch 20 · Performance &amp; Observability</a>
+        <a href="../part-4/chapter-21.html">Ch 21 · CI/CD &amp; DevOps</a>
+        <a href="../part-4/chapter-22.html">Ch 22 · Security</a>
+        <a href="../part-4/chapter-23.html" class="active">Ch 23 · Node.js Deep Dive</a>
+        <a href="../part-4/chapter-24.html">Ch 24 · TypeScript Deep Dive</a>
+        <a href="../part-4/chapter-25.html">Ch 25 · Java Deep Dive</a>
+        <a href="../part-4/chapter-26.html">Ch 26 · C# Deep Dive</a>
+        <a href="../part-4/chapter-27.html">Ch 27 · Go Deep Dive</a>
+        <a href="../part-4/chapter-28.html">Ch 28 · PHP Deep Dive</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 5 — System Design</div>
+        <a href="../part-5/chapter-29.html">Ch 29 · System Design Approach</a>
+        <a href="../part-5/chapter-30.html">Ch 30 · Core Building Blocks</a>
+        <a href="../part-5/chapter-31.html">Ch 31 · Design Case Studies</a>
+        <a href="../part-5/chapter-32.html">Ch 32 · Architecture Patterns</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Part 6 — Interview Process</div>
+        <a href="../part-6/chapter-33.html">Ch 33 · AI-Assisted Interviews</a>
+        <a href="../part-6/chapter-34.html">Ch 34 · Offer &amp; Negotiation</a>
+      </div>
+      <div class="nav-part">
+        <div class="nav-part-title">Back Matter</div>
+        <a href="../back-matter/complexity-cheat-sheet.html">Complexity Cheat Sheet</a>
+        <a href="../back-matter/system-design-reference.html">System Design Reference</a>
+        <a href="../back-matter/backend-taxonomy.html">Backend Taxonomy</a>
+        <a href="../back-matter/recommended-reading.html">Recommended Reading</a>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="content-wrapper"><main class="content">
+    <div class="chapter-header">
+      <div class="chapter-tag part-4">Part 4 · Chapter 23</div>
+      <h1>Node.js Deep Dive</h1>
+      <p class="chapter-intro">Node.js has been running production APIs at Netflix, LinkedIn, and PayPal for over a decade. It's also one of the most misunderstood runtimes in terms of how it actually works. If your mental model is wrong, you'll write bugs you can't explain.</p>
+    </div>
+
+    <div class="learn-box">
+      <h4>What you'll learn</h4>
+      <ul>
+        <li>How the event loop actually works — call stack, microtask queue, macrotask queue</li>
+        <li>Why non-blocking I/O is Node's superpower and what breaks it</li>
+        <li>When and how to use worker threads for CPU-bound work</li>
+        <li>Streams, backpressure, and why they matter for memory</li>
+        <li>CommonJS vs ES Modules — differences that affect production</li>
+        <li>Error handling patterns from callback era through async/await</li>
+        <li>NestJS architecture — modules, controllers, services, guards, interceptors</li>
+        <li>Clustering, connection pooling, and common memory leak sources</li>
+      </ul>
+    </div>
+
+    <!-- BIG IDEA ANALOGY -->
+    <div class="box analogy">
+      <h4>The Chef Analogy</h4>
+      <p>The event loop is a chef in a restaurant kitchen. He can only cook one dish at a time, but he never stands idle watching the oven. He starts the roast, sets a timer, chops vegetables while it cooks, and when the timer fires, he returns to the roast. That's Node.js — single-threaded but never idle, because it never blocks waiting for I/O.</p>
+      <p>The chef's fatal mistake would be standing in front of the oven with his arms crossed waiting for the roast to finish. That's what blocking I/O does in Node.js — it freezes the entire event loop while one operation completes, stalling every other pending request. Understanding the event loop is understanding how to write Node.js code that doesn't make this mistake.</p>
+    </div>
+
+    <!-- SECTION 1: EVENT LOOP -->
+    <h2>1. The Event Loop — A Real Mental Model</h2>
+    <p>Most people learn that Node.js is "non-blocking" and "asynchronous" without understanding the mechanism. That incomplete knowledge produces bugs that are very hard to diagnose. Let's fix that.</p>
+
+    <p>Node.js has four moving pieces that together implement the event loop:</p>
+
+    <h3>The Call Stack</h3>
+    <p>This is where synchronous JavaScript executes. When you call a function, it's pushed onto the stack. When it returns, it's popped off. The call stack is what JavaScript actually runs — one frame at a time, synchronously. There is only ever one call stack. This is what "single-threaded" means.</p>
+
+    <h3>Web APIs / libuv</h3>
+    <p>When JavaScript encounters an async operation — a timer, a network request, a file read — it hands that operation off to libuv (Node's C++ I/O library) and the corresponding Web API. Node continues executing JavaScript on the call stack. The I/O happens on a separate OS thread managed by libuv. JavaScript does not wait. When the I/O completes, the callback is placed in a queue.</p>
+
+    <h3>The Microtask Queue</h3>
+    <p>Promise callbacks (.then(), .catch(), async/await continuations) and <code>queueMicrotask()</code> callbacks go here. This queue is drained completely after every task before the event loop picks up the next task from the macrotask queue. <code>process.nextTick()</code> has its own queue that runs even before the microtask queue — it's checked after every phase of the event loop, before moving to the next phase.</p>
+
+    <h3>The Macrotask Queue (Task Queue)</h3>
+    <p>setTimeout, setInterval, setImmediate, and I/O callbacks go here. The event loop picks one task at a time from this queue, executes it on the call stack, drains all microtasks, then picks the next macrotask.</p>
+
+    <h3>Event Loop Execution Order</h3>
+    <ol>
+      <li>Execute all synchronous code on the call stack until it's empty</li>
+      <li>Drain the process.nextTick queue completely</li>
+      <li>Drain the microtask queue completely (Promises)</li>
+      <li>Pick the next macrotask (setTimeout, I/O callback, etc.) and execute it</li>
+      <li>Repeat from step 2</li>
+    </ol>
+
+    <div class="box tip">
+      <strong>The process.nextTick Detail</strong>
+      <p><code>process.nextTick()</code> is not part of the official event loop phases. It runs after the current operation completes but before the event loop continues — including before Promises. This is why it appears before Promise callbacks in the output below. Overusing it can starve the event loop of I/O callbacks.</p>
+    </div>
+
+    <h3>Tracing Through a Real Example</h3>
+    <p>This is the most common Node.js interview question. Know it cold.</p>
+
+    <pre><code>console.log('1');
+setTimeout(() => console.log('2'), 0);
+Promise.resolve().then(() => console.log('3'));
+process.nextTick(() => console.log('4'));
+console.log('5');
+
+// Output: 1, 5, 4, 3, 2</code></pre>
+
+    <p>Here's why, step by step:</p>
+    <ul>
+      <li><strong>1</strong> — <code>console.log('1')</code> is synchronous. Executes immediately on the call stack.</li>
+      <li><strong>setTimeout</strong> — handed off to libuv. The callback is registered to fire after 0ms. Even with 0ms delay, it goes into the macrotask queue — never the current call stack.</li>
+      <li><strong>Promise.resolve().then()</strong> — the Promise is already resolved, so the .then() callback is queued to the microtask queue immediately.</li>
+      <li><strong>process.nextTick()</strong> — queued to the nextTick queue.</li>
+      <li><strong>5</strong> — <code>console.log('5')</code> is synchronous. Executes on the call stack.</li>
+      <li>Call stack is now empty. Before picking a macrotask, Node drains nextTick: <strong>4</strong>.</li>
+      <li>nextTick queue is empty. Drain microtask queue: <strong>3</strong>.</li>
+      <li>Microtask queue is empty. Pick next macrotask (the setTimeout callback): <strong>2</strong>.</li>
+    </ul>
+
+    <p>This is not trivia. This ordering determines real behavior: if you're initializing something in a constructor and emitting an event synchronously, the listener registered in user code (which runs after your constructor) won't catch it. Using <code>process.nextTick()</code> inside the constructor to defer the emit solves this — it fires after the synchronous setup completes but before any I/O.</p>
+
+    <!-- SECTION 2: NON-BLOCKING I/O -->
+    <h2>2. Non-Blocking I/O — Why It Matters</h2>
+
+    <div class="box analogy">
+      <h4>The Bank Teller Analogy</h4>
+      <p>Blocking I/O is a bank teller who takes your deposit slip, walks to the vault, waits for the vault to open, makes the transaction, walks back, and only then calls the next customer. Every customer waits for the entire process. Non-blocking I/O is a teller who takes your slip, sends it to the back, and immediately calls the next customer. When the vault transaction is done, a runner brings the receipt — the teller handles it between other customers.</p>
+    </div>
+
+    <p>Here is what blocking looks like in Node.js:</p>
+
+    <pre><code>// BAD — blocks the entire event loop while reading
+const data = fs.readFileSync('huge-file.csv');
+processData(data);
+// No other request can be handled while this file is being read</code></pre>
+
+    <p>If that file is 500MB and the read takes 2 seconds, every incoming HTTP request during those 2 seconds will hang. Your API's response time degrades from milliseconds to seconds for everyone.</p>
+
+    <p>The non-blocking equivalent:</p>
+
+    <pre><code>// GOOD — event loop is free while reading happens in libuv's thread pool
+fs.readFile('huge-file.csv', (err, data) => {
+  if (err) throw err;
+  processData(data);
+});
+// Execution continues here immediately
+handleNextRequest();</code></pre>
+
+    <p>With async/await:</p>
+
+    <pre><code>async function processFile() {
+  const data = await fs.promises.readFile('huge-file.csv');
+  return processData(data);
+}
+// While awaiting, the event loop processes other requests</code></pre>
+
+    <h3>The Critical Mistake That Blocks Node.js</h3>
+    <p>I/O is non-blocking by design. The thing that blocks Node.js is CPU-intensive synchronous operations on the main thread. Common offenders:</p>
+    <ul>
+      <li>Parsing a massive JSON string: <code>JSON.parse(hugeString)</code> is synchronous and runs on the main thread</li>
+      <li>Cryptographic operations: generating an RSA key synchronously</li>
+      <li>Large in-memory sort or complex calculation</li>
+      <li>Recursive algorithms without yielding</li>
+    </ul>
+    <p>The fix for CPU-heavy work: <strong>worker threads</strong>. Not async/await — async/await only helps with I/O. If the work itself is CPU-intensive, it needs to run off the main thread.</p>
+
+    <!-- SECTION 3: WORKER THREADS -->
+    <h2>3. Worker Threads</h2>
+
+    <div class="box analogy">
+      <h4>The Sous Chef Analogy</h4>
+      <p>The main chef (event loop) handles coordination and I/O-bound tasks efficiently. But some tasks are genuinely time-consuming preparation — butchering a whole animal, making pasta from scratch. Hiring a sous chef (worker thread) for those tasks keeps the main chef free to handle the service floor. The sous chef works in a separate area and reports back when done.</p>
+    </div>
+
+    <p>Worker threads are appropriate for CPU-bound work: image resizing, PDF generation, large data transformation, complex cryptographic operations. They are NOT necessary for I/O — database queries, HTTP calls, and file reads are already non-blocking without worker threads.</p>
+
+    <pre><code>// main.js
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
+
+function runWorker(data) {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(__filename, { workerData: data });
+    worker.on('message', resolve);
+    worker.on('error', reject);
+    worker.on('exit', (code) => {
+      if (code !== 0) reject(new Error(`Worker exited with code ${code}`));
+    });
+  });
+}
+
+if (isMainThread) {
+  // Main thread: spawn worker and await result
+  async function main() {
+    const result = await runWorker({ numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] });
+    console.log('Sum of squares:', result); // Main thread stays responsive
+  }
+  main();
+} else {
+  // Worker thread: CPU-intensive calculation
+  const { numbers } = workerData;
+  const sumOfSquares = numbers.reduce((acc, n) => acc + n * n, 0);
+  parentPort.postMessage(sumOfSquares);
+}</code></pre>
+
+    <p>Worker threads each have their own V8 instance, event loop, and memory. They communicate via message passing — similar to web workers in the browser. You can share memory via <code>SharedArrayBuffer</code> for high-performance cases, but message passing is safer and sufficient for most workloads.</p>
+
+    <div class="box warning">
+      <strong>Worker Thread Pool</strong>
+      <p>Creating a new Worker for every request is expensive — the V8 startup cost is non-trivial. For production, maintain a pool of workers (the <code>piscina</code> library implements this well) rather than spawning fresh ones per request.</p>
+    </div>
+
+    <!-- SECTION 4: STREAMS -->
+    <h2>4. Streams</h2>
+
+    <div class="box analogy">
+      <h4>The Pipe vs Bucket Analogy</h4>
+      <p>Fetching a large file into memory is like filling a bucket — you need to wait until it's full before you can use any of it. With a 2GB file, you need 2GB of RAM. Streams are like a pipe — water flows through continuously. You process data as it arrives without ever holding the whole thing in memory. The pipe lets you handle a river with a cup-sized buffer.</p>
+    </div>
+
+    <p>Node.js has four stream types:</p>
+    <ul>
+      <li><strong>Readable</strong>: source of data (file read, HTTP request body, database cursor)</li>
+      <li><strong>Writable</strong>: destination for data (file write, HTTP response, stdout)</li>
+      <li><strong>Transform</strong>: reads input, transforms it, writes output (gzip, encryption, CSV parsing)</li>
+      <li><strong>Duplex</strong>: both readable and writable (TCP socket)</li>
+    </ul>
+
+    <h3>Backpressure</h3>
+    <p>Backpressure is what happens when the writer produces data faster than the reader consumes it. If you ignore it, data piles up in memory until the process crashes. The <code>pipe()</code> method handles backpressure automatically — when the writable stream signals it's full (<code>write()</code> returns false), the readable stream pauses. When the writable drains, it resumes.</p>
+
+    <pre><code>const fs = require('fs');
+const { Transform } = require('stream');
+const readline = require('readline');
+
+// Stream a large CSV, transform each line, write to output
+// Uses constant memory regardless of file size
+
+const inputStream = fs.createReadStream('huge-file.csv', { encoding: 'utf8' });
+const outputStream = fs.createWriteStream('output.csv');
+
+// Transform stream: parse CSV line, double the numeric value in column 2
+const transformLine = new Transform({
+  objectMode: false,
+  transform(chunk, encoding, callback) {
+    const lines = chunk.toString().split('\n');
+    const transformed = lines.map(line => {
+      const parts = line.split(',');
+      if (parts.length >= 2 && !isNaN(parts[1])) {
+        parts[1] = (parseFloat(parts[1]) * 2).toString();
+      }
+      return parts.join(',');
+    }).join('\n');
+    callback(null, transformed);
+  }
+});
+
+// pipe() handles backpressure automatically
+inputStream
+  .pipe(transformLine)
+  .pipe(outputStream);
+
+outputStream.on('finish', () => console.log('Done — large file processed with constant memory'));
+outputStream.on('error', (err) => console.error('Stream error:', err));</code></pre>
+
+    <div class="box warning">
+      <strong>The Backpressure Mistake</strong>
+      <p>Never write to a stream in a loop without checking the return value of <code>write()</code>. If <code>write()</code> returns <code>false</code>, stop writing and wait for the <code>'drain'</code> event before continuing. Using <code>pipe()</code> handles this automatically — which is why it's the preferred pattern.</p>
+    </div>
+
+    <!-- SECTION 5: CJS VS ESM -->
+    <h2>5. CommonJS vs ES Modules</h2>
+
+    <div class="box key-term">
+      <strong>CommonJS (CJS)</strong>: Node.js's original module system. <code>require()</code> is synchronous and dynamic — you can call it inside an if-statement or a function. Exports via <code>module.exports</code> or <code>exports</code>.
+    </div>
+
+    <div class="box key-term">
+      <strong>ES Modules (ESM)</strong>: The standard JavaScript module system. <code>import</code> statements are static — analyzed at parse time, not at runtime. Exports via <code>export default</code> and named <code>export</code>.
+    </div>
+
+    <pre><code>// CommonJS
+const express = require('express');          // synchronous
+const { Router } = require('express');       // destructure
+if (condition) {
+  const module = require('./optional');      // dynamic — works in CJS
+}
+module.exports = { myFunction };
+
+// ES Modules
+import express from 'express';               // static — analyzed at parse time
+import { Router } from 'express';            // named import
+// import inside conditionals: NOT allowed in ESM at top level
+// Use dynamic import() for lazy loading
+const module = await import('./optional');   // dynamic import returns a Promise
+export { myFunction };
+export default myClass;</code></pre>
+
+    <p>Why this matters in practice:</p>
+    <ul>
+      <li><strong>Tree shaking</strong> only works with ESM. Bundlers (Webpack, Rollup, esbuild) can statically analyze ESM imports and remove unused code. With CJS, they can't — any <code>require()</code> could be conditional.</li>
+      <li><strong>Mixed codebases cause headaches</strong>. CJS cannot <code>require()</code> an ESM module (easily). ESM can import CJS, but may not get named exports cleanly.</li>
+      <li>In Node.js: add <code>"type": "module"</code> to <code>package.json</code> to use ESM for <code>.js</code> files. Or use <code>.mjs</code> extension for individual ESM files and <code>.cjs</code> for CJS.</li>
+    </ul>
+
+    <p>Most NestJS codebases use CommonJS because TypeScript compiles to CJS by default and the ecosystem support is broader. ESM in Node.js is stable but the migration cost is real — know both.</p>
+
+    <!-- SECTION 6: ERROR HANDLING -->
+    <h2>6. Error Handling Patterns</h2>
+
+    <p>Node.js has had three eras of error handling, and you may encounter all three in a single codebase.</p>
+
+    <h3>Callback Era: Error-First Callbacks</h3>
+    <pre><code>fs.readFile('config.json', (err, data) => {
+  if (err) {
+    // ALWAYS check err first
+    console.error('Failed to read config:', err.message);
+    return; // don't proceed
+  }
+  const config = JSON.parse(data.toString());
+  startServer(config);
+});</code></pre>
+
+    <h3>Promise Era: .catch() and async/await</h3>
+    <pre><code>// Promise chain
+fetchUser(userId)
+  .then(user => fetchPosts(user.id))
+  .then(posts => res.json(posts))
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  });
+
+// async/await (preferred)
+async function getUserPosts(userId) {
+  try {
+    const user = await fetchUser(userId);
+    const posts = await fetchPosts(user.id);
+    return posts;
+  } catch (err) {
+    // handle or rethrow
+    throw new ServiceError('Failed to fetch user posts', { cause: err });
+  }
+}</code></pre>
+
+    <h3>Global Error Handlers — Never Skip These</h3>
+    <pre><code>// Unhandled promise rejection (common mistake: forgot .catch())
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled rejection at:', promise, 'reason:', reason);
+  // Log to monitoring service (Datadog, Sentry, etc.)
+  // Then exit — an unhandled rejection means the app is in unknown state
+  process.exit(1);
+});
+
+// Uncaught exception — synchronous code that threw
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught exception:', err);
+  // Log, then exit. Do NOT try to resume — state is undefined.
+  process.exit(1);
+});
+
+// Express global error handler (must have 4 parameters — err, req, res, next)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  if (err.isOperational) {
+    // Domain error (validation failed, resource not found) — safe to report
+    res.status(err.statusCode || 400).json({ error: err.message });
+  } else {
+    // Programming error (bug) — do not expose internals
+    res.status(500).json({ error: 'Internal server error' });
+    // Trigger graceful shutdown
+    process.emit('uncaughtException', err);
+  }
+});</code></pre>
+
+    <div class="box tip">
+      <strong>Operational vs Programming Errors</strong>
+      <p>Operational errors (user sent bad input, database timed out, resource not found) are expected and recoverable. Programming errors (accessing a property on undefined, type mismatches, infinite loops) indicate a bug. Recover gracefully from operational errors. Exit and restart on programming errors — the state is unpredictable.</p>
+    </div>
+
+    <!-- SECTION 7: NESTJS -->
+    <h2>7. NestJS Patterns</h2>
+
+    <p>NestJS is an opinionated Node.js framework built on Express or Fastify, using TypeScript and Angular-style architecture. It appears in a large percentage of Node.js backend job descriptions because it imposes structure that scales in teams.</p>
+
+    <h3>The Building Blocks</h3>
+    <ul>
+      <li><strong>Module</strong>: the organizing unit. Every feature is a module. Modules declare what they provide and what they import from other modules.</li>
+      <li><strong>Controller</strong>: handles HTTP routing. Route handlers live here. Keep them thin — no business logic. Just: receive request, call service, return response.</li>
+      <li><strong>Service</strong>: business logic. Injectable. Testable in isolation.</li>
+      <li><strong>Pipe</strong>: transforms and validates input before it reaches the controller. ValidationPipe with class-validator auto-validates DTOs.</li>
+      <li><strong>Guard</strong>: authorization check before the route handler runs. Implements <code>CanActivate</code>. Returns true (allow) or false/exception (deny).</li>
+      <li><strong>Interceptor</strong>: wraps route handler execution. Used for logging, response transformation, caching, timing.</li>
+      <li><strong>Exception Filter</strong>: catches exceptions and formats the error response.</li>
+    </ul>
+
+    <pre><code>// users.module.ts
+import { Module } from '@nestjs/common';
+import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
+import { AuthGuard } from '../auth/auth.guard';
+import { LoggingInterceptor } from '../common/logging.interceptor';
+
+@Module({
+  controllers: [UsersController],
+  providers: [UsersService, AuthGuard],
+  exports: [UsersService], // other modules can inject UsersService
+})
+export class UsersModule {}
+
+// create-user.dto.ts
+import { IsEmail, IsString, MinLength, IsOptional } from 'class-validator';
+
+export class CreateUserDto {
+  @IsString()
+  @MinLength(2)
+  name: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @MinLength(8)
+  password: string;
+
+  @IsOptional()
+  @IsString()
+  role?: string;
+}
+
+// auth.guard.ts
+import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  canActivate(context: ExecutionContext): boolean {
+    const request = context.switchToHttp().getRequest();
+    const token = request.headers['authorization']?.split(' ')[1];
+    if (!token) throw new UnauthorizedException('Token required');
+    // In real code: verify JWT, attach user to request
+    request.user = verifyToken(token);
+    return true;
+  }
+}
+
+// logging.interceptor.ts
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+@Injectable()
+export class LoggingInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable&lt;any&gt; {
+    const start = Date.now();
+    const request = context.switchToHttp().getRequest();
+    return next.handle().pipe(
+      tap(() => {
+        const ms = Date.now() - start;
+        console.log(`${request.method} ${request.url} — ${ms}ms`);
+      })
+    );
+  }
+}
+
+// users.service.ts
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { CreateUserDto } from './create-user.dto';
+
+@Injectable()
+export class UsersService {
+  private users: Map&lt;string, any&gt; = new Map();
+
+  async createUser(dto: CreateUserDto) {
+    if (this.users.has(dto.email)) {
+      throw new ConflictException(`User with email ${dto.email} already exists`);
+    }
+    const user = { id: crypto.randomUUID(), ...dto, createdAt: new Date() };
+    this.users.set(dto.email, user);
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
+  async findById(id: string) {
+    const user = [...this.users.values()].find(u => u.id === id);
+    if (!user) throw new NotFoundException(`User ${id} not found`);
+    return user;
+  }
+}
+
+// users.controller.ts
+import { Controller, Post, Get, Param, Body, UseGuards, UseInterceptors } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { CreateUserDto } from './create-user.dto';
+import { AuthGuard } from '../auth/auth.guard';
+import { LoggingInterceptor } from '../common/logging.interceptor';
+
+@Controller('users')
+@UseInterceptors(LoggingInterceptor) // applied to all routes in this controller
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {} // DI via constructor
+
+  @Post()
+  async createUser(@Body() dto: CreateUserDto) {
+    return this.usersService.createUser(dto);
+  }
+
+  @Get(':id')
+  @UseGuards(AuthGuard) // only this route requires auth
+  async getUser(@Param('id') id: string) {
+    return this.usersService.findById(id);
+  }
+}</code></pre>
+
+    <!-- SECTION 8: PERFORMANCE -->
+    <h2>8. Performance: Clustering and Memory</h2>
+
+    <h3>Clustering</h3>
+    <p>Node.js is single-threaded, which means a single process uses at most one CPU core. A server with 8 cores uses 12.5% of its capacity with one Node process. The cluster module (or PM2) solves this by spawning one process per core, all sharing the same port via the OS's round-robin load balancing.</p>
+
+    <pre><code>const cluster = require('cluster');
+const os = require('os');
+const express = require('express');
+
+if (cluster.isMaster) {
+  const numCPUs = os.cpus().length;
+  console.log(`Master ${process.pid} spawning ${numCPUs} workers`);
+  for (let i = 0; i &lt; numCPUs; i++) {
+    cluster.fork();
+  }
+  cluster.on('exit', (worker, code) => {
+    console.log(`Worker ${worker.process.pid} died — forking replacement`);
+    cluster.fork(); // auto-restart dead workers
+  });
+} else {
+  const app = express();
+  app.get('/', (req, res) => res.send(`Handled by worker ${process.pid}`));
+  app.listen(3000);
+}</code></pre>
+
+    <h3>Connection Pooling</h3>
+    <p>Never open a new database connection per request. Opening a TCP connection, doing the TLS handshake, and authenticating takes 50-200ms. For a service handling 1000 requests per second, that's 1000 connection setups per second — most databases will hit connection limits and start rejecting within minutes.</p>
+
+    <pre><code>// pg-pool — PostgreSQL connection pool
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  max: 20,              // maximum pool size
+  idleTimeoutMillis: 30000,  // close idle connections after 30s
+  connectionTimeoutMillis: 2000, // throw if no connection available in 2s
+});
+
+// Reuse connections from the pool — no new TCP connection per request
+async function getUser(id) {
+  const { rows } = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+  return rows[0];
+}</code></pre>
+
+    <h3>Common Memory Leak Sources</h3>
+    <ul>
+      <li><strong>Event listeners attached but never removed</strong>: calling <code>emitter.on('data', handler)</code> in a loop without corresponding <code>off()</code> calls. Check with <code>emitter.listenerCount()</code>.</li>
+      <li><strong>Closures holding large arrays indefinitely</strong>: a callback that captures a large buffer in its closure, and the callback is held in an array that grows forever.</li>
+      <li><strong>Global caches without TTL</strong>: an in-memory cache that grows without bound. Use a TTL and a max-size eviction strategy.</li>
+      <li><strong>Timers that are never cleared</strong>: <code>setInterval</code> callbacks that accumulate and hold references.</li>
+    </ul>
+
+    <p>Detection: run <code>node --inspect app.js</code>, open Chrome DevTools at <code>chrome://inspect</code>, take heap snapshots at intervals, and look for growing retained sets.</p>
+
+    <!-- JUNIOR VS SENIOR -->
+    <h2>Senior vs Junior Response</h2>
+
+    <p class="interview-q">How does Node.js handle concurrent requests if it's single-threaded?</p>
+    <div class="junior">
+      <div class="answer-label">Junior Answer</div>
+      <p>"Node uses multiple threads internally."</p>
+    </div>
+    <div class="senior">
+      <div class="answer-label">Senior Answer</div>
+      <p>"Node is single-threaded for JavaScript execution but uses libuv's thread pool for I/O operations. When a request comes in that needs to read from the database, Node registers the callback and immediately handles the next request. The event loop processes responses when I/O completes. This is why Node is excellent for I/O-bound workloads — thousands of concurrent connections without thread-per-request overhead. The caveat: CPU-intensive operations like image processing or complex calculations block the event loop and should be offloaded to worker threads. For a REST API hitting a database, you typically don't need worker threads at all — async/await and the event loop are sufficient."</p>
+    </div>
+
+    <!-- EXERCISES -->
+    <div class="exercises">
+      <h2>Practice Exercises</h2>
+
+      <div class="exercise">
+        <div class="badge beginner">Beginner</div>
+        <h3>Exercise 1: Event Loop Trace</h3>
+        <p>What is the exact output of this code? Explain why each line appears in that order.</p>
+        <pre><code>async function main() {
+  console.log('A');
+  await Promise.resolve();
+  console.log('B');
+  setTimeout(() => console.log('C'), 0);
+  await new Promise(resolve => setTimeout(resolve, 0));
+  console.log('D');
+}
+console.log('start');
+main();
+console.log('end');</code></pre>
+
+        <h4>Answer</h4>
+        <p>Output: <code>start, A, end, B, C, D</code></p>
+        <ul>
+          <li><strong>start</strong> — synchronous, runs first</li>
+          <li><strong>A</strong> — <code>main()</code> is called; first line of main is synchronous</li>
+          <li><code>await Promise.resolve()</code> — suspends main, queues B to the microtask queue</li>
+          <li><strong>end</strong> — back in the synchronous call stack; <code>console.log('end')</code> runs</li>
+          <li>Call stack empty. Drain microtasks: <strong>B</strong> runs. Inside B, <code>setTimeout</code> registers C in macrotask queue. Then <code>await new Promise(setTimeout)</code> suspends again, waiting for the setTimeout to fire.</li>
+          <li>Microtask queue is empty (B's continuation is waiting on a macrotask). Pick next macrotask: the first setTimeout fires, logging <strong>C</strong>.</li>
+          <li>That setTimeout's resolve() also fires (it's the same setTimeout from <code>await new Promise(resolve => setTimeout(resolve, 0))</code>). The Promise resolves, queuing D to microtask queue.</li>
+          <li>Drain microtasks: <strong>D</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="exercise">
+        <div class="badge intermediate">Intermediate</div>
+        <h3>Exercise 2: Custom EventEmitter</h3>
+        <p>Implement a custom EventEmitter class from scratch with <code>on()</code>, <code>emit()</code>, and <code>off()</code> methods.</p>
+        <pre><code>class EventEmitter {
+  constructor() {
+    this._listeners = new Map(); // eventName => Set of handlers
+  }
+
+  on(event, handler) {
+    if (!this._listeners.has(event)) {
+      this._listeners.set(event, new Set());
+    }
+    this._listeners.get(event).add(handler);
+    return this; // allow chaining
+  }
+
+  off(event, handler) {
+    if (!this._listeners.has(event)) return this;
+    this._listeners.get(event).delete(handler);
+    if (this._listeners.get(event).size === 0) {
+      this._listeners.delete(event);
+    }
+    return this;
+  }
+
+  emit(event, ...args) {
+    if (!this._listeners.has(event)) return false;
+    // Copy the set before iterating — a handler might call off() during emit
+    const handlers = [...this._listeners.get(event)];
+    handlers.forEach(handler => handler(...args));
+    return handlers.length > 0;
+  }
+
+  once(event, handler) {
+    const wrapper = (...args) => {
+      handler(...args);
+      this.off(event, wrapper);
+    };
+    return this.on(event, wrapper);
+  }
+}
+
+// Test it
+const emitter = new EventEmitter();
+
+const onData = (data) => console.log('received:', data);
+emitter.on('data', onData);
+emitter.emit('data', 'hello'); // received: hello
+emitter.emit('data', 'world'); // received: world
+emitter.off('data', onData);
+emitter.emit('data', 'ignored'); // nothing — listener removed
+
+emitter.once('connect', () => console.log('connected'));
+emitter.emit('connect'); // connected
+emitter.emit('connect'); // nothing — once fires once</code></pre>
+
+        <p>Key interview points: use a Set for handlers (automatic deduplication, O(1) delete), copy before iterating to handle mutations during emit, return <code>this</code> for chaining, implement <code>once</code> via a wrapper that removes itself.</p>
+      </div>
+
+      <div class="exercise">
+        <div class="badge advanced">Advanced</div>
+        <h3>Exercise 3: Connection Pool from Scratch</h3>
+        <p>Implement a generic connection pool with <code>acquire()</code> and <code>release()</code>. <code>acquire()</code> returns a connection immediately if one is available, or waits (with a timeout) if the pool is exhausted.</p>
+        <pre><code>class ConnectionPool {
+  constructor({ maxSize = 10, createConnection, destroyConnection, acquireTimeoutMs = 5000 }) {
+    this.maxSize = maxSize;
+    this.createConnection = createConnection;
+    this.destroyConnection = destroyConnection;
+    this.acquireTimeoutMs = acquireTimeoutMs;
+
+    this._available = []; // idle connections
+    this._inUse = new Set(); // connections currently checked out
+    this._waitQueue = []; // { resolve, reject, timer } for queued acquires
+    this._totalConnections = 0; // total created (available + in-use)
+  }
+
+  async acquire() {
+    // Case 1: connection available immediately
+    if (this._available.length > 0) {
+      const conn = this._available.pop();
+      this._inUse.add(conn);
+      return conn;
+    }
+
+    // Case 2: pool not full — create a new connection
+    if (this._totalConnections &lt; this.maxSize) {
+      this._totalConnections++;
+      try {
+        const conn = await this.createConnection();
+        this._inUse.add(conn);
+        return conn;
+      } catch (err) {
+        this._totalConnections--;
+        throw err;
+      }
+    }
+
+    // Case 3: pool full — wait for a release with timeout
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        // Remove from queue and reject
+        this._waitQueue = this._waitQueue.filter(w => w.resolve !== resolve);
+        reject(new Error(`Connection acquire timed out after ${this.acquireTimeoutMs}ms`));
+      }, this.acquireTimeoutMs);
+
+      this._waitQueue.push({ resolve, reject, timer });
+    });
+  }
+
+  release(conn) {
+    if (!this._inUse.has(conn)) {
+      throw new Error('Connection not in use — double release?');
+    }
+    this._inUse.delete(conn);
+
+    // If someone is waiting, give the connection directly to them
+    if (this._waitQueue.length > 0) {
+      const { resolve, timer } = this._waitQueue.shift();
+      clearTimeout(timer);
+      this._inUse.add(conn);
+      resolve(conn);
+      return;
+    }
+
+    // Otherwise return to available pool
+    this._available.push(conn);
+  }
+
+  async destroy() {
+    const allConnections = [...this._available, ...this._inUse];
+    await Promise.all(allConnections.map(conn => this.destroyConnection(conn)));
+    this._available = [];
+    this._inUse.clear();
+    this._totalConnections = 0;
+  }
+
+  get stats() {
+    return {
+      total: this._totalConnections,
+      available: this._available.length,
+      inUse: this._inUse.size,
+      waiting: this._waitQueue.length,
+    };
+  }
+}
+
+// Usage example with a mock database connection
+async function demo() {
+  let connId = 0;
+  const pool = new ConnectionPool({
+    maxSize: 3,
+    createConnection: async () => {
+      await new Promise(r => setTimeout(r, 10)); // simulate connect latency
+      return { id: ++connId, query: async (sql) => ({ rows: [] }) };
+    },
+    destroyConnection: async (conn) => {
+      console.log(`Destroying connection ${conn.id}`);
+    },
+    acquireTimeoutMs: 2000,
+  });
+
+  // Simulate 5 concurrent requests with pool size 3
+  const requests = Array.from({ length: 5 }, async (_, i) => {
+    const conn = await pool.acquire();
+    console.log(`Request ${i} acquired conn ${conn.id} | stats:`, pool.stats);
+    await new Promise(r => setTimeout(r, 100)); // simulate query
+    pool.release(conn);
+    console.log(`Request ${i} released conn ${conn.id}`);
+  });
+
+  await Promise.all(requests);
+  await pool.destroy();
+}
+
+demo().catch(console.error);</code></pre>
+
+        <p>This pattern is how <code>pg-pool</code>, Sequelize's pool, and TypeORM's pool work internally. The key insight: waiting acquirers are queued and served FIFO; when a connection is released, it's handed directly to the oldest waiter rather than returned to the pool — avoiding an extra enqueue/dequeue cycle.</p>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+      <h2>Chapter Summary</h2>
+      <ul>
+        <li>The event loop is single-threaded but non-blocking: process.nextTick fires before Promises, Promises fire before macrotasks (setTimeout). Know the execution order cold.</li>
+        <li>Blocking the event loop with CPU-intensive synchronous code is the most common Node.js performance mistake. I/O is automatically non-blocking; CPU work requires worker threads.</li>
+        <li>Streams process data incrementally, using constant memory regardless of file size. Always use pipe() — it handles backpressure automatically.</li>
+        <li>NestJS enforces separation: controllers handle routing (thin), services handle business logic (testable), guards handle auth, interceptors handle cross-cutting concerns. Dependency injection via constructor parameters.</li>
+        <li>Clustering uses one process per CPU core. Connection pooling reuses database connections. Memory leaks come from unremoved event listeners, unbounded caches, and closures capturing large objects.</li>
+      </ul>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="chapter-22.html" class="prev">← Chapter 22: Security</a>
+      <a href="chapter-24.html" class="next">Chapter 24: TypeScript Deep Dive →</a>
+    </div>
+  </main></div>
+</div>
+<script src="../auth.js"></script>
+<script src="../nav.js"></script>
+</body>
+</html>
